@@ -12,9 +12,9 @@ java -jar cfr-0.139.jar jeesite-framework-4.1.3-20190218.140934-2 --outputdir ./
 
 文件说明
 
-fernflower.jar反编译工具
+fernflower.jar反编译工具 存在问题，反编译后变量名都是a无法区分是哪个
 
-cfr-0.139.jar反编译工具
+cfr-0.139.jar反编译工具 存在问题，反编译后StringBuilder的多个append顺序会错乱
 
 jeesite-framework-4.1.3-20190218.140934-2.jar原始jar包
 
