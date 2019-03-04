@@ -23,5 +23,5 @@ jeesite-framework-4.1.3-20190218.140934-2-cfr cfr反编译处理后的java源文
 jeesite-framework-4.1.3-20190218.140934-2-fernflower fernflower反编译处理后的java源文件
 
      
-技术交流方式
+反编译授权破解等技术交流 
 QQ群:885483571
