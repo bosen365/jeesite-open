@@ -1,21 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.codec.EncodeUtils	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.RequestDispatcher	
- *  javax.servlet.ServletException	
- *  javax.servlet.ServletRequest	
- *  javax.servlet.ServletResponse	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.commons.lang3.math.NumberUtils	
- *  org.slf4j.Logger	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.web.bind.annotation.RequestMapping	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -50,20 +34,20 @@ extends BaseController {
         HttpServletRequest httpServletRequest;	
         String a2;	
         HttpServletRequest httpServletRequest2 = request;	
-        String a3 = StringUtils.substringAfter((String)httpServletRequest2.getRequestURI(), (String)"/userfiles/");	
+        String a3 = StringUtils.substringAfter(httpServletRequest2.getRequestURI(), "/userfiles/");	
         String a4 = httpServletRequest2.getParameter("preview");	
-        if (StringUtils.isNotBlank((CharSequence)a4)) {	
+        if (StringUtils.isNotBlank(a4)) {	
             HttpServletRequest httpServletRequest3 = request;	
             String a5 = httpServletRequest3.getRequestURL().toString().replaceAll("(\?&)preview=([^&]*)(&$)", "$1").replaceAll("[\?\&]$", "");	
             String a6 = new StringBuilder().insert(0, "/fileE").append(a4).append("/preview").toString();	
-            httpServletRequest3.setAttribute("fileUrl", (Object)a5);	
-            httpServletRequest3.setAttribute("ilePath", (Object)a3);	
-            httpServletRequest3.setAttribute("javax.servlet.forward.request_uri", (Object)a6);	
-            httpServletRequest3.getRequestDispatcher(a6).forward((ServletRequest)request, (ServletResponse)response);	
+            httpServletRequest3.setAttribute("fileUrl", a5);	
+            httpServletRequest3.setAttribute("ilePath", a3);	
+            httpServletRequest3.setAttribute("javax.servlet.forward.request_uri", a6);	
+            httpServletRequest3.getRequestDispatcher(a6).forward(request, response);	
             return null;	
         }	
-        Object a7 = new File(EncodeUtils.decodeUrl((String)(a3 = Global.getUserfilesBaseDir(a3))));	
-        if (!((File)a7).exists() && ((File)(a = new File(EncodeUtils.decodeUrl((String)a3, (String)"GBK")))).exists()) {	
+        Object a7 = new File(EncodeUtils.decodeUrl(a3 = Global.getUserfilesBaseDir(a3)));	
+        if (!((File)a7).exists() && ((File)(a = new File(EncodeUtils.decodeUrl(a3, "GBK")))).exists()) {	
             a7 = a;	
         }	
         if (StringUtils.isNotBlank((CharSequence)(a = request.getHeader("Range")))) {	
@@ -74,19 +58,19 @@ extends BaseController {
             httpServletRequest = request;	
         }	
         String a8 = httpServletRequest.getParameter("ileName");	
-        if (StringUtils.isBlank((CharSequence)a8)) {	
+        if (StringUtils.isBlank(a8)) {	
             a8 = ((File)a7).getName();	
         }	
-        if (NumberUtils.isCreatable((String)(a2 = StringUtils.substringAfterLast((String)FileUtils.getFileNameWithoutExtension((String)a8), (String)"_$")))) {	
-            a8 = StringUtils.replace((String)a8, (String)("_$" + a2), (String)"");	
+        if (NumberUtils.isCreatable(a2 = StringUtils.substringAfterLast(FileUtils.getFileNameWithoutExtension(a8), "_$"))) {	
+            a8 = StringUtils.replace(a8, "_$" + a2, "");	
         }	
         if (((File)a7).exists()) {	
-            FileUtils.downFile((File)a7, (HttpServletRequest)request, (HttpServletResponse)response, (String)a8);	
+            FileUtils.downFile((File)a7, request, response, a8);	
             return null;	
         }	
-        request.setAttribute("responseStatus", (Object)200);	
-        request.setAttribute("message", (Object)UserfilesController.text("sys.file.downloadFileNotExist", new String[0]));	
-        request.getRequestDispatcher("/error/404").forward((ServletRequest)request, (ServletResponse)response);	
+        request.setAttribute("responseStatus", 200);	
+        request.setAttribute("message", UserfilesController.text("sys.file.downloadFileNotExist", new String[0]));	
+        request.getRequestDispatcher("/error/404").forward(request, response);	
         return null;	
     }	
 }	

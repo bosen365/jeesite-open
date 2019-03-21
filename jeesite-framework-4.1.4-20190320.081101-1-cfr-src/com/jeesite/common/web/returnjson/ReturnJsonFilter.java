@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonFilter	
- *  com.fasterxml.jackson.databind.ser.BeanPropertyFilter	
- *  com.fasterxml.jackson.databind.ser.FilterProvider	
- *  com.fasterxml.jackson.databind.ser.PropertyFilter	
  */	
 package com.jeesite.common.web.returnjson;	
 	
@@ -65,10 +59,12 @@ extends FilterProvider {
         a.addAll(Arrays.asList(fields));	
     }	
 	
+    @Override	
     public PropertyFilter findPropertyFilter(Object filterId, Object valueToFilter) {	
         return new i(this);	
     }	
 	
+    @Override	
     public BeanPropertyFilter findFilter(Object filterId) {	
         throw new UnsupportedOperationException("Access to deprecated filters not supported");	
     }	

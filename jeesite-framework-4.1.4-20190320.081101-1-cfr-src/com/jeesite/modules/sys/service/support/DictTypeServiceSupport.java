@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.sys.service.support;	
 	
@@ -45,7 +40,7 @@ implements DictTypeService {
         if (dictType == null) {	
             return null;	
         }	
-        if (StringUtils.isNotBlank((CharSequence)dictType.getDictType())) {	
+        if (StringUtils.isNotBlank(dictType.getDictType())) {	
             DictType a = new DictType();	
             a.setDictType(dictType.getDictType());	
             return ((DictTypeDao)this.dao).getByEntity(a);	
@@ -67,7 +62,7 @@ implements DictTypeService {
     public void save(DictType dictType, DictType old) {	
         DictType dictType2 = dictType;	
         super.save(dictType2);	
-        if (!StringUtils.equals((CharSequence)dictType2.getDictType(), (CharSequence)old.getDictType())) {	
+        if (!StringUtils.equals(dictType2.getDictType(), old.getDictType())) {	
             this.dictDataService.updateDictTypeByDictType(dictType.getDictType(), old.getDictType());	
         }	
         DictUtils.clearDictCache();	

@@ -1,15 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.web.bind.annotation.PathVariable	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.file.web;	
 	

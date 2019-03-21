@@ -1,21 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.DateUtils	
- *  javax.servlet.ServletContext	
- *  org.apache.commons.logging.Log	
- *  org.apache.commons.logging.LogFactory	
- *  org.beetl.core.Configuration	
- *  org.beetl.core.GroupTemplate	
- *  org.beetl.ext.spring.BeetlSpringView	
- *  org.springframework.beans.factory.BeanNameAware	
- *  org.springframework.beans.factory.InitializingBean	
- *  org.springframework.beans.factory.NoSuchBeanDefinitionException	
- *  org.springframework.beans.factory.NoUniqueBeanDefinitionException	
- *  org.springframework.web.servlet.view.AbstractTemplateViewResolver	
- *  org.springframework.web.servlet.view.AbstractUrlBasedView	
  */	
 package com.jeesite.common.beetl.view;	
 	
@@ -24,7 +8,6 @@ import com.jeesite.common.beetl.view.BeetlView;
 import com.jeesite.common.collect.MapUtils;	
 import com.jeesite.common.config.Global;	
 import com.jeesite.common.lang.DateUtils;	
-import java.util.Date;	
 import java.util.Map;	
 import javax.servlet.ServletContext;	
 import org.apache.commons.logging.Log;	
@@ -48,6 +31,7 @@ BeanNameAware {
     private GroupTemplate groupTemplate;	
     protected final Log logger;	
 	
+    @Override	
     protected AbstractUrlBasedView buildView(String viewName) throws Exception {	
         BeetlSpringView a = (BeetlSpringView)super.buildView(viewName);	
         BeetlViewResolver beetlViewResolver = this;	
@@ -63,6 +47,7 @@ BeanNameAware {
         return a;	
     }	
 	
+    @Override	
     public void setBeanName(String beanName) {	
         this.beanName = beanName;	
     }	
@@ -73,10 +58,11 @@ BeanNameAware {
 	
     public BeetlViewResolver() {	
         BeetlViewResolver beetlViewResolver = this;	
-        beetlViewResolver.logger = LogFactory.getLog(((Object)((Object)beetlViewResolver)).getClass());	
+        beetlViewResolver.logger = LogFactory.getLog(beetlViewResolver.getClass());	
         beetlViewResolver.setViewClass(BeetlView.class);	
     }	
 	
+    @Override	
     public void setPrefix(String prefix) {	
         super.setPrefix(prefix);	
     }	
@@ -89,15 +75,16 @@ BeanNameAware {
         return this.beanName;	
     }	
 	
+    @Override	
     public void afterPropertiesSet() throws NoSuchBeanDefinitionException, NoUniqueBeanDefinitionException, SecurityException, NoSuchFieldException {	
         this.groupTemplate = BeetlUtils.getResourceGroupTemplate();	
-        Map a = this.groupTemplate.getSharedVars();	
+        Map<String, Object> a = this.groupTemplate.getSharedVars();	
         if (a == null) {	
             a = MapUtils.newHashMap();	
         }	
         BeetlViewResolver beetlViewResolver = this;	
         String a2 = beetlViewResolver.getServletContext().getContextPath();	
-        String a3 = DateUtils.formatDate((Date)DateUtils.getServerStartDate(), (String)"MMddHHmm");	
+        String a3 = DateUtils.formatDate(DateUtils.getServerStartDate(), "MMddHHmm");	
         this.groupTemplate.setSharedVars(a);	
         a.put("ctxStatic", new StringBuilder().insert(0, a2).append("/static").toString());	
         a.put("ctxFront", new StringBuilder().insert(0, a2).append(Global.getFrontPath()).toString());	

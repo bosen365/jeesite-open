@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.oschina.j2cache.Level2Cache	
- *  org.springframework.dao.DataAccessException	
- *  org.springframework.data.redis.connection.RedisConnection	
- *  org.springframework.data.redis.core.HashOperations	
- *  org.springframework.data.redis.core.RedisCallback	
- *  org.springframework.data.redis.core.RedisOperations	
- *  org.springframework.data.redis.core.RedisTemplate	
  */	
 package com.jeesite.common.j2cache.cache.support.redis;	
 	
@@ -59,6 +50,7 @@ implements Level2Cache {
         return region;	
     }	
 	
+    @Override	
     public void setBytes(String key, byte[] bytes) {	
         this.redisTemplate.opsForHash().getOperations().execute(redis -> {	
             redis.hSet(this.region.getBytes(), key.getBytes(), bytes);	
@@ -67,6 +59,7 @@ implements Level2Cache {
         });	
     }	
 	
+    @Override	
     public /* varargs */ void evict(String ... keys) {	
         int n;	
         String[] arrstring = keys;	
@@ -75,18 +68,19 @@ implements Level2Cache {
         while (n3 < n2) {	
             String a = arrstring[n];	
             if (!a.equals("null")) {	
-                this.redisTemplate.opsForHash().delete((Object)this.region, new Object[]{a});	
+                this.redisTemplate.opsForHash().delete(this.region, a);	
             } else {	
                 SpringRedisHashCache springRedisHashCache = this;	
-                springRedisHashCache.redisTemplate.delete((Object)springRedisHashCache.region);	
+                springRedisHashCache.redisTemplate.delete(springRedisHashCache.region);	
             }	
             n3 = ++n;	
         }	
     }	
 	
+    @Override	
     public Collection<String> keys() {	
         Iterator iterator;	
-        Set a = this.redisTemplate.opsForHash().keys((Object)this.region);	
+        Set a = this.redisTemplate.opsForHash().keys(this.region);	
         ArrayList<String> a2 = new ArrayList<String>(a.size());	
         Iterator iterator2 = iterator = a.iterator();	
         while (iterator2.hasNext()) {	
@@ -97,33 +91,40 @@ implements Level2Cache {
         return a2;	
     }	
 	
+    @Override	
     public void setBytes(Map<String, byte[]> bytes) {	
         bytes.forEach((k2, v) -> this.setBytes((String)k2, (byte[])v));	
     }	
 	
+    @Override	
     public byte[] getBytes(String key) {	
-        return (byte[])this.redisTemplate.opsForHash().getOperations().execute(redis -> redis.hGet(this.region.getBytes(), key.getBytes()));	
+        return this.redisTemplate.opsForHash().getOperations().execute(redis -> redis.hGet(this.region.getBytes(), key.getBytes()));	
     }	
 	
+    @Override	
     public void clear() {	
         SpringRedisHashCache springRedisHashCache = this;	
-        springRedisHashCache.redisTemplate.delete((Object)springRedisHashCache.region);	
+        springRedisHashCache.redisTemplate.delete(springRedisHashCache.region);	
     }	
 	
+    @Override	
     public void put(String key, Object value) {	
-        this.redisTemplate.opsForHash().put((Object)this.region, (Object)key, value);	
+        this.redisTemplate.opsForHash().put(this.region, key, value);	
     }	
 	
+    @Override	
     public void put(String key, Object value, long timeToLiveInSeconds) {	
-        this.redisTemplate.opsForHash().put((Object)this.region, (Object)key, value);	
+        this.redisTemplate.opsForHash().put(this.region, key, value);	
     }	
 	
+    @Override	
     public boolean exists(String key) {	
-        return this.redisTemplate.opsForHash().hasKey((Object)this.region, (Object)key);	
+        return this.redisTemplate.opsForHash().hasKey(this.region, key);	
     }	
 	
+    @Override	
     public List<byte[]> getBytes(Collection<String> keys) {	
-        return (List)this.redisTemplate.opsForHash().getOperations().execute(redis -> {	
+        return this.redisTemplate.opsForHash().getOperations().execute(redis -> {	
             byte[][] a = (byte[][])keys.stream().map(k2 -> k2.getBytes()).toArray(x$0 -> new byte[x$0][]);	
             return redis.hMGet(this.region.getBytes(), a);	
         });	

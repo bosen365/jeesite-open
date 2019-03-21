@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.apache.commons.lang3.BooleanUtils	
- *  org.beetl.core.Context	
- *  org.beetl.core.Function	
  */	
 package com.jeesite.common.beetl.ext.fn;	
 	
@@ -21,20 +14,21 @@ import org.hyperic.sigar.Tcp;
 	
 public class HasPermi	
 implements Function {	
+    @Override	
     public Object call(Object[] paras, Context ctx) {	
-        String a = ObjectUtils.toString((Object)paras[0]);	
-        if (StringUtils.isBlank((CharSequence)a)) {	
+        String a = ObjectUtils.toString(paras[0]);	
+        if (StringUtils.isBlank(a)) {	
             return false;	
         }	
         String a2 = "and";	
         if (paras.length >= 2) {	
-            a2 = ObjectUtils.toString((Object)paras[1]);	
+            a2 = ObjectUtils.toString(paras[1]);	
         }	
-        boolean[] a3 = UserUtils.getSubject().isPermitted(StringUtils.split((String)a, (String)","));	
+        boolean[] a3 = UserUtils.getSubject().isPermitted(StringUtils.split(a, ","));	
         if ("or".equalsIgnoreCase(a2)) {	
-            return BooleanUtils.or((boolean[])a3);	
+            return BooleanUtils.or(a3);	
         }	
-        return BooleanUtils.and((boolean[])a3);	
+        return BooleanUtils.and(a3);	
     }	
 }	
 	

@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Service	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.gen.service;	
 	
@@ -65,9 +57,9 @@ extends CrudService<GenTableDao, GenTable> {
     public GenTable getFromDb(GenTable genTable) {	
         block17 : {	
             block18 : {	
-                if (StringUtils.isNotBlank((CharSequence)genTable.getTableName()) == false) return genTable;	
+                if (StringUtils.isNotBlank(genTable.getTableName()) == false) return genTable;	
                 a = genTable.getDataSourceName();	
-                if (StringUtils.isNotBlank((CharSequence)a)) {	
+                if (StringUtils.isNotBlank(a)) {	
                     try {	
                         DataSourceHolder.setDataSourceName(a);	
                         v0 = this;	
@@ -82,10 +74,10 @@ extends CrudService<GenTableDao, GenTable> {
                 if (a.size() <= 0) break block17;	
                 if (!genTable.getIsNewRecord()) break block18;	
                 genTable = a.get(0);	
-                if (StringUtils.isNotBlank((CharSequence)a)) {	
+                if (StringUtils.isNotBlank(a)) {	
                     genTable.setDataSourceName(a);	
                 }	
-                if (StringUtils.isBlank((CharSequence)genTable.getComments())) {	
+                if (StringUtils.isBlank(genTable.getComments())) {	
                     v1 = genTable;	
                     v1.setComments(v1.getTableName());	
                 }	
@@ -93,20 +85,20 @@ extends CrudService<GenTableDao, GenTable> {
                 v2.setFunctionName(v2.getComments());	
                 v2.setFunctionNameSimple(v2.getComments());	
                 v3 = genTable;	
-                if (StringUtils.startsWith((CharSequence)v2.getTableName(), (CharSequence)Global.getTablePrefix())) {	
-                    a = StringUtils.substringAfter((String)v3.getTableName(), (String)Global.getTablePrefix());	
+                if (StringUtils.startsWith(v2.getTableName(), Global.getTablePrefix())) {	
+                    a = StringUtils.substringAfter(v3.getTableName(), Global.getTablePrefix());	
                     v4 = genTable;	
                     v5 = v4;	
                     v4.setClassName(StringUtils.capCamelCase((String)a));	
                 } else {	
-                    v3.setClassName(StringUtils.capCamelCase((String)genTable.getTableName()));	
+                    v3.setClassName(StringUtils.capCamelCase(genTable.getTableName()));	
                     v5 = genTable;	
                 }	
-                if (StringUtils.startsWith((CharSequence)v5.getClassName(), (CharSequence)"Sys")) {	
+                if (StringUtils.startsWith(v5.getClassName(), "Sys")) {	
                     v6 = genTable;	
-                    v6.setClassName(StringUtils.substringAfter((String)v6.getClassName(), (String)"Sys"));	
+                    v6.setClassName(StringUtils.substringAfter(v6.getClassName(), "Sys"));	
                 }	
-                if (!StringUtils.isBlank((CharSequence)genTable.getPackageName())) ** GOTO lbl43	
+                if (!StringUtils.isBlank(genTable.getPackageName())) ** GOTO lbl43	
                 a = Global.getConfig("gen.defaultPackageName");	
                 v7 = genTable;	
                 if (StringUtils.isNotBlank((CharSequence)a)) {	
@@ -117,12 +109,12 @@ extends CrudService<GenTableDao, GenTable> {
 lbl43: // 2 sources:	
                     v8 = genTable;	
                 }	
-                if (StringUtils.isBlank((CharSequence)v8.getModuleName())) {	
+                if (StringUtils.isBlank(v8.getModuleName())) {	
                     a = genTable.getTableName();	
-                    if (StringUtils.startsWith((CharSequence)a, (CharSequence)Global.getTablePrefix())) {	
-                        a = StringUtils.substringAfter((String)a, (String)Global.getTablePrefix());	
+                    if (StringUtils.startsWith((CharSequence)a, Global.getTablePrefix())) {	
+                        a = StringUtils.substringAfter((String)a, Global.getTablePrefix());	
                     }	
-                    genTable.setModuleName(StringUtils.substringBefore((String)a, (String)"_"));	
+                    genTable.setModuleName(StringUtils.substringBefore((String)a, "_"));	
                 }	
             }	
             a = this.genDataDictDao.findTableColumnList(genTable);	
@@ -152,7 +144,7 @@ lbl43: // 2 sources:
             v9.setPkList(this.genDataDictDao.findTablePK(v9));	
             GenUtils.initColumnField(genTable);	
         }	
-        if (StringUtils.isNotBlank((CharSequence)a) == false) return genTable;	
+        if (StringUtils.isNotBlank(a) == false) return genTable;	
         DataSourceHolder.clearDataSourceName();	
         return genTable;	
     }	
@@ -204,7 +196,7 @@ lbl43: // 2 sources:
         void a;	
         GenTable genTable2 = genTable;	
         super.delete(genTable2);	
-        if (StringUtils.isBlank((CharSequence)genTable2.getTableName())) {	
+        if (StringUtils.isBlank(genTable2.getTableName())) {	
             return;	
         }	
         GenTableColumn genTableColumn = new GenTableColumn();	
@@ -233,7 +225,7 @@ lbl43: // 2 sources:
     public List<GenTable> findListFromDb(GenTable genTable) {	
         GenTableService genTableService;	
         String a = genTable.getDataSourceName();	
-        if (StringUtils.isNotBlank((CharSequence)a)) {	
+        if (StringUtils.isNotBlank(a)) {	
             try {	
                 DataSourceHolder.setDataSourceName(a);	
                 genTableService = this;	
@@ -245,7 +237,7 @@ lbl43: // 2 sources:
             genTableService = this;	
         }	
         List<GenTable> a3 = genTableService.genDataDictDao.findTableList(genTable);	
-        if (StringUtils.isNotBlank((CharSequence)a)) {	
+        if (StringUtils.isNotBlank(a)) {	
             DataSourceHolder.clearDataSourceName();	
         }	
         return a3;	
@@ -258,7 +250,7 @@ lbl43: // 2 sources:
         super.save(genTable2);	
         for (GenTableColumn a : genTable2.getColumnList()) {	
             a.setGenTable(genTable);	
-            if (StringUtils.isBlank((CharSequence)a.getId())) {	
+            if (StringUtils.isBlank(a.getId())) {	
                 this.genTableColumnDao.insert(a);	
                 continue;	
             }	
@@ -271,7 +263,7 @@ lbl43: // 2 sources:
     }	
 	
     public boolean checkTableName(String tableName) {	
-        if (StringUtils.isBlank((CharSequence)tableName)) {	
+        if (StringUtils.isBlank(tableName)) {	
             return true;	
         }	
         return ((GenTableDao)this.dao).get(new GenTable(tableName)) == null;	

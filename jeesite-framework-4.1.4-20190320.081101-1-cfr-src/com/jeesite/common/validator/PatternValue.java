@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.validation.Constraint	
- *  javax.validation.Payload	
  */	
 package com.jeesite.common.validator;	
 	

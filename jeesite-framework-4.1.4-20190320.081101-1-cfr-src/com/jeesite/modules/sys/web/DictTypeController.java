@@ -1,23 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.validation.annotation.Validated	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.RequestParam	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -60,10 +42,10 @@ extends BaseController {
     @RequiresPermissions(value={"sys:dictType:view"})	
     @RequestMapping(value={"form"})	
     public String form(DictType dictType, Model model) {	
-        if (StringUtils.isBlank((CharSequence)dictType.getIsSys())) {	
+        if (StringUtils.isBlank(dictType.getIsSys())) {	
             dictType.setIsSys("1");	
         }	
-        model.addAttribute("dictType", (Object)dictType);	
+        model.addAttribute("dictType", dictType);	
         return "modules/sys/dictTypeForm";	
     }	
 	
@@ -105,16 +87,16 @@ extends BaseController {
     @ResponseBody	
     public List<Map<String, Object>> treeData(String dictType, String excludeCode, @RequestParam(defaultValue="1") String isShowCode) {	
         int a;	
-        ArrayList a2 = ListUtils.newArrayList();	
+        ArrayList<Map<String, Object>> a2 = ListUtils.newArrayList();	
         List<DictType> a3 = this.dictTypeService.findList(new DictType());	
         int n = a = 0;	
         while (n < a3.size()) {	
             DictType a4 = a3.get(a);	
-            if (!(!"0".equals(a4.getStatus()) || StringUtils.isNotBlank((CharSequence)excludeCode) && a4.getId().equals(excludeCode))) {	
-                HashMap a5 = MapUtils.newHashMap();	
+            if (!(!"0".equals(a4.getStatus()) || StringUtils.isNotBlank(excludeCode) && a4.getId().equals(excludeCode))) {	
+                HashMap<String, String> a5 = MapUtils.newHashMap();	
                 a2.add(a5);	
                 a5.put("value", a4.getDictType());	
-                a5.put("name", StringUtils.getTreeNodeName((String)isShowCode, (String)a4.getDictType(), (String)a4.getDictName()));	
+                a5.put("name", StringUtils.getTreeNodeName(isShowCode, a4.getDictType(), a4.getDictName()));	
                 a5.put("pId", "0");	
                 a5.put("id", a4.getId());	
             }	

@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.apache.ibatis.io.VFS	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.context.support.ReloadableResourceBundleMessageSource	
  */	
 package com.jeesite.common.beetl.d;	
 	
@@ -37,6 +30,7 @@ extends ReloadableResourceBundleMessageSource {
     private LangService langService;	
     private final Properties properties;	
 	
+    @Override	
     protected String resolveCodeWithoutArguments(String code, Locale locale) {	
         String a = this.getText(code, locale);	
         if (a == null) {	
@@ -45,6 +39,7 @@ extends ReloadableResourceBundleMessageSource {
         return a;	
     }	
 	
+    @Override	
     protected MessageFormat resolveCode(String code, Locale locale) {	
         String a = this.getText(code, locale);	
         if (a == null) {	
@@ -64,14 +59,14 @@ extends ReloadableResourceBundleMessageSource {
         i i3 = this;	
         i2.properties = new Properties();	
         i2.setDefaultEncoding("UTF-8");	
-        Set a = i2.getBasenameSet();	
+        Set<String> a = i2.getBasenameSet();	
         try {	
-            List a2 = VFS.getInstance().list("i18n");	
-            Iterator iterator = a2.iterator();	
+            List<String> a2 = VFS.getInstance().list("i18n");	
+            Iterator<String> iterator = a2.iterator();	
             block4 : do {	
-                Iterator iterator2 = iterator;	
+                Iterator<String> iterator2 = iterator;	
                 while (iterator2.hasNext()) {	
-                    String a3 = (String)iterator.next();	
+                    String a3 = iterator.next();	
                     if (!a3.endsWith(".properties")) continue block4;	
                     if (!a3.contains("zh_CN")) {	
                         if (!Global.getPropertyToBoolean("lang.enabled", "true").booleanValue()) {	
@@ -83,7 +78,7 @@ extends ReloadableResourceBundleMessageSource {
                             continue;	
                         }	
                     }	
-                    a.add(new StringBuilder().insert(0, "classpath:").append(StringUtils.substringBeforeLast((String)a3, (String)"i18n_")).append("i18n").toString());	
+                    a.add(new StringBuilder().insert(0, "classpath:").append(StringUtils.substringBeforeLast(a3, "i18n_")).append("i18n").toString());	
                     continue block4;	
                 }	
                 return;	
@@ -121,6 +116,7 @@ extends ReloadableResourceBundleMessageSource {
         return a;	
     }	
 	
+    @Override	
     public void clearCache() {	
         i i2 = this;	
         super.clearCache();	

@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  org.apache.shiro.session.Session	
  */	
 package com.jeesite.modules.sys.utils;	
 	
@@ -40,17 +33,17 @@ public class CorpUtils {
         if (Global.isUseCorpModel().booleanValue() && ObjectUtils.toBoolean(l.ALLATORIxDEMO().get("fnSaas")).booleanValue()) {	
             Session a2;	
             HttpServletRequest a3 = ServletUtils.getRequest();	
-            if (StringUtils.isBlank((CharSequence)(a3 != null ? (a = (String)a3.getAttribute("corpCode__")) : (a = ""))) && (a2 = UserUtils.getSubject().getSession(false)) != null) {	
-                a = ObjectUtils.toString((Object)a2.getAttribute((Object)"corpCode"));	
+            if (StringUtils.isBlank(a3 != null ? (a = (String)a3.getAttribute("corpCode__")) : (a = "")) && (a2 = UserUtils.getSubject().getSession(false)) != null) {	
+                a = ObjectUtils.toString(a2.getAttribute("corpCode"));	
             }	
-            if (StringUtils.isBlank((CharSequence)a)) {	
+            if (StringUtils.isBlank(a)) {	
                 a = DEFAULT_CORP_CODE;	
             }	
             if (a3 != null) {	
-                a3.setAttribute("corpCode__", (Object)a);	
+                a3.setAttribute("corpCode__", a);	
             }	
         }	
-        return ObjectUtils.toStringIgnoreNull((Object)a);	
+        return ObjectUtils.toStringIgnoreNull(a);	
     }	
 	
     public static <V> V getCache(String key, V defaultValue) {	
@@ -89,17 +82,17 @@ public class CorpUtils {
         if (Global.isUseCorpModel().booleanValue()) {	
             Session a2;	
             HttpServletRequest a3 = ServletUtils.getRequest();	
-            if (StringUtils.isBlank((CharSequence)(a3 != null ? (a = (String)a3.getAttribute("corpName__")) : (a = ""))) && (a2 = UserUtils.getSubject().getSession(false)) != null) {	
-                a = ObjectUtils.toString((Object)a2.getAttribute((Object)"corpName"));	
+            if (StringUtils.isBlank(a3 != null ? (a = (String)a3.getAttribute("corpName__")) : (a = "")) && (a2 = UserUtils.getSubject().getSession(false)) != null) {	
+                a = ObjectUtils.toString(a2.getAttribute("corpName"));	
             }	
-            if (StringUtils.isBlank((CharSequence)a)) {	
+            if (StringUtils.isBlank(a)) {	
                 a = DEFAULT_CORP_NAME;	
             }	
             if (a3 != null) {	
-                a3.setAttribute("corpName__", (Object)a);	
+                a3.setAttribute("corpName__", a);	
             }	
         }	
-        return ObjectUtils.toStringIgnoreNull((Object)a);	
+        return ObjectUtils.toStringIgnoreNull(a);	
     }	
 }	
 	

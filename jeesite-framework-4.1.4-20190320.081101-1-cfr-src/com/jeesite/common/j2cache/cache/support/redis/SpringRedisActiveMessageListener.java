@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.oschina.j2cache.cluster.ClusterPolicy	
- *  org.springframework.data.redis.connection.Message	
- *  org.springframework.data.redis.connection.MessageListener	
  */	
 package com.jeesite.common.j2cache.cache.support.redis;	
 	
@@ -25,6 +20,7 @@ implements MessageListener {
         springRedisActiveMessageListener.namespace = namespace;	
     }	
 	
+    @Override	
     public void onMessage(Message message, byte[] pattern) {	
         String a = message.toString();	
         if (a == null) {	
@@ -35,7 +31,7 @@ implements MessageListener {
             if (a2.length != 2) {	
                 return;	
             }	
-            this.clusterPolicy.evict(a2[0], new String[]{a2[1]});	
+            this.clusterPolicy.evict(a2[0], a2[1]);	
         }	
     }	
 }	

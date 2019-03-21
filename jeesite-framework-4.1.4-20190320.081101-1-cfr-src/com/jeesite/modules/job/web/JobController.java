@@ -1,25 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.codec.EncodeUtils	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.DateUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.validation.ValidationException	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.quartz.CronExpression	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.validation.annotation.Validated	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.RequestParam	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.job.web;	
 	
@@ -84,7 +64,7 @@ extends BaseController {
                 if ((a4 = a3.getTimeAfter(a4)) == null) {	
                     return this.renderResult("true", a.toString());	
                 }	
-                a.append(new StringBuilder().insert(0, DateUtils.formatDateTime((Date)a4)).append("V/br>").toString());	
+                a.append(new StringBuilder().insert(0, DateUtils.formatDateTime(a4)).append("V/br>").toString());	
                 v0 = ++a2;	
             }	
             return this.renderResult("true", a.toString());	
@@ -121,7 +101,7 @@ extends BaseController {
     public String list(JobEntity job, Model model) {	
         void a;	
         Boolean bl = this.jobService.isRunning();	
-        model.addAttribute("isRunning", (Object)a);	
+        model.addAttribute("isRunning", a);	
         return "modules/job/jobList";	
     }	
 	
@@ -153,11 +133,11 @@ extends BaseController {
     @RequestMapping(value={"listData"})	
     @ResponseBody	
     public List<JobEntity> listData(JobEntity job, String orderBy) {	
-        if (StringUtils.isBlank((CharSequence)orderBy)) {	
+        if (StringUtils.isBlank(orderBy)) {	
             orderBy = "jobName";	
         }	
-        List a = this.jobService.findList(job);	
-        a = ListUtils.listOrderBy(a, (String)orderBy);	
+        List<JobEntity> a = this.jobService.findList(job);	
+        a = ListUtils.listOrderBy(a, orderBy);	
         return a;	
     }	
 	
@@ -169,7 +149,7 @@ extends BaseController {
             return this.renderResult("false", "当前版本未开放此功能！");	
         }	
         JobEntity jobEntity = job;	
-        jobEntity.setInvokeTarget(EncodeUtils.decodeBase64String((String)jobEntity.getInvokeTarget()));	
+        jobEntity.setInvokeTarget(EncodeUtils.decodeBase64String(jobEntity.getInvokeTarget()));	
         JobController jobController = this;	
         jobController.jobService.save(job);	
         return jobController.renderResult("true", "保存成功！");	
@@ -178,7 +158,7 @@ extends BaseController {
     @ModelAttribute(value="job")	
     public JobEntity get(String jobName, String jobGroup, boolean isNewRecord) {	
         JobEntity a = null;	
-        if (StringUtils.isNoneBlank((CharSequence[])new CharSequence[]{jobName, jobGroup})) {	
+        if (StringUtils.isNoneBlank(jobName, jobGroup)) {	
             a = this.jobService.get(new JobEntity(jobName, jobGroup));	
             if (isNewRecord && a != null) {	
                 throw new ValidationException("名称及组名已经存在");	
@@ -196,10 +176,10 @@ extends BaseController {
         if (job.getMisfireInstruction() == null) {	
             job.setMisfireInstruction(2);	
         }	
-        if (StringUtils.isBlank((CharSequence)job.getConcurrent())) {	
+        if (StringUtils.isBlank(job.getConcurrent())) {	
             job.setConcurrent("0");	
         }	
-        model.addAttribute("job", (Object)job);	
+        model.addAttribute("job", job);	
         return "modules/job/jobForm";	
     }	
 	

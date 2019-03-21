@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.core.JsonProcessingException	
- *  com.fasterxml.jackson.databind.ObjectWriter	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Service	
  */	
 package com.jeesite.modules.state.service;	
 	
@@ -41,24 +30,24 @@ public class StateCacheService
 extends BaseService {	
     public List<Map<String, String>> getCacheNameList() {	
         Iterator<String> iterator;	
-        ArrayList a = ListUtils.newArrayList();	
+        ArrayList<Map<String, String>> a = ListUtils.newArrayList();	
         Iterator<String> iterator2 = iterator = CacheUtils.getCacheNames().iterator();	
         while (iterator2.hasNext()) {	
             void a2;	
             String a3 = iterator.next();	
             HashMap hashMap = MapUtils.newHashMap();	
             iterator2 = iterator;	
-            a.add(a2);	
+            a.add((Map<String, String>)a2);	
             a2.put("id", a3);	
         }	
-        ArrayList arrayList = a;	
-        ListUtils.listOrderBy((List)arrayList, (String)"id");	
+        ArrayList<Map<String, String>> arrayList = a;	
+        ListUtils.listOrderBy(arrayList, "id");	
         return arrayList;	
     }	
 	
     public List<Map<String, String>> getCacheKeyList(String cacheName) {	
-        ArrayList a = ListUtils.newArrayList();	
-        if (StringUtils.isNotBlank((CharSequence)cacheName)) {	
+        ArrayList<Map<String, String>> a = ListUtils.newArrayList();	
+        if (StringUtils.isNotBlank(cacheName)) {	
             Iterator iterator;	
             Iterator iterator2 = iterator = CacheUtils.getCache(cacheName).keys().iterator();	
             while (iterator2.hasNext()) {	
@@ -66,18 +55,18 @@ extends BaseService {
                 String a3 = (String)iterator.next();	
                 HashMap hashMap = MapUtils.newHashMap();	
                 iterator2 = iterator;	
-                a.add(a2);	
+                a.add((Map<String, String>)a2);	
                 a2.put("cacheName", cacheName);	
                 a2.put("id", a3);	
             }	
         }	
-        ArrayList arrayList = a;	
-        ListUtils.listOrderBy((List)arrayList, (String)"id");	
+        ArrayList<Map<String, String>> arrayList = a;	
+        ListUtils.listOrderBy(arrayList, "id");	
         return arrayList;	
     }	
 	
     public void clearCache(String cacheName, String key) {	
-        if (StringUtils.isNotBlank((CharSequence)key)) {	
+        if (StringUtils.isNotBlank(key)) {	
             CacheUtils.remove(cacheName, key);	
             return;	
         }	
@@ -86,17 +75,17 @@ extends BaseService {
 	
     public Map<String, String> getCacheValue(String cacheName, String key) {	
         String a;	
-        HashMap a2 = MapUtils.newHashMap();	
+        HashMap<String, String> a2 = MapUtils.newHashMap();	
         String string = "";	
         a2.put("key", key);	
         a2.put("cacheName", cacheName);	
-        if (StringUtils.isNoneBlank((CharSequence[])new CharSequence[]{cacheName, key})) {	
+        if (StringUtils.isNoneBlank(cacheName, key)) {	
             Object a3;	
             String string2;	
             block8 : {	
                 a3 = CacheUtils.get(cacheName, key);	
                 if (!(a3 instanceof Collection)) break block8;	
-                a3 = MapUtils.toMapList((Collection)((Collection)a3));	
+                a3 = MapUtils.toMapList((Collection)a3);	
             }	
             try {	
                 if (!(a3 instanceof Map || a3 instanceof CharSequence || a3 instanceof Number)) {	
@@ -117,8 +106,8 @@ extends BaseService {
                 a = ObjectUtils.toString(a3);	
             }	
         }	
-        HashMap hashMap = a2;	
-        hashMap.put("value", StringUtils.abbr((String)a, (int)512000));	
+        HashMap<String, String> hashMap = a2;	
+        hashMap.put("value", StringUtils.abbr(a, 512000));	
         return hashMap;	
     }	
 }	

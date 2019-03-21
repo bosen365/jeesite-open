@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  org.apache.commons.lang3.StringUtils	
  */	
 package com.jeesite.modules.file.utils;	
 	
@@ -27,11 +22,11 @@ public class FileUploadUtils {
         int n;	
         Object a;	
         String a2;	
-        if (StringUtils.isBlank((CharSequence)bizKey) || StringUtils.isBlank((CharSequence)bizType)) {	
+        if (StringUtils.isBlank(bizKey) || StringUtils.isBlank(bizType)) {	
             return;	
         }	
-        String a3 = ServletUtils.getParameter((String)bizType);	
-        if (StringUtils.isNotBlank((CharSequence)a3)) {	
+        String a3 = ServletUtils.getParameter(bizType);	
+        if (StringUtils.isNotBlank(a3)) {	
             a = i.ALLATORIxDEMO();	
             String[] arrstring = a3.split(",");	
             int n2 = arrstring.length;	
@@ -46,7 +41,7 @@ public class FileUploadUtils {
                 n3 = ++n;	
             }	
         }	
-        if (StringUtils.isNotBlank((CharSequence)(a = ServletUtils.getParameter((String)new StringBuilder().insert(0, bizType).append("__del").toString())))) {	
+        if (StringUtils.isNotBlank((CharSequence)(a = ServletUtils.getParameter(new StringBuilder().insert(0, bizType).append("__del").toString())))) {	
             int a4;	
             FileUploadService a5 = i.ALLATORIxDEMO();	
             String[] arrstring = ((String)a).split(",");	
@@ -63,8 +58,8 @@ public class FileUploadUtils {
     }	
 	
     public static List<FileUpload> findFileUpload(String bizKey, String bizType) {	
-        List<Object> a = null;	
-        if (StringUtils.isNotBlank((CharSequence)bizKey) && StringUtils.isNotBlank((CharSequence)bizType)) {	
+        List<FileUpload> a = null;	
+        if (StringUtils.isNotBlank(bizKey) && StringUtils.isNotBlank(bizType)) {	
             void a2;	
             FileUploadService a3 = i.ALLATORIxDEMO();	
             FileUpload fileUpload = new FileUpload();	

@@ -1,29 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.builder.BaseBuilder	
- *  org.apache.ibatis.builder.BuilderException	
- *  org.apache.ibatis.builder.CacheRefResolver	
- *  org.apache.ibatis.builder.IncompleteElementException	
- *  org.apache.ibatis.builder.MapperBuilderAssistant	
- *  org.apache.ibatis.builder.ResultMapResolver	
- *  org.apache.ibatis.builder.xml.XMLStatementBuilder	
- *  org.apache.ibatis.cache.Cache	
- *  org.apache.ibatis.executor.ErrorContext	
- *  org.apache.ibatis.io.Resources	
- *  org.apache.ibatis.mapping.Discriminator	
- *  org.apache.ibatis.mapping.ParameterMap	
- *  org.apache.ibatis.mapping.ParameterMapping	
- *  org.apache.ibatis.mapping.ParameterMode	
- *  org.apache.ibatis.mapping.ResultFlag	
- *  org.apache.ibatis.mapping.ResultMap	
- *  org.apache.ibatis.mapping.ResultMapping	
- *  org.apache.ibatis.parsing.XNode	
- *  org.apache.ibatis.parsing.XPathParser	
- *  org.apache.ibatis.session.Configuration	
- *  org.apache.ibatis.type.JdbcType	
- *  org.apache.ibatis.type.TypeAliasRegistry	
  */	
 package com.jeesite.common.mybatis.mapper.xml;	
 	
@@ -61,6 +37,7 @@ import org.apache.ibatis.parsing.XPathParser;
 import org.apache.ibatis.session.Configuration;	
 import org.apache.ibatis.type.JdbcType;	
 import org.apache.ibatis.type.TypeAliasRegistry;	
+import org.apache.ibatis.type.TypeHandler;	
 import org.hyperic.sigar.ProcCred;	
 import org.xml.sax.EntityResolver;	
 	
@@ -86,13 +63,13 @@ extends BaseBuilder {
             String a = xNode.getStringAttribute("id");	
             String a2 = xNode.getStringAttribute("type");	
             Class a3 = this.resolveClass(a2);	
-            List a4 = xNode.evalNodes("parameter");	
-            ArrayList<void> a5 = new ArrayList<void>();	
-            Iterator iterator3 = a4.iterator();	
+            List<XNode> a4 = xNode.evalNodes("parameter");	
+            ArrayList<ParameterMapping> a5 = new ArrayList<ParameterMapping>();	
+            Iterator<XNode> iterator3 = a4.iterator();	
             while (iterator3.hasNext()) {	
-                Iterator iterator4;	
+                Iterator<XNode> iterator4;	
                 void a6;	
-                XNode xNode2 = (XNode)iterator4.next();	
+                XNode xNode2 = iterator4.next();	
                 String a7 = xNode2.getStringAttribute("property");	
                 String a8 = xNode2.getStringAttribute("javaType");	
                 String a9 = xNode2.getStringAttribute("jdbcType");	
@@ -107,7 +84,7 @@ extends BaseBuilder {
                 Class a17 = xMLMapperBuilder.resolveClass(a12);	
                 ParameterMapping parameterMapping = xMLMapperBuilder.builderAssistant.buildParameterMapping(a3, a7, a15, a16, a10, a14, a17, a13);	
                 iterator3 = iterator4;	
-                a5.add(a6);	
+                a5.add((ParameterMapping)a6);	
             }	
             this.builderAssistant.addParameterMap(a, a3, a5);	
             iterator2 = iterator;	
@@ -150,10 +127,10 @@ extends BaseBuilder {
     private /* synthetic */ void bindMapperForNamespace() {	
         String a = this.builderAssistant.getCurrentNamespace();	
         if (a != null) {	
-            Class class_;	
-            Class a2 = null;	
+            Class<?> class_;	
+            Class<?> a2 = null;	
             try {	
-                class_ = a2 = Resources.classForName((String)a);	
+                class_ = a2 = Resources.classForName(a);	
             }	
             catch (ClassNotFoundException classNotFoundException) {	
                 class_ = a2;	
@@ -167,11 +144,11 @@ extends BaseBuilder {
     }	
 	
     private /* synthetic */ void processConstructorElement(XNode resultChild, Class<?> resultType, List<ResultMapping> resultMappings) throws Exception {	
-        Iterator iterator;	
-        Iterator iterator2 = iterator = resultChild.getChildren().iterator();	
+        Iterator<XNode> iterator;	
+        Iterator<XNode> iterator2 = iterator = resultChild.getChildren().iterator();	
         while (iterator2.hasNext()) {	
             void a;	
-            XNode a2 = (XNode)iterator.next();	
+            XNode a2 = iterator.next();	
             ArrayList arrayList = new ArrayList();	
             a.add(ResultFlag.CONSTRUCTOR);	
             if ("idArg".equals(a2.getName())) {	
@@ -206,18 +183,18 @@ extends BaseBuilder {
      * Enabled aggressive exception aggregation	
      */	
     private /* synthetic */ void parsePendingResultMaps() {	
-        Collection a;	
-        Collection collection = a = this.configuration.getIncompleteResultMaps();	
+        Collection<ResultMapResolver> a;	
+        Collection<ResultMapResolver> collection = a = this.configuration.getIncompleteResultMaps();	
         synchronized (a) {	
-            Iterator a2;	
-            Iterator iterator = a2 = a.iterator();	
+            Iterator<ResultMapResolver> a2;	
+            Iterator<ResultMapResolver> iterator = a2 = a.iterator();	
             do {	
                 if (!iterator.hasNext()) {	
                     // ** MonitorExit[var2_2] (shouldn't be in output)	
                     return;	
                 }	
                 try {	
-                    ((ResultMapResolver)a2.next()).resolve();	
+                    a2.next().resolve();	
                     a2.remove();	
                     iterator = a2;	
                 }	
@@ -254,7 +231,7 @@ extends BaseBuilder {
     }	
 	
     private /* synthetic */ Discriminator processDiscriminatorElement(XNode context, Class<?> resultType, List<ResultMapping> resultMappings) throws Exception {	
-        Iterator iterator;	
+        Iterator<XNode> iterator;	
         XNode xNode = context;	
         String a = xNode.getStringAttribute("column");	
         String a2 = xNode.getStringAttribute("javaType");	
@@ -264,17 +241,17 @@ extends BaseBuilder {
         Class a5 = xMLMapperBuilder.resolveClass(a2);	
         Class a6 = xMLMapperBuilder.resolveClass(a4);	
         JdbcType a7 = xMLMapperBuilder.resolveJdbcType(a3);	
-        HashMap<String, void> a8 = new HashMap<String, void>();	
-        Iterator iterator2 = iterator = xNode.getChildren().iterator();	
+        HashMap<String, String> a8 = new HashMap<String, String>();	
+        Iterator<XNode> iterator2 = iterator = xNode.getChildren().iterator();	
         while (iterator2.hasNext()) {	
             void a9;	
             void a10;	
-            XNode xNode2 = (XNode)iterator.next();	
+            XNode xNode2 = iterator.next();	
             String a11 = xNode2.getStringAttribute("value");	
             void v3 = a10;	
             String string = v3.getStringAttribute("resultMap", this.processNestedResultMappings((XNode)v3, resultMappings));	
             iterator2 = iterator;	
-            a8.put(a11, a9);	
+            a8.put(a11, (String)a9);	
         }	
         return this.builderAssistant.buildDiscriminator(resultType, a, a5, a7, a6, a8);	
     }	
@@ -299,7 +276,7 @@ extends BaseBuilder {
             return;	
         }	
         catch (Exception a) {	
-            throw new BuilderException(new StringBuilder().insert(0, "Error parsing Mapper XML. The XML location is '").append(this.resource).append("'. Cause: ").append(a).toString(), (Throwable)a);	
+            throw new BuilderException(new StringBuilder().insert(0, "Error parsing Mapper XML. The XML location is '").append(this.resource).append("'. Cause: ").append(a).toString(), a);	
         }	
     }	
 	
@@ -310,18 +287,18 @@ extends BaseBuilder {
      * Enabled aggressive exception aggregation	
      */	
     private /* synthetic */ void parsePendingStatements() {	
-        Collection a;	
-        Collection collection = a = this.configuration.getIncompleteStatements();	
+        Collection<XMLStatementBuilder> a;	
+        Collection<XMLStatementBuilder> collection = a = this.configuration.getIncompleteStatements();	
         synchronized (a) {	
-            Iterator a2;	
-            Iterator iterator = a2 = a.iterator();	
+            Iterator<XMLStatementBuilder> a2;	
+            Iterator<XMLStatementBuilder> iterator = a2 = a.iterator();	
             do {	
                 if (!iterator.hasNext()) {	
                     // ** MonitorExit[var2_2] (shouldn't be in output)	
                     return;	
                 }	
                 try {	
-                    ((XMLStatementBuilder)a2.next()).parseStatementNode();	
+                    a2.next().parseStatementNode();	
                     a2.remove();	
                     iterator = a2;	
                 }	
@@ -381,18 +358,18 @@ extends BaseBuilder {
      * Enabled aggressive exception aggregation	
      */	
     private /* synthetic */ void parsePendingCacheRefs() {	
-        Collection a;	
-        Collection collection = a = this.configuration.getIncompleteCacheRefs();	
+        Collection<CacheRefResolver> a;	
+        Collection<CacheRefResolver> collection = a = this.configuration.getIncompleteCacheRefs();	
         synchronized (a) {	
-            Iterator a2;	
-            Iterator iterator = a2 = a.iterator();	
+            Iterator<CacheRefResolver> a2;	
+            Iterator<CacheRefResolver> iterator = a2 = a.iterator();	
             do {	
                 if (!iterator.hasNext()) {	
                     // ** MonitorExit[var2_2] (shouldn't be in output)	
                     return;	
                 }	
                 try {	
-                    ((CacheRefResolver)a2.next()).resolveCacheRef();	
+                    a2.next().resolveCacheRef();	
                     a2.remove();	
                     iterator = a2;	
                 }	
@@ -464,9 +441,9 @@ extends BaseBuilder {
             Class a4 = this.typeAliasRegistry.resolveAlias(a3);	
             Long a5 = xNode.getLongAttribute("flushInterval");	
             Integer a6 = xNode.getIntAttribute("size");	
-            boolean a7 = xNode.getBooleanAttribute("readOnly", Boolean.valueOf(false)) == false;	
+            boolean a7 = xNode.getBooleanAttribute("readOnly", false) == false;	
             XNode xNode2 = context;	
-            boolean a8 = xNode2.getBooleanAttribute("blocking", Boolean.valueOf(false));	
+            boolean a8 = xNode2.getBooleanAttribute("blocking", false);	
             Properties a9 = xNode2.getChildrenAsProperties();	
             this.builderAssistant.useNewCache(a2, a4, a5, a6, a7, a8, a9);	
         }	
@@ -494,11 +471,11 @@ extends BaseBuilder {
         Class a5 = this.resolveClass(a2);	
         Discriminator a6 = null;	
         ArrayList<ResultMapping> a7 = new ArrayList<ResultMapping>();	
-        Iterator iterator = resultMapNode.getChildren().iterator();	
+        Iterator<XNode> iterator = resultMapNode.getChildren().iterator();	
         a7.addAll(additionalResultMappings);	
         ErrorContext.instance().activity(new StringBuilder().insert(0, "processing ").append(resultMapNode.getValueBasedIdentifier()).toString());	
         while (iterator.hasNext()) {	
-            XNode a8 = (XNode)iterator.next();	
+            XNode a8 = iterator.next();	
             if ("constructor".equals(a8.getName())) {	
                 this.processConstructorElement(a8, a5, a7);	
                 continue;	

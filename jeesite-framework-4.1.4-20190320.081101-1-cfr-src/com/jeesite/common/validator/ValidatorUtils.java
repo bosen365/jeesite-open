@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.validation.ConstraintViolation	
- *  javax.validation.ConstraintViolationException	
- *  javax.validation.Path	
- *  javax.validation.Validator	
  */	
 package com.jeesite.common.validator;	
 	
@@ -32,13 +23,13 @@ import javax.validation.Validator;
 public class ValidatorUtils {	
     public static List<String> extractPropertyAndMessageAsList(Set<? extends ConstraintViolation> constraintViolations, String separator) {	
         Iterator<? extends ConstraintViolation> iterator;	
-        ArrayList a = ListUtils.newArrayList();	
+        ArrayList<String> a = ListUtils.newArrayList();	
         Iterator<? extends ConstraintViolation> iterator2 = iterator = constraintViolations.iterator();	
         while (iterator2.hasNext()) {	
             void a2;	
             ConstraintViolation constraintViolation = iterator.next();	
             iterator2 = iterator;	
-            a.add((Object)a2.getPropertyPath() + separator + a2.getMessage());	
+            a.add(a2.getPropertyPath() + separator + a2.getMessage());	
         }	
         return a;	
     }	
@@ -61,7 +52,7 @@ public class ValidatorUtils {
 	
     public static Map<String, String> extractPropertyAndMessage(Set<? extends ConstraintViolation> constraintViolations) {	
         Iterator<? extends ConstraintViolation> iterator;	
-        HashMap a = MapUtils.newHashMap();	
+        HashMap<String, String> a = MapUtils.newHashMap();	
         Iterator<? extends ConstraintViolation> iterator2 = iterator = constraintViolations.iterator();	
         while (iterator2.hasNext()) {	
             ConstraintViolation a2 = iterator.next();	
@@ -73,7 +64,7 @@ public class ValidatorUtils {
 	
     public static List<String> extractMessage(Set<? extends ConstraintViolation> constraintViolations) {	
         Iterator<? extends ConstraintViolation> iterator;	
-        ArrayList a = ListUtils.newArrayList();	
+        ArrayList<String> a = ListUtils.newArrayList();	
         Iterator<? extends ConstraintViolation> iterator2 = iterator = constraintViolations.iterator();	
         while (iterator2.hasNext()) {	
             ConstraintViolation a2 = iterator.next();	
@@ -84,7 +75,7 @@ public class ValidatorUtils {
     }	
 	
     public static /* varargs */ void validateWithException(Validator validator, Object object, Class<?> ... groups) throws ConstraintViolationException {	
-        Set a = validator.validate(object, (Class[])groups);	
+        Set<ConstraintViolation<Object>> a = validator.validate(object, groups);	
         if (!a.isEmpty()) {	
             throw new ConstraintViolationException(a);	
         }	
@@ -99,7 +90,7 @@ public class ValidatorUtils {
             if (a2.size() > 0) {	
                 List<String> list = a2;	
                 list.add(0, "☆");	
-                message.append(StringUtils.join(list, (String)"<br/>☆"));	
+                message.append(StringUtils.join(list, "<br/>☆"));	
             }	
             return false;	
         }	

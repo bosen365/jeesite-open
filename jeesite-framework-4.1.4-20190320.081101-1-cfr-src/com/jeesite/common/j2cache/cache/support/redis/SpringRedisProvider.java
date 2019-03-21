@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.oschina.j2cache.Cache	
- *  net.oschina.j2cache.CacheChannel	
- *  net.oschina.j2cache.CacheChannel$Region	
- *  net.oschina.j2cache.CacheExpiredListener	
- *  net.oschina.j2cache.CacheProvider	
- *  org.springframework.data.redis.core.RedisTemplate	
  */	
 package com.jeesite.common.j2cache.cache.support.redis;	
 	
@@ -34,9 +26,11 @@ implements CacheProvider {
     private String storage;	
     private String namespace;	
 	
+    @Override	
     public void stop() {	
     }	
 	
+    @Override	
     public void start(Properties props) {	
         SpringRedisProvider springRedisProvider = this;	
         Properties properties = props;	
@@ -45,6 +39,7 @@ implements CacheProvider {
         springRedisProvider.redisTemplate = (RedisTemplate)SpringUtils.getBean("j2CacheRedisTemplate");	
     }	
 	
+    @Override	
     public Collection<CacheChannel.Region> regions() {	
         return Collections.emptyList();	
     }	
@@ -57,8 +52,9 @@ implements CacheProvider {
     /*	
      * WARNING - Removed try catching itself - possible behaviour change.	
      */	
+    @Override	
     public Cache buildCache(String region, CacheExpiredListener listener) {	
-        Object a = this.caches.get(region);	
+        Cache a = this.caches.get(region);	
         if (a == null) {	
             Class<SpringRedisProvider> class_ = SpringRedisProvider.class;	
             synchronized (SpringRedisProvider.class) {	
@@ -72,21 +68,24 @@ implements CacheProvider {
                         a = new SpringRedisGenericCache(this.namespace, region, this.redisTemplate);	
                         springRedisProvider = this;	
                     }	
-                    springRedisProvider.caches.put(region, (Cache)a);	
+                    springRedisProvider.caches.put(region, a);	
                 }	
             }	
         }	
         return a;	
     }	
 	
+    @Override	
     public int level() {	
         return 2;	
     }	
 	
+    @Override	
     public Cache buildCache(String region, long timeToLiveInSeconds, CacheExpiredListener listener) {	
         return this.buildCache(region, listener);	
     }	
 	
+    @Override	
     public String name() {	
         return "redis";	
     }	

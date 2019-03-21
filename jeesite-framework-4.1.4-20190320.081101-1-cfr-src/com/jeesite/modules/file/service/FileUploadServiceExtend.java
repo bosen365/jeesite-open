@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
  */	
 package com.jeesite.modules.file.service;	
 	

@@ -1,38 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.builder.xml.XMLConfigBuilder	
- *  org.apache.ibatis.cache.Cache	
- *  org.apache.ibatis.executor.ErrorContext	
- *  org.apache.ibatis.io.VFS	
- *  org.apache.ibatis.logging.Log	
- *  org.apache.ibatis.logging.LogFactory	
- *  org.apache.ibatis.mapping.DatabaseIdProvider	
- *  org.apache.ibatis.mapping.Environment	
- *  org.apache.ibatis.parsing.XNode	
- *  org.apache.ibatis.plugin.Interceptor	
- *  org.apache.ibatis.reflection.factory.ObjectFactory	
- *  org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory	
- *  org.apache.ibatis.session.Configuration	
- *  org.apache.ibatis.session.SqlSessionFactory	
- *  org.apache.ibatis.session.SqlSessionFactoryBuilder	
- *  org.apache.ibatis.transaction.TransactionFactory	
- *  org.apache.ibatis.type.TypeAliasRegistry	
- *  org.apache.ibatis.type.TypeHandler	
- *  org.apache.ibatis.type.TypeHandlerRegistry	
- *  org.mybatis.spring.transaction.SpringManagedTransactionFactory	
- *  org.springframework.beans.factory.FactoryBean	
- *  org.springframework.beans.factory.InitializingBean	
- *  org.springframework.context.ApplicationEvent	
- *  org.springframework.context.ApplicationListener	
- *  org.springframework.context.event.ContextRefreshedEvent	
- *  org.springframework.core.NestedIOException	
- *  org.springframework.core.io.Resource	
- *  org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy	
- *  org.springframework.util.Assert	
- *  org.springframework.util.ObjectUtils	
- *  org.springframework.util.StringUtils	
  */	
 package com.jeesite.common.mybatis;	
 	
@@ -60,6 +27,7 @@ import org.apache.ibatis.parsing.XNode;
 import org.apache.ibatis.plugin.Interceptor;	
 import org.apache.ibatis.reflection.factory.ObjectFactory;	
 import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;	
+import org.apache.ibatis.scripting.LanguageDriver;	
 import org.apache.ibatis.session.Configuration;	
 import org.apache.ibatis.session.SqlSessionFactory;	
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;	
@@ -185,43 +153,43 @@ lbl26: // 4 sources:
             a.setVfsImpl(this.vfs);	
         }	
         a = new MapperRefresh(this.mapperLocations, a);	
-        if (StringUtils.hasLength((String)this.typeAliasesPackage)) {	
-            a = StringUtils.tokenizeToStringArray((String)this.typeAliasesPackage, (String)",; \t\n");	
+        if (StringUtils.hasLength(this.typeAliasesPackage)) {	
+            a = StringUtils.tokenizeToStringArray(this.typeAliasesPackage, ",; \t\n");	
             var5_7 = a;	
             var6_12 = var5_7.length;	
             v3 = var7_13 = 0;	
             while (v3 < var6_12) {	
                 a = var5_7[var7_13];	
                 try {	
-                    a.getTypeAliasRegistry().registerAliases(a, this.typeAliasesSuperType == null ? Object.class : this.typeAliasesSuperType);	
+                    a.getTypeAliasRegistry().registerAliases((String)a, this.typeAliasesSuperType == null ? Object.class : this.typeAliasesSuperType);	
                 }	
                 catch (Exception a) {	
-                    SqlSessionFactoryBean.LOGGER.error(new StringBuilder().insert(0, "Scanned package: '").append(a).append("' for aliases").toString(), (Throwable)a);	
-                    throw new NestedIOException(new StringBuilder().insert(0, "Scanned package: '").append(a).append("' for aliases").toString(), (Throwable)a);	
+                    SqlSessionFactoryBean.LOGGER.error(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for aliases").toString(), a);	
+                    throw new NestedIOException(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for aliases").toString(), a);	
                 }	
                 finally {	
                     ErrorContext.instance().reset();	
                 }	
                 if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
-                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Scanned package: '").append(a).append("' for aliases").toString());	
+                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for aliases").toString());	
                 }	
                 v3 = ++var7_13;	
             }	
         }	
-        if (!ObjectUtils.isEmpty((Object[])this.typeAliases)) {	
+        if (!ObjectUtils.isEmpty(this.typeAliases)) {	
             a = this.typeAliases;	
             var5_8 = a.length;	
             v4 = var6_12 = 0;	
             while (v4 < var5_8) {	
                 a = a[var6_12];	
-                a.getTypeAliasRegistry().registerAlias((Class)a);	
+                a.getTypeAliasRegistry().registerAlias((Class<?>)a);	
                 if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
                     SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Registered type alias: '").append(a).append("'").toString());	
                 }	
                 v4 = ++var6_12;	
             }	
         }	
-        if (!ObjectUtils.isEmpty((Object[])this.plugins)) {	
+        if (!ObjectUtils.isEmpty(this.plugins)) {	
             a = this.plugins;	
             var5_9 = a.length;	
             v5 = var6_12 = 0;	
@@ -234,27 +202,27 @@ lbl26: // 4 sources:
                 v5 = ++var6_12;	
             }	
         }	
-        if (StringUtils.hasLength((String)this.typeHandlersPackage)) {	
-            a = StringUtils.tokenizeToStringArray((String)this.typeHandlersPackage, (String)",; \t\n");	
+        if (StringUtils.hasLength(this.typeHandlersPackage)) {	
+            a = StringUtils.tokenizeToStringArray(this.typeHandlersPackage, ",; \t\n");	
             var5_7 = a;	
             var6_12 = var5_7.length;	
             v6 = a = 0;	
             while (v6 < var6_12) {	
                 a = var5_7[a];	
-                a.getTypeHandlerRegistry().register(a);	
+                a.getTypeHandlerRegistry().register((String)a);	
                 if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
-                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Scanned package: '").append(a).append("' for type handlers").toString());	
+                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for type handlers").toString());	
                 }	
                 v6 = ++a;	
             }	
         }	
-        if (!ObjectUtils.isEmpty((Object[])this.typeHandlers)) {	
+        if (!ObjectUtils.isEmpty(this.typeHandlers)) {	
             a = this.typeHandlers;	
             var5_10 = a.length;	
             v7 = var6_12 = 0;	
             while (v7 < var5_10) {	
                 a = a[var6_12];	
-                a.getTypeHandlerRegistry().register((TypeHandler)a);	
+                a.getTypeHandlerRegistry().register(a);	
                 if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
                     SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Registered type handler: '").append(a).append("'").toString());	
                 }	
@@ -268,7 +236,7 @@ lbl26: // 4 sources:
                 v9 = this;	
             }	
             catch (SQLException a) {	
-                throw new NestedIOException("Failed getting a databaseId", (Throwable)a);	
+                throw new NestedIOException("Failed getting a databaseId", a);	
             }	
         } else {	
             v9 = this;	
@@ -280,12 +248,12 @@ lbl26: // 4 sources:
             try {	
                 a.parse();	
                 if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
-                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Parsed coniguration file: '").append((Object)this.configLocation).append("'").toString());	
+                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Parsed coniguration file: '").append(this.configLocation).append("'").toString());	
                 }	
                 v10 = this;	
             }	
             catch (Exception a) {	
-                throw new NestedIOException(new StringBuilder().insert(0, "Failed to parse conig resource: ").append((Object)this.configLocation).toString(), (Throwable)a);	
+                throw new NestedIOException(new StringBuilder().insert(0, "Failed to parse conig resource: ").append(this.configLocation).toString(), a);	
             }	
             finally {	
                 ErrorContext.instance().reset();	
@@ -300,7 +268,7 @@ lbl26: // 4 sources:
         v12 = this;	
         a.setEnvironment(new Environment(v12.environment, v12.transactionFactory, this.dataSource));	
         a.setDefaultScriptingLanguage(XMLLanguageDriver.class);	
-        if (ObjectUtils.isEmpty((Object[])this.mapperLocations)) {	
+        if (ObjectUtils.isEmpty(this.mapperLocations)) {	
             if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
                 SqlSessionFactoryBean.LOGGER.debug("Property 'mapperLocations' was not specified or no matching resources found");	
             }	
@@ -313,12 +281,12 @@ lbl26: // 4 sources:
                 if (a != null) {	
                     try {	
                         v14 = a;	
-                        a = new XMLMapperBuilder(a.getInputStream(), v14, a.toString(), (Map<String, XNode>)v14.getSqlFragments());	
+                        a = new XMLMapperBuilder(a.getInputStream(), v14, a.toString(), v14.getSqlFragments());	
                         a.parse();	
                     }	
                     catch (Exception a) {	
-                        SqlSessionFactoryBean.LOGGER.error(new StringBuilder().insert(0, "Failed to parse mapping resource: '").append(a).append("'").toString(), (Throwable)a);	
-                        throw new NestedIOException(new StringBuilder().insert(0, "Failed to parse mapping resource: '").append(a).append("'").toString(), (Throwable)a);	
+                        SqlSessionFactoryBean.LOGGER.error(new StringBuilder().insert(0, "Failed to parse mapping resource: '").append(a).append("'").toString(), a);	
+                        throw new NestedIOException(new StringBuilder().insert(0, "Failed to parse mapping resource: '").append(a).append("'").toString(), a);	
                     }	
                     finally {	
                         ErrorContext.instance().reset();	
@@ -350,6 +318,7 @@ lbl26: // 4 sources:
         this.configuration = configuration;	
     }	
 	
+    @Override	
     public void onApplicationEvent(ApplicationEvent event) {	
         if (this.failFast && event instanceof ContextRefreshedEvent) {	
             this.sqlSessionFactory.getConfiguration().getMappedStatementNames();	
@@ -360,6 +329,7 @@ lbl26: // 4 sources:
         this.plugins = plugins;	
     }	
 	
+    @Override	
     public boolean isSingleton() {	
         return true;	
     }	
@@ -384,6 +354,7 @@ lbl26: // 4 sources:
         this.vfs = vfs;	
     }	
 	
+    @Override	
     public SqlSessionFactory getObject() throws Exception {	
         if (this.sqlSessionFactory == null) {	
             this.afterPropertiesSet();	
@@ -395,6 +366,7 @@ lbl26: // 4 sources:
         this.databaseIdProvider = databaseIdProvider;	
     }	
 	
+    @Override	
     public Class<? extends SqlSessionFactory> getObjectType() {	
         if (this.sqlSessionFactory == null) {	
             return SqlSessionFactory.class;	
@@ -426,11 +398,12 @@ lbl26: // 4 sources:
         this.dataSource = dataSource;	
     }	
 	
+    @Override	
     public void afterPropertiesSet() throws Exception {	
         SqlSessionFactoryBean sqlSessionFactoryBean = this;	
-        Assert.notNull((Object)sqlSessionFactoryBean.dataSource, (String)"Property 'dataSource' is required");	
-        Assert.notNull((Object)sqlSessionFactoryBean.sqlSessionFactoryBuilder, (String)"Property 'sqlSessionFactoryBuilder' is required");	
-        Assert.state((boolean)(sqlSessionFactoryBean.configuration == null && this.configLocation == null || this.configuration == null || this.configLocation == null), (String)"Property 'coniguration' and 'conigLocation' can not speciied with together");	
+        Assert.notNull((Object)sqlSessionFactoryBean.dataSource, "Property 'dataSource' is required");	
+        Assert.notNull((Object)sqlSessionFactoryBean.sqlSessionFactoryBuilder, "Property 'sqlSessionFactoryBuilder' is required");	
+        Assert.state(sqlSessionFactoryBean.configuration == null && this.configLocation == null || this.configuration == null || this.configLocation == null, "Property 'coniguration' and 'conigLocation' can not speciied with together");	
         this.sqlSessionFactory = this.buildSqlSessionFactory();	
     }	
 	

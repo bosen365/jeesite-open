@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.msg.service.support;	
 	

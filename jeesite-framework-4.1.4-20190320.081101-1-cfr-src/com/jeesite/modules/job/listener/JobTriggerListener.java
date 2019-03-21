@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.quartz.JobExecutionContext	
- *  org.quartz.Trigger	
- *  org.quartz.Trigger$CompletedExecutionInstruction	
- *  org.quartz.TriggerKey	
- *  org.quartz.listeners.TriggerListenerSupport	
- *  org.slf4j.Logger	
  */	
 package com.jeesite.modules.job.listener;	
 	
@@ -25,10 +17,11 @@ public class JobTriggerListener
 extends TriggerListenerSupport {	
     private JobLogService jobLogService;	
 	
+    @Override	
     public boolean vetoJobExecution(Trigger trigger, JobExecutionContext context) {	
         void a;	
         boolean a2;	
-        this.getLog().debug(new StringBuilder().insert(0, "vetoJobExecution 触发验证  ").append((Object)trigger.getKey()).append(" ").append((a2 = false) ? "驳回" : "通过").toString());	
+        this.getLog().debug(new StringBuilder().insert(0, "vetoJobExecution 触发验证  ").append(trigger.getKey()).append(" ").append((a2 = false) ? "驳回" : "通过").toString());	
         JobLog jobLog = new JobLog();	
         void v0 = a;	
         void v1 = a;	
@@ -46,10 +39,11 @@ extends TriggerListenerSupport {
         this.jobLogService = jobLogService;	
     }	
 	
+    @Override	
     public void triggerMisfired(Trigger trigger) {	
         void a;	
         JobTriggerListener jobTriggerListener = this;	
-        jobTriggerListener.getLog().debug(new StringBuilder().insert(0, "triggerMisfired 触发错过  ").append((Object)trigger.getKey()).toString());	
+        jobTriggerListener.getLog().debug(new StringBuilder().insert(0, "triggerMisfired 触发错过  ").append(trigger.getKey()).toString());	
         JobLog jobLog = new JobLog();	
         void v1 = a;	
         void v2 = a;	
@@ -62,10 +56,11 @@ extends TriggerListenerSupport {
         jobTriggerListener.jobLogService.save((JobLog)a);	
     }	
 	
+    @Override	
     public void triggerComplete(Trigger trigger, JobExecutionContext context, Trigger.CompletedExecutionInstruction triggerInstructionCode) {	
         void a;	
         JobTriggerListener jobTriggerListener = this;	
-        jobTriggerListener.getLog().debug(new StringBuilder().insert(0, "triggerComplete 触发完成  ").append((Object)trigger.getKey()).toString());	
+        jobTriggerListener.getLog().debug(new StringBuilder().insert(0, "triggerComplete 触发完成  ").append(trigger.getKey()).toString());	
         JobLog jobLog = new JobLog();	
         void v1 = a;	
         void v2 = a;	
@@ -78,14 +73,16 @@ extends TriggerListenerSupport {
         jobTriggerListener.jobLogService.save((JobLog)a);	
     }	
 	
+    @Override	
     public String getName() {	
-        return ((Object)((Object)this)).getClass().getName();	
+        return this.getClass().getName();	
     }	
 	
+    @Override	
     public void triggerFired(Trigger trigger, JobExecutionContext context) {	
         void a;	
         JobTriggerListener jobTriggerListener = this;	
-        jobTriggerListener.getLog().debug(new StringBuilder().insert(0, "triggerFired 触发计划  ").append((Object)trigger.getKey()).toString());	
+        jobTriggerListener.getLog().debug(new StringBuilder().insert(0, "triggerFired 触发计划  ").append(trigger.getKey()).toString());	
         JobLog jobLog = new JobLog();	
         void v1 = a;	
         void v2 = a;	

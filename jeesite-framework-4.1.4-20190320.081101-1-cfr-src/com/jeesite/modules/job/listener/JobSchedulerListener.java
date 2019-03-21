@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ExceptionUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.quartz.JobKey	
- *  org.quartz.SchedulerException	
- *  org.quartz.Trigger	
- *  org.quartz.TriggerKey	
- *  org.quartz.listeners.SchedulerListenerSupport	
- *  org.quartz.utils.Key	
- *  org.slf4j.Logger	
  */	
 package com.jeesite.modules.job.listener;	
 	
@@ -34,11 +23,12 @@ extends SchedulerListenerSupport {
     private JobLogService jobLogService;	
     private boolean errorLevel;	
 	
+    @Override	
     public void jobUnscheduled(TriggerKey triggerKey) {	
         if (!this.errorLevel) {	
             void a;	
             JobSchedulerListener jobSchedulerListener = this;	
-            jobSchedulerListener.getLog().debug(new StringBuilder().insert(0, "jobUnscheduled 计划移除  ").append((Object)triggerKey).toString());	
+            jobSchedulerListener.getLog().debug(new StringBuilder().insert(0, "jobUnscheduled 计划移除  ").append(triggerKey).toString());	
             JobLog jobLog = new JobLog();	
             void v1 = a;	
             void v2 = a;	
@@ -52,11 +42,12 @@ extends SchedulerListenerSupport {
         }	
     }	
 	
+    @Override	
     public void jobScheduled(Trigger trigger) {	
         if (!this.errorLevel) {	
             void a;	
             JobSchedulerListener jobSchedulerListener = this;	
-            jobSchedulerListener.getLog().debug(new StringBuilder().insert(0, "jobScheduled 计划创建  ").append((Object)trigger.getKey()).toString());	
+            jobSchedulerListener.getLog().debug(new StringBuilder().insert(0, "jobScheduled 计划创建  ").append(trigger.getKey()).toString());	
             JobLog jobLog = new JobLog();	
             void v1 = a;	
             void v2 = a;	
@@ -70,11 +61,12 @@ extends SchedulerListenerSupport {
         }	
     }	
 	
+    @Override	
     public void triggerPaused(TriggerKey triggerKey) {	
         if (!this.errorLevel) {	
             void a;	
             JobSchedulerListener jobSchedulerListener = this;	
-            jobSchedulerListener.getLog().debug(new StringBuilder().insert(0, "triggerPaused 计划暂停  ").append((Object)triggerKey).toString());	
+            jobSchedulerListener.getLog().debug(new StringBuilder().insert(0, "triggerPaused 计划暂停  ").append(triggerKey).toString());	
             JobLog jobLog = new JobLog();	
             void v1 = a;	
             void v2 = a;	
@@ -88,11 +80,12 @@ extends SchedulerListenerSupport {
         }	
     }	
 	
+    @Override	
     public void triggerResumed(TriggerKey triggerKey) {	
         if (!this.errorLevel) {	
             void a;	
             JobSchedulerListener jobSchedulerListener = this;	
-            jobSchedulerListener.getLog().debug(new StringBuilder().insert(0, "triggerResumed 计划恢复  ").append((Object)triggerKey).toString());	
+            jobSchedulerListener.getLog().debug(new StringBuilder().insert(0, "triggerResumed 计划恢复  ").append(triggerKey).toString());	
             JobLog jobLog = new JobLog();	
             void v1 = a;	
             void v2 = a;	
@@ -107,24 +100,24 @@ extends SchedulerListenerSupport {
     }	
 	
     private static /* synthetic */ Key<Object> getKey(String msg) {	
-        String a = StringUtils.substringAfter((String)msg, (String)"trigger=");	
-        if (StringUtils.isBlank((CharSequence)a)) {	
-            a = StringUtils.substringAfter((String)msg, (String)"job=");	
+        String a = StringUtils.substringAfter(msg, "trigger=");	
+        if (StringUtils.isBlank(a)) {	
+            a = StringUtils.substringAfter(msg, "job=");	
         }	
         boolean a2 = false;	
-        String a3 = StringUtils.substringBefore((String)a, (String)".");	
-        if (StringUtils.startsWith((CharSequence)(a3 = StringUtils.trim((String)a3)), (CharSequence)"'")) {	
-            a3 = StringUtils.substring((String)a3, (int)1);	
+        String a3 = StringUtils.substringBefore(a, ".");	
+        if (StringUtils.startsWith(a3 = StringUtils.trim(a3), "'")) {	
+            a3 = StringUtils.substring(a3, 1);	
             a2 = true;	
         }	
-        String a4 = StringUtils.substringAfter((String)a, (String)".");	
-        if (StringUtils.isBlank((CharSequence)(a4 = StringUtils.substringBefore((String)a4, (String)(a2 ? "'" : " "))))) {	
+        String a4 = StringUtils.substringAfter(a, ".");	
+        if (StringUtils.isBlank(a4 = StringUtils.substringBefore(a4, a2 ? "'" : " "))) {	
             a4 = "_error_";	
         }	
-        if (StringUtils.isBlank((CharSequence)a3)) {	
+        if (StringUtils.isBlank(a3)) {	
             a3 = "_error_";	
         }	
-        return new Key(a4, a3);	
+        return new Key<Object>(a4, a3);	
     }	
 	
     public JobSchedulerListener(JobLogService jobLogService) {	
@@ -134,10 +127,11 @@ extends SchedulerListenerSupport {
         jobSchedulerListener.errorLevel = Global.getPropertyToBoolean("job.log.scheduler.errorLevel", "false");	
     }	
 	
+    @Override	
     public void schedulerError(String msg, SchedulerException cause) {	
         if (!this.errorLevel || cause != null) {	
             void a;	
-            this.getLog().debug(new StringBuilder().insert(0, "schedulerError 调度错误  ").append(msg).toString(), (Throwable)cause);	
+            this.getLog().debug(new StringBuilder().insert(0, "schedulerError 调度错误  ").append(msg).toString(), cause);	
             JobLog a2 = new JobLog();	
             Key<Object> key = JobSchedulerListener.getKey(msg);	
             JobLog jobLog = a2;	
@@ -151,7 +145,7 @@ extends SchedulerListenerSupport {
             if (cause != null) {	
                 JobLog jobLog3 = a2;	
                 jobLog3.setIsException("1");	
-                jobLog3.setExceptionInfo(ExceptionUtils.getStackTraceAsString((Throwable)cause));	
+                jobLog3.setExceptionInfo(ExceptionUtils.getStackTraceAsString(cause));	
             }	
             this.jobLogService.save(a2);	
         }	

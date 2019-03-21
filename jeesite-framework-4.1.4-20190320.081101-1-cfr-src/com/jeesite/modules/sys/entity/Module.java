@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  javax.validation.constraints.NotBlank	
- *  org.apache.commons.lang3.StringUtils	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.sys.entity;	
 	
@@ -88,7 +82,7 @@ extends DataEntity<Module> {
             boolean bl;	
             block5 : {	
                 try {	
-                    if (!StringUtils.isNotBlank((CharSequence)this.mainClassName)) break block4;	
+                    if (!StringUtils.isNotBlank(this.mainClassName)) break block4;	
                     if (Class.forName(this.mainClassName) == null) break block5;	
                     bl = true;	
                     return bl;	

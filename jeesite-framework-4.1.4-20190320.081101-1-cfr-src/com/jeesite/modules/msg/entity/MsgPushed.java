@@ -1,8 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.springframework.beans.BeanUtils	
  */	
 package com.jeesite.modules.msg.entity;	
 	
@@ -18,7 +15,7 @@ extends MsgPush {
 	
     public MsgPushed(MsgPush msgPush) {	
         MsgPushed msgPushed = this;	
-        BeanUtils.copyProperties((Object)msgPush, (Object)msgPushed);	
+        BeanUtils.copyProperties(msgPush, msgPushed);	
     }	
 	
     public MsgPushed() {	

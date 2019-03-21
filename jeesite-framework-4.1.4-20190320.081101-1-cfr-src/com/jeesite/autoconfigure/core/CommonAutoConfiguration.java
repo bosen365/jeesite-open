@@ -1,15 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.PropertiesUtils	
- *  org.springframework.context.annotation.Bean	
- *  org.springframework.context.annotation.ComponentScan	
- *  org.springframework.context.annotation.Configuration	
- *  org.springframework.context.annotation.DependsOn	
- *  org.springframework.context.annotation.Lazy	
- *  org.springframework.context.support.PropertySourcesPlaceholderConfigurer	
- *  org.springframework.core.annotation.Order	
  */	
 package com.jeesite.autoconfigure.core;	
 	

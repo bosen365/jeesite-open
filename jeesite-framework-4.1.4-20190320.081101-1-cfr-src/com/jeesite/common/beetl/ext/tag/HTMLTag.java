@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  org.beetl.core.BodyContent	
- *  org.beetl.core.ByteWriter	
- *  org.beetl.core.Context	
- *  org.beetl.core.GroupTemplate	
- *  org.beetl.core.Template	
- *  org.beetl.core.statement.Statement	
- *  org.beetl.ext.tag.HTMLTagSupportWrapper	
  */	
 package com.jeesite.common.beetl.ext.tag;	
 	
@@ -41,10 +28,11 @@ extends HTMLTagSupportWrapper {
     private LinkedList<HTMLTag> tags;	
     private HttpServletRequest request;	
 	
+    @Override	
     protected void callHtmlTag(String path) {	
         Iterator<Map.Entry<String, Object>> iterator;	
         Template a;	
-        this.tagName = StringUtils.substringAfterLast((String)((String)this.args[0]), (String)":");	
+        this.tagName = StringUtils.substringAfterLast((String)this.args[0], ":");	
         HTMLTag hTMLTag = this;	
         Template template = a = this.gt.getHtmlFunctionOrTagTemplate(path, hTMLTag.ctx.getResourceId());	
         template.binding(this.ctx.globalVar);	
@@ -56,12 +44,13 @@ extends HTMLTagSupportWrapper {
             iterator2 = iterator;	
         }	
         Template template2 = a;	
-        template2.binding("thisTag", (Object)this);	
+        template2.binding("thisTag", this);	
         BodyContent a3 = super.getBodyContent();	
-        template2.binding("tagBody", (Object)a3);	
+        template2.binding("tagBody", a3);	
         a.renderTo(this.ctx.byteWriter);	
     }	
 	
+    @Override	
     public void render() {	
         this.tags = (LinkedList)this.request.getAttribute("__htmlTags");	
         if (this.tags == null) {	
@@ -72,6 +61,7 @@ extends HTMLTagSupportWrapper {
         this.tags.add(this);	
     }	
 	
+    @Override	
     public void init(Context ctx, Object[] args, Statement st) {	
         HTMLTag hTMLTag = this;	
         super.init(ctx, args, st);	
@@ -83,7 +73,7 @@ extends HTMLTagSupportWrapper {
         HTMLTag a = null;	
         Iterator iterator2 = iterator = this.tags.iterator();	
         while (iterator2.hasNext()) {	
-            HTMLTag a2 = (HTMLTag)((Object)iterator.next());	
+            HTMLTag a2 = (HTMLTag)iterator.next();	
             if (a2 == this) {	
                 return a;	
             }	
@@ -111,7 +101,7 @@ extends HTMLTagSupportWrapper {
             Map a = (Map)this.args[1];	
             return a;	
         }	
-        HashMap a = MapUtils.newHashMap();	
+        HashMap<String, Object> a = MapUtils.newHashMap();	
         return a;	
     }	
 }	

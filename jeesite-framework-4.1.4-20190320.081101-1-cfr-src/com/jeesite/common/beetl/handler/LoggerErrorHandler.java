@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.commons.lang3.StringUtils	
- *  org.beetl.core.Configuration	
- *  org.beetl.core.ErrorHandler	
- *  org.beetl.core.GroupTemplate	
- *  org.beetl.core.Resource	
- *  org.beetl.core.ResourceLoader	
- *  org.beetl.core.exception.BeetlException	
- *  org.beetl.core.exception.ErrorInfo	
- *  org.beetl.core.statement.GrammarToken	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.common.beetl.handler;	
 	
@@ -45,10 +32,11 @@ implements ErrorHandler {
         return new SimpleDateFormat("hh:mm:ss").format(a);	
     }	
 	
+    @Override	
     public void processExcption(BeetlException ex, Writer writer) {	
         ErrorInfo a = new ErrorInfo(ex);	
         if (a.getErrorCode().equals("CLIENT_IO_ERROR_ERROR") && !ex.gt.getConf().isIgnoreClientIOError()) {	
-            this.logger.error(new StringBuilder().insert(0, "客户端IO异常:").append(this.getResourceName(ex.resource.getId())).append(":").append(a.getMsg()).toString(), (Throwable)ex);	
+            this.logger.error(new StringBuilder().insert(0, "客户端IO异常:").append(this.getResourceName(ex.resource.getId())).append(":").append(a.getMsg()).toString(), ex);	
             return;	
         }	
         ErrorInfo errorInfo = a;	
@@ -93,19 +81,19 @@ implements ErrorHandler {
             a4.append("  ========================\n");	
             int n = a12;	
             while (n < a.getResourceCallStack().size()) {	
-                StringBuilder stringBuilder = new StringBuilder().insert(0, "  ").append(a.getResourceCallStack().get(a12)).append(" 行：").append(((GrammarToken)a.getTokenCallStack().get((int)a12)).line);	
+                StringBuilder stringBuilder = new StringBuilder().insert(0, "  ").append(a.getResourceCallStack().get(a12)).append(" 行：").append(a.getTokenCallStack().get((int)a12).line);	
                 a4.append(stringBuilder.append("\n").toString());	
                 n = ++a12;	
             }	
         }	
         if (a6 != null && a6.getResourceLoader() instanceof L) {	
-            this.logger.error(a4.toString(), (Throwable)ex);	
+            this.logger.error(a4.toString(), ex);	
         }	
-        throw new BeetlException(a4.toString(), (Throwable)ex);	
+        throw new BeetlException(a4.toString(), ex);	
     }	
 	
     protected String getResourceName(String resourceId) {	
-        return StringUtils.abbreviate((String)resourceId, (int)1000);	
+        return StringUtils.abbreviate(resourceId, 1000);	
     }	
 	
     public LoggerErrorHandler() {	

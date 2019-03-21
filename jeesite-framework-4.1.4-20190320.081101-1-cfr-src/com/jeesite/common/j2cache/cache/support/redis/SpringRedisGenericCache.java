@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.oschina.j2cache.Level2Cache	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.dao.DataAccessException	
- *  org.springframework.data.redis.connection.RedisConnection	
- *  org.springframework.data.redis.core.RedisCallback	
- *  org.springframework.data.redis.core.RedisOperations	
- *  org.springframework.data.redis.core.RedisTemplate	
- *  org.springframework.data.redis.core.ValueOperations	
  */	
 package com.jeesite.common.j2cache.cache.support.redis;	
 	
@@ -46,14 +35,17 @@ implements Level2Cache {
     private String namespace;	
     private RedisTemplate<String, Serializable> redisTemplate;	
 	
+    @Override	
     public void clear() {	
-        this.keys().stream().forEach(k2 -> this.redisTemplate.delete(k2));	
+        this.keys().stream().forEach(k2 -> this.redisTemplate.delete((String)k2));	
     }	
 	
+    @Override	
     public boolean exists(String key) {	
-        return (Boolean)this.redisTemplate.execute(redis -> redis.exists(this._key(key)));	
+        return this.redisTemplate.execute(redis -> redis.exists(this._key(key)));	
     }	
 	
+    @Override	
     public void setBytes(Map<String, byte[]> bytes) {	
         bytes.forEach((k2, v) -> this.setBytes((String)k2, (byte[])v));	
     }	
@@ -67,6 +59,7 @@ implements Level2Cache {
         this.region = this.getRegionName(region);	
     }	
 	
+    @Override	
     public /* varargs */ void evict(String ... keys) {	
         int n;	
         String[] arrstring = keys;	
@@ -74,11 +67,12 @@ implements Level2Cache {
         int n3 = n = 0;	
         while (n3 < n2) {	
             String a = arrstring[n];	
-            this.redisTemplate.execute(redis -> redis.del((byte[][])new byte[][]{this._key(a)}));	
+            this.redisTemplate.execute(redis -> redis.del(new byte[][]{this._key(a)}));	
             n3 = ++n;	
         }	
     }	
 	
+    @Override	
     public void setBytes(Map<String, byte[]> bytes, long timeToLiveInSeconds) {	
         bytes.forEach((k2, v) -> this.setBytes((String)k2, (byte[])v, timeToLiveInSeconds));	
     }	
@@ -95,22 +89,24 @@ implements Level2Cache {
         }	
     }	
 	
+    @Override	
     public Collection<String> keys() {	
-        Iterator iterator;	
-        Set a = this.redisTemplate.keys((Object)new StringBuilder().insert(0, this.region).append(":*").toString());	
+        Iterator<String> iterator;	
+        Set<String> a = this.redisTemplate.keys(new StringBuilder().insert(0, this.region).append(":*").toString());	
         ArrayList<String> a2 = new ArrayList<String>(a.size());	
-        Iterator iterator2 = iterator = a.iterator();	
+        Iterator<String> iterator2 = iterator = a.iterator();	
         while (iterator2.hasNext()) {	
             void a3;	
-            String string = (String)iterator.next();	
+            String string = iterator.next();	
             iterator2 = iterator;	
             a2.add((String)a3);	
         }	
         return a2;	
     }	
 	
+    @Override	
     public byte[] getBytes(String key) {	
-        return (byte[])this.redisTemplate.execute(redis -> redis.get(this._key(key)));	
+        return this.redisTemplate.execute(redis -> redis.get(this._key(key)));	
     }	
 	
     private /* synthetic */ String getRegionName(String region) {	
@@ -120,6 +116,7 @@ implements Level2Cache {
         return region;	
     }	
 	
+    @Override	
     public void setBytes(String key, byte[] bytes, long timeToLiveInSeconds) {	
         if (timeToLiveInSeconds <= 0L) {	
             log.debug(String.format("Invalid timeToLiveInSeconds value : %d , skipped it.", timeToLiveInSeconds));	
@@ -127,18 +124,20 @@ implements Level2Cache {
             return;	
         }	
         this.redisTemplate.opsForValue().getOperations().execute(redis -> {	
-            redis.setEx(this._key(key), (long)((int)timeToLiveInSeconds), bytes);	
+            redis.setEx(this._key(key), (int)timeToLiveInSeconds, bytes);	
             return null;	
         });	
     }	
 	
+    @Override	
     public List<byte[]> getBytes(Collection<String> keys) {	
-        return (List)this.redisTemplate.execute(redis -> {	
+        return this.redisTemplate.execute(redis -> {	
             byte[][] a = (byte[][])keys.stream().map(k2 -> this._key((String)k2)).toArray(x$0 -> new byte[x$0][]);	
             return redis.mGet(a);	
         });	
     }	
 	
+    @Override	
     public void setBytes(String key, byte[] bytes) {	
         this.redisTemplate.execute(redis -> {	
             redis.set(this._key(key), bytes);	

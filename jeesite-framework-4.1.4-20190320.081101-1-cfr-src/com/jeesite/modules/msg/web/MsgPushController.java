@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.msg.web;	
 	
@@ -56,16 +43,16 @@ extends BaseController {
     @RequiresPermissions(value={"msg:msgPush:view"})	
     @RequestMapping(value={"form"})	
     public String form(MsgPush msgPush, boolean pushed, Model model) {	
-        model.addAttribute("msgPush", (Object)msgPush);	
-        model.addAttribute("pushed", (Object)pushed);	
+        model.addAttribute("msgPush", msgPush);	
+        model.addAttribute("pushed", pushed);	
         return "modules/msg/msgPushForm";	
     }	
 	
     @RequiresPermissions(value={"msg:msgPush:view"})	
     @RequestMapping(value={"list", ""})	
     public String list(MsgPush msgPush, boolean pushed, Model model) {	
-        model.addAttribute("msgPush", (Object)msgPush);	
-        model.addAttribute("pushed", (Object)pushed);	
+        model.addAttribute("msgPush", msgPush);	
+        model.addAttribute("pushed", pushed);	
         return "modules/msg/msgPushList";	
     }	
 	
@@ -83,7 +70,7 @@ extends BaseController {
     @ModelAttribute	
     public MsgPush get(String id, boolean isNewRecord, boolean pushed) {	
         MsgPush a = null;	
-        if (StringUtils.isNotBlank((CharSequence)id)) {	
+        if (StringUtils.isNotBlank(id)) {	
             a = new MsgPush(id);	
             if (pushed) {	
                 a = new MsgPushed(a);	

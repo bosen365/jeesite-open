@@ -1,15 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.IOUtils	
- *  com.jeesite.common.io.ResourceUtils	
- *  com.jeesite.common.lang.DateUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.apache.ibatis.jdbc.ScriptRunner	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.beans.factory.annotation.Autowired	
  */	
 package com.jeesite.common.v;	
 	
@@ -96,10 +86,10 @@ public class i {
                 a2 = null;	
                 String a5 = Global.getJdbcType();	
                 a = new StringBuilder().insert(0, "/dbEupgradeE").append(module.getModuleCode()).append("/").append(a5).append("E").append(a5).append("_").append(currentVersion).append(".sql").toString();	
-                a3 = ResourceUtils.getResourceFileStream((String)a);	
-                String a6 = IOUtils.toString((InputStream)a3, (String)"UTF-8");	
+                a3 = ResourceUtils.getResourceFileStream(a);	
+                String a6 = IOUtils.toString(a3, "UTF-8");	
                 b.info(new StringBuilder().insert(0, "检测到").append(module.getModuleCode()).append("模块的数据库有更新，现在运行数据库升级脚本：{}\r\n").toString(), (Object)a);	
-                a6 = StringUtils.replace((String)a6, (String)"${_prefix}", (String)Global.getTablePrefix());	
+                a6 = StringUtils.replace(a6, "${_prefix}", Global.getTablePrefix());	
                 String a7 = "______sql_scrit_delimiter______";	
                 a6 = a6.replaceAll(";([ \f\t\v]*)([\r|\n]|$)", new StringBuilder().insert(0, a7).append("\n").toString());	
                 a2 = this.i.getConnection();	
@@ -109,7 +99,7 @@ public class i {
                 v0.setDelimiter(a7);	
                 v0.setFullLineDelimiter(false);	
                 void v1 = a4;	
-                v0.runScript((Reader)new StringReader(a6));	
+                v0.runScript(new StringReader(a6));	
                 b.info(new StringBuilder().insert(0, "恭喜您").append(module.getModuleCode()).append("模块的数据库已升级完成：{}").toString(), (Object)a);	
                 bl = true;	
                 if (a3 == null) break block24;	
@@ -231,9 +221,9 @@ public class i {
             return;	
         }	
         a = (String)CacheUtils.get("jeesiteVersion");	
-        if (StringUtils.isBlank((CharSequence)a)) {	
+        if (StringUtils.isBlank(a)) {	
             CacheUtils.put("jeesiteVersion", i.ALLATORIxDEMO());	
-        } else if (!StringUtils.equals((CharSequence)a, (CharSequence)i.ALLATORIxDEMO())) {	
+        } else if (!StringUtils.equals(a, i.ALLATORIxDEMO())) {	
             CacheUtils.clearCache();	
         }	
         var3_2 = ModuleUtils.getModuleList().values().iterator();	
@@ -253,7 +243,7 @@ public class i {
                     return;	
                 }	
                 a = a.getCurrentVersion();	
-                if (!StringUtils.isBlank((CharSequence)a)) break block11;	
+                if (!StringUtils.isBlank(a)) break block11;	
                 if (a.getVersions().length <= 0) ** GOTO lbl-1000	
                 a = a.getVersions()[0];	
             }	
@@ -262,7 +252,7 @@ public class i {
             do {	
                 if (v1 >= a.getVersions().length) ** GOTO lbl-1000	
                 a = a.getCurrentVersion();	
-                if (StringUtils.isBlank((CharSequence)a)) {	
+                if (StringUtils.isBlank(a)) {	
                     a = a;	
                 }	
                 if ((a = this.ALLATORIxDEMO(a, a)) == null) ** GOTO lbl-1000	
@@ -272,7 +262,7 @@ public class i {
                     a.setUpgradeInfo("upgrade " + DateUtils.getDateTime() + " (" + a + " -> " + a + ")");	
                     this.ALLATORIxDEMO.update(a);	
                 }	
-                if (StringUtils.equals((CharSequence)a, (CharSequence)a)) continue block0;	
+                if (StringUtils.equals(a, a)) continue block0;	
                 v1 = ++a;	
             } while (true);	
             break;	

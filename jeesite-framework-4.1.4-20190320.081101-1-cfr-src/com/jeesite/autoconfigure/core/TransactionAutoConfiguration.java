@@ -1,22 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.atomikos.icatch.jta.UserTransactionImp	
- *  com.atomikos.icatch.jta.UserTransactionManager	
- *  javax.transaction.TransactionManager	
- *  javax.transaction.UserTransaction	
- *  org.springframework.boot.autoconfigure.AutoConfigureAfter	
- *  org.springframework.boot.autoconfigure.AutoConfigureBefore	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration	
- *  org.springframework.context.annotation.Bean	
- *  org.springframework.context.annotation.Configuration	
- *  org.springframework.context.annotation.DependsOn	
- *  org.springframework.jdbc.datasource.DataSourceTransactionManager	
- *  org.springframework.transaction.PlatformTransactionManager	
- *  org.springframework.transaction.annotation.EnableTransactionManagement	
- *  org.springframework.transaction.jta.JtaTransactionManager	
  */	
 package com.jeesite.autoconfigure.core;	
 	
@@ -75,7 +58,7 @@ public class TransactionAutoConfiguration {
     @ConditionalOnProperty(name={"jdbc.jta.enabled"}, havingValue="true", matchIfMissing=false)	
     public UserTransaction userTransaction() throws Throwable {	
         UserTransactionImp userTransactionImp = new UserTransactionImp();	
-        userTransactionImp.setTransactionTimeout(Global.getPropertyToInteger("jdbc.jta.transactionTimeout", String.valueOf(180)).intValue());	
+        userTransactionImp.setTransactionTimeout(Global.getPropertyToInteger("jdbc.jta.transactionTimeout", String.valueOf(180)));	
         return userTransactionImp;	
     }	
 	

@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.lang.DateUtils	
- *  com.jeesite.common.lang.StringUtils	
  */	
 package com.jeesite.modules.file.entity;	
 	
@@ -16,7 +10,6 @@ import com.jeesite.common.lang.DateUtils;
 import com.jeesite.common.lang.StringUtils;	
 import com.jeesite.common.web.returnjson.ReturnJsonSerializer;	
 import java.io.Serializable;	
-import java.util.HashMap;	
 import java.util.Map;	
 import org.hyperic.sigar.shell.ShellCommandInitException;	
 	
@@ -95,7 +88,7 @@ implements Serializable {
 	
     public FileUploadParams initialize() {	
         this.uploadPath = Global.getProperty("file.uploadPath", "{yy}{MM}/");	
-        String[] a = StringUtils.substringsBetween((String)this.uploadPath, (String)"{", (String)"}");	
+        String[] a = StringUtils.substringsBetween(this.uploadPath, "{", "}");	
         if (a != null) {	
             int n;	
             String[] arrstring = a;	
@@ -103,17 +96,17 @@ implements Serializable {
             int n3 = n = 0;	
             while (n3 < n2) {	
                 String a2 = arrstring[n];	
-                if (StringUtils.inString((String)a2, (String[])new String[]{"yyyy", "MM", "dd", "HH", "mm", "ss", "E"})) {	
-                    this.uploadPath = StringUtils.replace((String)this.uploadPath, (String)new StringBuilder().insert(0, "{").append(a2).append("}").toString(), (String)DateUtils.getDate((String)a2));	
+                if (StringUtils.inString(a2, "yyyy", "MM", "dd", "HH", "mm", "ss", "E")) {	
+                    this.uploadPath = StringUtils.replace(this.uploadPath, new StringBuilder().insert(0, "{").append(a2).append("}").toString(), DateUtils.getDate(a2));	
                 }	
                 n3 = ++n;	
             }	
         }	
-        this.relativePath = FileUtils.path((String)this.uploadPath);	
+        this.relativePath = FileUtils.path(this.uploadPath);	
         String a3 = Global.getProperty("file.maxFileSize");	
-        if (StringUtils.isNotBlank((CharSequence)a3)) {	
+        if (StringUtils.isNotBlank(a3)) {	
             int n;	
-            String[] a4 = StringUtils.split((String)a3, (String)"*");	
+            String[] a4 = StringUtils.split(a3, "*");	
             this.maxFileSize = 1L;	
             String[] arrstring = a4;	
             int a2 = a4.length;	
@@ -132,7 +125,7 @@ implements Serializable {
         if (this.fileName != null) {	
             FileUploadParams fileUploadParams = this;	
             fileUploadParams.fileName = fileUploadParams.fileName.trim();	
-            fileUploadParams.fileExtension = FileUtils.getFileExtension((String)fileUploadParams.fileName);	
+            fileUploadParams.fileExtension = FileUtils.getFileExtension(fileUploadParams.fileName);	
         }	
         FileUploadParams fileUploadParams = this;	
         fileUploadParams.imageAllowSuffixes = Global.getProperty("file.imageAllowSuffixes", "-1");	
@@ -152,13 +145,13 @@ implements Serializable {
             this.allowSuffixes = this.fileAllowSuffixes;	
             return this;	
         }	
-        if (StringUtils.contains((CharSequence)this.imageAllowSuffixes, (CharSequence)new StringBuilder().insert(0, ".").append(this.fileExtension).append(",").toString())) {	
+        if (StringUtils.contains((CharSequence)this.imageAllowSuffixes, new StringBuilder().insert(0, ".").append(this.fileExtension).append(",").toString())) {	
             this.uploadType = "image";	
         }	
-        if (StringUtils.contains((CharSequence)this.mediaAllowSuffixes, (CharSequence)new StringBuilder().insert(0, ".").append(this.fileExtension).append(",").toString())) {	
+        if (StringUtils.contains((CharSequence)this.mediaAllowSuffixes, new StringBuilder().insert(0, ".").append(this.fileExtension).append(",").toString())) {	
             this.uploadType = "media";	
         }	
-        if (StringUtils.contains((CharSequence)this.fileAllowSuffixes, (CharSequence)new StringBuilder().insert(0, ".").append(this.fileExtension).append(",").toString())) {	
+        if (StringUtils.contains((CharSequence)this.fileAllowSuffixes, new StringBuilder().insert(0, ".").append(this.fileExtension).append(",").toString())) {	
             this.uploadType = "file";	
         }	
         this.allowSuffixes = new StringBuilder().insert(0, this.imageAllowSuffixes).append(",").append(this.mediaAllowSuffixes).append(",").append(this.fileAllowSuffixes).append(",").toString();	

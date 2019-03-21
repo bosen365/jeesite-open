@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.callback.MethodCallback	
- *  com.jeesite.common.io.IOUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.apache.commons.io.FileUtils	
- *  org.apache.commons.logging.Log	
- *  org.apache.ibatis.jdbc.ScriptRunner	
- *  org.springframework.jdbc.core.JdbcTemplate	
  */	
 package com.jeesite.common.tests;	
 	
@@ -43,7 +34,7 @@ extends BaseSpringContextTests {
         super.begin();	
         if (!"true".equals(System.getProperty("jeesite.initdata"))) {	
             String a = "为了防止误操作，请运行时增加 -Djeesite.initdata=true 参数。";	
-            this.logger.error((Object)a);	
+            this.logger.error(a);	
             throw new RuntimeException(a);	
         }	
     }	
@@ -55,7 +46,7 @@ extends BaseSpringContextTests {
             a2 = new StringBuilder().insert(0, a2).append(" IMMEDIATE").toString();	
         }	
         BaseInitDataTests baseInitDataTests = this;	
-        baseInitDataTests.logger.debug((Object)a2);	
+        baseInitDataTests.logger.debug(a2);	
         baseInitDataTests.jdbcTemplate.update(a2);	
     }	
 	
@@ -73,10 +64,10 @@ extends BaseSpringContextTests {
                     void a3;	
                     sqlFile = new StringBuilder().insert(0, "db/").append(Global.getJdbcType()).append("/").append(sqlFile).toString();	
                     BaseInitDataTests baseInitDataTests = this;	
-                    baseInitDataTests.logger.debug((Object)new StringBuilder().insert(0, "runScript: ").append(sqlFile).toString());	
-                    a2 = FileUtils.openInputStream((File)new File(sqlFile));	
-                    String a4 = IOUtils.toString((InputStream)a2, (String)"UTF-8");	
-                    a4 = StringUtils.replace((String)a4, (String)"${_prefix}", (String)Global.getTablePrefix());	
+                    baseInitDataTests.logger.debug(new StringBuilder().insert(0, "runScript: ").append(sqlFile).toString());	
+                    a2 = FileUtils.openInputStream(new File(sqlFile));	
+                    String a4 = IOUtils.toString(a2, "UTF-8");	
+                    a4 = StringUtils.replace(a4, "${_prefix}", Global.getTablePrefix());	
                     String a5 = "______sql_script_delimiter______";	
                     a4 = a4.replaceAll(";([ \f\t\v]*)([\r|\n]|$)", new StringBuilder().insert(0, a5).append("\n").toString());	
                     a = baseInitDataTests.dataSource.getConnection();	
@@ -86,8 +77,8 @@ extends BaseSpringContextTests {
                     v1.setDelimiter(a5);	
                     v1.setFullLineDelimiter(false);	
                     void v2 = a3;	
-                    v1.runScript((Reader)new StringReader(a4));	
-                    baseInitDataTests.logger.debug((Object)new StringBuilder().insert(0, "runScript Complete: ").append(sqlFile).toString());	
+                    v1.runScript(new StringReader(a4));	
+                    baseInitDataTests.logger.debug(new StringBuilder().insert(0, "runScript Complete: ").append(sqlFile).toString());	
                     if (a2 == null) break block13;	
                 }	
                 catch (Throwable throwable) {	

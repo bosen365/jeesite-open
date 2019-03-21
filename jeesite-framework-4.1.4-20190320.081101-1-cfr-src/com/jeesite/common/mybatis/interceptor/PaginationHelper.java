@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.reflect.ReflectUtils	
- *  org.apache.ibatis.mapping.BoundSql	
- *  org.apache.ibatis.mapping.MappedStatement	
- *  org.apache.ibatis.scripting.defaults.DefaultParameterHandler	
- *  org.apache.ibatis.session.Configuration	
- *  org.apache.ibatis.session.RowBounds	
  */	
 package com.jeesite.common.mybatis.interceptor;	
 	
@@ -32,6 +23,7 @@ import java.util.List;
 import java.util.Map;	
 import org.apache.ibatis.mapping.BoundSql;	
 import org.apache.ibatis.mapping.MappedStatement;	
+import org.apache.ibatis.mapping.ParameterMapping;	
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;	
 import org.apache.ibatis.session.Configuration;	
 import org.apache.ibatis.session.RowBounds;	
@@ -87,7 +79,7 @@ public class PaginationHelper {
             if (!(parameterObject instanceof Map)) break block5;	
             return (Page)((Map)parameterObject).get("page");	
         }	
-        return (Page)ReflectUtils.getFieldValue((Object)parameterObject, (String)"page");	
+        return (Page)ReflectUtils.getFieldValue(parameterObject, "page");	
     }	
 	
     public static String getPageSql(String sql, RowBounds rowBounds) {	

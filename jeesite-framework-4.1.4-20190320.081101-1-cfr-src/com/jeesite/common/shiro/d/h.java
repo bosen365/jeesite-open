@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.SetUtils	
- *  net.oschina.j2cache.CacheChannel	
- *  net.oschina.j2cache.CacheChannel$Region	
- *  net.oschina.j2cache.CacheProviderHolder	
- *  org.apache.shiro.cache.Cache	
- *  org.apache.shiro.cache.CacheException	
  */	
 package com.jeesite.common.shiro.d;	
 	
@@ -29,7 +21,7 @@ public class h
 implements i {	
     @Override	
     public Set<String> ALLATORIxDEMO() {	
-        HashSet a = SetUtils.newHashSet();	
+        HashSet<String> a = SetUtils.newHashSet();	
         CacheProviderHolder.getL1Provider().regions().forEach(fegion -> a.add(fegion.getName()));	
         return a;	
     }	
@@ -45,7 +37,7 @@ implements i {
 	
     @Override	
     public void ALLATORIxDEMO(String cacheName) {	
-        CacheProviderHolder.getLevel1Cache((String)cacheName).clear();	
+        CacheProviderHolder.getLevel1Cache(cacheName).clear();	
         CacheProviderHolder.getL1Provider().removeCache(cacheName);	
     }	
 }	

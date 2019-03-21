@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.beetl.core.Context	
- *  org.beetl.core.Function	
  */	
 package com.jeesite.common.beetl.ext.fn;	
 	
@@ -13,6 +9,7 @@ import org.beetl.core.Function;
 	
 public class Lang	
 implements Function {	
+    @Override	
     public Object call(Object[] paras, Context ctx) {	
         return Global.getLang();	
     }	

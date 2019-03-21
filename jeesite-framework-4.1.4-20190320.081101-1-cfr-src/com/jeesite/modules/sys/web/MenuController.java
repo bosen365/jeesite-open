@@ -1,21 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.validation.annotation.Validated	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -73,19 +57,19 @@ extends BaseController {
     @ResponseBody	
     public List<Map<String, Object>> treeData(String excludeCode, String isShowHide, String sysCode, boolean isShowNameOrig, HttpServletResponse response) {	
         int a;	
-        ArrayList a2 = ListUtils.newArrayList();	
+        ArrayList<Map<String, Object>> a2 = ListUtils.newArrayList();	
         List<Menu> a3 = this.menuService.findList(new Menu());	
         int n = a = 0;	
         while (n < a3.size()) {	
             Menu a4 = a3.get(a);	
-            if (!(!"0".equals(a4.getStatus()) || StringUtils.isNotBlank((CharSequence)excludeCode) && (a4.getId().equals(excludeCode) || a4.getParentCodes().contains(new StringBuilder().insert(0, ",").append(excludeCode).append(",").toString())) || StringUtils.isNotBlank((CharSequence)isShowHide) && isShowHide.equals("0") && a4.getIsShow().equals("0") || StringUtils.isNotBlank((CharSequence)sysCode) && !sysCode.equals(a4.getSysCode()))) {	
+            if (!(!"0".equals(a4.getStatus()) || StringUtils.isNotBlank(excludeCode) && (a4.getId().equals(excludeCode) || a4.getParentCodes().contains(new StringBuilder().insert(0, ",").append(excludeCode).append(",").toString())) || StringUtils.isNotBlank(isShowHide) && isShowHide.equals("0") && a4.getIsShow().equals("0") || StringUtils.isNotBlank(sysCode) && !sysCode.equals(a4.getSysCode()))) {	
                 void a5;	
-                HashMap hashMap = MapUtils.newHashMap();	
+                HashMap<String, String> hashMap = MapUtils.newHashMap();	
                 void v1 = a5;	
                 v1.put("pId", a4.getParentCode());	
                 hashMap.put("id", a4.getId());	
                 Menu menu = a4;	
-                a2.add(a5);	
+                a2.add((Map<String, Object>)a5);	
                 v1.put("name", isShowNameOrig ? menu.getMenuNameOrig() : menu.getMenuName());	
             }	
             n = ++a;	
@@ -119,10 +103,10 @@ extends BaseController {
     @RequestMapping(value={"listData"})	
     @ResponseBody	
     public List<Menu> listData(Menu menu) {	
-        if (StringUtils.isBlank((CharSequence)menu.getParentCode())) {	
+        if (StringUtils.isBlank(menu.getParentCode())) {	
             menu.setParentCode("0");	
         }	
-        if (StringUtils.isNotBlank((CharSequence)menu.getMenuNameOrig())) {	
+        if (StringUtils.isNotBlank(menu.getMenuNameOrig())) {	
             menu.setParentCode(null);	
         }	
         return this.menuService.findList(menu);	
@@ -137,7 +121,7 @@ extends BaseController {
     @RequestMapping(value={"createNextNode"})	
     @ResponseBody	
     public Menu createNextNode(Menu menu) {	
-        if (StringUtils.isNotBlank((CharSequence)menu.getParentCode())) {	
+        if (StringUtils.isNotBlank(menu.getParentCode())) {	
             v0 = menu;	
             v0.setParent((Menu)this.menuService.get(v0.getParentCode()));	
         }	
@@ -167,13 +151,13 @@ lbl20: // 4 sources:
         if (menu.getWeight() == null) {	
             menu.setWeight(Menu.WEIGHT_SEC_ADMIN);	
         }	
-        if (StringUtils.isBlank((CharSequence)menu.getSysCode())) {	
+        if (StringUtils.isBlank(menu.getSysCode())) {	
             menu.setSysCode("default");	
         }	
-        if (StringUtils.isBlank((CharSequence)menu.getMenuType())) {	
+        if (StringUtils.isBlank(menu.getMenuType())) {	
             menu.setMenuType("1");	
         }	
-        if (StringUtils.isBlank((CharSequence)menu.getIsShow()) == false) return menu;	
+        if (StringUtils.isBlank(menu.getIsShow()) == false) return menu;	
         menu.setIsShow("1");	
         return menu;	
     }	
@@ -200,7 +184,7 @@ lbl20: // 4 sources:
     @RequiresPermissions(value={"sys:menu:view"})	
     @RequestMapping(value={"list"})	
     public String list(Menu menu, Model model) {	
-        if (StringUtils.isBlank((CharSequence)menu.getSysCode())) {	
+        if (StringUtils.isBlank(menu.getSysCode())) {	
             menu.setSysCode("default");	
         }	
         return "modules/sys/menuList";	
@@ -218,7 +202,7 @@ lbl20: // 4 sources:
         Module a = new Module();	
         List<Module> a2 = this.moduleService.findList(a);	
         model.addAttribute("moduleList", a2);	
-        model.addAttribute("menu", (Object)menu);	
+        model.addAttribute("menu", menu);	
         return "modules/sys/menuFom";	
     }	
 }	

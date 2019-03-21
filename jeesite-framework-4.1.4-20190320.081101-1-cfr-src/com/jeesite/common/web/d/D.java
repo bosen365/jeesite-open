@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.databind.ObjectMapper	
- *  com.jeesite.common.mapper.JsonMapper	
- *  org.springframework.web.servlet.view.json.MappingJackson2JsonView	
  */	
 package com.jeesite.common.web.d;	
 	
@@ -23,7 +18,7 @@ extends MappingJackson2JsonView {
     public D() {	
         D d = this;	
         d.setContentType("applicaion/json");	
-        d.setObjectMapper((ObjectMapper)JsonMapper.getInstance());	
+        d.setObjectMapper(JsonMapper.getInstance());	
         this.setJsonpParameterNames(new LinkedHashSet<String>(Arrays.asList("__callack")));	
     }	
 }	

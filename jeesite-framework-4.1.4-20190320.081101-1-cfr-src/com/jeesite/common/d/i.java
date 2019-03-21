@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.ResourceUtils	
- *  org.json.JSONArray	
- *  org.json.JSONObject	
  */	
 package com.jeesite.common.d;	
 	
@@ -135,7 +130,7 @@ public final class i {
     }	
 	
     private /* synthetic */ void ALLATORIxDEMO() throws FileNotFoundException, IOException {	
-        String a = ResourceUtils.getResourceFileContent((String)J).replaceAll("/\*[\s\S]*?\*/", "");	
+        String a = ResourceUtils.getResourceFileContent(J).replaceAll("/\*[\s\S]*?\*/", "");	
         try {	
             JSONObject a2;	
             this.ALLATORIxDEMO = a2 = new JSONObject(a);	

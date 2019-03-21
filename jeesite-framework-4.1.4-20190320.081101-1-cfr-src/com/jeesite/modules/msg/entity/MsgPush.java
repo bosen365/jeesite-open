@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonFormat	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  javax.validation.constraints.NotBlank	
- *  javax.validation.constraints.NotNull	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.msg.entity;	
 	
@@ -86,15 +75,15 @@ extends DataEntity<MsgPush> {
 	
     public Map<String, Object> getMsgContentEntity() {	
         void a;	
-        if (StringUtils.isNotBlank((CharSequence)this.msgContent)) {	
+        if (StringUtils.isNotBlank(this.msgContent)) {	
             try {	
-                return (Map)JsonMapper.getInstance().readValue(this.msgContent, Map.class);	
+                return JsonMapper.getInstance().readValue(this.msgContent, Map.class);	
             }	
             catch (Exception exception) {	
                 // empty catch block	
             }	
         }	
-        HashMap hashMap = MapUtils.newHashMap();	
+        HashMap<String, String> hashMap = MapUtils.newHashMap();	
         void v0 = a;	
         v0.put("content", "内容格式错误！");	
         hashMap.put("title", "格式错误");	
@@ -151,8 +140,8 @@ extends DataEntity<MsgPush> {
 	
     public void addPushReturnContent(String pushReturnContent) {	
         MsgPush msgPush = this;	
-        msgPush.setPushNumber(ObjectUtils.toInteger((Object)msgPush.getPushNumber()) + 1);	
-        this.pushReturnContent = StringUtils.isBlank((CharSequence)msgPush.pushReturnContent) ? "" : this.pushReturnContent + "；第" + this.pushNumber + "次：";	
+        msgPush.setPushNumber(ObjectUtils.toInteger(msgPush.getPushNumber()) + 1);	
+        this.pushReturnContent = StringUtils.isBlank(msgPush.pushReturnContent) ? "" : this.pushReturnContent + "；第" + this.pushNumber + "次：";	
         this.pushReturnContent = this.pushReturnContent + pushReturnContent;	
     }	
 	
@@ -169,7 +158,7 @@ extends DataEntity<MsgPush> {
     }	
 	
     public <E> E parseMsgContent(Class<? extends BaseMsgContent> clazz) {	
-        if (StringUtils.isNotBlank((CharSequence)this.msgContent)) {	
+        if (StringUtils.isNotBlank(this.msgContent)) {	
             try {	
                 return (E)JsonMapper.getInstance().readValue(this.msgContent, clazz);	
             }	
@@ -207,14 +196,14 @@ extends DataEntity<MsgPush> {
             MsgPush msgPush;	
             BaseMsgContent baseMsgContent = msgContentEntity;	
             this.msgType = baseMsgContent.getMsgType();	
-            if (StringUtils.isNotBlank((CharSequence)baseMsgContent.getTitle())) {	
+            if (StringUtils.isNotBlank(baseMsgContent.getTitle())) {	
                 msgPush = this;	
                 this.msgTitle = msgContentEntity.getTitle();	
             } else {	
                 msgPush = this;	
-                this.msgTitle = StringUtils.abbr((String)msgContentEntity.getContent(), (int)50);	
+                this.msgTitle = StringUtils.abbr(msgContentEntity.getContent(), 50);	
             }	
-            msgPush.msgContent = JsonMapper.toJson((Object)msgContentEntity);	
+            msgPush.msgContent = JsonMapper.toJson(msgContentEntity);	
         }	
     }	
 	

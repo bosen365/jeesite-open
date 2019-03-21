@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
  */	
 package com.jeesite.common.mybatis.mapper.query;	
 	
@@ -53,7 +49,7 @@ implements Serializable {
         int n;	
         StringBuilder a = new StringBuilder();	
         Table a2 = MapperHelper.getTable(this.entity);	
-        ArrayList a3 = ListUtils.newArrayList();	
+        ArrayList<Column> a3 = ListUtils.newArrayList();	
         this.addEntityColumns(a, a3, null, a2.alias());	
         JoinTable[] arrjoinTable = a2.joinTable();	
         MapperHelper.getColumns(a2, a3);	
@@ -84,17 +80,17 @@ implements Serializable {
         while (iterator2.hasNext()) {	
             Column a = iterator.next();	
             String a2 = MapperHelper.getAttrName(a);	
-            if (StringUtils.isNotBlank((CharSequence)attrNamePrefix) && !"this".equals(attrNamePrefix)) {	
+            if (StringUtils.isNotBlank(attrNamePrefix) && !"this".equals(attrNamePrefix)) {	
                 a2 = new StringBuilder().insert(0, attrNamePrefix).append(".").append(a2).toString();	
             }	
-            if (StringUtils.contains((CharSequence)sql, (CharSequence)new StringBuilder().insert(0, """).append(a2).append(""").toString())) {	
+            if (StringUtils.contains((CharSequence)sql, new StringBuilder().insert(0, """).append(a2).append(""").toString())) {	
                 iterator2 = iterator;	
                 continue;	
             }	
             if (sql.length() != 0) {	
                 sql.append(", ");	
             }	
-            if (StringUtils.isNotBlank((CharSequence)tableAlias)) {	
+            if (StringUtils.isNotBlank(tableAlias)) {	
                 sql.append(tableAlias + ".");	
             }	
             sql.append(""");	

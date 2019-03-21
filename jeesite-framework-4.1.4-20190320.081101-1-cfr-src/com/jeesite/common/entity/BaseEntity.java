@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.reflect.ReflectUtils	
  */	
 package com.jeesite.common.entity;	
 	
@@ -60,7 +53,7 @@ implements Serializable {
     @JsonIgnore	
     @XmlTransient	
     public String getCorpName() {	
-        if (StringUtils.isBlank((CharSequence)this.corpName)) {	
+        if (StringUtils.isBlank(this.corpName)) {	
             this.corpName = CorpUtils.getCurrentCorpName();	
         }	
         return this.corpName;	
@@ -114,28 +107,28 @@ implements Serializable {
     public String getId() {	
         BaseEntity baseEntity;	
         block9 : {	
-            if (StringUtils.isBlank((CharSequence)this.id)) {	
+            if (StringUtils.isBlank(this.id)) {	
                 this.idColumnName = "";	
                 this.idAttrName = "";	
                 this.id = "";	
                 Table a = MapperHelper.getTable(this);	
-                ArrayList a2 = ListUtils.newArrayList();	
+                ArrayList<Column> a2 = ListUtils.newArrayList();	
                 for (Column a3 : MapperHelper.getColumns(a, a2)) {	
                     block8 : {	
                         if (!a3.isPK()) continue;	
                         BaseEntity baseEntity2 = this;	
                         baseEntity2.columnNameAndAttrName(a3);	
-                        if (!StringUtils.equals((CharSequence)baseEntity2.idAttrName, (CharSequence)"id")) break block8;	
+                        if (!StringUtils.equals(baseEntity2.idAttrName, "id")) break block8;	
                         baseEntity = this;	
                     }	
                     try {	
                         String a4;	
                         BaseEntity baseEntity3 = this;	
                         String a5 = baseEntity3.idAttrName;	
-                        if (StringUtils.contains((CharSequence)baseEntity3.idAttrName, (CharSequence)"#")) {	
-                            a5 = StringUtils.substringAfterLast((String)this.idAttrName, (String)"#");	
+                        if (StringUtils.contains((CharSequence)baseEntity3.idAttrName, "#")) {	
+                            a5 = StringUtils.substringAfterLast(this.idAttrName, "#");	
                         }	
-                        if ((a4 = ObjectUtils.toString((Object)ReflectUtils.invokeGetter((Object)this, (String)a5))) == null) continue;	
+                        if ((a4 = ObjectUtils.toString(ReflectUtils.invokeGetter(this, a5))) == null) continue;	
                         if (this.id.length() != 0) {	
                             this.id = this.id + "#";	
                         }	
@@ -150,19 +143,19 @@ implements Serializable {
             }	
             baseEntity = this;	
         }	
-        if (StringUtils.isBlank((CharSequence)baseEntity.id)) {	
+        if (StringUtils.isBlank(baseEntity.id)) {	
             return null;	
         }	
         return this.id;	
     }	
 	
     public boolean getIsNewRecord() {	
-        this.isNewRecord = this.isNewRecord || StringUtils.isBlank((CharSequence)this.getId());	
+        this.isNewRecord = this.isNewRecord || StringUtils.isBlank(this.getId());	
         return this.isNewRecord;	
     }	
 	
     public void setOrderBy(String orderBy) {	
-        if (StringUtils.isNotBlank((CharSequence)orderBy)) {	
+        if (StringUtils.isNotBlank(orderBy)) {	
             if (this.page == null) {	
                 BaseEntity baseEntity = this;	
                 baseEntity.page = new Page();	
@@ -172,7 +165,7 @@ implements Serializable {
     }	
 	
     public Object clone() {	
-        return ObjectUtils.cloneBean((Object)this);	
+        return ObjectUtils.cloneBean(this);	
     }	
 	
     public void preUpdate() {	
@@ -181,7 +174,7 @@ implements Serializable {
     @JsonIgnore	
     @XmlTransient	
     public String getCorpCode() {	
-        if (StringUtils.isBlank((CharSequence)this.corpCode)) {	
+        if (StringUtils.isBlank(this.corpCode)) {	
             this.corpCode = CorpUtils.getCurrentCorpCode();	
         }	
         return this.corpCode;	
@@ -288,7 +281,7 @@ implements Serializable {
     public void setId(String id) {	
         block6 : {	
             BaseEntity baseEntity;	
-            String[] a = StringUtils.split((String)id, (String)"#");	
+            String[] a = StringUtils.split(id, "#");	
             if (a == null || a.length <= 0) {	
                 a = new String[]{null};	
             }	
@@ -296,19 +289,19 @@ implements Serializable {
             this.idColumnName = "";	
             this.idAttrName = "";	
             Table a2 = MapperHelper.getTable(this);	
-            ArrayList a3 = ListUtils.newArrayList();	
+            ArrayList<Column> a3 = ListUtils.newArrayList();	
             for (Column a4 : MapperHelper.getColumns(a2, a3)) {	
                 block5 : {	
                     if (!a4.isPK()) continue;	
                     BaseEntity baseEntity2 = this;	
                     baseEntity2.columnNameAndAttrName(a4);	
-                    if (!StringUtils.equals((CharSequence)baseEntity2.idAttrName, (CharSequence)"id")) break block5;	
+                    if (!StringUtils.equals(baseEntity2.idAttrName, "id")) break block5;	
                     baseEntity = this;	
                 }	
                 try {	
                     void a5;	
                     BaseEntity baseEntity3 = this;	
-                    ReflectUtils.invokeSetter((Object)baseEntity3, (String)baseEntity3.idAttrName, (Object)a[++a5]);	
+                    ReflectUtils.invokeSetter(baseEntity3, baseEntity3.idAttrName, a[++a5]);	
                     continue;	
                 }	
                 catch (Exception exception) {	

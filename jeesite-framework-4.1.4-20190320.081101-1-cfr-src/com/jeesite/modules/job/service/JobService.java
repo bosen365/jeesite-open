@@ -1,31 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.atomikos.jdbc.AtomikosDataSourceBean	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.quartz.CronTrigger	
- *  org.quartz.JobDetail	
- *  org.quartz.JobKey	
- *  org.quartz.JobListener	
- *  org.quartz.ListenerManager	
- *  org.quartz.Scheduler	
- *  org.quartz.SchedulerException	
- *  org.quartz.SchedulerListener	
- *  org.quartz.Trigger	
- *  org.quartz.TriggerKey	
- *  org.quartz.TriggerListener	
- *  org.quartz.impl.matchers.GroupMatcher	
- *  org.quartz.impl.triggers.CronTriggerImpl	
- *  org.slf4j.Logger	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.context.annotation.DependsOn	
- *  org.springframework.scheduling.quartz.SchedulerFactoryBean	
- *  org.springframework.stereotype.Service	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.job.service;	
 	
@@ -134,9 +108,9 @@ lbl17: // 2 sources:
             v3 = this;	
             if (this.getScheduler().checkExists(a.getKey())) {	
                 v3.getScheduler().pauseTrigger(a.getKey());	
-                this.getScheduler().rescheduleJob(a.getKey(), (Trigger)a);	
+                this.getScheduler().rescheduleJob(a.getKey(), a);	
             } else {	
-                v3.getScheduler().scheduleJob((Trigger)a);	
+                v3.getScheduler().scheduleJob(a);	
             }	
             if ("2".equals(job.getStatus()) == false) return;	
             v4 = this;	
@@ -157,7 +131,7 @@ lbl17: // 2 sources:
         }	
         super.delete(job);	
         try {	
-            TriggerKey a = TriggerKey.triggerKey((String)job.getJobName(), (String)job.getJobGroup());	
+            TriggerKey a = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());	
             Trigger a2 = this.getScheduler().getTrigger(a);	
             if (a2 != null) {	
                 JobService jobService = this;	
@@ -173,15 +147,15 @@ lbl17: // 2 sources:
 	
     @Override	
     public List<JobEntity> findList(JobEntity job) {	
-        ArrayList a = ListUtils.newArrayList();	
+        ArrayList<JobEntity> a = ListUtils.newArrayList();	
         if (!ObjectUtils.toBoolean(m.ALLATORIxDEMO().get("fnJob")).booleanValue()) {	
             return a;	
         }	
         try {	
             Scheduler a2 = this.getScheduler();	
-            Iterator iterator = a2.getTriggerGroupNames().iterator();	
+            Iterator<String> iterator = a2.getTriggerGroupNames().iterator();	
             while (iterator.hasNext()) {	
-                GroupMatcher a3 = GroupMatcher.groupEquals((String)((String)iterator.next()));	
+                GroupMatcher<TriggerKey> a3 = GroupMatcher.groupEquals(iterator.next());	
                 for (TriggerKey a4 : a2.getTriggerKeys(a3)) {	
                     Trigger a5 = a2.getTrigger(a4);	
                     if (!(a5 instanceof CronTriggerImpl)) continue;	
@@ -190,7 +164,7 @@ lbl17: // 2 sources:
             }	
         }	
         catch (Exception a6) {	
-            this.logger.error("查询任务列表失败！", (Throwable)a6);	
+            this.logger.error("查询任务列表失败！", a6);	
         }	
         return a;	
     }	
@@ -207,7 +181,7 @@ lbl17: // 2 sources:
             this.getFactoryBean().stop();	
         }	
         catch (Exception a) {	
-            this.logger.error("停止定时器失败！", (Throwable)a);	
+            this.logger.error("停止定时器失败！", a);	
             return false;	
         }	
         return true;	
@@ -219,7 +193,7 @@ lbl17: // 2 sources:
             return;	
         }	
         try {	
-            TriggerKey a = TriggerKey.triggerKey((String)job.getJobName(), (String)job.getJobGroup());	
+            TriggerKey a = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());	
             JobService jobService = this;	
             Trigger a2 = jobService.getScheduler().getTrigger(a);	
             jobService.getScheduler().triggerJob(a2.getJobKey());	
@@ -249,7 +223,7 @@ lbl17: // 2 sources:
         job.setStatus("2");	
         super.updateStatus(job);	
         try {	
-            TriggerKey a = TriggerKey.triggerKey((String)job.getJobName(), (String)job.getJobGroup());	
+            TriggerKey a = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());	
             JobService jobService = this;	
             Trigger a2 = jobService.getScheduler().getTrigger(a);	
             jobService.getScheduler().pauseJob(a2.getJobKey());	
@@ -274,7 +248,7 @@ lbl17: // 2 sources:
             }	
         }	
         catch (Exception a) {	
-            this.logger.error("启动定时器失败！", (Throwable)a);	
+            this.logger.error("启动定时器失败！", a);	
             return false;	
         }	
         return true;	
@@ -294,23 +268,23 @@ lbl17: // 2 sources:
         this.scheduler = new SchedulerFactoryBean();	
         JobService jobService3 = this;	
         if (!"9".equals(m.ALLATORIxDEMO().get("type"))) {	
-            jobService3.scheduler.setAutoStartup(Global.getPropertyToBoolean("job.autoStartup", "true").booleanValue());	
+            jobService3.scheduler.setAutoStartup(Global.getPropertyToBoolean("job.autoStartup", "true"));	
             jobService2 = this;	
         } else {	
             jobService3.scheduler.setAutoStartup(false);	
             jobService2 = this;	
         }	
-        jobService2.scheduler.setStartupDelay(Global.getPropertyToInteger("job.startupDelay", "60").intValue());	
+        jobService2.scheduler.setStartupDelay(Global.getPropertyToInteger("job.startupDelay", "60"));	
         this.scheduler.setQuartzProperties(com.jeesite.modules.job.d.i.ALLATORIxDEMO());	
         String a2 = Global.getProperty("job.dataSourceName", "job");	
         JobService jobService4 = this;	
-        if (StringUtils.isNotBlank((CharSequence)Global.getProperty(new StringBuilder().insert(0, "jdbc.").append(a2).append(".type").toString()))) {	
+        if (StringUtils.isNotBlank(Global.getProperty(new StringBuilder().insert(0, "jdbc.").append(a2).append(".type").toString()))) {	
             jobService4.scheduler.setDataSource(RoutingDataSource.createDataSource(a2, false));	
             jobService = this;	
         } else {	
             a = jobService4.dataSource;	
             if (a instanceof RoutingDataSource) {	
-                a = ((RoutingDataSource)((Object)a)).getTargetDataSource("default");	
+                a = ((RoutingDataSource)a).getTargetDataSource("default");	
             }	
             if (a instanceof XADataSource || a instanceof AtomikosDataSourceBean) {	
                 JobService jobService5 = this;	
@@ -339,25 +313,25 @@ lbl17: // 2 sources:
             }	
             catch (Exception a4) {	
                 if (a4.getMessage().contains("目标字符串")) continue;	
-                this.logger.warn(a4.getMessage(), (Throwable)a4);	
+                this.logger.warn(a4.getMessage(), a4);	
             }	
         }	
         if (!"9".equals(m.ALLATORIxDEMO().get("type"))) {	
             try {	
                 ListenerManager a5 = this.getScheduler().getListenerManager();	
                 if (Global.getPropertyToBoolean("job.log.scheduler.enabled", "true").booleanValue()) {	
-                    a5.addSchedulerListener((SchedulerListener)new JobSchedulerListener(this.jobLogService));	
+                    a5.addSchedulerListener(new JobSchedulerListener(this.jobLogService));	
                 }	
                 if (Global.getPropertyToBoolean("job.log.jobDetail.enabled", "true").booleanValue()) {	
-                    a5.addJobListener((JobListener)new JobDetailListener(this.jobLogService));	
+                    a5.addJobListener(new JobDetailListener(this.jobLogService));	
                 }	
                 if (Global.getPropertyToBoolean("job.log.trigger.enabled", "true").booleanValue()) {	
-                    a5.addTriggerListener((TriggerListener)new JobTriggerListener(this.jobLogService));	
+                    a5.addTriggerListener(new JobTriggerListener(this.jobLogService));	
                     return;	
                 }	
             }	
             catch (SchedulerException a6) {	
-                this.logger.error("作业监听事件异常！", (Throwable)a6);	
+                this.logger.error("作业监听事件异常！", a6);	
             }	
         }	
     }	
@@ -372,7 +346,7 @@ lbl17: // 2 sources:
                 return true;	
             }	
             catch (Exception a) {	
-                this.logger.error("获取定时器状态时失败！", (Throwable)a);	
+                this.logger.error("获取定时器状态时失败！", a);	
                 return false;	
             }	
         }	
@@ -386,8 +360,8 @@ lbl17: // 2 sources:
         }	
         JobEntity a = null;	
         try {	
-            if (StringUtils.isNotBlank((CharSequence)job.getJobName()) && StringUtils.isNotBlank((CharSequence)job.getJobGroup())) {	
-                TriggerKey a2 = TriggerKey.triggerKey((String)job.getJobName(), (String)job.getJobGroup());	
+            if (StringUtils.isNotBlank(job.getJobName()) && StringUtils.isNotBlank(job.getJobGroup())) {	
+                TriggerKey a2 = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());	
                 Trigger a3 = this.getScheduler().getTrigger(a2);	
                 if (a3 instanceof CronTriggerImpl) {	
                     a = new JobEntity().convert(this.getScheduler(), (CronTriggerImpl)a3);	
@@ -395,7 +369,7 @@ lbl17: // 2 sources:
             }	
         }	
         catch (SchedulerException a4) {	
-            this.logger.error("获取失败！", (Throwable)a4);	
+            this.logger.error("获取失败！", a4);	
         }	
         return a;	
     }	
@@ -408,7 +382,7 @@ lbl17: // 2 sources:
         job.setStatus("0");	
         super.updateStatus(job);	
         try {	
-            TriggerKey a = TriggerKey.triggerKey((String)job.getJobName(), (String)job.getJobGroup());	
+            TriggerKey a = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());	
             JobService jobService = this;	
             Trigger a2 = jobService.getScheduler().getTrigger(a);	
             jobService.getScheduler().resumeJob(a2.getJobKey());	

@@ -1,28 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.sf.jsqlparser.expression.Alias	
- *  net.sf.jsqlparser.expression.Expression	
- *  net.sf.jsqlparser.expression.Function	
- *  net.sf.jsqlparser.parser.CCJSqlParserUtil	
- *  net.sf.jsqlparser.schema.Column	
- *  net.sf.jsqlparser.statement.Statement	
- *  net.sf.jsqlparser.statement.select.Distinct	
- *  net.sf.jsqlparser.statement.select.FromItem	
- *  net.sf.jsqlparser.statement.select.Join	
- *  net.sf.jsqlparser.statement.select.LateralSubSelect	
- *  net.sf.jsqlparser.statement.select.OrderByElement	
- *  net.sf.jsqlparser.statement.select.PlainSelect	
- *  net.sf.jsqlparser.statement.select.Select	
- *  net.sf.jsqlparser.statement.select.SelectBody	
- *  net.sf.jsqlparser.statement.select.SelectExpressionItem	
- *  net.sf.jsqlparser.statement.select.SelectItem	
- *  net.sf.jsqlparser.statement.select.SetOperationList	
- *  net.sf.jsqlparser.statement.select.SubJoin	
- *  net.sf.jsqlparser.statement.select.SubSelect	
- *  net.sf.jsqlparser.statement.select.ValuesList	
- *  net.sf.jsqlparser.statement.select.WithItem	
  */	
 package com.jeesite.common.mybatis.d.v;	
 	
@@ -91,11 +68,11 @@ public class m {
         } else {	
             SetOperationList a = (SetOperationList)selectBody;	
             if (a.getSelects() != null && a.getSelects().size() > 0) {	
-                Iterator iterator;	
-                Iterator iterator2 = iterator = a.getSelects().iterator();	
+                Iterator<SelectBody> iterator;	
+                Iterator<SelectBody> iterator2 = iterator = a.getSelects().iterator();	
                 while (iterator2.hasNext()) {	
                     void a2;	
-                    SelectBody selectBody2 = (SelectBody)iterator.next();	
+                    SelectBody selectBody2 = iterator.next();	
                     iterator2 = iterator;	
                     this.ALLATORIxDEMO((SelectBody)a2);	
                 }	
@@ -115,9 +92,9 @@ public class m {
         void a2;	
         SelectBody a3 = select.getSelectBody();	
         ArrayList arrayList = new ArrayList();	
-        a2.add(new SelectExpressionItem((Expression)new Column(new StringBuilder().insert(0, "count(").append(name).append(")").toString())));	
+        a2.add(new SelectExpressionItem(new Column(new StringBuilder().insert(0, "count(").append(name).append(")").toString())));	
         if (a3 instanceof PlainSelect && this.ALLATORIxDEMO((PlainSelect)a3)) {	
-            ((PlainSelect)a3).setSelectItems((List)a2);	
+            ((PlainSelect)a3).setSelectItems((List<SelectItem>)a2);	
             return;	
         }	
         PlainSelect a4 = new PlainSelect();	
@@ -127,8 +104,8 @@ public class m {
         v0.setAlias(i);	
         PlainSelect plainSelect = a4;	
         plainSelect.setFromItem((FromItem)a);	
-        plainSelect.setSelectItems((List)a2);	
-        select.setSelectBody((SelectBody)plainSelect);	
+        plainSelect.setSelectItems((List<SelectItem>)a2);	
+        select.setSelectBody(plainSelect);	
     }	
 	
     public String d(String sql, String name) {	
@@ -177,7 +154,7 @@ public class m {
             return this.d(sql);	
         }	
         try {	
-            a = CCJSqlParserUtil.parse((String)sql);	
+            a = CCJSqlParserUtil.parse(sql);	
         }	
         catch (Throwable a2) {	
             return this.d(sql);	

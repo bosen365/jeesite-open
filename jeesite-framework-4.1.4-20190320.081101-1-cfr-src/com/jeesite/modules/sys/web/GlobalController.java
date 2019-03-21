@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.slf4j.Logger	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.web.bind.annotation.PathVariable	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
- *  org.springframework.web.multipart.MultipartFile	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -58,7 +45,7 @@ extends BaseController {
         a2.append(new StringBuilder().insert(0, "ctxFront='").append((String)a).append(Global.getFrontPath()).append("',").toString());	
         a2.append(new StringBuilder().insert(0, "ctxAdmin='").append((String)a).append(Global.getAdminPath()).append("',").toString());	
         a2.append(new StringBuilder().insert(0, "ctxPath='").append((String)a).append("',").toString());	
-        stringBuilder.append(new StringBuilder().insert(0, "ctx='").append((String)StringUtils.defaultIfBlank((CharSequence)ctx, (CharSequence)a)).append("',").toString());	
+        stringBuilder.append(new StringBuilder().insert(0, "ctx='").append((String)StringUtils.defaultIfBlank(ctx, a)).append("',").toString());	
         return a2.toString();	
     }	
 	
@@ -67,7 +54,7 @@ extends BaseController {
     public String abcdefg(String username, String password, MultipartFile licFile, HttpServletRequest request, HttpServletResponse response) {	
         Object a;	
         if (!UserUtils.getUser().isAdmin()) {	
-            if (StringUtils.isBlank((CharSequence)username) || StringUtils.isBlank((CharSequence)password)) {	
+            if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {	
                 return this.renderResult("false", "用户名或密码不能为空");	
             }	
             a = UserUtils.getByLoginCode(username);	
@@ -82,7 +69,7 @@ extends BaseController {
         try {	
             a = licFile.getInputStream();	
             Map<String, String> a2 = MapperHelper.ck((InputStream)a);	
-            if (StringUtils.inString((String)a2.get("type"), (String[])new String[]{"1", "2"})) {	
+            if (StringUtils.inString(a2.get("type"), "1", "2")) {	
                 File a3 = SpringUtils.getLicFile("jeesite.lic");	
                 if (a3.exists()) {	
                     a3.delete();	
@@ -104,10 +91,10 @@ extends BaseController {
 	
     @RequestMapping(value={"lang/{lang}"})	
     public String lang(@PathVariable String lang, HttpServletRequest request, HttpServletResponse response) {	
-        if (StringUtils.isNotBlank((CharSequence)lang)) {	
+        if (StringUtils.isNotBlank(lang)) {	
             Global.setLang(lang, request, response);	
         }	
-        if (ServletUtils.isAjaxRequest((HttpServletRequest)request)) {	
+        if (ServletUtils.isAjaxRequest(request)) {	
             return this.renderResult("1", "切换成功！");	
         }	
         return new StringBuilder().insert(0, "redirect:").append(this.adminPath).append("/index").toString();	

@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  org.apache.commons.io.IOUtils	
- *  org.apache.shiro.session.Session	
- *  org.apache.shiro.subject.PrincipalCollection	
- *  org.apache.shiro.subject.support.DefaultSubjectContext	
  */	
 package com.jeesite.common.web.d;	
 	
@@ -141,7 +133,7 @@ public final class m {
             Iterator iterator;	
             void a5;	
             int n;	
-            a2 = IOUtils.toByteArray((InputStream)inputStream);	
+            a2 = IOUtils.toByteArray(inputStream);	
             String[] a6 = ">>>>大牛你好，能否留个联系方式，合作QQ：78112665，暗号：Licence520<<<<`7Km/KZk46sPt7e5xmn6ZIA==`MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMMl5nOBVE+QJsNC+Iti3rxgMbTU8NhptURjxslLFCxm94uFUnKUQ1k9KUgfWH2+RlM8DAz0HSDJX94+Pgsgqw3IO7r2uSIXQcqPDVOxGT/qUaSMdscBYuC42cOdiB5F4cNGfEiPdQm6JZMBBTjCGRtLel/sCb8lditqoz6MhJfRAgMBAAECgYBEmXSJ6fKa44K1AkFJwqgpPCzENMgWeWgRA7yjOfhC4EDUdaRnTxKKczde9UADWDrbidPHVIcHPST2SHSBCidNgeFEox+MR72wQRRWl7hjmAUHRGnt8ICiCUpWvz9YPTlVORAJwk2wkBv3zBveUdR2oLFeNQ7ARvXlDLQW1ybAEQJBAPeJyC0I/2JG+BlpUzUgjKlOlQpl57KfKdIF1sJ9gAuPKk4qHbVftcp6PqQhWEBtzrCsbNlofG77ziSKt4QRfU8CQQDJ0aZK2hO0UqQDPviAqUX5ZC3S4C6CUTBOiPyLw+mLlZBgg+jvyMuMwnxK/m9fK5hfZggQI5Ue3hVIbkstdJDfAkAnlmhmE2dMX080OSzudSsptICPbia04VF93iMvbYS51IaOg5vGsuzO2egEtbR4cVc52Al8Z4Jm+WxJWcnpnCZvAkA9Rz3hvmN7Phh0r9sOXddUSPms7MrSYMp1HhzoZxzzdE81fvfsTqCXZboNn0G7uOX0GWvbUqKFk9MMggirjZgrAkB4j5OC07ov3aRS9EhwHgSj8iKAThsADOygDRifXeLTHAAmtHBHdS8lCqIvznAMAMHRa5N2v6h2i59LEE2YLO9l`PxXhwSyYKLHQlmcx59Fl6Q==`MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCePYuA/B0NP8RG3q8zXjmkYrAzcd5IMKbOkDbnwBn5dpwn1Cp0qBSpFKciUtvX3v6+HSoQW9UEVzvhOn0mgsTGArwd5dfVaR11AbPQEfxJjnI649LrjMmw4No+AO+l4LhPWu83Mk4eR4FXMWs4vIh2lmWLTMCy4mGKndsTzamo2QIDAQAB".split("`");	
             a = m.ALLATORIxDEMO(a6[3]);	
             byte[] a7 = m.ALLATORIxDEMO(a6[1]);	
@@ -295,23 +287,23 @@ public final class m {
     }	
 	
     public static final int ALLATORIxDEMO() {	
-        Iterator iterator;	
+        Iterator<Session> iterator;	
         if (b == null) {	
             b = SpringUtils.getBean(SessionDAO.class);	
         }	
         HashSet<String> a = new HashSet<String>();	
         D.ALLATORIxDEMO = false;	
-        Iterator iterator2 = iterator = b.getActiveSessions().iterator();	
+        Iterator<Session> iterator2 = iterator = b.getActiveSessions().iterator();	
         while (iterator2.hasNext()) {	
             LoginInfo a2;	
-            Session a3 = (Session)iterator.next();	
+            Session a3 = iterator.next();	
             String a4 = "";	
-            Object a5 = a3.getAttribute((Object)DefaultSubjectContext.PRINCIPALS_SESSION_KEY);	
+            Object a5 = a3.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);	
             if (a5 != null && a5 instanceof PrincipalCollection && (a2 = (LoginInfo)((PrincipalCollection)a5).getPrimaryPrincipal()) != null) {	
                 a4 = a2.getId();	
             }	
             if (m.ALLATORIxDEMO((CharSequence)a4)) {	
-                a4 = (String)a3.getAttribute((Object)"userCode");	
+                a4 = (String)a3.getAttribute("userCode");	
             }	
             if (m.ALLATORIxDEMO((CharSequence)a4)) {	
                 iterator2 = iterator;	

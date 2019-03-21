@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.lang.TimeUtils	
- *  com.jeesite.common.reflect.ReflectUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.util.Assert	
  */	
 package com.jeesite.common.mybatis.mapper.provider;	
 	
@@ -53,9 +44,9 @@ public class InsertSqlProvider {
         long a = System.currentTimeMillis();	
         List a2 = (List)params.get("param1");	
         InsertSqlProvider insertSqlProvider = this;	
-        String a3 = insertSqlProvider.insertBatch(ListUtils.newArrayList((Iterable)a2), "param1");	
+        String a3 = insertSqlProvider.insertBatch(ListUtils.newArrayList(a2), "param1");	
         if (insertSqlProvider.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a))).append(": ").append(a3).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a)).append(": ").append(a3).toString());	
         }	
         return a3;	
     }	
@@ -68,13 +59,13 @@ public class InsertSqlProvider {
     private /* synthetic */ String insertBatch(List<?> entityList, String paramName) {	
         StringBuilder stringBuilder;	
         List<?> list = entityList;	
-        Assert.notEmpty(list, (String)"没有需要插入的实体集合");	
+        Assert.notEmpty(list, "没有需要插入的实体集合");	
         BaseEntity a = (BaseEntity)list.get(0);	
         StringBuilder a2 = new StringBuilder();	
         StringBuilder a3 = new StringBuilder();	
         StringBuilder a4 = new StringBuilder();	
         Table a5 = MapperHelper.getTable(a);	
-        ArrayList a6 = ListUtils.newArrayList();	
+        ArrayList<Column> a6 = ListUtils.newArrayList();	
         Iterator<Column> iterator = MapperHelper.getColumns(a5, a6).iterator();	
         block0 : do {	
             Iterator<Column> iterator2 = iterator;	
@@ -82,7 +73,7 @@ public class InsertSqlProvider {
                 int a7;	
                 Column a8 = iterator.next();	
                 if (!a8.isInsert()) continue block0;	
-                if (StringUtils.inString((String)a8.name(), (String[])new String[]{"corp_code", "corp_name"}) && !Global.isUseCorpModel().booleanValue()) {	
+                if (StringUtils.inString(a8.name(), "corp_code", "corp_name") && !Global.isUseCorpModel().booleanValue()) {	
                     iterator2 = iterator;	
                     continue;	
                 }	
@@ -90,11 +81,11 @@ public class InsertSqlProvider {
                 int n = a7 = 0;	
                 while (n < entityList.size()) {	
                     Object obj = entityList.get(a7);	
-                    ReflectUtils.invokeMethod(obj, (String)"preInsert", null, null);	
+                    ReflectUtils.invokeMethod(obj, "preInsert", null, null);	
                     n = ++a7;	
                 }	
                 if (paramName == null) {	
-                    Object a10 = ReflectUtils.invokeGetter((Object)a, (String)a9);	
+                    Object a10 = ReflectUtils.invokeGetter(a, a9);	
                     if (a10 == null) continue block0;	
                     InsertSqlProvider insertSqlProvider = this;	
                     insertSqlProvider.addSqlColumn(a3, a8);	
@@ -124,12 +115,12 @@ public class InsertSqlProvider {
             int a11;	
             int n = a11 = 0;	
             while (n < entityList.size()) {	
-                if (StringUtils.inString((String)MapperHelper.getDbName(), (String[])new String[]{"oracle"})) {	
+                if (StringUtils.inString(MapperHelper.getDbName(), "oracle")) {	
                     if (a11 != 0) {	
                         a2.append(" UNION ALL ");	
                     }	
                     a2.append(" FROM dual");	
-                    a2.append(StringUtils.replace((String)a4.toString(), (String)"{list}", (String)new StringBuilder().insert(0, "param1[").append(a11).append("]").toString()));	
+                    a2.append(StringUtils.replace(a4.toString(), "{list}", new StringBuilder().insert(0, "param1[").append(a11).append("]").toString()));	
                     a2.append(" SELECT ");	
                 } else {	
                     if (a11 == 0) {	
@@ -139,7 +130,7 @@ public class InsertSqlProvider {
                         a2.append(", ");	
                     }	
                     a2.append(")");	
-                    a2.append(StringUtils.replace((String)a4.toString(), (String)"{list}", (String)new StringBuilder().insert(0, "param1[").append(a11).append("]").toString()));	
+                    a2.append(StringUtils.replace(a4.toString(), "{list}", new StringBuilder().insert(0, "param1[").append(a11).append("]").toString()));	
                     a2.append(" (");	
                 }	
                 n = ++a11;	
@@ -170,9 +161,9 @@ public class InsertSqlProvider {
 	
     public String insert(BaseEntity<?> entity) {	
         long a = System.currentTimeMillis();	
-        String a2 = this.insertBatch(ListUtils.newArrayList((Object[])new BaseEntity[]{entity}), null);	
+        String a2 = this.insertBatch(ListUtils.newArrayList(entity), null);	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a))).append(": ").append(a2).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a)).append(": ").append(a2).toString());	
         }	
         return a2;	
     }	

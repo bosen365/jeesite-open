@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.springframework.dao.InvalidDataAccessApiUsageException	
- *  org.springframework.data.redis.connection.RedisConnection	
  */	
 package com.jeesite.common.j2cache.cache.support.redis;	
 	

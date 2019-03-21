@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonBackReference	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.reflect.ReflectUtils	
- *  javax.validation.constraints.NotNull	
- *  org.apache.commons.lang3.StringUtils	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.common.entity;	
 	
@@ -148,7 +140,7 @@ extends DataEntity<T> {
     @JsonIgnore	
     public String getTreeName_() {	
         int n;	
-        if (StringUtils.isNotBlank((CharSequence)this.treeName_)) {	
+        if (StringUtils.isNotBlank(this.treeName_)) {	
             return this.treeName_;	
         }	
         Column[] arrcolumn = MapperHelper.getTable(this).columns();	
@@ -158,7 +150,7 @@ extends DataEntity<T> {
             Column a = arrcolumn[n];	
             if (a.isTreeName()) {	
                 String a2 = MapperHelper.getAttrName(a);	
-                this.treeName_ = (String)ReflectUtils.invokeGetter((Object)this, (String)a2);	
+                this.treeName_ = (String)ReflectUtils.invokeGetter(this, a2);	
                 if (this.treeName_ != null) {	
                     this.treeName_ = this.treeName_.replaceAll("/", "_");	
                 }	

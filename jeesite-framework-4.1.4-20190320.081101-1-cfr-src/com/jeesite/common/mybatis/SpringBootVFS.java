@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.ResourceUtils	
- *  org.apache.ibatis.io.VFS	
- *  org.springframework.core.io.Resource	
  */	
 package com.jeesite.common.mybatis;	
 	
@@ -26,9 +21,10 @@ extends VFS {
         return string.substring(string.indexOf(rootPath));	
     }	
 	
+    @Override	
     protected List<String> list(URL url, String path) throws IOException {	
         int n;	
-        Resource[] a = ResourceUtils.getResources((String)new StringBuilder().insert(0, "claspath*:").append(path).append("/**/*.*").toString());	
+        Resource[] a = ResourceUtils.getResources(new StringBuilder().insert(0, "claspath*:").append(path).append("/**/*.*").toString());	
         ArrayList<String> a2 = new ArrayList<String>();	
         Resource[] arrresource = a;	
         int n2 = arrresource.length;	
@@ -41,6 +37,7 @@ extends VFS {
         return a2;	
     }	
 	
+    @Override	
     public boolean isValid() {	
         return true;	
     }	

@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.slf4j.Logger	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
- *  org.springframework.web.multipart.MultipartFile	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -41,7 +30,7 @@ extends BaseController {
     public String licenceSave(String username, String password, MultipartFile licFile, HttpServletRequest request, HttpServletResponse response) {	
         Serializable a;	
         if (!UserUtils.getUser().isAdmin()) {	
-            if (StringUtils.isBlank((CharSequence)username) || StringUtils.isBlank((CharSequence)password)) {	
+            if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {	
                 return this.renderResult("false", "用户名或密码不能为空");	
             }	
             a = UserUtils.getByLoginCode(username);	
@@ -55,19 +44,19 @@ extends BaseController {
         }	
         try {	
             a = new HashMap();	
-            if (StringUtils.inString((String)((String)a.get("type")), (String[])new String[]{"0"})) {	
+            if (StringUtils.inString((String)a.get("type"), "0")) {	
                 return this.renderResult("true", new StringBuilder().insert(0, "恭喜您，激活成功！<br/>您激活的服务为").append((String)a.get("title")).append("。<br/>请重启服务，开启畅快体验之旅").toString());	
             }	
         }	
         catch (Exception a2) {	
-            this.logger.error("Read licence error.", (Throwable)a2);	
+            this.logger.error("Read licence error.", a2);	
         }	
         return this.renderResult("false", "对不起，激活失败！您提交的许可文件不正确。");	
     }	
 	
     @RequestMapping(value={"licence"})	
     public String licence(HttpServletRequest request, HttpServletResponse response, Model model) {	
-        request.setAttribute("message", (Object)"产品许可信息.");	
+        request.setAttribute("message", "产品许可信息.");	
         return "error/402";	
     }	
 }	

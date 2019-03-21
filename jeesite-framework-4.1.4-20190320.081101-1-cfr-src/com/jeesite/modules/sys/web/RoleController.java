@@ -1,23 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.validation.annotation.Validated	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -90,7 +72,7 @@ extends BaseController {
     public Map<String, Object> menuTreeData(Role role, HttpServletRequest request) {	
         Iterator<Menu> iterator;	
         RoleController roleController;	
-        HashMap a = MapUtils.newHashMap();	
+        HashMap<String, Object> a = MapUtils.newHashMap();	
         Menu a2 = new Menu();	
         User a3 = role.getCurrentUser();	
         if (a3.isSuperAdmin()) {	
@@ -115,7 +97,7 @@ extends BaseController {
         while (iterator2.hasNext()) {	
             void a6;	
             Menu a7 = iterator.next();	
-            List a8 = (List)a5.get(a7.getSysCode());	
+            ArrayList<void> a8 = (ArrayList<void>)a5.get(a7.getSysCode());	
             if (a8 == null) {	
                 a8 = ListUtils.newArrayList();	
                 a5.put(a7.getSysCode(), a8);	
@@ -123,12 +105,12 @@ extends BaseController {
             HashMap hashMap = MapUtils.newHashMap();	
             iterator2 = iterator;	
             a8.add(a6);	
-            a6.put("title", new StringBuilder().insert(0, a7.getMenuName()).append("&nbsp;").append(ObjectUtils.toString((Object)a7.getPermission())).append("\n").append(ObjectUtils.toString((Object)a7.getMenuHref())).toString());	
-            a6.put("name", new StringBuilder().insert(0, a7.getMenuName()).append("<font color=#888> &nbsp; &nbsp; ").append(StringUtils.abbr((String)new StringBuilder().insert(0, ObjectUtils.toString((Object)a7.getPermission())).append(" &nbsp; ").append(ObjectUtils.toString((Object)a7.getMenuHref())).toString(), (int)50)).append("V/font>").toString());	
+            a6.put("title", new StringBuilder().insert(0, a7.getMenuName()).append("&nbsp;").append(ObjectUtils.toString(a7.getPermission())).append("\n").append(ObjectUtils.toString(a7.getMenuHref())).toString());	
+            a6.put("name", new StringBuilder().insert(0, a7.getMenuName()).append("<font color=#888> &nbsp; &nbsp; ").append(StringUtils.abbr(new StringBuilder().insert(0, ObjectUtils.toString(a7.getPermission())).append(" &nbsp; ").append(ObjectUtils.toString(a7.getMenuHref())).toString(), 50)).append("V/font>").toString());	
             a6.put("pId", a7.getParentCode());	
             a6.put("id", a7.getMenuCode());	
         }	
-        HashMap hashMap = a;	
+        HashMap<String, Object> hashMap = a;	
         a2 = new Menu();	
         a2.setRoleCode(role.getRoleCode());	
         List<Menu> a9 = this.menuService.findByRoleCode(a2);	
@@ -157,8 +139,8 @@ extends BaseController {
         RoleDataScope roleDataScope = new RoleDataScope();	
         a2.setRoleCode(role.getRoleCode());	
         List<RoleDataScope> list = this.roleService.findDataScopeList((RoleDataScope)a2);	
-        model.addAttribute("role", (Object)role);	
-        model.addAttribute("roleDataScope&ist", (Object)a);	
+        model.addAttribute("role", role);	
+        model.addAttribute("roleDataScope&ist", a);	
         return "modules/sys/roleFormAuthDataScope";	
     }	
 	
@@ -204,17 +186,17 @@ extends BaseController {
     @ResponseBody	
     public List<Map<String, Object>> treeData(String userType, Boolean isAll, String isShowCode, String ctrlPermi) {	
         void a;	
-        ArrayList a2 = ListUtils.newArrayList();	
+        ArrayList<Map<String, Object>> a2 = ListUtils.newArrayList();	
         Role role = new Role();	
         a.setStatus("0");	
         if (isAll == null || !isAll.booleanValue()) {	
-            a.setUserType((String)StringUtils.defaultIfBlank((CharSequence)userType, (CharSequence)"employee"));	
+            a.setUserType(StringUtils.defaultIfBlank(userType, "employee"));	
             this.roleService.addDataScopeFilter((Role)a, ctrlPermi);	
         }	
         this.roleService.findList((Role)a).forEach(e2 -> {	
-            HashMap a = MapUtils.newHashMap();	
+            HashMap<String, String> a = MapUtils.newHashMap();	
             a2.add(a);	
-            a.put("name", StringUtils.getTreeNodeName((String)isShowCode, (String)e2.getRoleCode(), (String)e2.getRoleName()));	
+            a.put("name", StringUtils.getTreeNodeName(isShowCode, e2.getRoleCode(), e2.getRoleName()));	
             a.put("pId", "0");	
             a.put("id", e2.getId());	
         });	
@@ -241,7 +223,7 @@ extends BaseController {
     @RequestMapping(value={"hasUserRole"})	
     @ResponseBody	
     public Boolean hasUserRole(String userCode, String roleCode) {	
-        if (StringUtils.isNotBlank((CharSequence)userCode)) {	
+        if (StringUtils.isNotBlank(userCode)) {	
             return RoleUtils.hasUserRole(userCode, roleCode);	
         }	
         return RoleUtils.hasCurrentUserRole(roleCode);	
@@ -261,10 +243,10 @@ extends BaseController {
         if (!"true".equals(this.checkRoleName(oldRoleName, role.getRoleName()))) {	
             return this.renderResult("false", new StringBuilder().insert(0, "保存角色'").append(role.getRoleName()).append("'失败, 角色名称已存在").toString());	
         }	
-        if (StringUtils.inString((String)op, (String[])new String[]{"add", "edit"})) {	
+        if (StringUtils.inString(op, "add", "edit")) {	
             this.roleService.save(role);	
         }	
-        if (StringUtils.inString((String)op, (String[])new String[]{"add", "auth"})) {	
+        if (StringUtils.inString(op, "add", "auth")) {	
             this.roleService.saveAuth(role);	
         }	
         return this.renderResult("true", new StringBuilder().insert(0, "保存角色'").append(role.getRoleName()).append("'成功！").toString());	
@@ -297,8 +279,8 @@ extends BaseController {
             role2.setUserType("employee");	
             role2.setIsSys("0");	
         }	
-        model.addAttribute("role", (Object)role);	
-        model.addAttribute("op", (Object)op);	
+        model.addAttribute("role", role);	
+        model.addAttribute("op", op);	
         return "modules/sys/roleForm";	
     }	
 	
@@ -306,7 +288,7 @@ extends BaseController {
     @RequestMapping(value={"formAuthUser"})	
     public String formAuthUser(Role role, Model model, HttpServletRequest request) {	
         Iterator<User> iterator;	
-        HashMap a = MapUtils.newHashMap();	
+        HashMap<String, void> a = MapUtils.newHashMap();	
         User a2 = new User(role);	
         Iterator<User> iterator2 = iterator = this.userService.findListByRoleCode(a2).iterator();	
         while (iterator2.hasNext()) {	
@@ -315,8 +297,8 @@ extends BaseController {
             iterator2 = iterator;	
             a.put(a3.getUserCode(), a3);	
         }	
-        model.addAttribute("role", (Object)role);	
-        model.addAttribute("dataMap", (Object)a);	
+        model.addAttribute("role", role);	
+        model.addAttribute("dataMap", a);	
         return "modules/sys/roleFormAuthUser";	
     }	
 	

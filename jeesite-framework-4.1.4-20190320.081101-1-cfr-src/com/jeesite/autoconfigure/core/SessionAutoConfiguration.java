@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.PropertiesUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  net.oschina.j2cache.CacheChannel	
- *  org.apache.shiro.session.mgt.eis.SessionDAO	
- *  org.apache.shiro.session.mgt.eis.SessionIdGenerator	
- *  org.apache.shiro.web.servlet.Cookie	
- *  org.apache.shiro.web.servlet.SimpleCookie	
- *  org.slf4j.Logger	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.context.annotation.Bean	
- *  org.springframework.context.annotation.Configuration	
  */	
 package com.jeesite.autoconfigure.core;	
 	
@@ -45,7 +32,7 @@ public class SessionAutoConfiguration {
         C c2 = new C();	
         void v0 = a;	
         void v1 = a;	
-        v0.setSessionIdGenerator((SessionIdGenerator)new IdGen());	
+        v0.setSessionIdGenerator(new IdGen());	
         v0.ALLATORIxDEMO("sessionCache");	
         return v0;	
     }	
@@ -55,7 +42,7 @@ public class SessionAutoConfiguration {
     public com.jeesite.common.shiro.session.SessionDAO sessionDAORedis(CacheChannel cacheChannel) {	
         m a;	
         m m2 = a = new m();	
-        a.setSessionIdGenerator((SessionIdGenerator)new IdGen());	
+        a.setSessionIdGenerator(new IdGen());	
         m2.ALLATORIxDEMO("sessionCache");	
         m2.ALLATORIxDEMO(cacheChannel);	
         return m2;	
@@ -81,11 +68,11 @@ public class SessionAutoConfiguration {
         void v0 = a;	
         void v1 = a;	
         void v2 = a;	
-        v2.setSessionDAO((SessionDAO)sessionDAO);	
-        v2.setGlobalSessionTimeout(ObjectUtils.toLong((Object)Global.getProperty("session.sessionTimeout")).longValue());	
-        v1.setSessionValidationInterval(ObjectUtils.toLong((Object)Global.getProperty("session.sessionTimeoutClean")).longValue());	
+        v2.setSessionDAO(sessionDAO);	
+        v2.setGlobalSessionTimeout(ObjectUtils.toLong(Global.getProperty("session.sessionTimeout")));	
+        v1.setSessionValidationInterval(ObjectUtils.toLong(Global.getProperty("session.sessionTimeoutClean")));	
         v1.setSessionValidationSchedulerEnabled(true);	
-        v0.setSessionIdCookie((Cookie)sessionIdCookie);	
+        v0.setSessionIdCookie(sessionIdCookie);	
         v0.setSessionIdCookieEnabled(true);	
         return v0;	
     }	

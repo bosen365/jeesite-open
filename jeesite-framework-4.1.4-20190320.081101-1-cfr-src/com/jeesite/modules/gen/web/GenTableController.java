@@ -1,23 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.codec.EncodeUtils	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.validation.annotation.Validated	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
- *  org.springframework.web.servlet.mvc.support.RedirectAttributes	
  */	
 package com.jeesite.modules.gen.web;	
 	
@@ -66,7 +48,7 @@ extends BaseController {
     @RequestMapping(value={"form"})	
     public String form(GenTable genTable, String op, Model model, RedirectAttributes redirectAttributes) {	
         boolean a = genTable.getIsNewRecord();	
-        if (a && StringUtils.isNotBlank((CharSequence)genTable.getTableName()) && !this.genTableService.checkTableName(genTable.getTableName())) {	
+        if (a && StringUtils.isNotBlank(genTable.getTableName()) && !this.genTableService.checkTableName(genTable.getTableName())) {	
             this.addMessage(redirectAttributes, genTable.getTableName() + " 表已经添加！这里已为您跳转！");	
             return new StringBuilder().insert(0, "redirect:").append(this.adminPath).append("/gen/genTable/form?tableName=").append(genTable.getTableName()).toString();	
         }	
@@ -77,34 +59,34 @@ extends BaseController {
         GenConfig a2 = GenUtils.getConfig();	
         List<DictType> a3 = this.dictTypeService.findList(new DictType());	
         model.addAttribute("dictTypeList", a3);	
-        model.addAttribute("config", (Object)a2);	
-        model.addAttribute("genTable", (Object)genTable);	
-        if (StringUtils.isBlank((CharSequence)genTable.getTableName())) {	
+        model.addAttribute("config", a2);	
+        model.addAttribute("genTable", genTable);	
+        if (StringUtils.isBlank(genTable.getTableName())) {	
             void a4;	
             void a5;	
             GenTable genTable2 = new GenTable();	
             a4.setDataSourceName(genTable.getDataSourceName());	
             List<GenTable> list = this.genTableService.findListFromDb((GenTable)a4);	
-            model.addAttribute("tableList", (Object)a5);	
+            model.addAttribute("tableList", a5);	
             return "modules/gen/genTableFormSelect";	
         }	
         GenTable a6 = new GenTable();	
         List<GenTable> a7 = this.genTableService.findList(a6);	
         List<GenTable> a8 = this.genTableService.findGenBaseDirList(new GenTable());	
         String a9 = FileUtils.getProjectPath();	
-        model.addAttribute("defaultGenBaseDir", (Object)a9);	
+        model.addAttribute("defaultGenBaseDir", a9);	
         model.addAttribute("genBaseDirList", a8);	
         model.addAttribute("tableList", a7);	
-        if (StringUtils.isBlank((CharSequence)genTable.getGenBaseDir())) {	
+        if (StringUtils.isBlank(genTable.getGenBaseDir())) {	
             genTable.setGenBaseDir(a9);	
         }	
-        if (StringUtils.isNotBlank((CharSequence)genTable.getTplCategory())) {	
+        if (StringUtils.isNotBlank(genTable.getTplCategory())) {	
             genTable.setGenFlag("0");	
         }	
-        if (StringUtils.isBlank((CharSequence)op)) {	
+        if (StringUtils.isBlank(op)) {	
             op = "step1";	
         }	
-        model.addAttribute("op", (Object)op);	
+        model.addAttribute("op", op);	
         return "modules/gen/genTableForm";	
     }	
 	
@@ -116,7 +98,7 @@ extends BaseController {
         Map<String, Object> map = GenUtils.getDataModel(genTable);	
         a2.append(new StringBuilder().insert(0, "&permission=").append(a.get("permissionPrefix")).append(":view,").append(a.get("permissionPrefix")).append(":edit").toString());	
         a2.append(new StringBuilder().insert(0, "&menuHref=/").append(a.get("urlPrefix")).append("/list").toString());	
-        a2.append("UmenuName=" + EncodeUtils.encodeUrl((String)((String)a.get("functionName"))));	
+        a2.append("UmenuName=" + EncodeUtils.encodeUrl((String)a.get("functionName")));	
         return new StringBuilder().insert(0, "redirect:").append(this.adminPath).append("/sys/menu/form").append(a2.toString()).toString();	
     }	
 	
@@ -157,7 +139,7 @@ extends BaseController {
         }	
         this.genTableService.save(genTable);	
         String a8 = new StringBuilder().insert(0, "保存表'").append(genTable.getTableName()).append("'成功").toString();	
-        if (StringUtils.inString((String)genTable.getGenFlag(), (String[])new String[]{"1", "2"})) {	
+        if (StringUtils.inString(genTable.getGenFlag(), "1", "2")) {	
             String a7 = this.genTableService.generateCode(genTable);	
             String a9 = "1".equals(genTable.getGenFlag()) ? "编译" : "生成";	
             a8 = new StringBuilder().insert(0, "posfull:").append(a9).append("'").append(genTable.getTableName()).append("'成功: <r/>").append(a7).toString();	
@@ -190,7 +172,7 @@ extends BaseController {
     @ModelAttribute	
     public GenTable get(String tableName) {	
         GenTable a = null;	
-        if (StringUtils.isNotBlank((CharSequence)tableName)) {	
+        if (StringUtils.isNotBlank(tableName)) {	
             a = this.genTableService.get(tableName);	
         }	
         if (a == null) {	

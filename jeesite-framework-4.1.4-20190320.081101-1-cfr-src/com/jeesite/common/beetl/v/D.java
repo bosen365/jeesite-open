@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.io.ResourceUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.apache.ibatis.io.VFS	
- *  org.beetl.core.Configuration	
- *  org.beetl.core.Function	
- *  org.beetl.core.GroupTemplate	
- *  org.beetl.core.Resource	
- *  org.beetl.core.ResourceLoader	
- *  org.beetl.core.fun.FileFunctionWrapper	
- *  org.beetl.core.misc.BeetlUtil	
  */	
 package com.jeesite.common.beetl.v;	
 	
@@ -40,8 +27,9 @@ implements ResourceLoader {
     private boolean b;	
     private String ALLATORIxDEMO;	
 	
+    @Override	
     public boolean exist(String key) {	
-        return ResourceUtils.getResource((String)new StringBuilder().insert(0, this.ALLATORIxDEMO).append(key).toString()).exists();	
+        return ResourceUtils.getResource(new StringBuilder().insert(0, this.ALLATORIxDEMO).append(key).toString()).exists();	
     }	
 	
     public D() {	
@@ -54,6 +42,7 @@ implements ResourceLoader {
         this.b = autoCheck;	
     }	
 	
+    @Override	
     public boolean isModified(Resource key) {	
         if (this.b) {	
             return key.isModified();	
@@ -72,36 +61,37 @@ implements ResourceLoader {
      * Enabled aggressive exception aggregation	
      * Lifted jumps to return sites	
      */	
+    @Override	
     public void init(GroupTemplate gt) {	
         a = gt.getConf().getResourceMap();	
-        if (a.get("root") == null || (a = (String)a.get("root")).equals("/") || a.length() == 0) ** GOTO lbl9	
+        if (a.get("root") == null || (a = a.get("root")).equals("/") || a.length() == 0) ** GOTO lbl9	
         if (this.ALLATORIxDEMO.endsWith("/")) {	
             v0 = this;	
-            this.ALLATORIxDEMO = this.ALLATORIxDEMO + (String)a.get("root");	
+            this.ALLATORIxDEMO = this.ALLATORIxDEMO + a.get("root");	
             v1 = this;	
         } else {	
-            this.ALLATORIxDEMO = new StringBuilder().insert(0, this.ALLATORIxDEMO).append("/").append((String)a.get("root")).toString();	
+            this.ALLATORIxDEMO = new StringBuilder().insert(0, this.ALLATORIxDEMO).append("/").append(a.get("root")).toString();	
 lbl9: // 2 sources:	
             v1 = this;	
         }	
-        v1.b = Boolean.parseBoolean((String)a.get("autoCheck"));	
+        v1.b = Boolean.parseBoolean(a.get("autoCheck"));	
         try {	
-            a = (String)a.get("functionRoot");	
-            a = (String)a.get("functionSuffix");	
+            a = a.get("functionRoot");	
+            a = a.get("functionSuffix");	
             a = new StringBuilder().insert(0, this.ALLATORIxDEMO).append("/").append(a).toString();	
             if (a.startsWith("/")) {	
                 a = a.substring(1);	
             }	
             var7_7 = VFS.getInstance().list(a).iterator();	
             while (var7_7.hasNext() != false) {	
-                a = (String)var7_7.next();	
+                a = var7_7.next();	
                 if (!a.endsWith(new StringBuilder().insert(0, ".").append(a).toString())) continue;	
-                a = StringUtils.substringAfter((String)new StringBuilder().insert(0, "/").append(a).toString(), (String)this.ALLATORIxDEMO);	
-                a = StringUtils.substringAfter((String)a, (String)new StringBuilder().insert(0, a).append("/").toString());	
-                a = FileUtils.getFileNameWithoutExtension((String)a);	
+                a = StringUtils.substringAfter(new StringBuilder().insert(0, "/").append(a).toString(), this.ALLATORIxDEMO);	
+                a = StringUtils.substringAfter(a, new StringBuilder().insert(0, a).append("/").toString());	
+                a = FileUtils.getFileNameWithoutExtension(a);	
                 a = a.replaceAll("/", ".");	
                 a = new FileFunctionWrapper(a);	
-                gt.registerFunction(a, (Function)a);	
+                gt.registerFunction(a, a);	
             }	
             return;	
         }	
@@ -110,21 +100,25 @@ lbl9: // 2 sources:
         }	
     }	
 	
+    @Override	
     public String getResourceId(Resource resource, String id) {	
         if (resource == null) {	
             return id;	
         }	
-        return BeetlUtil.getRelPath((String)resource.getId(), (String)id);	
+        return BeetlUtil.getRelPath(resource.getId(), id);	
     }	
 	
+    @Override	
     public String getInfo() {	
         return "SpringResourceLoader";	
     }	
 	
+    @Override	
     public Resource getResource(String key) {	
         return new b(this.ALLATORIxDEMO, key, this);	
     }	
 	
+    @Override	
     public void close() {	
     }	
 }	

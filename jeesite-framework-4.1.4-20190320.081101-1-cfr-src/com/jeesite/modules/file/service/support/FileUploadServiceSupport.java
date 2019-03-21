@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.image.ImageUtils	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.file.service.support;	
 	
@@ -44,7 +39,7 @@ implements FileUploadService {
         if (!"image".equals(params.getUploadType())) {	
             return;	
         }	
-        ImageUtils.thumbnails((File)imageFile, (int)params.getImageMaxWidth(), (int)params.getImageMaxHeight(), null);	
+        ImageUtils.thumbnails(imageFile, params.getImageMaxWidth(), params.getImageMaxHeight(), null);	
     }	
 	
     @Transactional(readOnly=false)	

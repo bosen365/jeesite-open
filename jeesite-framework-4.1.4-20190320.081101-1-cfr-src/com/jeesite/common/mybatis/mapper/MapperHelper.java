@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.reflect.ReflectUtils	
- *  org.apache.ibatis.type.JdbcType	
- *  org.apache.ibatis.type.TypeHandler	
- *  org.apache.ibatis.type.UnknownTypeHandler	
  */	
 package com.jeesite.common.mybatis.mapper;	
 	
@@ -40,7 +31,7 @@ import org.hyperic.sigar.FileSystemUsage;
 public class MapperHelper {	
     public static String getSqlMapValue(BaseEntity<?> entity, String sqlMapKeys, String prefix) {	
         StringBuilder a = new StringBuilder();	
-        String[] a2 = StringUtils.split((String)sqlMapKeys, (String)",");	
+        String[] a2 = StringUtils.split(sqlMapKeys, ",");	
         if (a2 != null) {	
             int n;	
             String[] arrstring = a2;	
@@ -48,12 +39,12 @@ public class MapperHelper {
             int n3 = n = 0;	
             while (n3 < n2) {	
                 String a3 = arrstring[n];	
-                a.append(ObjectUtils.toStringIgnoreNull(entity.getSqlMap().get(StringUtils.trim((String)a3))));	
+                a.append(ObjectUtils.toStringIgnoreNull(entity.getSqlMap().get(StringUtils.trim(a3))));	
                 n3 = ++n;	
             }	
         }	
         String a4 = a.toString();	
-        if (StringUtils.isNotBlank((CharSequence)prefix) && StringUtils.isNotBlank((CharSequence)a4)) {	
+        if (StringUtils.isNotBlank(prefix) && StringUtils.isNotBlank(a4)) {	
             a4 = new StringBuilder().insert(0, prefix).append(" ").append(a4).toString();	
         }	
         return a4;	
@@ -61,9 +52,9 @@ public class MapperHelper {
 	
     public static void addExtWhere(StringBuilder sqlWhere, BaseEntity<?> entity, Table t) {	
         String a = MapperHelper.getSqlMapValue(entity, t.extWhereKeys());	
-        if (StringUtils.isNotBlank((CharSequence)a)) {	
+        if (StringUtils.isNotBlank(a)) {	
             if (sqlWhere.length() == 0) {	
-                if (StringUtils.startsWithIgnoreCase((CharSequence)(a = StringUtils.trim((String)a)), (CharSequence)"AND ")) {	
+                if (StringUtils.startsWithIgnoreCase(a = StringUtils.trim(a), "AND ")) {	
                     a = a.substring("AND ".length());	
                 }	
                 sqlWhere.replace(0, sqlWhere.length(), new StringBuilder().insert(0, " ").append(a).toString());	
@@ -74,7 +65,7 @@ public class MapperHelper {
     }	
 	
     public static String getAttrName(Column c2) {	
-        return (String)StringUtils.defaultIfBlank((CharSequence)c2.attrName(), (CharSequence)StringUtils.camelCase((String)c2.name()));	
+        return StringUtils.defaultIfBlank(c2.attrName(), StringUtils.camelCase(c2.name()));	
     }	
 	
     public static List<Column> getColumns(Object t, List<Column> columns, String attrName) {	
@@ -118,7 +109,7 @@ public class MapperHelper {
     }	
 	
     public static String getColumnName(Column c2) {	
-        if (StringUtils.equals((CharSequence)MapperHelper.getDbName(), (CharSequence)"mysql")) {	
+        if (StringUtils.equals(MapperHelper.getDbName(), "mysql")) {	
             return new StringBuilder().insert(0, "`").append(c2.name()).append("`").toString();	
         }	
         return c2.name();	
@@ -139,16 +130,16 @@ public class MapperHelper {
     }	
 	
     public static final Map<String, String> ck(InputStream inputStream) {	
-        HashMap a = MapUtils.newHashMap();	
+        HashMap<String, String> a = MapUtils.newHashMap();	
         for (Map.Entry<String, String> a2 : m.ALLATORIxDEMO(m.ALLATORIxDEMO(inputStream)).entrySet()) {	
-            if (!StringUtils.inString((String)a2.getKey(), (String[])new String[]{"type", "title"})) continue;	
+            if (!StringUtils.inString(a2.getKey(), "type", "title")) continue;	
             a.put(a2.getKey(), a2.getValue());	
         }	
         return a;	
     }	
 	
     public static String getAttrName(JoinTable t) {	
-        return (String)StringUtils.defaultIfBlank((CharSequence)t.attrName(), (CharSequence)StringUtils.uncap((String)t.entity().getSimpleName()));	
+        return StringUtils.defaultIfBlank(t.attrName(), StringUtils.uncap(t.entity().getSimpleName()));	
     }	
 	
     public static String getSqlMapValue(BaseEntity<?> entity, String sqlMapKeys) {	
@@ -161,8 +152,8 @@ public class MapperHelper {
 	
     public static String getTableName(Table t, BaseEntity<?> entity) {	
         String[] a;	
-        String a2 = StringUtils.replace((String)t.name(), (String)"${_prefix}", (String)Global.getTablePrefix());	
-        if (entity != null && (a = StringUtils.substringsBetween((String)a2, (String)"${", (String)"}")) != null) {	
+        String a2 = StringUtils.replace(t.name(), "${_prefix}", Global.getTablePrefix());	
+        if (entity != null && (a = StringUtils.substringsBetween(a2, "${", "}")) != null) {	
             int n;	
             String[] arrstring = a;	
             int n2 = arrstring.length;	
@@ -170,8 +161,8 @@ public class MapperHelper {
             while (n3 < n2) {	
                 void a3;	
                 String a4 = arrstring[n];	
-                String string = ObjectUtils.toString((Object)ReflectUtils.invokeGetter(entity, (String)a4), (String)"");	
-                a2 = StringUtils.replace((String)a2, (String)("${" + a4 + "}"), (String)a3);	
+                String string = ObjectUtils.toString(ReflectUtils.invokeGetter(entity, a4), "");	
+                a2 = StringUtils.replace(a2, "${" + a4 + "}", (String)a3);	
                 n3 = ++n;	
             }	
         }	

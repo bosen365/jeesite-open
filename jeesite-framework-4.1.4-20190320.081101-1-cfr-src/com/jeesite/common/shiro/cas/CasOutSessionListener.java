@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.http.HttpSession	
- *  javax.servlet.http.HttpSessionEvent	
- *  javax.servlet.http.HttpSessionListener	
- *  org.jasig.cas.client.session.SessionMappingStorage	
  */	
 package com.jeesite.common.shiro.cas;	
 	
@@ -20,6 +14,7 @@ public final class CasOutSessionListener
 implements HttpSessionListener {	
     private CasOutHandler casOutHandler;	
 	
+    @Override	
     public void sessionDestroyed(HttpSessionEvent event) {	
         HttpSession a = event.getSession();	
         this.getSessionMappingStorage().removeBySessionById(a.getId());	
@@ -32,6 +27,7 @@ implements HttpSessionListener {
         return this.casOutHandler.getSessionMappingStorage();	
     }	
 	
+    @Override	
     public void sessionCreated(HttpSessionEvent event) {	
     }	
 }	

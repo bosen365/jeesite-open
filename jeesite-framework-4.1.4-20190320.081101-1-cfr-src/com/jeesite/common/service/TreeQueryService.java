@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.common.service;	
 	
@@ -56,7 +51,7 @@ implements TreeServiceApi<T> {
 	
     @Override	
     public T getLastByParentCode(T entity) {	
-        if (StringUtils.isBlank((CharSequence)((TreeEntity)entity).getParentCode())) {	
+        if (StringUtils.isBlank(((TreeEntity)entity).getParentCode())) {	
             ((TreeEntity)entity).setParentCode("0");	
         }	
         ((TreeEntity)this.newEntity()).setParentCode(((BaseEntity)entity).getId());	

@@ -1,21 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.builder.xml.XMLMapperEntityResolver	
- *  org.apache.ibatis.executor.parameter.ParameterHandler	
- *  org.apache.ibatis.mapping.BoundSql	
- *  org.apache.ibatis.mapping.MappedStatement	
- *  org.apache.ibatis.mapping.SqlSource	
- *  org.apache.ibatis.parsing.PropertyParser	
- *  org.apache.ibatis.parsing.XNode	
- *  org.apache.ibatis.parsing.XPathParser	
- *  org.apache.ibatis.scripting.LanguageDriver	
- *  org.apache.ibatis.scripting.defaults.DefaultParameterHandler	
- *  org.apache.ibatis.scripting.defaults.RawSqlSource	
- *  org.apache.ibatis.scripting.xmltags.SqlNode	
- *  org.apache.ibatis.scripting.xmltags.TextSqlNode	
- *  org.apache.ibatis.session.Configuration	
  */	
 package com.jeesite.common.mybatis.mapper.xmltags;	
 	
@@ -42,22 +26,25 @@ import org.xml.sax.EntityResolver;
 	
 public class XMLLanguageDriver	
 implements LanguageDriver {	
+    @Override	
     public SqlSource createSqlSource(Configuration configuration, String script, Class<?> parameterType) {	
         if (script.startsWith("<script>")) {	
             XPathParser a = new XPathParser(script, false, configuration.getVariables(), (EntityResolver)new XMLMapperEntityResolver());	
             return this.createSqlSource(configuration, a.evalNode("/script"), parameterType);	
         }	
-        TextSqlNode a = new TextSqlNode(script = PropertyParser.parse((String)script, (Properties)configuration.getVariables()));	
+        TextSqlNode a = new TextSqlNode(script = PropertyParser.parse(script, configuration.getVariables()));	
         if (a.isDynamic()) {	
-            return new DynamicSqlSource(configuration, (SqlNode)a);	
+            return new DynamicSqlSource(configuration, a);	
         }	
         return new RawSqlSource(configuration, script, parameterType);	
     }	
 	
+    @Override	
     public SqlSource createSqlSource(Configuration configuration, XNode script, Class<?> parameterType) {	
         return new XMLScriptBuilder(configuration, script, parameterType).parseScriptNode();	
     }	
 	
+    @Override	
     public ParameterHandler createParameterHandler(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql) {	
         return new DefaultParameterHandler(mappedStatement, parameterObject, boundSql);	
     }	

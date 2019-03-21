@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.validation.constraints.NotBlank	
- *  javax.validation.constraints.NotNull	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.sys.entity;	
 	
@@ -68,7 +61,7 @@ extends TreeEntity<Menu> {
     }	
 	
     public String getHrefAbbr() {	
-        return StringUtils.abbr((String)this.getMenuHref(), (int)30);	
+        return StringUtils.abbr(this.getMenuHref(), 30);	
     }	
 	
     public Menu() {	
@@ -88,7 +81,7 @@ extends TreeEntity<Menu> {
     }	
 	
     public String getPermissionAbbr() {	
-        return StringUtils.abbr((String)this.getPermission(), (int)30);	
+        return StringUtils.abbr(this.getPermission(), 30);	
     }	
 	
     public String getMenuCode() {	
@@ -130,10 +123,10 @@ extends TreeEntity<Menu> {
 	
     public String getMenuUrl() {	
         String a = this.getMenuHref();	
-        if (StringUtils.isBlank((CharSequence)a)) {	
+        if (StringUtils.isBlank(a)) {	
             return "";	
         }	
-        String[] a2 = StringUtils.substringsBetween((String)this.getMenuHref(), (String)"{", (String)"}");	
+        String[] a2 = StringUtils.substringsBetween(this.getMenuHref(), "{", "}");	
         if (a2 != null) {	
             int n;	
             String[] arrstring = a2;	
@@ -145,31 +138,31 @@ extends TreeEntity<Menu> {
                     void a4;	
                     String a5 = UserUtils.getUser().getLoginCode();	
                     String string = UserUtils.getSsoToken(a5);	
-                    a = StringUtils.replace((String)a, (String)("{" + a3 + "}"), (String)new StringBuilder().insert(0, a5).append("/").append((String)a4).toString());	
+                    a = StringUtils.replace(a, "{" + a3 + "}", new StringBuilder().insert(0, a5).append("/").append((String)a4).toString());	
                 } else if ("userCode".equals(a3)) {	
-                    a = StringUtils.replace((String)a, (String)new StringBuilder().insert(0, "{").append(a3).append("}").toString(), (String)this.getCurrentUser().getUserCode());	
+                    a = StringUtils.replace(a, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getCurrentUser().getUserCode());	
                 } else if ("userName".equals(a3)) {	
-                    a = StringUtils.replace((String)a, (String)new StringBuilder().insert(0, "{").append(a3).append("}").toString(), (String)this.getCurrentUser().getUserName());	
+                    a = StringUtils.replace(a, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getCurrentUser().getUserName());	
                 } else if ("userType".equals(a3)) {	
-                    a = StringUtils.replace((String)a, (String)new StringBuilder().insert(0, "{").append(a3).append("}").toString(), (String)this.getCurrentUser().getUserType());	
+                    a = StringUtils.replace(a, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getCurrentUser().getUserType());	
                 } else if ("menuCode".equals(a3)) {	
-                    a = StringUtils.replace((String)a, (String)new StringBuilder().insert(0, "{").append(a3).append("}").toString(), (String)this.getMenuCode());	
+                    a = StringUtils.replace(a, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getMenuCode());	
                 } else if ("menuParentCode".equals(a3)) {	
-                    a = StringUtils.replace((String)a, (String)new StringBuilder().insert(0, "{").append(a3).append("}").toString(), (String)this.getParentCode());	
+                    a = StringUtils.replace(a, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getParentCode());	
                 } else {	
                     String string = a;	
-                    a = "menuParentCodes".equals(a3) ? StringUtils.replace((String)string, (String)new StringBuilder().insert(0, "{").append(a3).append("}").toString(), (String)this.getParentCodes()) : StringUtils.replace((String)string, (String)new StringBuilder().insert(0, "{").append(a3).append("}").toString(), (String)Global.getConfig(a3));	
+                    a = "menuParentCodes".equals(a3) ? StringUtils.replace(string, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getParentCodes()) : StringUtils.replace(string, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), Global.getConfig(a3));	
                 }	
                 n3 = ++n;	
             }	
         }	
-        if (StringUtils.startsWith((CharSequence)a, (CharSequence)"///")) {	
-            return StringUtils.substring((String)a, (int)2);	
+        if (StringUtils.startsWith(a, "///")) {	
+            return StringUtils.substring(a, 2);	
         }	
-        if (StringUtils.startsWith((CharSequence)a, (CharSequence)"//")) {	
-            return new StringBuilder().insert(0, ServletUtils.getRequest().getContextPath()).append(StringUtils.substring((String)a, (int)1)).toString();	
+        if (StringUtils.startsWith(a, "//")) {	
+            return new StringBuilder().insert(0, ServletUtils.getRequest().getContextPath()).append(StringUtils.substring(a, 1)).toString();	
         }	
-        if (StringUtils.startsWith((CharSequence)a, (CharSequence)"/")) {	
+        if (StringUtils.startsWith(a, "/")) {	
             return new StringBuilder().insert(0, ServletUtils.getRequest().getContextPath()).append(Global.getAdminPath()).append(a).toString();	
         }	
         return a;	

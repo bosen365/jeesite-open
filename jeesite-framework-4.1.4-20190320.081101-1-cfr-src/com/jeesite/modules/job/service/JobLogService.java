@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Service	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.job.service;	
 	

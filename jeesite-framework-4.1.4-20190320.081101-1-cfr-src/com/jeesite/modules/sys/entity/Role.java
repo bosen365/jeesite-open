@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  javax.validation.constraints.NotBlank	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.sys.entity;	
 	
@@ -84,7 +76,7 @@ extends DataEntity<Role> {
     }	
 	
     public void setUserRoleString(String userCodes) {	
-        String[] a = StringUtils.split((String)userCodes, (String)",");	
+        String[] a = StringUtils.split(userCodes, ",");	
         if (a != null) {	
             int n;	
             String[] arrstring = a;	
@@ -92,7 +84,7 @@ extends DataEntity<Role> {
             int n3 = n = 0;	
             while (n3 < n2) {	
                 String a2 = arrstring[n];	
-                if (StringUtils.isNotBlank((CharSequence)a2)) {	
+                if (StringUtils.isNotBlank(a2)) {	
                     void a3;	
                     UserRole userRole = new UserRole();	
                     void v1 = a3;	
@@ -114,7 +106,7 @@ extends DataEntity<Role> {
     }	
 	
     public void setRoleDataScopeListJson(String jsonString) {	
-        List a = (List)JsonMapper.fromJson((String)jsonString, List.class);	
+        List a = (List)JsonMapper.fromJson(jsonString, List.class);	
         if (a != null) {	
             Iterator iterator;	
             Iterator iterator2 = iterator = a.iterator();	
@@ -153,7 +145,7 @@ extends DataEntity<Role> {
     }	
 	
     public void setRoleMenuListJson(String jsonString) {	
-        List a = (List)JsonMapper.fromJson((String)jsonString, List.class);	
+        List a = (List)JsonMapper.fromJson(jsonString, List.class);	
         if (a != null) {	
             Iterator iterator;	
             Iterator iterator2 = iterator = a.iterator();	

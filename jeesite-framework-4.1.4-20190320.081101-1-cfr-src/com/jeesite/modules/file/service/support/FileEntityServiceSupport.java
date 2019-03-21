@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.file.service.support;	
 	
@@ -48,7 +43,7 @@ implements FileEntityService {
     public FileEntity getByMd5(FileEntity fileEntity) {	
         FileEntity a = new FileEntity();	
         a.setFileMd5(fileEntity.getFileMd5());	
-        if (StringUtils.isNotBlank((CharSequence)a.getFileMd5())) {	
+        if (StringUtils.isNotBlank(a.getFileMd5())) {	
             FileEntity fileEntity2 = a;	
             fileEntity2.setPage(new Page(1, 1, -1L));	
             Page<FileEntity> a2 = this.findPage(fileEntity2);	
@@ -58,7 +53,7 @@ implements FileEntityService {
         }	
         FileEntity fileEntity3 = fileEntity;	
         fileEntity3.setStatus("1");	
-        if (StringUtils.isNotBlank((CharSequence)fileEntity3.getFileId()) && this.fileUploadServiceExtend.fileExists(fileEntity)) {	
+        if (StringUtils.isNotBlank(fileEntity3.getFileId()) && this.fileUploadServiceExtend.fileExists(fileEntity)) {	
             fileEntity.setStatus("0");	
         }	
         return fileEntity;	

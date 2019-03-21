@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.databind.ObjectMapper	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  com.jeesite.common.web.http.ServletUtils	
- *  org.springframework.http.HttpOutputMessage	
- *  org.springframework.http.MediaType	
- *  org.springframework.http.converter.HttpMessageNotWritableException	
- *  org.springframework.http.converter.json.MappingJackson2HttpMessageConverter	
- *  org.springframework.http.converter.json.MappingJacksonValue	
  */	
 package com.jeesite.common.web.v;	
 	
@@ -33,14 +22,15 @@ import org.springframework.http.converter.json.MappingJacksonValue;
 	
 public class l	
 extends MappingJackson2HttpMessageConverter {	
+    @Override	
     protected void writeInternal(Object object, Type type, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {	
         String a = ServletUtils.getRequest().getParameter("__callback");	
-        if (StringUtils.isNotBlank((CharSequence)a)) {	
+        if (StringUtils.isNotBlank(a)) {	
             void a2;	
             MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(object);	
             void v0 = a2;	
             v0.setJsonpFunction(a);	
-            super.writeInternal((Object)v0, type, outputMessage);	
+            super.writeInternal(v0, type, outputMessage);	
             return;	
         }	
         super.writeInternal(object, type, outputMessage);	
@@ -48,8 +38,8 @@ extends MappingJackson2HttpMessageConverter {
 	
     public l() {	
         l l2 = this;	
-        l2.setSupportedMediaTypes(Arrays.asList(new MediaType[]{new MediaType("application", "json", DEFAULT_CHARSET), new MediaType("application", "*+json", DEFAULT_CHARSET)}));	
-        this.setObjectMapper((ObjectMapper)JsonMapper.getInstance());	
+        l2.setSupportedMediaTypes(Arrays.asList(new MediaType("application", "json", DEFAULT_CHARSET), new MediaType("application", "*+json", DEFAULT_CHARSET)));	
+        this.setObjectMapper(JsonMapper.getInstance());	
     }	
 }	
 	

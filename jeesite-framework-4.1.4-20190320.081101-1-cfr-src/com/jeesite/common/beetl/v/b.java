@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.beetl.core.Resource	
- *  org.beetl.core.ResourceLoader	
  */	
 package com.jeesite.common.beetl.v;	
 	
@@ -35,6 +31,7 @@ extends Resource {
         b3.b = (String)root + (String)key;	
     }	
 	
+    @Override	
     public boolean isModified() {	
         if (this.i != null) {	
             return this.i.lastModified() != this.ALLATORIxDEMO;	
@@ -45,6 +42,7 @@ extends Resource {
     /*	
      * Exception decompiling	
      */	
+    @Override	
     public Reader openReader() {	
         // This method has failed to decompile.  When submitting a bug report, please provide this stack trace, and (if you hold appropriate legal rights) the relevant class file.	
         // org.benf.cfr.reader.util.ConfusedCFRException: Tried to end blocks [0[TRYBLOCK]], but top level block is 4[CATCHBLOCK]	
@@ -64,6 +62,7 @@ extends Resource {
         throw new IllegalStateException("Decompilation failed");	
     }	
 	
+    @Override	
     public String getId() {	
         return this.id;	
     }	

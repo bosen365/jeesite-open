@@ -1,26 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.codec.AesUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.io.PropertiesUtils	
- *  com.jeesite.common.io.ResourceUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.ServletContext	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  javax.servlet.http.HttpSession	
- *  org.apache.commons.lang3.LocaleUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.context.NoSuchMessageException	
- *  org.springframework.context.i18n.LocaleContextHolder	
- *  org.springframework.core.env.Environment	
- *  org.springframework.core.io.Resource	
  */	
 package com.jeesite.common.config;	
 	
@@ -44,7 +23,6 @@ import java.io.File;
 import java.io.FileNotFoundException;	
 import java.lang.reflect.Field;	
 import java.text.MessageFormat;	
-import java.util.HashMap;	
 import java.util.Locale;	
 import java.util.Map;	
 import javax.servlet.ServletContext;	
@@ -79,7 +57,7 @@ public class Global {
         Locale a = Locale.CHINA;	
         if (I18nLocaleResolver.enabled()) {	
             try {	
-                a = LocaleUtils.toLocale((String)lang);	
+                a = LocaleUtils.toLocale(lang);	
             }	
             catch (IllegalArgumentException illegalArgumentException) {	
                 // empty catch block	
@@ -90,7 +68,7 @@ public class Global {
 	
     public static String getConfig(String key, String defValue) {	
         String a = Global.getConfig(key);	
-        if (StringUtils.isBlank((CharSequence)a)) {	
+        if (StringUtils.isBlank(a)) {	
             return defValue;	
         }	
         return a;	
@@ -107,7 +85,7 @@ public class Global {
     }	
 	
     public static Boolean getPropertyToBoolean(String key, String defValue) {	
-        return ObjectUtils.toBoolean((Object)Global.getProperty(key, defValue));	
+        return ObjectUtils.toBoolean(Global.getProperty(key, defValue));	
     }	
 	
     public static String getProperty(String key) {	
@@ -146,18 +124,18 @@ public class Global {
     }	
 	
     public static /* varargs */ String getText(String code, String ... params) {	
-        if (StringUtils.isBlank((CharSequence)code)) {	
+        if (StringUtils.isBlank(code)) {	
             return code;	
         }	
         Locale a = Locale.CHINA;	
         try {	
-            a = LocaleUtils.toLocale((String)Global.getLang());	
+            a = LocaleUtils.toLocale(Global.getLang());	
         }	
         catch (IllegalArgumentException illegalArgumentException) {	
             // empty catch block	
         }	
         try {	
-            return i.ALLATORIxDEMO().getMessage(code, (Object[])params, a);	
+            return i.ALLATORIxDEMO().getMessage(code, params, a);	
         }	
         catch (NoSuchMessageException a2) {	
             if (params != null && params.length > 0) {	
@@ -231,7 +209,7 @@ public class Global {
     }	
 	
     public static void assertDemoMode() {	
-        if (ObjectUtils.toBoolean((Object)Global.getProperty("demo'ode", FALSE)).booleanValue()) {	
+        if (ObjectUtils.toBoolean(Global.getProperty("demo'ode", FALSE)).booleanValue()) {	
             throw new RuntimeException("msg:演示模式，不允许操作！");	
         }	
     }	
@@ -251,31 +229,31 @@ public class Global {
     }	
 	
     public static Integer getConfigToInteger(String key, String defValue) {	
-        return ObjectUtils.toInteger((Object)Global.getConfig(key, defValue));	
+        return ObjectUtils.toInteger(Global.getConfig(key, defValue));	
     }	
 	
     public static boolean isTestProfileActive() {	
         Environment a = SpringUtils.getBean(Environment.class);	
-        return StringUtils.inString((String)"test", (String[])a.getActiveProfiles());	
+        return StringUtils.inString("test", a.getActiveProfiles());	
     }	
 	
     public static String getJdbcInfo(String key) {	
         String a;	
         String a2 = new StringBuilder().insert(0, "jdbc").append((a = DataSourceHolder.getDataSourceName()) == null ? "" : new StringBuilder().insert(0, ".").append(a).toString()).append(".").append(key).toString();	
         String a3 = Global.getProperty(a2);	
-        if (StringUtils.isBlank((CharSequence)a3)) {	
+        if (StringUtils.isBlank(a3)) {	
             throw new ServiceException(new StringBuilder().insert(0, "没有找到 ").append(a2).append(" 的参数配置").toString());	
         }	
         return a3;	
     }	
 	
     public static Integer getPropertyToInteger(String key, String defValue) {	
-        return ObjectUtils.toInteger((Object)Global.getProperty(key, defValue));	
+        return ObjectUtils.toInteger(Global.getProperty(key, defValue));	
     }	
 	
     public static String getProperty(String key, String defValue) {	
         String a = Global.getProperty(key);	
-        if (StringUtils.isBlank((CharSequence)a)) {	
+        if (StringUtils.isBlank(a)) {	
             return defValue;	
         }	
         return a;	
@@ -287,18 +265,18 @@ public class Global {
                 value = Global.getProperty(key);	
             }	
             if (value.length() != 32) break block16;	
-            value = AesUtils.decode((String)value, (String)ascKey);	
+            value = AesUtils.decode(value, ascKey);	
         }	
         try {	
             throw new RuntimeException("未加密，则加密");	
         }	
         catch (Exception a) {	
             int n;	
-            String a2 = AesUtils.encode((String)value, (String)ascKey);	
+            String a2 = AesUtils.encode(value, ascKey);	
             String[] a3 = PropertiesUtils.DEFAULT_CONFIG_FILE;	
             String a4 = PropertiesUtils.getInstance().getProperty("configFiles");	
-            if (StringUtils.isNotBlank((CharSequence)a4)) {	
-                a3 = StringUtils.split((String)a4, (String)",");	
+            if (StringUtils.isNotBlank(a4)) {	
+                a3 = StringUtils.split(a4, ",");	
             }	
             String[] arrstring = a3;	
             int n2 = arrstring.length;	
@@ -308,23 +286,23 @@ public class Global {
                     String a5 = arrstring[n];	
                     try {	
                         CharSequence a6;	
-                        Resource a7 = ResourceUtils.getResource((String)a5);	
+                        Resource a7 = ResourceUtils.getResource(a5);	
                         if (!a7.exists()) break block17;	
                         File a8 = a7.getFile();	
-                        String a9 = FileUtils.getFileExtension((String)a5);	
+                        String a9 = FileUtils.getFileExtension(a5);	
                         if ("properties".equals(a9)) {	
                             File file = a8;	
-                            String string = FileUtils.readFileToString((File)file, (String)"UTF-8");	
+                            String string = FileUtils.readFileToString(file, "UTF-8");	
                             a6 = ((String)a6).replaceAll("(\n" + key + "=)(.*)", new StringBuilder().insert(0, "$1").append(a2).toString());	
-                            FileUtils.writeStringToFile((File)file, (String)a6, (String)"UTF-8");	
+                            FileUtils.writeStringToFile(file, (String)a6, "UTF-8");	
                             logger.debug(new StringBuilder().insert(0, "Update ").append(a8.getPath()).append(" ").append(key).append(" encryption success.").toString());	
                             break block17;	
                         }	
                         if (!"yml".equals(a9)) break block17;	
-                        a6 = new StringBuilder(FileUtils.readFileToString((File)a8, (String)"UTF-8"));	
+                        a6 = new StringBuilder(FileUtils.readFileToString(a8, "UTF-8"));	
                         String a10 = "";	
                         int a11 = 0;	
-                        String[] a12 = StringUtils.split((String)key, (String)".");	
+                        String[] a12 = StringUtils.split(key, ".");	
                         for (int a13 = 0; a13 < a12.length; ++a13) {	
                             int a14;	
                             int a15;	
@@ -344,10 +322,10 @@ public class Global {
                                     int a18;	
                                     a15 = 0;	
                                     String a19 = ((StringBuilder)a6).substring(a11, a14);	
-                                    String[] a20 = StringUtils.split((String)a19, (String)"\n");	
+                                    String[] a20 = StringUtils.split(a19, "\n");	
                                     int n6 = a18 = 0;	
                                     while (n6 < a20.length) {	
-                                        if (StringUtils.isNotBlank((CharSequence)StringUtils.replace((String)a20[a18], (String)"\r", (String)"")) && !StringUtils.startsWith((CharSequence)StringUtils.trim((String)a20[a18]), (CharSequence)"#") && !StringUtils.startsWith((CharSequence)a20[a18], (CharSequence)a10) && !StringUtils.startsWith((CharSequence)a20[a18], (CharSequence)a17)) {	
+                                        if (StringUtils.isNotBlank(StringUtils.replace(a20[a18], "\r", "")) && !StringUtils.startsWith(StringUtils.trim(a20[a18]), "#") && !StringUtils.startsWith(a20[a18], a10) && !StringUtils.startsWith(a20[a18], a17)) {	
                                             n5 = a15 = 1;	
                                             break block18;	
                                         }	
@@ -361,7 +339,7 @@ public class Global {
                                 CharSequence charSequence = a6;	
                                 a15 = ((StringBuilder)charSequence).indexOf(":", a14);	
                                 int a21 = ((StringBuilder)charSequence).indexOf("\n", a15);	
-                                FileUtils.writeStringToFile((File)a8, (String)((StringBuilder)a6).toString(), (String)"UTF-8");	
+                                FileUtils.writeStringToFile(a8, ((StringBuilder)a6).toString(), "UTF-8");	
                                 logger.debug(new StringBuilder().insert(0, "Update ").append(a8.getPath()).append(" ").append(key).append(" encryption success.").toString());	
                                 ((StringBuilder)charSequence).replace(a15, a21, new StringBuilder().insert(0, ": ").append(a2).toString());	
                             }	
@@ -371,7 +349,7 @@ public class Global {
                     }	
                     catch (Exception a22) {	
                         if (a22 instanceof FileNotFoundException) break block17;	
-                        logger.error(new StringBuilder().insert(0, "Update ").append(a5).append(" encryption failure.").toString(), (Throwable)a22);	
+                        logger.error(new StringBuilder().insert(0, "Update ").append(a5).append(" encryption failure.").toString(), a22);	
                     }	
                 }	
                 n3 = ++n;	
@@ -421,7 +399,7 @@ public class Global {
         String a;	
         block6 : {	
             a = Global.getProperty("file.baseDir");	
-            if (StringUtils.isBlank((CharSequence)a)) {	
+            if (StringUtils.isBlank(a)) {	
                 try {	
                     string = a = ServletUtils.getRequest().getSession().getServletContext().getRealPath("/");	
                     break block6;	
@@ -432,20 +410,20 @@ public class Global {
             }	
             string = a;	
         }	
-        if (StringUtils.isBlank((CharSequence)string)) {	
+        if (StringUtils.isBlank(string)) {	
             a = System.getProperty("user.dir");	
         }	
         if (!a.endsWith("/")) {	
             a = new StringBuilder().insert(0, a).append("/").toString();	
         }	
         if (path != null) {	
-            return FileUtils.path((String)new StringBuilder().insert(0, a).append(USERFILES_BASE_URL).append(path).toString());	
+            return FileUtils.path(new StringBuilder().insert(0, a).append(USERFILES_BASE_URL).append(path).toString());	
         }	
-        return FileUtils.path((String)a);	
+        return FileUtils.path(a);	
     }	
 	
     public static Boolean getConfigToBoolean(String key, String defValue) {	
-        return ObjectUtils.toBoolean((Object)Global.getConfig(key, defValue));	
+        return ObjectUtils.toBoolean(Global.getConfig(key, defValue));	
     }	
 	
     public static String getTablePrefix() {	

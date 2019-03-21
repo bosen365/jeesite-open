@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonFormat	
- *  com.jeesite.common.lang.DateUtils	
- *  org.apache.commons.lang3.StringUtils	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.common.entity;	
 	
@@ -61,7 +55,7 @@ extends BaseEntity<T> {
         DataEntity dataEntity = this;	
         Date a = dataEntity.getCreateDate_gte();	
         Date a2 = dataEntity.getCreateDate_lte();	
-        return DateUtils.formatDateBetweenString((Date)a, (Date)a2);	
+        return DateUtils.formatDateBetweenString(a, a2);	
     }	
 	
     public Date getCreateDate_gte() {	
@@ -77,7 +71,7 @@ extends BaseEntity<T> {
     }	
 	
     public void setCreateDate_gte(Date createDate) {	
-        createDate = DateUtils.getOfDayFirst((Date)createDate);	
+        createDate = DateUtils.getOfDayFirst(createDate);	
         this.sqlMap.getWhere().and("create_date", QueryType.GTE, createDate);	
     }	
 	
@@ -93,11 +87,11 @@ extends BaseEntity<T> {
         DataEntity dataEntity = this;	
         Date a = dataEntity.getUpdateDate_gte();	
         Date a2 = dataEntity.getUpdateDate_lte();	
-        return DateUtils.formatDateBetweenString((Date)a, (Date)a2);	
+        return DateUtils.formatDateBetweenString(a, a2);	
     }	
 	
     public void setUpdateDate_gte(Date updateDate) {	
-        updateDate = DateUtils.getOfDayFirst((Date)updateDate);	
+        updateDate = DateUtils.getOfDayFirst(updateDate);	
         this.sqlMap.getWhere().and("update_date", QueryType.GTE, updateDate);	
     }	
 	
@@ -105,13 +99,13 @@ extends BaseEntity<T> {
     public void preInsert() {	
         DataEntity dataEntity;	
         User a;	
-        if (StringUtils.isBlank((CharSequence)this.getId())) {	
+        if (StringUtils.isBlank(this.getId())) {	
             this.setId(IdGen.nextId());	
         }	
-        if (StringUtils.isBlank((CharSequence)this.getStatus())) {	
+        if (StringUtils.isBlank(this.getStatus())) {	
             this.setStatus(STATUS_NORMAL);	
         }	
-        if (StringUtils.isNotBlank((CharSequence)(a = this.getCurrentUser()).getUserCode())) {	
+        if (StringUtils.isNotBlank((a = this.getCurrentUser()).getUserCode())) {	
             dataEntity = this;	
             this.updateBy = a.getUserCode();	
             this.updateByName = a.getUserName();	
@@ -157,7 +151,7 @@ extends BaseEntity<T> {
     }	
 	
     public void setUpdateDate_between(String updateDateStr) {	
-        Date[] a = DateUtils.parseDateBetweenString((String)updateDateStr);	
+        Date[] a = DateUtils.parseDateBetweenString(updateDateStr);	
         DataEntity dataEntity = this;	
         dataEntity.setUpdateDate_gte(a[0]);	
         dataEntity.setUpdateDate_lte(a[1]);	
@@ -181,17 +175,17 @@ extends BaseEntity<T> {
     }	
 	
     public void setUpdateDate_lte(Date updateDate) {	
-        updateDate = DateUtils.getOfDayLast((Date)updateDate);	
+        updateDate = DateUtils.getOfDayLast(updateDate);	
         this.sqlMap.getWhere().and("update_date", QueryType.LTE, updateDate);	
     }	
 	
     public void setCreateDate_lte(Date createDate) {	
-        createDate = DateUtils.getOfDayLast((Date)createDate);	
+        createDate = DateUtils.getOfDayLast(createDate);	
         this.sqlMap.getWhere().and("create_date", QueryType.LTE, createDate);	
     }	
 	
     public void setCreateDate_between(String createDateStr) {	
-        Date[] a = DateUtils.parseDateBetweenString((String)createDateStr);	
+        Date[] a = DateUtils.parseDateBetweenString(createDateStr);	
         DataEntity dataEntity = this;	
         dataEntity.setCreateDate_gte(a[0]);	
         dataEntity.setCreateDate_lte(a[1]);	
@@ -213,7 +207,7 @@ extends BaseEntity<T> {
     public void preUpdate() {	
         DataEntity dataEntity;	
         User a = this.getCurrentUser();	
-        if (StringUtils.isNotBlank((CharSequence)a.getUserCode())) {	
+        if (StringUtils.isNotBlank(a.getUserCode())) {	
             dataEntity = this;	
             this.updateBy = a.getUserCode();	
             this.updateByName = a.getUserName();	

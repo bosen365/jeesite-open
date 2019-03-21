@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.context.annotation.Bean	
- *  org.springframework.context.annotation.Configuration	
- *  org.springframework.context.annotation.DependsOn	
  */	
 package com.jeesite.autoconfigure.sys;	
 	

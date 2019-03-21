@@ -1,20 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.validation.annotation.Validated	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -106,7 +91,7 @@ extends BaseController {
     @RequestMapping(value={"delete"})	
     @ResponseBody	
     public String delete(Config config, HttpServletRequest request) {	
-        if (StringUtils.isNotBlank((CharSequence)request.getParameter("isSys"))) {	
+        if (StringUtils.isNotBlank(request.getParameter("isSys"))) {	
             return this.renderResult("false", "越权操作，isSy非法参数！");	
         }	
         Config a = (Config)super.getWebDataBinderSource(request);	
@@ -120,7 +105,7 @@ extends BaseController {
     @RequiresPermissions(value={"sys:config:view"})	
     @RequestMapping(value={"form"})	
     public String form(Config config, Model model) {	
-        model.addAttribute("config", (Object)config);	
+        model.addAttribute("config", config);	
         return "module/y/configForm";	
     }	
 }	

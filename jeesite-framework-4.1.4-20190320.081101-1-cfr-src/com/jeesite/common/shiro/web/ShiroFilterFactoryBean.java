@@ -1,17 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.shiro.mgt.SecurityManager	
- *  org.apache.shiro.spring.web.ShiroFilterFactoryBean	
- *  org.apache.shiro.web.filter.mgt.FilterChainManager	
- *  org.apache.shiro.web.filter.mgt.FilterChainResolver	
- *  org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver	
- *  org.apache.shiro.web.mgt.WebSecurityManager	
- *  org.apache.shiro.web.servlet.AbstractShiroFilter	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.beans.factory.BeanInitializationException	
  */	
 package com.jeesite.common.shiro.web;	
 	
@@ -36,6 +24,7 @@ extends org.apache.shiro.spring.web.ShiroFilterFactoryBean {
         return (AbstractShiroFilter)super.getObject();	
     }	
 	
+    @Override	
     protected AbstractShiroFilter createInstance() throws Exception {	
         log.debug("Creating Shiro Fiter instance.");	
         SecurityManager a = this.getSecurityManager();	
@@ -50,13 +39,15 @@ extends org.apache.shiro.spring.web.ShiroFilterFactoryBean {
         FilterChainManager a4 = this.createFilterChainManager();	
         PathMatchingFilterChainResolver a5 = new PathMatchingFilterChainResolver();	
         a5.setFilterChainManager(a4);	
-        return new c((WebSecurityManager)a, (FilterChainResolver)a5);	
+        return new c((WebSecurityManager)a, a5);	
     }	
 	
+    @Override	
     public Object getObject() throws Exception {	
         return this;	
     }	
 	
+    @Override	
     public Class<?> getObjectType() {	
         return ShiroFilterFactoryBean.class;	
     }	

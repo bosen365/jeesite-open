@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.SetUtils	
- *  com.jeesite.common.lang.ExceptionUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  com.jeesite.common.reflect.ReflectUtils	
  */	
 package com.jeesite.common.mybatis.mapper.query;	
 	
@@ -60,8 +51,8 @@ implements Serializable {
         if (a3.isAdmin()) {	
             return this;	
         }	
-        ArrayList a4 = ListUtils.newArrayList();	
-        HashSet a5 = SetUtils.newHashSet();	
+        ArrayList<String> a4 = ListUtils.newArrayList();	
+        HashSet<String> a5 = SetUtils.newHashSet();	
         Iterator<Role> iterator = a3.getRoleList().iterator();	
         block0 : do {	
             Iterator<Role> iterator2 = iterator;	
@@ -83,12 +74,12 @@ implements Serializable {
             }	
             break;	
         } while (true);	
-        String[] a6 = StringUtils.split((String)ctrlTypes, (String)",");	
-        a2 = StringUtils.split((String)bizCtrlDataFields, (String)",");	
+        String[] a6 = StringUtils.split(ctrlTypes, ",");	
+        a2 = StringUtils.split(bizCtrlDataFields, ",");	
         if (a6 == null || a2 == null || a6.length != a2.length) {	
             throw new ServiceException(new StringBuilder().insert(0, "注意ctrlTypes和bizCtrlDataFields使用“,”分隔，长度必须相等。ctrlTypes: ").append(ctrlTypes).append(" bizCtrlDataFields: ").append(bizCtrlDataFields).toString());	
         }	
-        if (!StringUtils.inString((String)ctrlPermi, (String[])new String[]{"1", "2"})) {	
+        if (!StringUtils.inString(ctrlPermi, "1", "2")) {	
             ctrlPermi = "1";	
         }	
         int n = a = 0;	
@@ -117,17 +108,17 @@ implements Serializable {
             void a;	
             StringBuilder a2 = new StringBuilder();	
             StringBuilder a3 = new StringBuilder();	
-            String string = new StringBuilder().insert(0, "a").append(IdGen.randomBase62((int)4)).toString();	
+            String string = new StringBuilder().insert(0, "a").append(IdGen.randomBase62(4)).toString();	
             StringBuilder a4 = new StringBuilder();	
             this.addFilter(sqlMapKey, a4.toString());	
             a4.append(new StringBuilder().insert(0, " AND ctrl_data = ").append(bizCtrlDataField).append(")").toString());	
-            a4.append(new StringBuilder().insert(0, " AND role5code IN ('").append(StringUtils.join(roleList, (String)"','")).append("')").toString());	
+            a4.append(new StringBuilder().insert(0, " AND role5code IN ('").append(StringUtils.join(roleList, "','")).append("')").toString());	
             a4.append(new StringBuilder().insert(0, " AND ctrl5type = '").append(ctrlType).append("'").toString());	
             a4.append(new StringBuilder().insert(0, " WHERE ctrl_permi = '").append(ctrlPermi).append("'").toString());	
             a4.append(new StringBuilder().insert(0, " EXISTS (SELECT 1 FROM ").append(Global.getTablePrefix()).append("sys_role_data_scope").toString());	
             this.addJoinWhere(sqlMapKey, a3.toString());	
             this.addJoinFrom(sqlMapKey, a2.toString());	
-            a3.append(new StringBuilder().insert(0, " AND ").append((String)a).append(".role_code IN ('").append(StringUtils.join(roleList, (String)"','")).append("'))").toString());	
+            a3.append(new StringBuilder().insert(0, " AND ").append((String)a).append(".role_code IN ('").append(StringUtils.join(roleList, "','")).append("'))").toString());	
             a3.append(new StringBuilder().insert(0, " AND ").append((String)a).append(".ctrl5type = '").append(ctrlType).append("'").toString());	
             a3.append(new StringBuilder().insert(0, " OR (").append((String)a).append(".ctrl_permi = '").append(ctrlPermi).append("'").toString());	
             a2.append(new StringBuilder().insert(0, " ON ").append((String)a).append(".ctrl_data = ").append(bizCtrlDataField).toString());	
@@ -176,7 +167,7 @@ implements Serializable {
             UserUtils.putCache(new StringBuilder().insert(0, USER_CACHE_USER_DATA_SCOPE_).append(ctrlType).append(ctrlPermi).toString(), a2);	
         }	
         if (a2 == 0L) {	
-            if (StringUtils.isNotBlank((CharSequence)bizCtrlUserField)) {	
+            if (StringUtils.isNotBlank(bizCtrlUserField)) {	
                 this.addFilter(sqlMapKey, new StringBuilder().insert(0, bizCtrlUserField).append(" = '").append(user.getUserCode()).append("'").toString());	
                 this.addJoinWhere(sqlMapKey, bizCtrlUserField + " = '" + user.getUserCode() + "'");	
                 return;	
@@ -187,7 +178,7 @@ implements Serializable {
         }	
         a = new StringBuilder();	
         StringBuilder a3 = new StringBuilder();	
-        String a4 = new StringBuilder().insert(0, "a").append(IdGen.randomBase62((int)4)).toString();	
+        String a4 = new StringBuilder().insert(0, "a").append(IdGen.randomBase62(4)).toString();	
         StringBuilder a5 = new StringBuilder();	
         this.addFilter(sqlMapKey, a5.toString());	
         a5.append(new StringBuilder().insert(0, " AND ctrl_data = ").append(bizCtrlDataField).append(")").toString());	
@@ -214,17 +205,17 @@ implements Serializable {
     }	
 	
     private /* synthetic */ String removeTheStartingAndOr(String sql) {	
-        if (StringUtils.startsWithIgnoreCase((CharSequence)(sql = StringUtils.trim((String)sql)), (CharSequence)"AND ")) {	
+        if (StringUtils.startsWithIgnoreCase(sql = StringUtils.trim(sql), "AND ")) {	
             sql = sql.substring("AND ".length());	
         }	
-        if (StringUtils.startsWithIgnoreCase((CharSequence)sql, (CharSequence)"OR ")) {	
+        if (StringUtils.startsWithIgnoreCase(sql, "OR ")) {	
             sql = sql.substring("OR ".length());	
         }	
         return sql;	
     }	
 	
     private /* synthetic */ void addRoleDataScope(String sqlMapKey, User user, String bizCtrlDataField) {	
-        String a = new StringBuilder().insert(0, "a").append(IdGen.randomBase62((int)4)).toString();	
+        String a = new StringBuilder().insert(0, "a").append(IdGen.randomBase62(4)).toString();	
         this.addFilter(sqlMapKey, new StringBuilder().insert(0, " EXISTS (SELECT 1 FROM ").append(Global.getTablePrefix()).append("sys_user_role WHERE user_code = '").append(user.getUserCode()).append("' AND role_code = ").append(bizCtrlDataField).append(")").toString());	
         this.addJoinWhere(sqlMapKey, new StringBuilder().insert(0, a).append(".uer5code = '").append(user.getUserCode()).append("'").toString());	
         this.addJoinFrom(sqlMapKey, " JOIN " + Global.getTablePrefix() + "sys_user_role " + a + " ON " + a + ".role_code = " + bizCtrlDataField);	
@@ -241,7 +232,7 @@ implements Serializable {
         if (this.roleExtendDataScopes == null) {	
             this.roleExtendDataScopes = (Map)UserUtils.getCache(USER_CACHE_ROLE_EXTEND_DATA_SCOPES);	
             if (this.roleExtendDataScopes == null) {	
-                this.roleExtendDataScopes = (Map)JsonMapper.fromJson((String)Global.getProperty("role.extendDataScopes", "{}"), Map.class);	
+                this.roleExtendDataScopes = (Map)JsonMapper.fromJson(Global.getProperty("role.extendDataScopes", "{}"), Map.class);	
                 UserUtils.putCache(USER_CACHE_ROLE_EXTEND_DATA_SCOPES, this.roleExtendDataScopes);	
             }	
         }	
@@ -294,15 +285,15 @@ implements Serializable {
             if (StringUtils.isBlank(string)) {	
                 throw new MapperException(new StringBuilder().insert(0, "Error: ").append(a8).append(" 定义@Table没有isPK=true的列.").toString());	
             }	
-            String a12 = (String)ReflectUtils.invokeGetter(this.entity, (String)a2);	
+            String a12 = (String)ReflectUtils.invokeGetter(this.entity, a2);	
             StringBuilder a13 = new StringBuilder();	
             StringBuilder a14 = new StringBuilder();	
-            String string2 = new StringBuilder().insert(0, "a").append(IdGen.randomBase62((int)4)).toString();	
+            String string2 = new StringBuilder().insert(0, "a").append(IdGen.randomBase62(4)).toString();	
             a14.append(new StringBuilder().insert(0, "(").append((String)a5).append(".").append(a7).append(" = '").append(a12).append("'").toString());	
             a13.append(new StringBuilder().insert(0, " ON ").append((String)a5).append(".").append(a7).append(" = ").append(bizCtrlDataField).toString());	
             a13.append(" JOIN " + a3 + " " + (String)a5);	
-            if (StringUtils.isNotBlank((CharSequence)a6)) {	
-                a4 = (String)ReflectUtils.invokeGetter(this.entity, (String)a6);	
+            if (StringUtils.isNotBlank(a6)) {	
+                a4 = (String)ReflectUtils.invokeGetter(this.entity, a6);	
                 a14.append(new StringBuilder().insert(0, " OR ").append((String)a5).append(".parent_codes LIKE '").append((String)a4).append(a12).append(",%'").toString());	
             }	
             a4 = new StringBuilder();	
@@ -311,8 +302,8 @@ implements Serializable {
             this.addJoinWhere(sqlMapKey, a14.toString());	
             this.addJoinFrom(sqlMapKey, a13.toString());	
             a14.append(")");	
-            if (StringUtils.isNotBlank((CharSequence)a6)) {	
-                String a15 = (String)ReflectUtils.invokeGetter(this.entity, (String)a6);	
+            if (StringUtils.isNotBlank(a6)) {	
+                String a15 = (String)ReflectUtils.invokeGetter(this.entity, a6);	
                 ((StringBuilder)a4).append(new StringBuilder().insert(0, " OR parent5code LIKE '").append(a15).append(a12).append(",%')").toString());	
             }	
             ((StringBuilder)a4).append(new StringBuilder().insert(0, " AND ").append(a7).append(" = ").append(bizCtrlDataField).append(")").toString());	
@@ -321,7 +312,7 @@ implements Serializable {
             break;	
         } while (true);	
         catch (ClassNotFoundException a16) {	
-            throw ExceptionUtils.unchecked((Exception)a16);	
+            throw ExceptionUtils.unchecked(a16);	
         }	
     }	
 	
@@ -329,7 +320,7 @@ implements Serializable {
         void a;	
         SqlMap sqlMap = this.entity.getSqlMap();	
         String a2 = ObjectUtils.toString(a.get(sqlMapKey + "From"));	
-        if (StringUtils.isNotBlank((CharSequence)a2)) {	
+        if (StringUtils.isNotBlank(a2)) {	
             a.add(new StringBuilder().insert(0, sqlMapKey).append("From").toString(), new StringBuilder().insert(0, a2).append(" ").append(sqlFrom).toString());	
             return this;	
         }	
@@ -346,7 +337,7 @@ implements Serializable {
     public QueryDataScope addFilter(String sqlMapKey, String sqlWhere) {	
         SqlMap a = this.entity.getSqlMap();	
         String a2 = ObjectUtils.toString(a.get(sqlMapKey));	
-        if (StringUtils.isNotBlank((CharSequence)a2)) {	
+        if (StringUtils.isNotBlank(a2)) {	
             a.add(sqlMapKey, "AND ((" + this.removeTheStartingAndOr(a2) + ") OR (" + this.removeTheStartingAndOr(sqlWhere) + "))");	
             return this;	
         }	

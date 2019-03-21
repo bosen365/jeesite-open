@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.shiro.config.Ini	
- *  org.apache.shiro.config.Ini$Section	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.beans.BeansException	
- *  org.springframework.beans.factory.FactoryBean	
  */	
 package com.jeesite.common.shiro.config;	
 	
@@ -27,6 +19,7 @@ implements FactoryBean<Ini.Section> {
     private Ini.Section section;	
     protected Logger logger;	
 	
+    @Override	
     public boolean isSingleton() {	
         return false;	
     }	
@@ -40,10 +33,12 @@ implements FactoryBean<Ini.Section> {
         this.filterChainDefinitions = filterChainDefinitions;	
     }	
 	
+    @Override	
     public Class<?> getObjectType() {	
         return this.getClass();	
     }	
 	
+    @Override	
     public Ini.Section getObject() throws BeansException {	
         if (this.section == null) {	
             Ini a = new Ini();	
@@ -51,7 +46,7 @@ implements FactoryBean<Ini.Section> {
             a.load(this.defaultFilterChainDefinitions);	
             this.section = a.getSection("");	
             a.load(filterChainDefinitionMap.filterChainDefinitions);	
-            filterChainDefinitionMap.section.putAll((Map)a.getSection(""));	
+            filterChainDefinitionMap.section.putAll(a.getSection(""));	
             if (filterChainDefinitionMap.logger.isDebugEnabled()) {	
                 this.logger.debug("Shiro的URL过滤定义：{}", (Object)this.section.entrySet());	
             }	

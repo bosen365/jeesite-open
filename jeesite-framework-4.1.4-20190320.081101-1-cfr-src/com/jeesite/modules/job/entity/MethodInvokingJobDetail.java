@@ -1,20 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.commons.logging.Log	
- *  org.apache.commons.logging.LogFactory	
- *  org.quartz.DisallowConcurrentExecution	
- *  org.quartz.JobDataMap	
- *  org.quartz.JobDetail	
- *  org.quartz.JobExecutionContext	
- *  org.quartz.JobExecutionException	
- *  org.quartz.PersistJobDataAfterExecution	
- *  org.quartz.impl.JobDetailImpl	
- *  org.springframework.scheduling.quartz.JobMethodInvocationFailedException	
- *  org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean	
- *  org.springframework.scheduling.quartz.QuartzJobBean	
- *  org.springframework.util.MethodInvoker	
  */	
 package com.jeesite.modules.job.entity;	
 	
@@ -24,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.logging.Log;	
 import org.apache.commons.logging.LogFactory;	
 import org.quartz.DisallowConcurrentExecution;	
+import org.quartz.Job;	
 import org.quartz.JobDataMap;	
 import org.quartz.JobDetail;	
 import org.quartz.JobExecutionContext;	
@@ -44,11 +30,13 @@ extends MethodInvokingJobDetailFactoryBean {
         this.invokeTarget = invokeTarget;	
     }	
 	
+    @Override	
     public void setConcurrent(boolean concurrent) {	
         this.concurrent = concurrent;	
         super.setConcurrent(concurrent);	
     }	
 	
+    @Override	
     public void afterPropertiesSet() throws ClassNotFoundException, NoSuchMethodException {	
         MethodInvokingJobDetail methodInvokingJobDetail = this;	
         super.afterPropertiesSet();	
@@ -72,6 +60,7 @@ extends MethodInvokingJobDetailFactoryBean {
             this.methodInvoker = i.ALLATORIxDEMO(methodInvoker);	
         }	
 	
+        @Override	
         protected void executeInternal(JobExecutionContext context) throws JobExecutionException {	
             try {	
                 this.methodInvoker.prepare();	
@@ -82,10 +71,10 @@ extends MethodInvokingJobDetailFactoryBean {
                 if (a.getTargetException() instanceof JobExecutionException) {	
                     throw (JobExecutionException)a.getTargetException();	
                 }	
-                throw new JobMethodInvocationFailedException((MethodInvoker)this.methodInvoker, a.getTargetException());	
+                throw new JobMethodInvocationFailedException(this.methodInvoker, a.getTargetException());	
             }	
             catch (Exception a) {	
-                throw new JobMethodInvocationFailedException((MethodInvoker)this.methodInvoker, (Throwable)a);	
+                throw new JobMethodInvocationFailedException(this.methodInvoker, a);	
             }	
         }	
     }	

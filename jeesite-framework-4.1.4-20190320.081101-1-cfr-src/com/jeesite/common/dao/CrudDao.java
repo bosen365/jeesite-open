@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.annotations.InsertProvider	
- *  org.apache.ibatis.annotations.Param	
- *  org.apache.ibatis.annotations.SelectProvider	
- *  org.apache.ibatis.annotations.UpdateProvider	
  */	
 package com.jeesite.common.dao;	
 	

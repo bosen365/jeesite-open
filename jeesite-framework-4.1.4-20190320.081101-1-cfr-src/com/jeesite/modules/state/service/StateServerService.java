@@ -1,15 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.ByteUtils	
- *  com.jeesite.common.lang.DateUtils	
- *  com.jeesite.common.lang.TimeUtils	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.core.env.Environment	
- *  org.springframework.stereotype.Service	
  */	
 package com.jeesite.modules.state.service;	
 	
@@ -50,7 +40,7 @@ import org.springframework.stereotype.Service;
 public class StateServerService	
 extends BaseService {	
     public Map<String, Object> getCpuInfo() {	
-        LinkedHashMap a = MapUtils.newLinkedHashMap();	
+        LinkedHashMap<String, Object> a = MapUtils.newLinkedHashMap();	
         try {	
             CpuInfo[] a2 = c.a.getCpuInfoList();	
             CpuInfo a3 = a2[0];	
@@ -70,7 +60,7 @@ extends BaseService {
             a.put("vendor", a3.getVendor());	
             int n = a2.length;	
             double a9 = a7 / (a8 += a6.getCombined()) / (double)n;	
-            LinkedHashMap linkedHashMap = a;	
+            LinkedHashMap<String, Object> linkedHashMap = a;	
             long a10 = Math.round(a6.getCombined() * 100.0);	
             linkedHashMap.put("usedPerc", a10 + "%");	
             a.put("currGhz", new StringBuilder().insert(0, a5.format(a9)).append("Ghz").toString());	
@@ -85,13 +75,13 @@ extends BaseService {
     }	
 	
     public Map<String, Object> getServerInfo() {	
-        LinkedHashMap linkedHashMap;	
         OperatingSystemMXBean a;	
+        LinkedHashMap<String, Object> linkedHashMap;	
         Object a22;	
-        LinkedHashMap a3 = MapUtils.newLinkedHashMap();	
+        LinkedHashMap<String, Object> a3 = MapUtils.newLinkedHashMap();	
         try {	
             InetAddress inetAddress = InetAddress.getLocalHost();	
-            LinkedHashMap linkedHashMap2 = a3;	
+            LinkedHashMap<String, Object> linkedHashMap2 = a3;	
             linkedHashMap2.put("hostAddress", ((InetAddress)((Object)a)).getHostAddress());	
             linkedHashMap2.put("hostName", ((InetAddress)((Object)a)).getHostName());	
         }	
@@ -100,8 +90,8 @@ extends BaseService {
         }	
         a = ManagementFactory.getOperatingSystemMXBean();	
         RuntimeMXBean a5 = ManagementFactory.getRuntimeMXBean();	
-        a3.put("uptime", TimeUtils.formatDateAgo((long)a5.getUptime()));	
-        a3.put("startTime", DateUtils.formatDate((long)a5.getStartTime(), (String)"yyyy-MM-dd HH:mm:ss"));	
+        a3.put("uptime", TimeUtils.formatDateAgo(a5.getUptime()));	
+        a3.put("startTime", DateUtils.formatDate(a5.getStartTime(), "yyyy-MM-dd HH:mm:ss"));	
         a3.put("javaArgs", a5.getInputArguments());	
         a3.put("javaHome", System.getProperty("java.home"));	
         a3.put("javaVendor", System.getProperty("java.vm.vendor"));	
@@ -124,57 +114,57 @@ extends BaseService {
         linkedHashMap.put("userDir", System.getProperty("user.dir"));	
         if (Global.getPropertyToBoolean("demoMode", "false").booleanValue()) {	
             a22 = "*** 演示模式，不展示数据 ***";	
-            LinkedHashMap linkedHashMap3 = a3;	
+            LinkedHashMap<String, Object> linkedHashMap3 = a3;	
             linkedHashMap3.put("javaHome", a22);	
             a3.put("hostAddress", a22);	
             a3.put("userfilesDir", a22);	
             a3.put("logPath", a22);	
             a3.put("userDir", a22);	
-            linkedHashMap3.put("javaArgs", ListUtils.newArrayList((Object[])new String[]{a22}));	
+            linkedHashMap3.put("javaArgs", ListUtils.newArrayList(a22));	
         }	
         return a3;	
     }	
 	
     public Map<String, Object> getJvmInfo() {	
         void a;	
-        LinkedHashMap a2 = MapUtils.newLinkedHashMap();	
+        LinkedHashMap<String, Object> a2 = MapUtils.newLinkedHashMap();	
         Runtime runtime = Runtime.getRuntime();	
         double a3 = runtime.totalMemory();	
         double a4 = runtime.freeMemory();	
         double d = a3 - a4;	
-        LinkedHashMap linkedHashMap = a2;	
+        LinkedHashMap<String, Object> linkedHashMap = a2;	
         long a5 = Math.round((double)(a / a3 * 100.0));	
         MemoryMXBean a6 = ManagementFactory.getMemoryMXBean();	
         MemoryUsage a7 = a6.getHeapMemoryUsage();	
         MemoryUsage a8 = a6.getNonHeapMemoryUsage();	
-        a2.put("nonHeapUsed", ByteUtils.formatByteSize((long)a8.getUsed()));	
-        a2.put("nonHeapMax", ByteUtils.formatByteSize((long)a8.getMax()));	
-        a2.put("nonHeapInit", ByteUtils.formatByteSize((long)a8.getInit()));	
-        a2.put("heapAvailable", ByteUtils.formatByteSize((long)(a7.getMax() - a7.getUsed())));	
-        a2.put("heapUsed", ByteUtils.formatByteSize((long)a7.getUsed()));	
-        a2.put("heapMax", ByteUtils.formatByteSize((long)a7.getMax()));	
-        a2.put("heapInit", ByteUtils.formatByteSize((long)a7.getInit()));	
+        a2.put("nonHeapUsed", ByteUtils.formatByteSize(a8.getUsed()));	
+        a2.put("nonHeapMax", ByteUtils.formatByteSize(a8.getMax()));	
+        a2.put("nonHeapInit", ByteUtils.formatByteSize(a8.getInit()));	
+        a2.put("heapAvailable", ByteUtils.formatByteSize(a7.getMax() - a7.getUsed()));	
+        a2.put("heapUsed", ByteUtils.formatByteSize(a7.getUsed()));	
+        a2.put("heapMax", ByteUtils.formatByteSize(a7.getMax()));	
+        a2.put("heapInit", ByteUtils.formatByteSize(a7.getInit()));	
         a2.put("usedPerc", a5 + "%");	
-        linkedHashMap.put("used", ByteUtils.formatByteSize((long)((long)a)));	
-        a2.put("free", ByteUtils.formatByteSize((long)((long)a4)));	
-        a2.put("total", ByteUtils.formatByteSize((long)((long)a3)));	
-        linkedHashMap.put("nonHeapAvailable", ByteUtils.formatByteSize((long)(a8.getMax() == -1L ? -1L : a8.getMax() - a8.getUsed())));	
+        linkedHashMap.put("used", ByteUtils.formatByteSize((long)a));	
+        a2.put("free", ByteUtils.formatByteSize((long)a4));	
+        a2.put("total", ByteUtils.formatByteSize((long)a3));	
+        linkedHashMap.put("nonHeapAvailable", ByteUtils.formatByteSize(a8.getMax() == -1L ? -1L : a8.getMax() - a8.getUsed()));	
         return a2;	
     }	
 	
     public Map<String, Object> getMemInfo() {	
-        LinkedHashMap a = MapUtils.newLinkedHashMap();	
+        LinkedHashMap<String, Object> a = MapUtils.newLinkedHashMap();	
         try {	
             void a2;	
             Mem a3 = c.a.getMem();	
             double d = a3.getTotal();	
             double a4 = a3.getFree();	
-            LinkedHashMap linkedHashMap = a;	
+            LinkedHashMap<String, Object> linkedHashMap = a;	
             double a5 = a3.getUsed();	
             long a6 = Math.round(a5 / a2 * 100.0);	
-            linkedHashMap.put("used", ByteUtils.formatByteSize((long)((long)a5)));	
-            a.put("free", ByteUtils.formatByteSize((long)((long)a4)));	
-            a.put("total", ByteUtils.formatByteSize((long)((long)d)));	
+            linkedHashMap.put("used", ByteUtils.formatByteSize((long)a5));	
+            a.put("free", ByteUtils.formatByteSize((long)a4));	
+            a.put("total", ByteUtils.formatByteSize((long)d));	
             linkedHashMap.put("usedPerc", a6 + "%");	
             return a;	
         }	

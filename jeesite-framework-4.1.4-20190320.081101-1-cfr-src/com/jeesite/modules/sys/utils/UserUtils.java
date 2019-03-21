@@ -1,23 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.codec.Md5Utils	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.SetUtils	
- *  com.jeesite.common.lang.DateUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  org.apache.shiro.SecurityUtils	
- *  org.apache.shiro.UnavailableSecurityManagerException	
- *  org.apache.shiro.authz.AuthorizationInfo	
- *  org.apache.shiro.session.InvalidSessionException	
- *  org.apache.shiro.session.Session	
- *  org.apache.shiro.subject.Subject	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.modules.sys.utils;	
 	
@@ -80,7 +62,7 @@ public class UserUtils {
         user.setRoleList(m.ALLATORIxDEMO().findListByUserCode(new Role(user)));	
         CacheUtils.put(USER_CACHE, new StringBuilder().insert(0, USER_CACHE_USER_CODE_).append(user.getId()).toString(), user);	
         CacheUtils.put(USER_CACHE, new StringBuilder().insert(0, USER_CACHE_LOGIN_CODE_).append(user.getLoginCode()).toString(), user.getUserCode());	
-        if (StringUtils.isNotBlank((CharSequence)user.getUserType()) && StringUtils.isNotBlank((CharSequence)user.getRefCode())) {	
+        if (StringUtils.isNotBlank(user.getUserType()) && StringUtils.isNotBlank(user.getRefCode())) {	
             CacheUtils.put(USER_CACHE, new StringBuilder().insert(0, USER_CACHE_USER_TYPE_AND_REF_CODE_).append(user.getUserType()).append("_").append(user.getRefCode()).toString(), user.getUserCode());	
         }	
         return user;	
@@ -93,26 +75,26 @@ public class UserUtils {
             CacheUtils.remove(new StringBuilder().insert(0, "userCache_").append(a2).toString(), key);	
             return;	
         }	
-        UserUtils.getSession().removeAttribute((Object)key);	
+        UserUtils.getSession().removeAttribute(key);	
     }	
 	
     public static String getSsoToken(String username) {	
         String a = Global.getConfig("shir.ss.secretKey");	
-        if (StringUtils.isBlank((CharSequence)a)) {	
+        if (StringUtils.isBlank(a)) {	
             logger.warn("属性文件 shiro.sso.secretKey 为空，请设置后再操作。");	
             return null;	
         }	
         if (Global.getConfigToBoolean("shiro.sso.encryptKey", "true").booleanValue()) {	
             a = Global.getPropertyDecodeAndEncode("f6ac0085022dd47f1fe58e0dff6f0883", "shir.ss.secretKey", a);	
         }	
-        return Md5Utils.md5((String)new StringBuilder().insert(0, a).append(username).append(DateUtils.getDate((String)"yyyyMMdd")).toString());	
+        return Md5Utils.md5(new StringBuilder().insert(0, a).append(username).append(DateUtils.getDate("yyyyMMdd")).toString());	
     }	
 	
     /*	
      * WARNING - Removed try catching itself - possible behaviour change.	
      */	
     public static User getByTypeAndRef(String userType, String refCode) {	
-        if (StringUtils.isBlank((CharSequence)userType) || StringUtils.isBlank((CharSequence)refCode)) {	
+        if (StringUtils.isBlank(userType) || StringUtils.isBlank(refCode)) {	
             return null;	
         }	
         String a = new StringBuilder().insert(0, USER_CACHE_USER_TYPE_AND_REF_CODE_).append(userType).append("_").append(refCode).toString();	
@@ -196,14 +178,14 @@ public class UserUtils {
     }	
 	
     public static <V> void putCache(String key, V value) {	
-        if (StringUtils.isNotBlank((CharSequence)key)) {	
+        if (StringUtils.isNotBlank(key)) {	
             LoginInfo a = UserUtils.getLoginInfo();	
             if (a != null) {	
                 String a2 = a.getId();	
                 CacheUtils.put(new StringBuilder().insert(0, "userCache_").append(a2).toString(), key, value);	
                 return;	
             }	
-            UserUtils.getSession().setAttribute((Object)key, value);	
+            UserUtils.getSession().setAttribute(key, value);	
         }	
     }	
 	
@@ -212,7 +194,7 @@ public class UserUtils {
      */	
     public static User get(String userCode) {	
         Object a;	
-        if (StringUtils.isBlank((CharSequence)userCode)) {	
+        if (StringUtils.isBlank(userCode)) {	
             return null;	
         }	
         HttpServletRequest a2 = ServletUtils.getRequest();	
@@ -235,7 +217,7 @@ public class UserUtils {
             a3 = m.ALLATORIxDEMO().get(a4);	
             a3 = UserUtils.returnUser(a3);	
             if (a2 != null) {	
-                a2.setAttribute(new StringBuilder().insert(0, "__user__").append(userCode).toString(), (Object)a3);	
+                a2.setAttribute(new StringBuilder().insert(0, "__user__").append(userCode).toString(), a3);	
             }	
             if (a3 != null) {	
                 User user = (User)a3.clone();	
@@ -306,14 +288,14 @@ public class UserUtils {
     }	
 	
     public static void clearCache(User user) {	
-        if (user == null || StringUtils.isBlank((CharSequence)user.getUserCode())) {	
+        if (user == null || StringUtils.isBlank(user.getUserCode())) {	
             return;	
         }	
         User a = (User)CacheUtils.get(USER_CACHE, new StringBuilder().insert(0, USER_CACHE_USER_CODE_).append(user.getUserCode()).toString());	
-        if (a != null && StringUtils.isNotBlank((CharSequence)a.getUserCode())) {	
+        if (a != null && StringUtils.isNotBlank(a.getUserCode())) {	
             CacheUtils.remove(USER_CACHE, new StringBuilder().insert(0, USER_CACHE_USER_CODE_).append(a.getUserCode()).toString());	
             CacheUtils.remove(USER_CACHE, new StringBuilder().insert(0, USER_CACHE_LOGIN_CODE_).append(a.getLoginCode()).toString());	
-            if (StringUtils.isNotBlank((CharSequence)a.getUserType()) && StringUtils.isNotBlank((CharSequence)a.getRefCode())) {	
+            if (StringUtils.isNotBlank(a.getUserType()) && StringUtils.isNotBlank(a.getRefCode())) {	
                 CacheUtils.remove(USER_CACHE, new StringBuilder().insert(0, USER_CACHE_USER_TYPE_AND_REF_CODE_).append(a.getUserType()).append("_").append(a.getRefCode()).toString());	
             }	
             CacheUtils.removeCache(new StringBuilder().insert(0, "userCache_").append(a.getUserCode()).toString());	
@@ -324,7 +306,7 @@ public class UserUtils {
      * WARNING - Removed try catching itself - possible behaviour change.	
      */	
     public static User getByLoginCode(String loginCode) {	
-        if (StringUtils.isBlank((CharSequence)loginCode)) {	
+        if (StringUtils.isBlank(loginCode)) {	
             return null;	
         }	
         String a = new StringBuilder().insert(0, USER_CACHE_LOGIN_CODE_).append(loginCode).toString();	
@@ -360,7 +342,7 @@ public class UserUtils {
             String a2 = a.getId();	
             return CacheUtils.get(new StringBuilder().insert(0, "userCache_").append(a2).toString(), key);	
         }	
-        return (V)UserUtils.getSession().getAttribute((Object)key);	
+        return (V)UserUtils.getSession().getAttribute(key);	
     }	
 	
     /*	
@@ -370,10 +352,10 @@ public class UserUtils {
      */	
     public static void loadRefObj(User user) {	
         if (user.getRefObj() != null) return;	
-        if (!StringUtils.isNotBlank((CharSequence)user.getUserType())) return;	
-        if (!StringUtils.isNotBlank((CharSequence)user.getRefCode())) return;	
+        if (!StringUtils.isNotBlank(user.getUserType())) return;	
+        if (!StringUtils.isNotBlank(user.getRefCode())) return;	
         String a = UserUtils.getUserTypeValue(user.getUserType(), "dao");	
-        if (!StringUtils.isNotBlank((CharSequence)a)) return;	
+        if (!StringUtils.isNotBlank(a)) return;	
         try {	
             User user2;	
             Object a2;	
@@ -413,7 +395,7 @@ public class UserUtils {
     public static List<Menu> getMenuListByParentCode(String parentCode) {	
         block4 : {	
             block3 : {	
-                a = ObjectUtils.toStringIgnoreNull((Object)UserUtils.getSession().getAttribute((Object)"sysCode"), (String)"default");	
+                a = ObjectUtils.toStringIgnoreNull(UserUtils.getSession().getAttribute("sysCode"), "default");	
                 a = new StringBuilder().insert(0, "menuList_").append(a).append("_").append(parentCode).toString();	
                 a = (List<Menu>)UserUtils.getCache(a);	
                 if (a != null) return a;	
@@ -429,13 +411,13 @@ public class UserUtils {
                 break block4;	
             }	
             if (!"none".equals(a.getUserType()) && StringUtils.isNotBlank((CharSequence)(a = Global.getConfig(new StringBuilder().insert(0, "sys.user.defaultRleCdes.").append(a.getUserType()).toString())))) {	
-                a.setDefaultRoleCodes(StringUtils.split((String)a, (char)','));	
+                a.setDefaultRoleCodes(StringUtils.split((String)a, ','));	
             }	
             if (!"1".equals(a.getMgrType())) ** GOTO lbl27	
             if (a.getDefaultRoleCodes() != null) {	
                 v2 = a;	
-                a = SetUtils.newHashSet((Object[])v2.getDefaultRoleCodes());	
-                a.add(Role.CORP_ADMIN_ROLE_CODE);	
+                a = SetUtils.newHashSet(v2.getDefaultRoleCodes());	
+                a.add((String)Role.CORP_ADMIN_ROLE_CODE);	
                 v2.setDefaultRoleCodes(a.toArray(new String[a.size()]));	
                 v3 = a;	
             } else {	

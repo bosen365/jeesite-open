@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ExceptionUtils	
- *  org.quartz.JobDetail	
- *  org.quartz.JobExecutionContext	
- *  org.quartz.JobExecutionException	
- *  org.quartz.JobKey	
- *  org.quartz.listeners.JobListenerSupport	
- *  org.slf4j.Logger	
  */	
 package com.jeesite.modules.job.listener;	
 	
@@ -37,11 +28,12 @@ extends JobListenerSupport {
         jobDetailListener.errorLevel = Global.getPropertyToBoolean("jb.lg.jbDetail.errrLevel", "false");	
     }	
 	
+    @Override	
     public void jobToBeExecuted(JobExecutionContext context) {	
         if (!this.errorLevel) {	
             void a;	
             JobDetailListener jobDetailListener = this;	
-            jobDetailListener.getLog().debug(new StringBuilder().insert(0, "jobToBeExecuted 任务执行  ").append((Object)context.getJobDetail().getKey()).toString());	
+            jobDetailListener.getLog().debug(new StringBuilder().insert(0, "jobToBeExecuted 任务执行  ").append(context.getJobDetail().getKey()).toString());	
             JobLog jobLog = new JobLog();	
             void v1 = a;	
             void v2 = a;	
@@ -55,15 +47,17 @@ extends JobListenerSupport {
         }	
     }	
 	
+    @Override	
     public String getName() {	
-        return ((Object)((Object)this)).getClass().getName();	
+        return this.getClass().getName();	
     }	
 	
+    @Override	
     public void jobExecutionVetoed(JobExecutionContext context) {	
         if (!this.errorLevel) {	
             void a;	
             JobDetailListener jobDetailListener = this;	
-            jobDetailListener.getLog().debug(new StringBuilder().insert(0, "jobExecutinVetoed 任务停止  ").append((Object)context.getJobDetail().getKey()).toString());	
+            jobDetailListener.getLog().debug(new StringBuilder().insert(0, "jobExecutinVetoed 任务停止  ").append(context.getJobDetail().getKey()).toString());	
             JobLog jobLog = new JobLog();	
             void v1 = a;	
             void v2 = a;	
@@ -77,10 +71,11 @@ extends JobListenerSupport {
         }	
     }	
 	
+    @Override	
     public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {	
         if (!this.errorLevel || jobException != null) {	
             void a;	
-            this.getLog().debug(new StringBuilder().insert(0, "jobWasExecuted 任务结束  ").append((Object)context.getJobDetail().getKey()).append(" ").append(jobException != null ? "【有异常】" : "").toString(), (Throwable)jobException);	
+            this.getLog().debug(new StringBuilder().insert(0, "jobWasExecuted 任务结束  ").append(context.getJobDetail().getKey()).append(" ").append(jobException != null ? "【有异常】" : "").toString(), jobException);	
             JobLog jobLog = new JobLog();	
             void v0 = a;	
             void v1 = a;	
@@ -94,7 +89,7 @@ extends JobListenerSupport {
                 void v3 = a;	
                 a.setJobMessage("任务失败");	
                 v3.setIsException("1");	
-                v3.setExceptionInfo(ExceptionUtils.getStackTraceAsString((Throwable)jobException));	
+                v3.setExceptionInfo(ExceptionUtils.getStackTraceAsString(jobException));	
             }	
             this.jobLogService.save((JobLog)a);	
         }	

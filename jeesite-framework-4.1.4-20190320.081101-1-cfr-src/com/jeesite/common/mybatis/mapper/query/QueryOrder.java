@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.codec.EncodeUtils	
- *  com.jeesite.common.lang.StringUtils	
  */	
 package com.jeesite.common.mybatis.mapper.query;	
 	
@@ -29,19 +25,19 @@ implements Serializable {
 	
     private /* synthetic */ void addOrderBy(StringBuilder sql, Table t, BaseEntity<?> entity, String tableAlias) {	
         int a;	
-        if (entity.getPage() != null && StringUtils.isNotBlank((CharSequence)entity.getPage().getOrderBy())) {	
+        if (entity.getPage() != null && StringUtils.isNotBlank(entity.getPage().getOrderBy())) {	
             sql.append(entity.getPage().getOrderBy());	
             return;	
         }	
-        if (StringUtils.isNotBlank((CharSequence)this.getOrderBy())) {	
+        if (StringUtils.isNotBlank(this.getOrderBy())) {	
             sql.append(this.getOrderBy());	
             return;	
         }	
-        if (StringUtils.isNotBlank((CharSequence)t.orderBy())) {	
+        if (StringUtils.isNotBlank(t.orderBy())) {	
             sql.append(t.orderBy());	
             return;	
         }	
-        String[] a2 = StringUtils.split((String)entity.getIdColumnName(), (String)"#");	
+        String[] a2 = StringUtils.split(entity.getIdColumnName(), "#");	
         int n = a = 0;	
         while (n < a2.length) {	
             if (a != 0) {	
@@ -54,7 +50,7 @@ implements Serializable {
     }	
 	
     public String getOrderBy() {	
-        return EncodeUtils.sqlFilter((String)this.orderBy);	
+        return EncodeUtils.sqlFilter(this.orderBy);	
     }	
 	
     public QueryOrder(BaseEntity<?> entity) {	

@@ -1,17 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpSession	
- *  org.apache.commons.logging.Log	
- *  org.apache.commons.logging.LogFactory	
- *  org.apache.shiro.subject.PrincipalCollection	
- *  org.apache.shiro.subject.support.DefaultSubjectContext	
- *  org.jasig.cas.client.session.HashMapBackedSessionMappingStorage	
- *  org.jasig.cas.client.session.SessionMappingStorage	
- *  org.jasig.cas.client.util.CommonUtils	
- *  org.jasig.cas.client.util.XmlUtils	
  */	
 package com.jeesite.common.shiro.cas;	
 	
@@ -40,7 +28,7 @@ public final class CasOutHandler {
     }	
 	
     public boolean isLogoutRequest(HttpServletRequest request) {	
-        return "POST".equals(request.getMethod()) && !this.isMultipartRequest(request) && CommonUtils.isNotBlank((String)CommonUtils.safeGetParameter((HttpServletRequest)request, (String)this.logoutParameterName));	
+        return "POST".equals(request.getMethod()) && !this.isMultipartRequest(request) && CommonUtils.isNotBlank(CommonUtils.safeGetParameter(request, this.logoutParameterName));	
     }	
 	
     public static String ALLATORIxDEMO(String s) {	
@@ -68,9 +56,9 @@ public final class CasOutHandler {
 	
     public void init() {	
         CasOutHandler casOutHandler = this;	
-        CommonUtils.assertNotNull((Object)casOutHandler.artifactParameterName, (String)"artifactParameterName cannot be null.");	
-        CommonUtils.assertNotNull((Object)casOutHandler.logoutParameterName, (String)"logoutParameterName cannot be null.");	
-        CommonUtils.assertNotNull((Object)casOutHandler.sessionMappingStorage, (String)"sessionMappingStorage cannote be null.");	
+        CommonUtils.assertNotNull(casOutHandler.artifactParameterName, "artifactParameterName cannot be null.");	
+        CommonUtils.assertNotNull(casOutHandler.logoutParameterName, "logoutParameterName cannot be null.");	
+        CommonUtils.assertNotNull(casOutHandler.sessionMappingStorage, "sessionMappingStorage cannote be null.");	
     }	
 	
     /*	
@@ -80,16 +68,16 @@ public final class CasOutHandler {
      */	
     public LoginInfo destroySession(HttpServletRequest request) {	
         HttpSession a;	
-        String a2 = CommonUtils.safeGetParameter((HttpServletRequest)request, (String)this.logoutParameterName);	
+        String a2 = CommonUtils.safeGetParameter(request, this.logoutParameterName);	
         if (this.log.isTraceEnabled()) {	
-            this.log.trace((Object)new StringBuilder().insert(0, "Logout request:\n").append(a2).toString());	
+            this.log.trace(new StringBuilder().insert(0, "Logout request:\n").append(a2).toString());	
         }	
         LoginInfo a3 = null;	
-        String a4 = XmlUtils.getTextForElement((String)a2, (String)"SessionIndex");	
-        if (CommonUtils.isNotBlank((String)a4) && (a = this.sessionMappingStorage.removeSessionByMappingId(a4)) != null) {	
+        String a4 = XmlUtils.getTextForElement(a2, "SessionIndex");	
+        if (CommonUtils.isNotBlank(a4) && (a = this.sessionMappingStorage.removeSessionByMappingId(a4)) != null) {	
             String a5 = a.getId();	
             if (this.log.isDebugEnabled()) {	
-                this.log.debug((Object)new StringBuilder().insert(0, "Invalidating session [").append(a5).append("] for token [").append(a4).append("]").toString());	
+                this.log.debug(new StringBuilder().insert(0, "Invalidating session [").append(a5).append("] for token [").append(a4).append("]").toString());	
             }	
             try {	
                 PrincipalCollection a6 = (PrincipalCollection)a.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);	
@@ -98,14 +86,14 @@ public final class CasOutHandler {
                 return a3;	
             }	
             catch (IllegalStateException a7) {	
-                this.log.debug((Object)"Error invalidating session.", (Throwable)a7);	
+                this.log.debug("Error invalidating session.", a7);	
             }	
         }	
         return a3;	
     }	
 	
     public boolean isTokenRequest(HttpServletRequest request) {	
-        return CommonUtils.isNotBlank((String)CommonUtils.safeGetParameter((HttpServletRequest)request, (String)this.artifactParameterName));	
+        return CommonUtils.isNotBlank(CommonUtils.safeGetParameter(request, this.artifactParameterName));	
     }	
 	
     public void recordSession(HttpServletRequest request, String ticket) {	
@@ -117,11 +105,11 @@ public final class CasOutHandler {
             String string = ticket;	
             casOutHandler2 = this;	
         } else {	
-            a = CommonUtils.safeGetParameter((HttpServletRequest)request, (String)this.artifactParameterName);	
+            a = CommonUtils.safeGetParameter(request, this.artifactParameterName);	
             casOutHandler2 = this;	
         }	
         if (casOutHandler2.log.isDebugEnabled()) {	
-            this.log.debug((Object)new StringBuilder().insert(0, "Recording session for token ").append(a).toString());	
+            this.log.debug(new StringBuilder().insert(0, "Recording session for token ").append(a).toString());	
         }	
         try {	
             this.sessionMappingStorage.removeBySessionById(a2.getId());	

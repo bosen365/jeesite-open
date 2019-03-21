@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.oschina.j2cache.Command	
- *  net.oschina.j2cache.J2CacheConfig	
- *  net.oschina.j2cache.cluster.ClusterPolicy	
- *  org.apache.commons.lang3.StringUtils	
- *  org.springframework.data.redis.connection.MessageListener	
- *  org.springframework.data.redis.connection.RedisConnection	
- *  org.springframework.data.redis.connection.RedisConnectionFactory	
- *  org.springframework.data.redis.core.RedisTemplate	
- *  org.springframework.data.redis.listener.PatternTopic	
- *  org.springframework.data.redis.listener.RedisMessageListenerContainer	
- *  org.springframework.data.redis.listener.Topic	
  */	
 package com.jeesite.common.j2cache.cache.support.redis;	
 	
@@ -45,10 +32,11 @@ implements ClusterPolicy {
     private String channel;	
     private String cacheCleanMode;	
 	
+    @Override	
     public void publish(Command cmd) {	
         if (!isActive || "blend".equals(this.cacheCleanMode)) {	
             SpringRedisPubSubPolicy springRedisPubSubPolicy = this;	
-            springRedisPubSubPolicy.redisTemplate.convertAndSend(springRedisPubSubPolicy.channel, (Object)cmd.json());	
+            springRedisPubSubPolicy.redisTemplate.convertAndSend(springRedisPubSubPolicy.channel, cmd.json());	
         }	
     }	
 	
@@ -58,9 +46,10 @@ implements ClusterPolicy {
         springRedisPubSubPolicy.channel = "j2cache_channel";	
     }	
 	
+    @Override	
     public void disconnect() {	
         SpringRedisPubSubPolicy springRedisPubSubPolicy = this;	
-        springRedisPubSubPolicy.redisTemplate.convertAndSend(springRedisPubSubPolicy.channel, (Object)Command.quit().json());	
+        springRedisPubSubPolicy.redisTemplate.convertAndSend(springRedisPubSubPolicy.channel, Command.quit().json());	
     }	
 	
     public void connect(Properties props) {	
@@ -69,7 +58,7 @@ implements ClusterPolicy {
         J2CacheConfig a3 = SpringUtils.getBean(J2CacheConfig.class);	
         this.redisTemplate = (RedisTemplate)SpringUtils.getBean("j2CacheRedisTemplate");	
         String a4 = props.getProperty("cache_clean_mode");	
-        if (StringUtils.isNotBlank((CharSequence)a4)) {	
+        if (StringUtils.isNotBlank(a4)) {	
             this.cacheCleanMode = a4;	
         }	
         if ("active".equals(this.cacheCleanMode)) {	
@@ -80,7 +69,7 @@ implements ClusterPolicy {
         }	
         RedisMessageListenerContainer redisMessageListenerContainer = (RedisMessageListenerContainer)SpringUtils.getBean("j2CacheRedisMessageListenerContainer");	
         SpringRedisPubSubPolicy springRedisPubSubPolicy = this;	
-        a.addMessageListener((MessageListener)new SpringRedisMessageListener(springRedisPubSubPolicy, springRedisPubSubPolicy.channel), (Topic)new PatternTopic(this.channel));	
+        a.addMessageListener((MessageListener)new SpringRedisMessageListener(springRedisPubSubPolicy, springRedisPubSubPolicy.channel), new PatternTopic(this.channel));	
         if (isActive || "blend".equals(this.cacheCleanMode)) {	
             new ConfigureNotifyKeyspaceEventsAction().config(a.getConnectionFactory().getConnection());	
             J2CacheConfig j2CacheConfig = a3;	

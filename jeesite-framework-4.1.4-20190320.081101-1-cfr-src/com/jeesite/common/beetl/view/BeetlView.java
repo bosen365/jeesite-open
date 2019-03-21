@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.commons.lang3.StringUtils	
- *  org.beetl.ext.spring.BeetlSpringView	
- *  org.springframework.beans.factory.NoSuchBeanDefinitionException	
- *  org.springframework.beans.factory.NoUniqueBeanDefinitionException	
  */	
 package com.jeesite.common.beetl.view;	
 	
@@ -24,17 +16,18 @@ import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 	
 public class BeetlView	
 extends BeetlSpringView {	
+    @Override	
     protected void renderMergedTemplateModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws NoSuchBeanDefinitionException, NoUniqueBeanDefinitionException {	
         String a;	
         Map<String, Object> map;	
         HttpServletRequest httpServletRequest = request;	
         String a2 = httpServletRequest.getRequestURI();	
         String string = httpServletRequest.getContextPath();	
-        if (StringUtils.startsWith((CharSequence)a2, (CharSequence)(a + Global.getAdminPath()))) {	
+        if (StringUtils.startsWith(a2, a + Global.getAdminPath())) {	
             a = new StringBuilder().insert(0, a).append(Global.getAdminPath()).toString();	
             map = model;	
         } else {	
-            if (StringUtils.startsWith((CharSequence)a2, (CharSequence)new StringBuilder().insert(0, a).append(Global.getFrontPath()).toString())) {	
+            if (StringUtils.startsWith(a2, new StringBuilder().insert(0, a).append(Global.getFrontPath()).toString())) {	
                 a = new StringBuilder().insert(0, a).append(Global.getFrontPath()).toString();	
             }	
             map = model;	
@@ -45,7 +38,7 @@ extends BeetlSpringView {
             return;	
         }	
         catch (IllegalStateException a3) {	
-            if (!StringUtils.contains((CharSequence)a3.getMessage(), (CharSequence)"getOutputStream() has already been called for this response")) {	
+            if (!StringUtils.contains((CharSequence)a3.getMessage(), "getOutputStream() has already been called for this response")) {	
                 throw a3;	
             }	
             return;	

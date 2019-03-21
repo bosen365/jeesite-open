@@ -1,8 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.io.Resources	
  */	
 package com.jeesite.common.mybatis.mapper.xml;	
 	
@@ -27,7 +24,7 @@ implements EntityResolver {
         InputSource a = null;	
         if (path != null) {	
             try {	
-                InputStream a2 = Resources.getResourceAsStream((String)path);	
+                InputStream a2 = Resources.getResourceAsStream(path);	
                 InputSource inputSource = a = new InputSource(a2);	
                 inputSource.setPublicId(publicId);	
                 inputSource.setSystemId(systemId);	

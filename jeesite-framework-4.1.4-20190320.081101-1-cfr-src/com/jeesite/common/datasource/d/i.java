@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.alibaba.druid.filter.FilterAdapter	
- *  com.alibaba.druid.pool.DruidDataSource	
- *  com.alibaba.druid.proxy.jdbc.DataSourceProxy	
- *  com.alibaba.druid.support.logging.Log	
- *  com.alibaba.druid.support.logging.LogFactory	
- *  com.jeesite.common.lang.ObjectUtils	
  */	
 package com.jeesite.common.datasource.d;	
 	
@@ -30,6 +22,7 @@ extends FilterAdapter {
         this.b = jdbcPrefix;	
     }	
 	
+    @Override	
     public void init(DataSourceProxy dataSourceProxy) {	
         String a;	
         if (!(dataSourceProxy instanceof DruidDataSource)) {	
@@ -37,13 +30,13 @@ extends FilterAdapter {
         }	
         DruidDataSource a2 = (DruidDataSource)dataSourceProxy;	
         String a3 = "72d1af0aec0114d3300ddb40cc17e90b";	
-        if (ObjectUtils.toBoolean((Object)Global.getProperty(new StringBuilder().insert(0, this.b).append(".encrypt.username").toString())).booleanValue()) {	
+        if (ObjectUtils.toBoolean(Global.getProperty(new StringBuilder().insert(0, this.b).append(".encrypt.username").toString())).booleanValue()) {	
             DruidDataSource druidDataSource = a2;	
             String string = druidDataSource.getUsername();	
             a = Global.getPropertyDecodeAndEncode(a3, this.b + ".username", a);	
             druidDataSource.setUsername(a);	
         }	
-        if (ObjectUtils.toBoolean((Object)Global.getProperty(new StringBuilder().insert(0, this.b).append(".encrypt.password").toString())).booleanValue()) {	
+        if (ObjectUtils.toBoolean(Global.getProperty(new StringBuilder().insert(0, this.b).append(".encrypt.password").toString())).booleanValue()) {	
             DruidDataSource druidDataSource = a2;	
             a = druidDataSource.getPassword();	
             a = Global.getPropertyDecodeAndEncode(a3, new StringBuilder().insert(0, this.b).append(".password").toString(), a);	

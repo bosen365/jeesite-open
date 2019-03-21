@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.common.service;	
 	

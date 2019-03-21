@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.reflect.ReflectUtils	
- *  org.apache.commons.lang3.BooleanUtils	
  */	
 package com.jeesite.common.mybatis.mapper.query;	
 	
@@ -62,29 +55,29 @@ extends LinkedHashMap<String, QueryWhereEntity> {
     }	
 	
     private /* synthetic */ Map<String, Column> addEntityWhere(BaseEntity<?> entity, Object table, StringBuilder sql, String tableAlias, String paramPrefix, boolean isMainEntity) {	
-        HashMap a;	
+        HashMap<String, Column> a;	
         block22 : {	
             a = MapUtils.newHashMap();	
             if (entity == null) break block22;	
             boolean a2 = false;	
-            ArrayList a3 = ListUtils.newArrayList();	
+            ArrayList<Column> a3 = ListUtils.newArrayList();	
             Iterator<Column> iterator = MapperHelper.getColumns(table, a3).iterator();	
             block0 : do {	
                 Iterator<Column> iterator2 = iterator;	
                 while (iterator2.hasNext()) {	
                     String a4;	
                     Column a5;	
-                    Object a6;	
                     boolean bl;	
-                    boolean a7;	
-                    QueryType a8;	
+                    boolean a6;	
+                    QueryType a7;	
+                    Object a8;	
                     block25 : {	
                         block24 : {	
                             block23 : {	
                                 Column column = a5 = iterator.next();	
                                 a.put(a5.name(), column);	
                                 if (!column.isQuery()) continue block0;	
-                                if (StringUtils.equals((CharSequence)a5.name(), (CharSequence)"corp_code")) {	
+                                if (StringUtils.equals(a5.name(), "corp_code")) {	
                                     if (!Global.isUseCorpModel().booleanValue()) {	
                                         iterator2 = iterator;	
                                         continue;	
@@ -94,57 +87,57 @@ extends LinkedHashMap<String, QueryWhereEntity> {
                                         continue;	
                                     }	
                                 }	
-                                if (StringUtils.equals((CharSequence)a5.name(), (CharSequence)"corp_name")) {	
+                                if (StringUtils.equals(a5.name(), "corp_name")) {	
                                     iterator2 = iterator;	
                                     continue;	
                                 }	
                                 Column column2 = a5;	
                                 a4 = MapperHelper.getAttrName(column2);	
-                                a6 = ReflectUtils.invokeGetter(entity, (String)a4);	
-                                a7 = false;	
-                                a8 = column2.queryType();	
-                                if (!(a6 instanceof String)) break block23;	
-                                if (!StringUtils.isNotBlank((CharSequence)((String)a6)) && !a8.isForce().booleanValue()) break block24;	
-                                a7 = true;	
+                                a8 = ReflectUtils.invokeGetter(entity, a4);	
+                                a6 = false;	
+                                a7 = column2.queryType();	
+                                if (!(a8 instanceof String)) break block23;	
+                                if (!StringUtils.isNotBlank((String)a8) && !a7.isForce().booleanValue()) break block24;	
+                                a6 = true;	
                                 bl = isMainEntity;	
                                 break block25;	
                             }	
-                            if (a6 != null) {	
-                                a7 = true;	
+                            if (a8 != null) {	
+                                a6 = true;	
                             }	
                         }	
                         bl = isMainEntity;	
                     }	
-                    if (bl && "status".equals(a5.name()) && !a7 && !this.disableAutoAddStatusWhere) {	
+                    if (bl && "status".equals(a5.name()) && !a6 && !this.disableAutoAddStatusWhere) {	
                         if (sql.length() != 0) {	
                             sql.append(" AND ");	
                         }	
-                        if (StringUtils.isNotBlank((CharSequence)tableAlias)) {	
+                        if (StringUtils.isNotBlank(tableAlias)) {	
                             sql.append(tableAlias + ".");	
                         }	
                         sql.append(new StringBuilder().insert(0, a5.name()).append(" != #{").toString());	
-                        if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+                        if (StringUtils.isNotBlank(paramPrefix)) {	
                             sql.append(new StringBuilder().insert(0, paramPrefix).append(".").toString());	
                         }	
                         sql.append("STATUS_DELETE}");	
                     }	
-                    if (a5.isPK() && entity instanceof TreeEntity && BooleanUtils.toBoolean((Boolean)((TreeEntity)entity).getIsQueryChildren())) {	
+                    if (a5.isPK() && entity instanceof TreeEntity && BooleanUtils.toBoolean(((TreeEntity)entity).getIsQueryChildren())) {	
                         a2 = true;	
                     }	
-                    if (!a7) continue block0;	
-                    if (QueryType.IN == a8 || QueryType.NOT_IN == a8 || QueryType.IS_NULL == a8 || QueryType.IS_NOT_NULL == a8) {	
+                    if (!a6) continue block0;	
+                    if (QueryType.IN == a7 || QueryType.NOT_IN == a7 || QueryType.IS_NULL == a7 || QueryType.IS_NOT_NULL == a7) {	
                         throw new MapperException("@Column(queryType=暂时不支持IN、NOT_IN、IS_NULL、IS_NOT_NULL，请使用sqlMap.getWhere()实现。)");	
                     }	
-                    if (a6 instanceof String) {	
+                    if (a8 instanceof String) {	
                         String a9 = "";	
-                        if (StringUtils.isNotBlank((CharSequence)a8.valuePrefix())) {	
-                            a9 = new StringBuilder().insert(0, a9).append(a8.valuePrefix()).toString();	
+                        if (StringUtils.isNotBlank(a7.valuePrefix())) {	
+                            a9 = new StringBuilder().insert(0, a9).append(a7.valuePrefix()).toString();	
                         }	
-                        a9 = new StringBuilder().insert(0, a9).append(a6).toString();	
-                        if (StringUtils.isNotBlank((CharSequence)a8.valueSuffux())) {	
-                            a9 = new StringBuilder().insert(0, a9).append(a8.valueSuffux()).toString();	
+                        a9 = new StringBuilder().insert(0, a9).append(a8).toString();	
+                        if (StringUtils.isNotBlank(a7.valueSuffux())) {	
+                            a9 = new StringBuilder().insert(0, a9).append(a7.valueSuffux()).toString();	
                         }	
-                        a4 = new StringBuilder().insert(0, "where#").append(a5.name()).append("#").append((Object)a8).append("1").toString();	
+                        a4 = new StringBuilder().insert(0, "where#").append(a5.name()).append("#").append((Object)a7).append("1").toString();	
                         Object object = entity.getSqlMap().add(a4, a9);	
                         a4 = new StringBuilder().insert(0, "sqlMap.").append(a4).toString();	
                     }	
@@ -154,27 +147,27 @@ extends LinkedHashMap<String, QueryWhereEntity> {
                     if (a5.isPK() && a2) {	
                         sql.append("(");	
                     }	
-                    if (StringUtils.isNotBlank((CharSequence)tableAlias)) {	
+                    if (StringUtils.isNotBlank(tableAlias)) {	
                         sql.append(new StringBuilder().insert(0, tableAlias).append(".").toString());	
                     }	
                     sql.append("#{");	
-                    sql.append(new StringBuilder().insert(0, a8.operator()).append(" ").toString());	
+                    sql.append(new StringBuilder().insert(0, a7.operator()).append(" ").toString());	
                     sql.append(new StringBuilder().insert(0, a5.name()).append(" ").toString());	
-                    if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+                    if (StringUtils.isNotBlank(paramPrefix)) {	
                         sql.append(new StringBuilder().insert(0, paramPrefix).append(".").toString());	
                     }	
                     sql.append("}");	
                     sql.append(new StringBuilder().insert(0, a4).append(MapperHelper.getColumnParamSuffix(a5)).toString());	
                     if (!a5.isPK() || !a2) continue block0;	
-                    a4 = new StringBuilder().insert(0, "where#").append(a5.name()).append("#").append((Object)a8).append("1#ISQC").toString();	
-                    Object object = entity.getSqlMap().add(a4, new StringBuilder().insert(0, "%,").append(a6).append(",%").toString());	
+                    a4 = new StringBuilder().insert(0, "where#").append(a5.name()).append("#").append((Object)a7).append("1#ISQC").toString();	
+                    Object object = entity.getSqlMap().add(a4, new StringBuilder().insert(0, "%,").append(a8).append(",%").toString());	
                     a4 = new StringBuilder().insert(0, "sqlMap.").append(a4).toString();	
                     sql.append(" OR ");	
-                    if (StringUtils.isNotBlank((CharSequence)tableAlias)) {	
+                    if (StringUtils.isNotBlank(tableAlias)) {	
                         sql.append(new StringBuilder().insert(0, tableAlias).append(".parent_codes LIKE ").toString());	
                     }	
                     sql.append("#{");	
-                    if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+                    if (StringUtils.isNotBlank(paramPrefix)) {	
                         sql.append(new StringBuilder().insert(0, paramPrefix).append(".").toString());	
                     }	
                     sql.append(")");	
@@ -330,10 +323,10 @@ extends LinkedHashMap<String, QueryWhereEntity> {
                 a7 = "";	
                 baseEntity = a8 = this.entity;	
             } else {	
-                baseEntity = a8 = (BaseEntity)ReflectUtils.invokeGetter(this.entity, (String)a7);	
+                baseEntity = a8 = (BaseEntity)ReflectUtils.invokeGetter(this.entity, a7);	
             }	
             if (baseEntity != null) {	
-                if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+                if (StringUtils.isNotBlank(paramPrefix)) {	
                     a7 = new StringBuilder().insert(0, paramPrefix).append(".").append(a7).toString();	
                 }	
                 StringBuilder a9 = new StringBuilder();	
@@ -345,8 +338,8 @@ extends LinkedHashMap<String, QueryWhereEntity> {
                     ((QueryWhereEntity)iterator4.next().getValue()).addSql(a9, a7, a6.alias(), a3);	
                     iterator3 = iterator4;	
                 }	
-                if (StringUtils.isNotBlank((CharSequence)a9)) {	
-                    if (StringUtils.isNotBlank((CharSequence)a4.toString())) {	
+                if (StringUtils.isNotBlank(a9)) {	
+                    if (StringUtils.isNotBlank(a4.toString())) {	
                         a4.append(" AND ");	
                     }	
                     a4.append(a9);	

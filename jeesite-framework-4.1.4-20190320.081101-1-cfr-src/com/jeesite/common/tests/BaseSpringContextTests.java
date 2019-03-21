@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.TimeUtils	
- *  org.apache.commons.logging.Log	
- *  org.junit.After	
- *  org.junit.Before	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.test.annotation.Rollback	
- *  org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests	
  */	
 package com.jeesite.common.tests;	
 	
@@ -33,16 +24,17 @@ extends AbstractTransactionalJUnit4SpringContextTests {
     @Before	
     public void begin() {	
         this.startTime = System.currentTimeMillis();	
-        this.logger.info((Object)"===== Test Begin ==============================");	
+        this.logger.info("===== Test Begin ==============================");	
     }	
 	
     @After	
     public void after() {	
         this.endTime = System.currentTimeMillis();	
-        this.logger.info((Object)new StringBuilder().insert(0, "===== Test After ============================== 耗时：").append(TimeUtils.formatDateAgo((long)(this.endTime - this.startTime))).toString());	
+        this.logger.info(new StringBuilder().insert(0, "===== Test After ============================== 耗时：").append(TimeUtils.formatDateAgo(this.endTime - this.startTime)).toString());	
     }	
 	
     @Autowired	
+    @Override	
     public void setDataSource(DataSource dataSource) {	
         super.setDataSource(dataSource);	
         this.dataSource = dataSource;	

@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.SetUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.common.cache;	
 	
@@ -33,7 +27,7 @@ public class CacheUtils {
     public static void clearCache() {	
         int n;	
         String a = Global.getConfig("spring.cache.clearNames");	
-        if (StringUtils.isBlank((CharSequence)a)) {	
+        if (StringUtils.isBlank(a)) {	
             return;	
         }	
         String[] arrstring = a.split(",");	
@@ -50,11 +44,11 @@ public class CacheUtils {
     }	
 	
     public static <V> void put(String cacheName, String key, V value) {	
-        CacheUtils.getCache(cacheName).put((Object)key, value);	
+        CacheUtils.getCache(cacheName).put(key, value);	
     }	
 	
     public static void remove(String cacheName, String key) {	
-        CacheUtils.getCache(cacheName).remove((Object)key);	
+        CacheUtils.getCache(cacheName).remove(key);	
     }	
 	
     public static <V> V get(String key, V defaultValue) {	
@@ -79,18 +73,18 @@ public class CacheUtils {
     }	
 	
     public static <V> V get(String cacheName, String key) {	
-        return (V)CacheUtils.getCache(cacheName).get((Object)key);	
+        return CacheUtils.getCache(cacheName).get(key);	
     }	
 	
     public static void removeByKeyPrefix(String cacheName, String keyPrefix) {	
         String a = keyPrefix;	
-        c<K, V> a2 = CacheUtils.getCache(cacheName);	
+        c<String, V> a2 = CacheUtils.getCache(cacheName);	
         Set a3 = a2.keys();	
-        HashSet a4 = SetUtils.newHashSet();	
+        HashSet<String> a4 = SetUtils.newHashSet();	
         for (String a5 : a3) {	
-            if (a != null && !StringUtils.startsWith((CharSequence)a5, (CharSequence)a)) continue;	
+            if (a != null && !StringUtils.startsWith(a5, a)) continue;	
             a4.add(a5);	
-            a2.remove((Object)a5);	
+            a2.remove(a5);	
         }	
         logger.info("removeByKeyPrefix: {} => {}", (Object)cacheName, (Object)a4);	
     }	

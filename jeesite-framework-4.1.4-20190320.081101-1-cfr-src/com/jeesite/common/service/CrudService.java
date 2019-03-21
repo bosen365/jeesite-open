@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.common.service;	
 	
@@ -31,7 +27,7 @@ implements CrudServiceApi<T> {
     @Override	
     public void updateStatus(T entity) {	
         Global.assertDemoMode();	
-        if (StringUtils.isBlank((CharSequence)((BaseEntity)entity).getId())) {	
+        if (StringUtils.isBlank(((BaseEntity)entity).getId())) {	
             return;	
         }	
         ((CrudDao)this.dao).updateStatus(entity);	
@@ -42,7 +38,7 @@ implements CrudServiceApi<T> {
     public void insert(T entity) {	
         Table a;	
         Global.assertDemoMode();	
-        if (("0".equals(m.ALLATORIxDEMO().get("type")) || "9".equals(m.ALLATORIxDEMO().get("type"))) && (a = entity.getClass().getAnnotation(Table.class)) != null && StringUtils.endsWithIgnoreCase((CharSequence)a.name(), (CharSequence)"sys_user")) {	
+        if (("0".equals(m.ALLATORIxDEMO().get("type")) || "9".equals(m.ALLATORIxDEMO().get("type"))) && (a = entity.getClass().getAnnotation(Table.class)) != null && StringUtils.endsWithIgnoreCase(a.name(), "sys_user")) {	
             if (num == 0L) {	
                 CrudService crudService = this;	
                 num = crudService.findCount(crudService.newEntity());	
@@ -73,7 +69,7 @@ implements CrudServiceApi<T> {
     @Override	
     public void update(T entity) {	
         Global.assertDemoMode();	
-        if (StringUtils.isBlank((CharSequence)((BaseEntity)entity).getId())) {	
+        if (StringUtils.isBlank(((BaseEntity)entity).getId())) {	
             return;	
         }	
         ((CrudDao)this.dao).update(entity);	
@@ -82,7 +78,7 @@ implements CrudServiceApi<T> {
     @Transactional(readOnly=false)	
     @Override	
     public void delete(T entity) {	
-        if (StringUtils.isBlank((CharSequence)((BaseEntity)entity).getId())) {	
+        if (StringUtils.isBlank(((BaseEntity)entity).getId())) {	
             return;	
         }	
         Global.assertDemoMode();	

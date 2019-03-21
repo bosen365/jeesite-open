@@ -1,39 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.Filter	
- *  javax.servlet.MultipartConfigElement	
- *  org.hibernate.validator.HibernateValidator	
- *  org.springframework.boot.autoconfigure.AutoConfigureBefore	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean	
- *  org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration	
- *  org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration	
- *  org.springframework.boot.autoconfigure.web.servlet.MultipartProperties	
- *  org.springframework.boot.context.properties.EnableConfigurationProperties	
- *  org.springframework.boot.web.server.ErrorPageRegistrar	
- *  org.springframework.boot.web.servlet.FilterRegistrationBean	
- *  org.springframework.boot.web.servlet.ServletListenerRegistrationBean	
- *  org.springframework.context.annotation.Bean	
- *  org.springframework.context.annotation.Configuration	
- *  org.springframework.context.annotation.Primary	
- *  org.springframework.core.annotation.Order	
- *  org.springframework.http.MediaType	
- *  org.springframework.http.converter.HttpMessageConverter	
- *  org.springframework.http.converter.StringHttpMessageConverter	
- *  org.springframework.validation.Validator	
- *  org.springframework.validation.beanvalidation.LocalValidatorFactoryBean	
- *  org.springframework.web.context.request.RequestContextListener	
- *  org.springframework.web.filter.CharacterEncodingFilter	
- *  org.springframework.web.servlet.View	
- *  org.springframework.web.servlet.ViewResolver	
- *  org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer	
- *  org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer	
- *  org.springframework.web.servlet.config.annotation.EnableWebMvc	
- *  org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration	
- *  org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry	
- *  org.springframework.web.servlet.config.annotation.ViewResolverRegistry	
- *  org.springframework.web.servlet.config.annotation.WebMvcConfigurer	
  */	
 package com.jeesite.autoconfigure.core;	
 	
@@ -47,9 +13,7 @@ import com.jeesite.common.web.v.l;
 import com.jeesite.modules.file.entity.FileUploadParams;	
 import java.nio.charset.Charset;	
 import java.nio.charset.StandardCharsets;	
-import java.util.EventListener;	
 import java.util.List;	
-import javax.servlet.Filter;	
 import javax.servlet.MultipartConfigElement;	
 import org.hibernate.validator.HibernateValidator;	
 import org.hyperic.sigar.pager.PageFetcher;	
@@ -91,6 +55,7 @@ public class WebMvcAutoConfiguration
 implements WebMvcConfigurer {	
     private final MultipartProperties multipartProperties;	
 	
+    @Override	
     public void configureViewResolvers(ViewResolverRegistry registry) {	
         void a;	
         void a2;	
@@ -115,6 +80,7 @@ implements WebMvcConfigurer {
         viewResolverRegistry.enableContentNegotiation(new View[]{a4, a});	
     }	
 	
+    @Override	
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {	
         void a;	
         l a2;	
@@ -125,8 +91,8 @@ implements WebMvcConfigurer {
         void v1 = a;	
         v1.setPrettyPrint(false);	
         converters.add((HttpMessageConverter<?>)v1);	
-        converters.add((HttpMessageConverter<?>)l2);	
-        converters.add((HttpMessageConverter<?>)a3);	
+        converters.add(l2);	
+        converters.add(a3);	
     }	
 	
     @Bean	
@@ -134,6 +100,7 @@ implements WebMvcConfigurer {
         return new i(this);	
     }	
 	
+    @Override	
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {	
         configurer.enable();	
     }	
@@ -156,10 +123,12 @@ implements WebMvcConfigurer {
         return localValidatorFactoryBean;	
     }	
 	
+    @Override	
     public void addResourceHandlers(ResourceHandlerRegistry registry) {	
-        registry.addResourceHandler(new String[]{"/static/**"}).addResourceLocations(new String[]{"/static/", "classpath:/static/"}).setCachePeriod(Integer.valueOf(31536000));	
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/", "classpath:/static/").setCachePeriod(31536000);	
     }	
 	
+    @Override	
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {	
         configurer.favorParameter(false);	
         configurer.favorPathExtension(true);	
@@ -168,6 +137,7 @@ implements WebMvcConfigurer {
         configurer.mediaType("json", MediaType.APPLICATION_JSON);	
     }	
 	
+    @Override	
     public Validator getValidator() {	
         return this.beanValidator();	
     }	
@@ -176,14 +146,14 @@ implements WebMvcConfigurer {
     @Order(value=1000)	
     @ConditionalOnMissingBean(name={"characterEncodingFilter"})	
     public FilterRegistrationBean<CharacterEncodingFilter> characterEncodingFilter() {	
-        FilterRegistrationBean a;	
-        FilterRegistrationBean filterRegistrationBean = a = new FilterRegistrationBean();	
-        FilterRegistrationBean filterRegistrationBean2 = a;	
-        FilterRegistrationBean filterRegistrationBean3 = a;	
-        filterRegistrationBean2.setFilter((Filter)new CharacterEncodingFilter());	
+        FilterRegistrationBean<CharacterEncodingFilter> a;	
+        FilterRegistrationBean<CharacterEncodingFilter> filterRegistrationBean = a = new FilterRegistrationBean<CharacterEncodingFilter>();	
+        FilterRegistrationBean<CharacterEncodingFilter> filterRegistrationBean2 = a;	
+        FilterRegistrationBean<CharacterEncodingFilter> filterRegistrationBean3 = a;	
+        filterRegistrationBean2.setFilter(new CharacterEncodingFilter());	
         filterRegistrationBean2.addInitParameter("encoding", "UTF-8");	
         filterRegistrationBean.addInitParameter("forceEncoding", "true");	
-        filterRegistrationBean.addUrlPatterns(new String[]{"/*"});	
+        filterRegistrationBean.addUrlPatterns("/*");	
         return a;	
     }	
 	
@@ -194,7 +164,7 @@ implements WebMvcConfigurer {
         void a;	
         ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();	
         void v0 = a;	
-        v0.setListener((EventListener)new RequestContextListener());	
+        v0.setListener(new RequestContextListener());	
         return v0;	
     }	
 	

@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.apache.shiro.authc.AuthenticationException	
- *  org.apache.shiro.authc.AuthenticationInfo	
- *  org.apache.shiro.authc.AuthenticationToken	
- *  org.apache.shiro.authc.IncorrectCredentialsException	
- *  org.apache.shiro.authc.SimpleAuthenticationInfo	
- *  org.apache.shiro.util.ByteSource	
  */	
 package com.jeesite.common.shiro.realm;	
 	
@@ -24,7 +13,7 @@ import com.jeesite.common.shiro.cas.CasOutHandler;
 import com.jeesite.common.shiro.d.g;	
 import com.jeesite.common.shiro.x.c;	
 import com.jeesite.modules.sys.utils.UserUtils;	
-import java.util.Map;	
+import java.util.concurrent.ConcurrentMap;	
 import org.apache.shiro.authc.AuthenticationException;	
 import org.apache.shiro.authc.AuthenticationInfo;	
 import org.apache.shiro.authc.AuthenticationToken;	
@@ -39,7 +28,7 @@ extends c {
         String a2;	
         Long[] a3;	
         int a222;	
-        Map a4 = (Map)CacheUtils.get("loginFailedMap");	
+        ConcurrentMap<String, Long[]> a4 = (ConcurrentMap<String, Long[]>)CacheUtils.get("loginFailedMap");	
         if (a4 == null) {	
             a4 = MapUtils.newConcurrentMap();	
         }	
@@ -70,8 +59,8 @@ extends c {
         }	
         CacheUtils.put("loginFailedMap", a4);	
         a222 = Global.getConfigToInteger("sys.login.failedNumAfterValidCode", "100");	
-        if (StringUtils.isNotBlank((CharSequence)deviceType) && StringUtils.isNotBlank((CharSequence)(a = Global.getConfig(new StringBuilder().insert(0, "sys.login.failedNumAfterValidCode.").append(deviceType).toString())))) {	
-            a222 = ObjectUtils.toInteger((Object)a);	
+        if (StringUtils.isNotBlank(deviceType) && StringUtils.isNotBlank(a = Global.getConfig(new StringBuilder().insert(0, "sys.login.failedNumAfterValidCode.").append(deviceType).toString()))) {	
+            a222 = ObjectUtils.toInteger(a);	
         }	
         return a5 >= (long)a222;	
     }	
@@ -84,21 +73,22 @@ extends c {
      * Enabled force condition propagation	
      * Lifted jumps to return sites	
      */	
+    @Override	
     protected void assertCredentialsMatch(AuthenticationToken authcToken, AuthenticationInfo authcInfo) throws AuthenticationException {	
         if (!(authcToken instanceof FormToken) || !(authcInfo instanceof SimpleAuthenticationInfo)) throw new AuthenticationException("msg:不支持的授权令牌类型。");	
         SimpleAuthenticationInfo a = (SimpleAuthenticationInfo)authcInfo;	
         FormToken a2 = (FormToken)authcToken;	
-        if (StringUtils.isNotBlank((CharSequence)a2.getSsoToken())) {	
+        if (StringUtils.isNotBlank(a2.getSsoToken())) {	
             FormToken formToken = a2;	
             String a3 = UserUtils.getSsoToken(formToken.getUsername());	
-            if (!StringUtils.equals((CharSequence)formToken.getSsoToken(), (CharSequence)a3)) throw new IncorrectCredentialsException("msg:登录令牌错误，请再试一次。");	
+            if (!StringUtils.equals(formToken.getSsoToken(), a3)) throw new IncorrectCredentialsException("msg:登录令牌错误，请再试一次。");	
             return;	
         }	
         if (a.getCredentialsSalt() == null) {	
-            if (this.validatePassword(new String(a2.getPassword()), ObjectUtils.toString((Object)a.getCredentials()))) return;	
+            if (this.validatePassword(new String(a2.getPassword()), ObjectUtils.toString(a.getCredentials()))) return;	
             throw new IncorrectCredentialsException("msg:用户名或密码错误，请重试。");	
         }	
-        super.assertCredentialsMatch((AuthenticationToken)a2, (AuthenticationInfo)a);	
+        super.assertCredentialsMatch(a2, a);	
     }	
 	
     public boolean validatePassword(String plainPassword, String password) {	

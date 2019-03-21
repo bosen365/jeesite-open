@@ -1,20 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.validation.annotation.Validated	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.msg.web;	
 	
@@ -69,7 +54,7 @@ extends BaseController {
         void a;	
         Module module = new Module();	
         a.setStatus("0");	
-        model.addAttribute("msgTemplate", (Object)msgTemplate);	
+        model.addAttribute("msgTemplate", msgTemplate);	
         model.addAttribute("moduleList", this.moduleService.findList(a));	
         return "modules/msg/msgTemplateList";	
     }	
@@ -112,7 +97,7 @@ extends BaseController {
         void a;	
         Module module = new Module();	
         a.setStatus("0");	
-        model.addAttribute("msgTemplate", (Object)msgTemplate);	
+        model.addAttribute("msgTemplate", msgTemplate);	
         model.addAttribute("moduleList", this.moduleService.findList(a));	
         return "modules/msg/msgTemplateForm";	
     }	

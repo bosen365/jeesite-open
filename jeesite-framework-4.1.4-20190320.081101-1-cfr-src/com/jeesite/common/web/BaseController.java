@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.beans.factory.annotation.Value	
- *  org.springframework.ui.Model	
- *  org.springframework.web.bind.WebDataBinder	
- *  org.springframework.web.servlet.mvc.support.RedirectAttributes	
  */	
 package com.jeesite.common.web;	
 	
@@ -39,11 +28,11 @@ public abstract class BaseController {
     protected Logger logger;	
 	
     protected String renderResult(HttpServletResponse response, String result, String message, Object data) {	
-        return ServletUtils.renderResult((HttpServletResponse)response, (String)result, (String)message, (Object)data);	
+        return ServletUtils.renderResult(response, result, message, data);	
     }	
 	
     protected String renderResult(String result, String message, Object data) {	
-        return ServletUtils.renderResult((String)result, (String)message, (Object)data);	
+        return ServletUtils.renderResult(result, message, data);	
     }	
 	
     public static /* varargs */ String text(String code, String ... params) {	
@@ -65,11 +54,11 @@ public abstract class BaseController {
             a.append(a2).append(messages.length > 1 ? "<br/>" : "");	
             n3 = ++n;	
         }	
-        redirectAttributes.addFlashAttribute("message", (Object)a.toString());	
+        redirectAttributes.addFlashAttribute("message", a.toString());	
     }	
 	
     protected String renderResult(HttpServletResponse response, String result, String message) {	
-        return ServletUtils.renderResult((HttpServletResponse)response, (String)result, (String)message, null);	
+        return ServletUtils.renderResult(response, result, message, null);	
     }	
 	
     protected <E> E getWebDataBinderTarget(HttpServletRequest request) {	
@@ -97,7 +86,7 @@ public abstract class BaseController {
             a.append(a2).append(messages.length > 1 ? "<br/>" : "");	
             n3 = ++n;	
         }	
-        model.addAttribute("message", (Object)a.toString());	
+        model.addAttribute("message", a.toString());	
     }	
 	
     protected String renderResult(String result, String message) {	

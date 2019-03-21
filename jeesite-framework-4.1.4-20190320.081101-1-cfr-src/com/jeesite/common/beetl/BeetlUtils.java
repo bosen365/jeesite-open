@@ -1,20 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.SetUtils	
- *  com.jeesite.common.io.PropertiesUtils	
- *  com.jeesite.common.io.ResourceUtils	
- *  com.jeesite.common.lang.ExceptionUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.beetl.core.Configuration	
- *  org.beetl.core.GroupTemplate	
- *  org.beetl.core.ResourceLoader	
- *  org.beetl.core.Template	
- *  org.beetl.core.misc.BeetlUtil	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.core.io.Resource	
  */	
 package com.jeesite.common.beetl;	
 	
@@ -53,10 +38,10 @@ public class BeetlUtils {
                 BeetlUtil.getWebRoot();	
             }	
             catch (Exception a) {	
-                BeetlUtil.setWebroot((String)System.getProperty("user.dir"));	
+                BeetlUtil.setWebroot(System.getProperty("user.dir"));	
             }	
             D a = new D();	
-            resourceGroupTemplate = new GroupTemplate((ResourceLoader)a, BeetlUtils.getConfiguration());	
+            resourceGroupTemplate = new GroupTemplate(a, BeetlUtils.getConfiguration());	
         }	
         return resourceGroupTemplate;	
     }	
@@ -64,7 +49,7 @@ public class BeetlUtils {
     public static synchronized GroupTemplate getStringGroupTemplate() {	
         if (stringGroupTemplate == null) {	
             L a = new L();	
-            stringGroupTemplate = new GroupTemplate((ResourceLoader)a, BeetlUtils.getConfiguration());	
+            stringGroupTemplate = new GroupTemplate(a, BeetlUtils.getConfiguration());	
         }	
         return stringGroupTemplate;	
     }	
@@ -83,15 +68,15 @@ public class BeetlUtils {
         catch (Exception a) {	
             Exception exception = a;	
             exception.printStackTrace();	
-            throw ExceptionUtils.unchecked((Exception)exception);	
+            throw ExceptionUtils.unchecked(exception);	
         }	
     }	
 	
     public static synchronized Configuration getConfiguration() {	
         if (configuration == null) {	
             int n;	
-            LinkedHashSet a = SetUtils.newLinkedHashSet();	
-            Resource[] arrresource = ResourceUtils.getResources((String)"classpath*:/config/beetl-*.*");	
+            LinkedHashSet<String> a = SetUtils.newLinkedHashSet();	
+            Resource[] arrresource = ResourceUtils.getResources("classpath*:/config/beetl-*.*");	
             int n2 = arrresource.length;	
             int n3 = n = 0;	
             while (n3 < n2) {	
@@ -103,7 +88,7 @@ public class BeetlUtils {
             try {	
                 logger.debug("Beetl config files: {}", (Object)a);	
                 a.add("classpath:/config/beetl.properties");	
-                LinkedHashSet linkedHashSet = a;	
+                LinkedHashSet<String> linkedHashSet = a;	
                 PropertiesUtils a3 = new PropertiesUtils(linkedHashSet.toArray(new String[linkedHashSet.size()]));	
                 configuration = new Configuration(a3.getProperties());	
                 Set a4 = a3.getProperties().entrySet();	
@@ -111,7 +96,7 @@ public class BeetlUtils {
                     int n4;	
                     String a5 = (String)a2.getKey();	
                     String a6 = (String)a2.getValue();	
-                    if (!StringUtils.startsWithIgnoreCase((CharSequence)a5, (CharSequence)new StringBuilder().insert(0, Configuration.IMPORT_PACKAGE).append("_").toString()) || !StringUtils.isNotBlank((CharSequence)a6)) continue;	
+                    if (!StringUtils.startsWithIgnoreCase(a5, new StringBuilder().insert(0, Configuration.IMPORT_PACKAGE).append("_").toString()) || !StringUtils.isNotBlank(a6)) continue;	
                     String[] arrstring = a6.split(";");	
                     int n5 = arrstring.length;	
                     int n6 = n4 = 0;	
@@ -123,7 +108,7 @@ public class BeetlUtils {
                 }	
             }	
             catch (IOException a2) {	
-                logger.error(a2.getMessage(), (Throwable)a2);	
+                logger.error(a2.getMessage(), a2);	
             }	
         }	
         return configuration;	
@@ -137,7 +122,7 @@ public class BeetlUtils {
             return template.render();	
         }	
         catch (Exception a) {	
-            throw ExceptionUtils.unchecked((Exception)a);	
+            throw ExceptionUtils.unchecked(a);	
         }	
     }	
 }	

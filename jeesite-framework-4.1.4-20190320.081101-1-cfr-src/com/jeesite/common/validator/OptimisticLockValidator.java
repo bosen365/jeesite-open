@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.validation.ConstraintValidator	
- *  javax.validation.ConstraintValidatorContext	
  */	
 package com.jeesite.common.validator;	
 	
@@ -16,9 +12,11 @@ import javax.validation.ConstraintValidatorContext;
 	
 public class OptimisticLockValidator	
 implements ConstraintValidator<OptimisticLock, DataEntity<?>> {	
+    @Override	
     public void initialize(OptimisticLock constraintAnnotation) {	
     }	
 	
+    @Override	
     public boolean isValid(DataEntity<?> value, ConstraintValidatorContext context) {	
         return this.checkLastUpdateDateTime(value);	
     }	

@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.springframework.context.i18n.LocaleContext	
- *  org.springframework.context.i18n.SimpleLocaleContext	
- *  org.springframework.context.i18n.TimeZoneAwareLocaleContext	
- *  org.springframework.web.servlet.i18n.CookieLocaleResolver	
- *  org.springframework.web.util.WebUtils	
  */	
 package com.jeesite.common.beetl.d;	
 	
@@ -30,6 +21,7 @@ extends CookieLocaleResolver {
     public static final String TIME_ZONE_SESSION_NAME;	
     public static final String LOCALE_SESSION_NAME;	
 	
+    @Override	
     public Locale resolveLocale(HttpServletRequest request) {	
         if (!I18nLocaleResolver.enabled()) {	
             return this.getDefaultLocale();	
@@ -40,6 +32,7 @@ extends CookieLocaleResolver {
         return super.resolveLocale(httpServletRequest);	
     }	
 	
+    @Override	
     public LocaleContext resolveLocaleContext(HttpServletRequest request) {	
         if (!I18nLocaleResolver.enabled()) {	
             return new SimpleLocaleContext(this.getDefaultLocale());	
@@ -53,20 +46,22 @@ extends CookieLocaleResolver {
     private /* synthetic */ void parseLocaleSessionIfNecessary(HttpServletRequest request) {	
         if (request.getAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME) == null) {	
             TimeZone a;	
-            Locale a2 = (Locale)WebUtils.getSessionAttribute((HttpServletRequest)request, (String)LOCALE_SESSION_NAME);	
+            Locale a2 = (Locale)WebUtils.getSessionAttribute(request, LOCALE_SESSION_NAME);	
             if (a2 != null) {	
-                request.setAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME, (Object)a2);	
+                request.setAttribute(LOCALE_REQUEST_ATTRIBUTE_NAME, a2);	
             }	
-            if ((a = (TimeZone)WebUtils.getSessionAttribute((HttpServletRequest)request, (String)TIME_ZONE_SESSION_NAME)) == null) {	
-                request.setAttribute(TIME_ZONE_REQUEST_ATTRIBUTE_NAME, (Object)a);	
+            if ((a = (TimeZone)WebUtils.getSessionAttribute(request, TIME_ZONE_SESSION_NAME)) == null) {	
+                request.setAttribute(TIME_ZONE_REQUEST_ATTRIBUTE_NAME, a);	
             }	
         }	
     }	
 	
+    @Override	
     protected TimeZone determineDefaultTimeZone(HttpServletRequest request) {	
         return super.determineDefaultTimeZone(request);	
     }	
 	
+    @Override	
     public void setLocaleContext(HttpServletRequest request, HttpServletResponse response, LocaleContext localeContext) {	
         if (!I18nLocaleResolver.enabled()) {	
             return;	
@@ -81,11 +76,12 @@ extends CookieLocaleResolver {
             }	
         }	
         HttpServletRequest httpServletRequest = request;	
-        WebUtils.setSessionAttribute((HttpServletRequest)httpServletRequest, (String)LOCALE_SESSION_NAME, (Object)a);	
-        WebUtils.setSessionAttribute((HttpServletRequest)httpServletRequest, (String)TIME_ZONE_SESSION_NAME, a2);	
+        WebUtils.setSessionAttribute(httpServletRequest, LOCALE_SESSION_NAME, a);	
+        WebUtils.setSessionAttribute(httpServletRequest, TIME_ZONE_SESSION_NAME, a2);	
         super.setLocaleContext(request, response, localeContext);	
     }	
 	
+    @Override	
     protected Locale determineDefaultLocale(HttpServletRequest request) {	
         return super.determineDefaultLocale(request);	
     }	

@@ -1,8 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.shiro.authc.UsernamePasswordToken	
  */	
 package com.jeesite.common.shiro.authc;	
 	

@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
  */	
 package com.jeesite.common.shiro.realm;	
 	
@@ -11,7 +7,6 @@ import com.jeesite.common.collect.MapUtils;
 import com.jeesite.common.lang.StringUtils;	
 import com.jeesite.modules.sys.entity.User;	
 import java.io.Serializable;	
-import java.util.HashMap;	
 import java.util.Map;	
 import java.util.Objects;	
 	
@@ -64,7 +59,7 @@ implements Serializable {
 	
     public String getParam(String key, String defaultValue) {	
         String a = this.getParam(key);	
-        if (StringUtils.isNotBlank((CharSequence)a)) {	
+        if (StringUtils.isNotBlank(a)) {	
             return a;	
         }	
         return defaultValue;	

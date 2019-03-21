@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.SetUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  net.oschina.j2cache.CacheChannel	
- *  net.oschina.j2cache.CacheObject	
- *  org.apache.shiro.cache.CacheException	
  */	
 package com.jeesite.common.shiro.d;	
 	
@@ -47,8 +38,8 @@ extends G<K, V> {
         k2.ALLATORIxDEMO.keys(k2.b).forEach(string -> {	
             String key;	
             void keys;	
-            if (StringUtils.contains((CharSequence)key, (CharSequence)(":" + this.b + ":"))) {	
-                key = StringUtils.substringAfter((String)key, (String)new StringBuilder().insert(0, ":").append(this.b).append(":").toString());	
+            if (StringUtils.contains((CharSequence)key, ":" + this.b + ":")) {	
+                key = StringUtils.substringAfter(key, new StringBuilder().insert(0, ":").append(this.b).append(":").toString());	
             }	
             keys.add(key);	
         });	
@@ -61,7 +52,7 @@ extends G<K, V> {
             return super.remove(key);	
         }	
         k k2 = this;	
-        k2.ALLATORIxDEMO.evict(k2.b, new String[]{ObjectUtils.toString(key)});	
+        k2.ALLATORIxDEMO.evict(k2.b, ObjectUtils.toString(key));	
         return null;	
     }	
 	
@@ -89,8 +80,8 @@ extends G<K, V> {
         }	
         ArrayList a = ListUtils.newArrayList();	
         k k2 = this;	
-        Set<K> a2 = k2.keys();	
-        Map a3 = k2.ALLATORIxDEMO.get(this.b, a2);	
+        Set<String> a2 = k2.keys();	
+        Map<String, CacheObject> a3 = k2.ALLATORIxDEMO.get(this.b, a2);	
         if (a3 != null) {	
             a3.forEach((key, value) -> a.add(value.getValue()));	
         }	

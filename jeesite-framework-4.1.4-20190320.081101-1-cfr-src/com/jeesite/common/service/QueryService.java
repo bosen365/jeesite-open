@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.reflect.ReflectUtils	
- *  javax.validation.ValidationException	
- *  org.springframework.beans.factory.annotation.Autowired	
  */	
 package com.jeesite.common.service;	
 	
@@ -45,7 +39,7 @@ implements QueryServiceApi<T> {
         }	
         Page<?> page = a2;	
         page.setList(this.findList(entity));	
-        if (page.getCount() > 100L && ("0".equals(C.ALLATORIxDEMO().get("type")) || "9".equals(C.ALLATORIxDEMO().get("type"))) && (a = entity.getClass().getAnnotation(Table.class)) != null && StringUtils.endsWithIgnoreCase((CharSequence)a.name(), (CharSequence)"sys_user")) {	
+        if (page.getCount() > 100L && ("0".equals(C.ALLATORIxDEMO().get("type")) || "9".equals(C.ALLATORIxDEMO().get("type"))) && (a = entity.getClass().getAnnotation(Table.class)) != null && StringUtils.endsWithIgnoreCase(a.name(), "sys_user")) {	
             a2.setCount(100L);	
         }	
         return a2;	
@@ -65,11 +59,11 @@ implements QueryServiceApi<T> {
 	
     public QueryService() {	
         QueryService queryService = this;	
-        queryService.setEntityClass(ReflectUtils.getClassGenricType(queryService.getClass(), (int)1));	
+        queryService.setEntityClass(ReflectUtils.getClassGenricType(queryService.getClass(), 1));	
     }	
 	
     public static ValidationException newValidationException(String message) {	
-        return new ValidationException((String)StringUtils.defaultIfBlank((CharSequence)message, (CharSequence)"编码已存在"));	
+        return new ValidationException(StringUtils.defaultIfBlank(message, "编码已存在"));	
     }	
 	
     @Override	
@@ -122,7 +116,7 @@ implements QueryServiceApi<T> {
         if (((DataEntity)entity).getStatus() == null) {	
             ((DataEntity)entity).setStatus("0");	
         }	
-        if ((a = this.dao.findCount(entity)) > 100L && ("0".equals(C.ALLATORIxDEMO().get("type")) || "9".equals(C.ALLATORIxDEMO().get("type"))) && (a2 = entity.getClass().getAnnotation(Table.class)) != null && StringUtils.endsWithIgnoreCase((CharSequence)a2.name(), (CharSequence)"sys_user")) {	
+        if ((a = this.dao.findCount(entity)) > 100L && ("0".equals(C.ALLATORIxDEMO().get("type")) || "9".equals(C.ALLATORIxDEMO().get("type"))) && (a2 = entity.getClass().getAnnotation(Table.class)) != null && StringUtils.endsWithIgnoreCase(a2.name(), "sys_user")) {	
             a = 100L;	
         }	
         return a;	
@@ -169,7 +163,7 @@ implements QueryServiceApi<T> {
             while (n < pkValue.length) {	
                 if (pkValue[a2] != null) {	
                     if (pkValue[a2] instanceof String) {	
-                        if (StringUtils.isNotBlank((CharSequence)((String)pkValue[a2]))) {	
+                        if (StringUtils.isNotBlank((String)pkValue[a2])) {	
                             a3 = true;	
                         }	
                     } else {	

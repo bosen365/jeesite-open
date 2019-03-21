@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
  */	
 package com.jeesite.modules.sys.utils;	
 	
@@ -14,6 +10,7 @@ import com.jeesite.common.config.Global;
 import com.jeesite.modules.sys.entity.Module;	
 import com.jeesite.modules.sys.utils.D;	
 import java.util.ArrayList;	
+import java.util.HashMap;	
 import java.util.Iterator;	
 import java.util.List;	
 import java.util.Map;	
@@ -37,7 +34,7 @@ public class ModuleUtils {
      * Lifted jumps to return sites	
      */	
     public static synchronized Map<String, Module> getModuleList() {	
-        a = (Map)CacheUtils.get("moduleMap");	
+        a = (HashMap<String, Module>)CacheUtils.get("moduleMap");	
         if (a != null) return a;	
         a = MapUtils.newHashMap();	
         a = Global.getPropertyToBoolean("menu.updateStatusByModuleStatus", "true");	
@@ -69,7 +66,7 @@ lbl18: // 4 sources:
     }	
 	
     public static synchronized List<String> getEnableModuleCodes() {	
-        ArrayList a = ListUtils.newArrayList();	
+        ArrayList<String> a = ListUtils.newArrayList();	
         for (Map.Entry<String, Module> a2 : ModuleUtils.getModuleList().entrySet()) {	
             if (!a2.getValue().getIsEnable().booleanValue()) continue;	
             a.add(a2.getKey());	

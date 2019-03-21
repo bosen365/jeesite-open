@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.cache.CacheKey	
- *  org.apache.ibatis.executor.Executor	
- *  org.apache.ibatis.mapping.BoundSql	
- *  org.apache.ibatis.mapping.MappedStatement	
- *  org.apache.ibatis.plugin.Interceptor	
- *  org.apache.ibatis.plugin.Intercepts	
- *  org.apache.ibatis.plugin.Invocation	
- *  org.apache.ibatis.plugin.Plugin	
- *  org.apache.ibatis.plugin.Signature	
- *  org.apache.ibatis.session.ResultHandler	
- *  org.apache.ibatis.session.RowBounds	
  */	
 package com.jeesite.common.mybatis.interceptor;	
 	
@@ -33,15 +20,18 @@ import org.apache.ibatis.session.RowBounds;
 @Intercepts(value={@Signature(type=Executor.class, method="update", args={MappedStatement.class, Object.class}), @Signature(type=Executor.class, method="query", args={MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}), @Signature(type=Executor.class, method="query", args={MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})	
 public class DataSourceInterceptor	
 implements Interceptor {	
+    @Override	
     public void setProperties(Properties properties) {	
     }	
 	
+    @Override	
     public Object intercept(Invocation invocation) throws Throwable {	
         return i.ALLATORIxDEMO(invocation);	
     }	
 	
+    @Override	
     public Object plugin(Object target) {	
-        return Plugin.wrap((Object)target, (Interceptor)this);	
+        return Plugin.wrap(target, this);	
     }	
 }	
 	

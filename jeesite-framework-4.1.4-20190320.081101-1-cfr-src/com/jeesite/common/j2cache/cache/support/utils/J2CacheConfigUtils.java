@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.oschina.j2cache.J2CacheConfig	
- *  org.springframework.core.env.MutablePropertySources	
- *  org.springframework.core.env.PropertySource	
- *  org.springframework.core.env.StandardEnvironment	
- *  org.springframework.core.io.support.ResourcePropertySource	
  */	
 package com.jeesite.common.j2cache.cache.support.utils;	
 	

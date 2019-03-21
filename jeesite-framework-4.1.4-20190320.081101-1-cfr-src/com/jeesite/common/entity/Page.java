@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.codec.EncodeUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.web.CookieUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
  */	
 package com.jeesite.common.entity;	
 	
@@ -22,7 +13,6 @@ import com.jeesite.common.lang.StringUtils;
 import com.jeesite.common.web.CookieUtils;	
 import java.io.Serializable;	
 import java.util.ArrayList;	
-import java.util.HashMap;	
 import java.util.List;	
 import java.util.Map;	
 import javax.servlet.http.HttpServletRequest;	
@@ -103,28 +93,28 @@ implements Serializable {
                         page.funcName = "page";	
                         page.funcParam = "";	
                         String a2 = httpServletRequest.getParameter("pageNo");	
-                        if (StringUtils.isNumeric((CharSequence)a2)) {	
+                        if (StringUtils.isNumeric(a2)) {	
                             v4 = request;	
                             String string = a2;	
-                            CookieUtils.setCookie((HttpServletResponse)response, (String)"pageNo", (String)string);	
+                            CookieUtils.setCookie((HttpServletResponse)response, "pageNo", string);	
                             this.setPageNo(Integer.parseInt(string));	
                         } else {	
-                            if (request.getParameter("repage") != null && StringUtils.isNumeric((CharSequence)(a2 = CookieUtils.getCookie((HttpServletRequest)request, (String)"pageNo")))) {	
+                            if (request.getParameter("repage") != null && StringUtils.isNumeric(a2 = CookieUtils.getCookie((HttpServletRequest)request, "pageNo"))) {	
                                 this.setPageNo(Integer.parseInt(a2));	
                             }	
                             v4 = request;	
                         }	
                         a = v4.getParameter("pageSize");	
-                        if (!StringUtils.isNumeric((CharSequence)a)) break block5;	
+                        if (!StringUtils.isNumeric(a)) break block5;	
                         v6 = request;	
                         String string = a;	
-                        CookieUtils.setCookie((HttpServletResponse)response, (String)"pageSize", (String)string);	
+                        CookieUtils.setCookie((HttpServletResponse)response, "pageSize", string);	
                         this.setPageSize(Integer.parseInt(string));	
                         break block6;	
                     }	
                     if (request.getParameter("repage") == null) break block7;	
-                    a = CookieUtils.getCookie((HttpServletRequest)request, (String)"pageSize");	
-                    if (!StringUtils.isNumeric((CharSequence)a)) break block8;	
+                    a = CookieUtils.getCookie((HttpServletRequest)request, "pageSize");	
+                    if (!StringUtils.isNumeric(a)) break block8;	
                     v6 = request;	
                     this.setPageSize(Integer.parseInt(a));	
                     break block6;	
@@ -136,7 +126,7 @@ implements Serializable {
             v6 = request;	
         }	
         String a = v6.getParameter("orderBy");	
-        if (StringUtils.isNotBlank((CharSequence)a)) {	
+        if (StringUtils.isNotBlank(a)) {	
             this.setOrderBy(a);	
         }	
     }	
@@ -195,7 +185,7 @@ implements Serializable {
 	
     @JsonIgnore	
     public String getOrderBy() {	
-        return EncodeUtils.sqlFilter((String)this.orderBy);	
+        return EncodeUtils.sqlFilter(this.orderBy);	
     }	
 	
     public Page() {	

@@ -1,8 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
  */	
 package com.jeesite.modules.msg.utils;	
 	
@@ -20,7 +17,7 @@ public class MsgPcPoolUtils {
     }	
 	
     public static void putPool(String userCode, MsgPush msgPush) {	
-        ArrayList a = MsgPcPoolUtils.getPool(userCode);	
+        List<MsgPush> a = MsgPcPoolUtils.getPool(userCode);	
         if (a == null) {	
             a = ListUtils.newArrayList();	
         }	
@@ -49,7 +46,7 @@ public class MsgPcPoolUtils {
     }	
 	
     public static List<MsgPush> getPool(String userCode) {	
-        List a = (List)MsgPcPoolUtils.getCache(userCode);	
+        ArrayList<MsgPush> a = (ArrayList<MsgPush>)MsgPcPoolUtils.getCache(userCode);	
         if (a == null) {	
             a = ListUtils.newArrayList();	
         }	

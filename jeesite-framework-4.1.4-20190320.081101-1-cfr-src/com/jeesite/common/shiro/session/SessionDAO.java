@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.shiro.session.Session	
- *  org.apache.shiro.session.mgt.eis.SessionDAO	
  */	
 package com.jeesite.common.shiro.session;	
 	

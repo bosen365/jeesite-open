@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.lang.TimeUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.common.mybatis.mapper.provider;	
 	
@@ -55,7 +48,7 @@ public class TreeSqlProvider {
             }	
             n3 = ++n;	
         }	
-        if (StringUtils.isBlank((CharSequence)a6) || StringUtils.isBlank((CharSequence)a7)) {	
+        if (StringUtils.isBlank(a6) || StringUtils.isBlank(a7)) {	
             throw new MapperException(new StringBuilder().insert(0, "Error: ").append(entity.getClass()).append(" 没有找到isTreeName为true的列.").toString());	
         }	
         object = a3.toString();	
@@ -73,7 +66,7 @@ public class TreeSqlProvider {
         a3.append(" a." + a4 + " AS "" + a5 + "",");	
         a3.append("SELECT");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	
@@ -95,7 +88,7 @@ public class TreeSqlProvider {
         a3.append(" " + MapperHelper.getTableName(a6, entity));	
         a3.append("UPDATE");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	
@@ -116,7 +109,7 @@ public class TreeSqlProvider {
             a4 = treeEntity.getIdAttrName();	
             Table a6 = MapperHelper.getTable(treeEntity);	
             String a7 = MapperHelper.getTableName(a6, entity);	
-            ArrayList a8 = ListUtils.newArrayList();	
+            ArrayList<Column> a8 = ListUtils.newArrayList();	
             object = MapperHelper.getColumns(a6, a8).iterator();	
             a2.append(new StringBuilder().insert(0, " FROM ").append(a7).append("").toString());	
             a2.append(" SELECT (case when count(1) > 0 then '0' else '1' end) tree_leaf");	
@@ -142,7 +135,7 @@ public class TreeSqlProvider {
         a2.append(" ) a");	
         stringBuilder.append(new StringBuilder().insert(0, " AND parent_code = #{").append(a4).append("}").toString());	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a))).append(": ").append((String)a3).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a)).append(": ").append((String)a3).toString());	
         }	
         return a3;	
     }	
@@ -172,7 +165,7 @@ public class TreeSqlProvider {
         a3.append(MapperHelper.getTableName(a6, entity));	
         a3.append("UPDATE ");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	

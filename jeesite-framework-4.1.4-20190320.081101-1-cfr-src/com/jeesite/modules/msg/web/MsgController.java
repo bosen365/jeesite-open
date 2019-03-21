@@ -1,20 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.RequestParam	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.msg.web;	
 	
@@ -93,7 +78,7 @@ extends BaseController {
             a4.setReadStatus("2");	
             this.msgPushService.updateMsgPush(a4);	
         }	
-        ArrayList a5 = ListUtils.newArrayList(a2);	
+        ArrayList<MsgPush> a5 = ListUtils.newArrayList(a2);	
         MsgPcPoolUtils.removeCache(a);	
         return a5;	
     }	
@@ -114,7 +99,7 @@ extends BaseController {
         if (pushed) {	
             msgPush = new MsgPushed(msgPush);	
         }	
-        if (StringUtils.isBlank((CharSequence)msgPush.getMsgType())) {	
+        if (StringUtils.isBlank(msgPush.getMsgType())) {	
             msgPush.setMsgType("pc");	
         }	
         MsgPush msgPush2 = msgPush;	
@@ -127,15 +112,15 @@ extends BaseController {
     @RequiresPermissions(value={"user"})	
     @RequestMapping(value={"list"})	
     public String list(MsgPush msgPush, boolean pushed, Model model) {	
-        model.addAttribute("msgPush", (Object)msgPush);	
-        model.addAttribute("pushed", (Object)pushed);	
+        model.addAttribute("msgPush", msgPush);	
+        model.addAttribute("pushed", pushed);	
         return "modules/msg/msgList";	
     }	
 	
     @RequiresPermissions(value={"user"})	
     @RequestMapping(value={"readMsg"})	
     public String readMsg(MsgPush msgPush, boolean pushed, Model model) {	
-        if (StringUtils.isBlank((CharSequence)msgPush.getId())) {	
+        if (StringUtils.isBlank(msgPush.getId())) {	
             return this.list(msgPush, pushed, model);	
         }	
         MsgPush a = this.msgPushService.get(msgPush);	
@@ -150,8 +135,8 @@ extends BaseController {
             msgPush = new MsgPushed(msgPush);	
             a = this.msgPushService.get(msgPush);	
         }	
-        model.addAttribute("msgPush", (Object)a);	
-        model.addAttribute("pushed", (Object)pushed);	
+        model.addAttribute("msgPush", a);	
+        model.addAttribute("pushed", pushed);	
         return "modules/msg/msgForm";	
     }	
 	

@@ -1,21 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.codec.DesUtils	
- *  com.jeesite.common.codec.EncodeUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -59,15 +43,15 @@ extends BaseController {
     public String infoSavePwd(User user, String oldPassword, String newPassword, String confirmNewPassword) {	
         User a = UserUtils.getUser();	
         String a2 = Global.getProperty("shiro.loginSubmit.secretKey");	
-        if (StringUtils.isNotBlank((CharSequence)a2)) {	
-            oldPassword = DesUtils.decode((String)oldPassword, (String)a2);	
-            newPassword = DesUtils.decode((String)newPassword, (String)a2);	
-            confirmNewPassword = DesUtils.decode((String)confirmNewPassword, (String)a2);	
+        if (StringUtils.isNotBlank(a2)) {	
+            oldPassword = DesUtils.decode(oldPassword, a2);	
+            newPassword = DesUtils.decode(newPassword, a2);	
+            confirmNewPassword = DesUtils.decode(confirmNewPassword, a2);	
         }	
         if (!PwdUtils.validatePassword(oldPassword, a.getPassword())) {	
             return this.renderResult("false", UserController.text("sys.user.oldPasswordError", new String[0]));	
         }	
-        if (!StringUtils.equals((CharSequence)newPassword, (CharSequence)confirmNewPassword)) {	
+        if (!StringUtils.equals(newPassword, confirmNewPassword)) {	
             return this.renderResult("false", UserController.text("sys.user.confirmPasswrodError", new String[0]));	
         }	
         try {	
@@ -82,22 +66,22 @@ extends BaseController {
     @RequiresPermissions(value={"user"})	
     @RequestMapping(value={"info"})	
     public String info(User user, String op, Model model) {	
-        if (StringUtils.isBlank((CharSequence)op)) {	
+        if (StringUtils.isBlank(op)) {	
             op = "base";	
         }	
-        model.addAttribute("user", (Object)user.getCurrentUser());	
-        model.addAttribute("op", (Object)op);	
+        model.addAttribute("user", user.getCurrentUser());	
+        model.addAttribute("op", op);	
         return "modules/sys/userInfo";	
     }	
 	
     @RequiresPermissions(value={"user"})	
     @RequestMapping(value={"userSelect"})	
     public String userSelect(User user, String selectData, Model model) {	
-        String a = EncodeUtils.decodeUrl((String)selectData);	
-        if (JsonMapper.fromJson((String)a, Map.class) != null) {	
-            model.addAttribute("selectData", (Object)a);	
+        String a = EncodeUtils.decodeUrl(selectData);	
+        if (JsonMapper.fromJson(a, Map.class) != null) {	
+            model.addAttribute("selectData", a);	
         }	
-        model.addAttribute("user", (Object)user);	
+        model.addAttribute("user", user);	
         return "modules/sys/userSelect";	
     }	
 	
@@ -106,7 +90,7 @@ extends BaseController {
     @ResponseBody	
     public String infoSaveBase(User user, HttpServletRequest request) {	
         void a;	
-        if (StringUtils.isBlank((CharSequence)user.getUserName())) {	
+        if (StringUtils.isBlank(user.getUserName())) {	
             return this.renderResult("true", UserController.text("sys.user.userNameNotBlank", new String[0]));	
         }	
         User user2 = UserUtils.getUser();	
@@ -151,18 +135,18 @@ extends BaseController {
         boolean bl;	
         User a = UserUtils.getUser();	
         String a2 = Global.getProperty("shiro.loginSubmit.secretKey");	
-        if (StringUtils.isNotBlank((CharSequence)a2)) {	
-            validPassword = DesUtils.decode((String)validPassword, (String)a2);	
-            oldPwdQuestionAnswer = DesUtils.decode((String)oldPwdQuestionAnswer, (String)a2);	
-            oldPwdQuestionAnswer2 = DesUtils.decode((String)oldPwdQuestionAnswer2, (String)a2);	
-            oldPwdQuestionAnswer3 = DesUtils.decode((String)oldPwdQuestionAnswer3, (String)a2);	
+        if (StringUtils.isNotBlank(a2)) {	
+            validPassword = DesUtils.decode(validPassword, a2);	
+            oldPwdQuestionAnswer = DesUtils.decode(oldPwdQuestionAnswer, a2);	
+            oldPwdQuestionAnswer2 = DesUtils.decode(oldPwdQuestionAnswer2, a2);	
+            oldPwdQuestionAnswer3 = DesUtils.decode(oldPwdQuestionAnswer3, a2);	
             User user2 = user;	
-            user2.setPwdQuestionAnswer(DesUtils.decode((String)user2.getPwdQuestionAnswer(), (String)a2));	
-            user2.setPwdQuestionAnswer2(DesUtils.decode((String)user2.getPwdQuestionAnswer2(), (String)a2));	
-            user2.setPwdQuestionAnswer3(DesUtils.decode((String)user2.getPwdQuestionAnswer3(), (String)a2));	
+            user2.setPwdQuestionAnswer(DesUtils.decode(user2.getPwdQuestionAnswer(), a2));	
+            user2.setPwdQuestionAnswer2(DesUtils.decode(user2.getPwdQuestionAnswer2(), a2));	
+            user2.setPwdQuestionAnswer3(DesUtils.decode(user2.getPwdQuestionAnswer3(), a2));	
         }	
         boolean a3 = false;	
-        if (StringUtils.isBlank((CharSequence)a.getPwdQuestion()) && StringUtils.isBlank((CharSequence)a.getPwdQuestion2()) && StringUtils.isBlank((CharSequence)a.getPwdQuestion3())) {	
+        if (StringUtils.isBlank(a.getPwdQuestion()) && StringUtils.isBlank(a.getPwdQuestion2()) && StringUtils.isBlank(a.getPwdQuestion3())) {	
             if (!PwdUtils.validatePassword(validPassword, a.getPassword())) {	
                 return this.renderResult("false", UserController.text("sys.user.passwordError", new String[0]));	
             }	

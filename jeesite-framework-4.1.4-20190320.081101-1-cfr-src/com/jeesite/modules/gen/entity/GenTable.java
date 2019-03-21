@@ -1,15 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonBackReference	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  javax.validation.constraints.NotBlank	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.gen.entity;	
 	
@@ -34,7 +24,6 @@ import com.jeesite.common.mybatis.mapper.query.QueryWhere;
 import com.jeesite.common.validator.ValidatorUtils;	
 import com.jeesite.modules.gen.entity.GenTableColumn;	
 import java.util.ArrayList;	
-import java.util.HashMap;	
 import java.util.List;	
 import java.util.Map;	
 import javax.validation.constraints.NotBlank;	
@@ -77,7 +66,7 @@ extends DataEntity<GenTable> {
 	
     public String getTreeViewNameAttrName() {	
         String a;	
-        if (this.getIsTreeEntity().booleanValue() && this.treeViewNameAttrName == null && StringUtils.isNotBlank((CharSequence)(a = (String)this.optionMap.get("treeViewName")))) {	
+        if (this.getIsTreeEntity().booleanValue() && this.treeViewNameAttrName == null && StringUtils.isNotBlank(a = (String)this.optionMap.get("treeViewName"))) {	
             this.treeViewNameAttrName = this.getColumn(a).getAttrName();	
         }	
         return this.treeViewNameAttrName;	
@@ -114,8 +103,8 @@ extends DataEntity<GenTable> {
     }	
 	
     public void setOptions(String options) {	
-        if (StringUtils.isNotBlank((CharSequence)options)) {	
-            this.optionMap = (Map)JsonMapper.fromJson((String)options, Map.class);	
+        if (StringUtils.isNotBlank(options)) {	
+            this.optionMap = (Map)JsonMapper.fromJson(options, Map.class);	
         }	
         this.options = options;	
     }	
@@ -127,7 +116,7 @@ extends DataEntity<GenTable> {
     @NotBlank(message="\u8868\u540d\u4e0d\u80fd\u4e3a\u7a7a")	
     @Length(min=0, max=64, message="\u8868\u540d\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 64 \u4e2a\u5b57\u7b26")	
     public String getTableName() {	
-        return StringUtils.lowerCase((String)this.tableName);	
+        return StringUtils.lowerCase(this.tableName);	
     }	
 	
     public String getGenFlag() {	
@@ -173,7 +162,7 @@ extends DataEntity<GenTable> {
 	
     @NotBlank(message="\u8868\u8bf4\u660e\u4e0d\u80fd\u4e3a\u7a7a")	
     public String getComments() {	
-        if (StringUtils.isBlank((CharSequence)this.comments)) {	
+        if (StringUtils.isBlank(this.comments)) {	
             return this.getTableName();	
         }	
         return this.comments;	
@@ -191,7 +180,7 @@ extends DataEntity<GenTable> {
     }	
 	
     public String getParentTableName() {	
-        return StringUtils.lowerCase((String)this.parentTableName);	
+        return StringUtils.lowerCase(this.parentTableName);	
     }	
 	
     public String getSubModuleName() {	
@@ -226,7 +215,7 @@ extends DataEntity<GenTable> {
     }	
 	
     public Boolean getParentExists() {	
-        return StringUtils.isNotBlank((CharSequence)this.parentTableName) && StringUtils.isNotBlank((CharSequence)this.parentTableFkName);	
+        return StringUtils.isNotBlank(this.parentTableName) && StringUtils.isNotBlank(this.parentTableFkName);	
     }	
 	
     public Boolean getIsExtendEntity() {	
@@ -252,7 +241,7 @@ extends DataEntity<GenTable> {
     }	
 	
     public String getParentTableFkName() {	
-        return StringUtils.lowerCase((String)this.parentTableFkName);	
+        return StringUtils.lowerCase(this.parentTableFkName);	
     }	
 	
     public void setTplCategory(String tplCategory) {	
@@ -265,17 +254,17 @@ extends DataEntity<GenTable> {
 	
     public String getTreeViewCodeAttrName() {	
         String a;	
-        if (this.getIsTreeEntity().booleanValue() && this.treeViewCodeAttrName == null && StringUtils.isNotBlank((CharSequence)(a = (String)this.optionMap.get("treeViewCode")))) {	
+        if (this.getIsTreeEntity().booleanValue() && this.treeViewCodeAttrName == null && StringUtils.isNotBlank(a = (String)this.optionMap.get("treeViewCode"))) {	
             this.treeViewCodeAttrName = this.getColumn(a).getAttrName();	
         }	
         return this.treeViewCodeAttrName;	
     }	
 	
     public List<String> getImportList() {	
-        ArrayList a = ListUtils.newArrayList();	
+        ArrayList<String> a = ListUtils.newArrayList();	
         for (GenTableColumn a2 : this.getColumnList()) {	
             if (!a2.getIsSuperColumn().booleanValue()) {	
-                if (StringUtils.indexOf((CharSequence)a2.getAttrType(), (CharSequence)".") != -1 && !a.contains(a2.getAttrType())) {	
+                if (StringUtils.indexOf((CharSequence)a2.getAttrType(), ".") != -1 && !a.contains(a2.getAttrType())) {	
                     if (!a.contains(a2.getAttrType())) {	
                         a.add(a2.getAttrType());	
                     }	
@@ -290,8 +279,8 @@ extends DataEntity<GenTable> {
                     a.add(Extend.class.getName());	
                 }	
                 for (String a3 : a2.getAnnotationList()) {	
-                    if (a.contains(StringUtils.substringBefore((String)a3, (String)"("))) continue;	
-                    a.add(StringUtils.substringBefore((String)a3, (String)"("));	
+                    if (a.contains(StringUtils.substringBefore(a3, "("))) continue;	
+                    a.add(StringUtils.substringBefore(a3, "("));	
                 }	
                 continue;	
             }	
@@ -411,8 +400,8 @@ extends DataEntity<GenTable> {
 	
     public String getGenTableName() {	
         String a = this.getTableName();	
-        if (a != null && StringUtils.startsWith((CharSequence)a, (CharSequence)Global.getTablePrefix())) {	
-            a = new StringBuilder().insert(0, "${_prefix}").append(StringUtils.substringAfter((String)a, (String)Global.getTablePrefix())).toString();	
+        if (a != null && StringUtils.startsWith(a, Global.getTablePrefix())) {	
+            a = new StringBuilder().insert(0, "${_prefix}").append(StringUtils.substringAfter(a, Global.getTablePrefix())).toString();	
         }	
         return a;	
     }	
@@ -457,7 +446,7 @@ extends DataEntity<GenTable> {
     }	
 	
     public void setParentTableName_isNull(String parentTableName) {	
-        if (StringUtils.isBlank((CharSequence)parentTableName)) {	
+        if (StringUtils.isBlank(parentTableName)) {	
             this.setParentTableName(null);	
             this.sqlMap.getWhere().andBracket("parent_table_name", QueryType.IS_NULL, null, 2).or("parent_table_name", QueryType.EQ_FORCE, "", 3).endBracket();	
             return;	

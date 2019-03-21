@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.validation.Constraint	
- *  javax.validation.Payload	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.common.validator;	
 	

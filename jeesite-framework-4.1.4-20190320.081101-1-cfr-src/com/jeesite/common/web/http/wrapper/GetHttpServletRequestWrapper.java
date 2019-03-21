@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.ServletRequest	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletRequestWrapper	
  */	
 package com.jeesite.common.web.http.wrapper;	
 	
@@ -15,6 +10,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 	
 public class GetHttpServletRequestWrapper	
 extends HttpServletRequestWrapper {	
+    @Override	
     public String getMethod() {	
         return "GET";	
     }	

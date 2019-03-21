@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.validation.ConstraintViolationException	
- *  javax.validation.ValidationException	
- *  org.apache.shiro.authc.AuthenticationException	
- *  org.apache.shiro.authz.UnauthenticatedException	
- *  org.apache.shiro.authz.UnauthorizedException	
- *  org.springframework.validation.BindException	
- *  org.springframework.web.bind.WebDataBinder	
- *  org.springframework.web.bind.annotation.ControllerAdvice	
- *  org.springframework.web.bind.annotation.ExceptionHandler	
- *  org.springframework.web.bind.annotation.InitBinder	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -71,15 +58,15 @@ public class AdviceController {
     protected void initBinder(WebDataBinder binder, HttpServletRequest request) {	
         WebDataBinder webDataBinder = binder;	
         webDataBinder.setAutoGrowCollectionLimit(Integer.MAX_VALUE);	
-        webDataBinder.setDisallowedFields(new String[]{"global", "globl.*", "sqlMap", "sqlMp.*", "currentUser", "currentUser.*", "corpCode", "coreName"});	
+        webDataBinder.setDisallowedFields("global", "globl.*", "sqlMap", "sqlMp.*", "currentUser", "currentUser.*", "corpCode", "coreName");	
         WebDataBinder webDataBinder2 = binder;	
-        webDataBinder2.registerCustomEditor(String.class, (PropertyEditor)new c(this));	
-        webDataBinder2.registerCustomEditor(Date.class, (PropertyEditor)new i(this));	
+        webDataBinder2.registerCustomEditor(String.class, new c(this));	
+        webDataBinder2.registerCustomEditor(Date.class, new i(this));	
         if (webDataBinder2.getTarget() instanceof BaseEntity) {	
             BaseEntity a = (BaseEntity)binder.getTarget();	
             HttpServletRequest httpServletRequest = request;	
             httpServletRequest.setAttribute(BaseController.WEB_DATA_BINDER_SOURCE, a.clone());	
-            httpServletRequest.setAttribute(BaseController.WEB_DATA_BINDER_TARGET, (Object)a);	
+            httpServletRequest.setAttribute(BaseController.WEB_DATA_BINDER_TARGET, a);	
         }	
     }	
 }	

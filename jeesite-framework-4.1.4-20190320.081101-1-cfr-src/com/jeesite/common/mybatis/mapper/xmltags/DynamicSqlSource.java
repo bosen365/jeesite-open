@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.scripting.xmltags.DynamicSqlSource	
- *  org.apache.ibatis.scripting.xmltags.SqlNode	
- *  org.apache.ibatis.session.Configuration	
  */	
 package com.jeesite.common.mybatis.mapper.xmltags;	
 	

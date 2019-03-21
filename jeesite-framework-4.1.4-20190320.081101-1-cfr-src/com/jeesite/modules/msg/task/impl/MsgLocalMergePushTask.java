@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  org.slf4j.Logger	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Service	
  */	
 package com.jeesite.modules.msg.task.impl;	
 	
@@ -55,7 +48,7 @@ implements MsgPushTask {
             while (iterator2.hasNext()) {	
                 void a2;	
                 MsgPush a3 = iterator.next();	
-                if (ObjectUtils.toLong((Object)a3.getMergePushCount()) <= 0L) {	
+                if (ObjectUtils.toLong(a3.getMergePushCount()) <= 0L) {	
                     iterator2 = iterator;	
                     continue;	
                 }	

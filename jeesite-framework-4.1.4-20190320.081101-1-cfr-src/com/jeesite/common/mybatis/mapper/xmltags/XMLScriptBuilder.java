@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  org.apache.ibatis.builder.BaseBuilder	
- *  org.apache.ibatis.builder.BuilderException	
- *  org.apache.ibatis.mapping.SqlSource	
- *  org.apache.ibatis.parsing.XNode	
- *  org.apache.ibatis.scripting.defaults.RawSqlSource	
- *  org.apache.ibatis.scripting.xmltags.MixedSqlNode	
- *  org.apache.ibatis.scripting.xmltags.SqlNode	
- *  org.apache.ibatis.scripting.xmltags.StaticTextSqlNode	
- *  org.apache.ibatis.scripting.xmltags.TextSqlNode	
- *  org.apache.ibatis.session.Configuration	
  */	
 package com.jeesite.common.mybatis.mapper.xmltags;	
 	
@@ -64,11 +51,11 @@ extends BaseBuilder {
             if (a6.getNode().getNodeType() == 4 || a6.getNode().getNodeType() == 3) {	
                 a5 = a6.getStringBody("");	
                 a4 = new TextSqlNode(a5);	
-                if (a4.isDynamic()) {	
+                if (((TextSqlNode)a4).isDynamic()) {	
                     this.isDynamic = true;	
                     a2.add((SqlNode)a4);	
                 } else {	
-                    a2.add((SqlNode)new StaticTextSqlNode(a5));	
+                    a2.add(new StaticTextSqlNode(a5));	
                 }	
             } else if (a6.getNode().getNodeType() == 1) {	
                 a5 = a6.getNode().getNodeName();	
@@ -132,15 +119,15 @@ extends BaseBuilder {
     public SqlSource parseScriptNode() {	
         XMLScriptBuilder xMLScriptBuilder = this;	
         MixedSqlNode a = xMLScriptBuilder.parseDynamicTags(xMLScriptBuilder.context);	
-        DynamicSqlSource a2 = null;	
+        SqlSource a2 = null;	
         if (xMLScriptBuilder.isDynamic) {	
-            a2 = new DynamicSqlSource(this.configuration, (SqlNode)a);	
+            a2 = new DynamicSqlSource(this.configuration, a);	
             String a3 = this.context.getStringAttribute("wight");	
             if (a3 != null && !"".equals(a3)) {	
-                a2.setWeight(ObjectUtils.toInteger((Object)a3));	
+                ((DynamicSqlSource)a2).setWeight(ObjectUtils.toInteger(a3));	
             }	
         } else {	
-            a2 = new RawSqlSource(this.configuration, (SqlNode)a, this.parameterType);	
+            a2 = new RawSqlSource(this.configuration, a, this.parameterType);	
         }	
         return a2;	
     }	

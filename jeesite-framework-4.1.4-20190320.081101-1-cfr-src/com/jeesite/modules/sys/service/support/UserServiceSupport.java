@@ -1,22 +1,8 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.callback.MethodCallback	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.lang.DateUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  com.jeesite.common.network.IpUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.sys.service.support;	
 	
-import com.jeesite.common.callback.MethodCallback;	
 import com.jeesite.common.collect.ListUtils;	
 import com.jeesite.common.config.Global;	
 import com.jeesite.common.dao.QueryDao;	
@@ -42,11 +28,11 @@ import com.jeesite.modules.sys.service.UserService;
 import com.jeesite.modules.sys.service.support.i;	
 import com.jeesite.modules.sys.utils.PwdUtils;	
 import com.jeesite.modules.sys.utils.UserUtils;	
+import java.util.ArrayList;	
 import java.util.Date;	
 import java.util.Iterator;	
 import java.util.List;	
 import java.util.function.Consumer;	
-import javax.servlet.http.HttpServletRequest;	
 import org.hyperic.sigar.SysInfo;	
 import org.springframework.beans.factory.annotation.Autowired;	
 import org.springframework.transaction.annotation.Transactional;	
@@ -106,30 +92,30 @@ implements UserService {
         void v0 = a;	
         v0.setUserCode(a3.getUserCode());	
         v0.setCorpCode(a3.getCorpCode_());	
-        if (StringUtils.isBlank((CharSequence)newPassword)) {	
+        if (StringUtils.isBlank(newPassword)) {	
             newPassword = Global.getConfig("sys.user.initPasswrd");	
         }	
         if ((a2 = PwdUtils.getPwdSecurityLevel(newPassword)) != 0) {	
             int a4 = Global.getConfigToInteger("sys.user.passwordModifyNotRepeatNum", "1");	
-            List a5 = (List)JsonMapper.fromJson((String)a3.getPwdUpdateRecord(), List.class);	
+            ArrayList<ArrayList<String>> a5 = (ArrayList<ArrayList<String>>)JsonMapper.fromJson(a3.getPwdUpdateRecord(), List.class);	
             if (a5 == null) {	
                 a5 = ListUtils.newArrayList();	
                 if (a3.getPwdUpdateDate() == null) {	
                     a3.setPwdUpdateDate(new Date());	
                 }	
-                a5.add(ListUtils.newArrayList((Object[])new String[]{a3.getPassword(), DateUtils.formatDateTime((Date)a3.getPwdUpdateDate())}));	
+                a5.add(ListUtils.newArrayList(a3.getPassword(), DateUtils.formatDateTime(a3.getPwdUpdateDate())));	
             }	
             for (List a6 : a5) {	
                 if (!PwdUtils.validatePassword(newPassword, (String)a6.get(0))) continue;	
                 throw new ServiceException(this.text("sys.user.passwordModifyNotRepeat", String.valueOf(a4)));	
             }	
             a.setPassword(PwdUtils.encryptPassword(newPassword));	
-            a5.add(ListUtils.newArrayList((Object[])new String[]{a.getPassword(), DateUtils.getDateTime()}));	
+            a5.add(ListUtils.newArrayList(a.getPassword(), DateUtils.getDateTime()));	
             if (a5.size() > a4) {	
-                List list = a5;	
-                list.subList(0, list.size() - a4).clear();	
+                ArrayList<ArrayList<String>> arrayList = a5;	
+                arrayList.subList(0, arrayList.size() - a4).clear();	
             }	
-            a.setPwdUpdateRecord(JsonMapper.toJson((Object)a5));	
+            a.setPwdUpdateRecord(JsonMapper.toJson(a5));	
         } else {	
             a.setPassword(PwdUtils.encryptPassword(newPassword));	
             a.setPwdUpdateRecord(a3.getPwdUpdateRecord());	
@@ -146,7 +132,7 @@ implements UserService {
     @Override	
     public void save(User user) {	
         if (user.getIsNewRecord()) {	
-            if (StringUtils.isBlank((CharSequence)user.getUserCode())) {	
+            if (StringUtils.isBlank(user.getUserCode())) {	
                 User user2 = user;	
                 this.genId(user2, user2.getLoginCode());	
             }	
@@ -154,7 +140,7 @@ implements UserService {
                 throw UserServiceSupport.newValidationException(this.text("sys.user.loginCodeExists", new String[0]));	
             }	
             String a = user.getPassword();	
-            if (StringUtils.isBlank((CharSequence)a)) {	
+            if (StringUtils.isBlank(a)) {	
                 a = Global.getConfig("sys.user.initPasswrd");	
             }	
             User user3 = user;	
@@ -163,10 +149,10 @@ implements UserService {
             user3.setPwdSecurityLevel(PwdUtils.getPwdSecurityLevel(a));	
             User user5 = user;	
             user4.setPwdUpdateDate(new Date());	
-            if (StringUtils.isBlank((CharSequence)user3.getUserType())) {	
+            if (StringUtils.isBlank(user3.getUserType())) {	
                 user.setUserType("none");	
             }	
-            if (StringUtils.isBlank((CharSequence)user.getMgrType())) {	
+            if (StringUtils.isBlank(user.getMgrType())) {	
                 user.setMgrType("0");	
             }	
         }	
@@ -201,14 +187,14 @@ implements UserService {
     @Override	
     public void updateUserInfo(User user) {	
         a = user.getAvatarBase64();	
-        if (!StringUtils.isNotBlank((CharSequence)a)) ** GOTO lbl11	
+        if (!StringUtils.isNotBlank(a)) ** GOTO lbl11	
         if ("EMPTY".equals(a)) {	
             v0 = user;	
             v1 = v0;	
             v0.setAvatar("");	
         } else {	
-            a = new StringBuilder().insert(0, "avatar/").append(user.getCorpCode()).append("/").append(user.getUserType()).append("/").append(user.getUserCode()).append(".").append(FileUtils.getFileExtensionByImageBase64((String)a)).toString();	
-            FileUtils.writeToFileByImageBase64((String)Global.getUserfilesBaseDir(a), (String)a);	
+            a = new StringBuilder().insert(0, "avatar/").append(user.getCorpCode()).append("/").append(user.getUserType()).append("/").append(user.getUserCode()).append(".").append(FileUtils.getFileExtensionByImageBase64(a)).toString();	
+            FileUtils.writeToFileByImageBase64(Global.getUserfilesBaseDir(a), a);	
             user.setAvatar("/userfiles/" + a);	
 lbl11: // 2 sources:	
             v1 = user;	
@@ -241,7 +227,7 @@ lbl11: // 2 sources:
         User user2 = user;	
         user2.setOldLastLoginIp(user2.getLastLoginIp());	
         user2.setOldLastLoginDate(user2.getLastLoginDate());	
-        user2.setLastLoginIp(IpUtils.getRemoteAddr((HttpServletRequest)ServletUtils.getRequest()));	
+        user2.setLastLoginIp(IpUtils.getRemoteAddr(ServletUtils.getRequest()));	
         User user3 = user;	
         user2.setLastLoginDate(new Date());	
         ((UserDao)this.dao).updateLoginInfo(user);	
@@ -252,7 +238,7 @@ lbl11: // 2 sources:
     public void saveAuthDataScope(User user) {	
         void a;	
         Global.assertDemoMode();	
-        if (StringUtils.isBlank((CharSequence)user.getUserCode())) {	
+        if (StringUtils.isBlank(user.getUserCode())) {	
             return;	
         }	
         UserDataScope userDataScope = new UserDataScope();	
@@ -262,7 +248,7 @@ lbl11: // 2 sources:
         List<UserDataScope> a2 = user.getUserDataScopeList();	
         this.userDataScopeDao.deleteByEntity(a);	
         a2.forEach(arg_0 -> UserServiceSupport.lambda$saveAuthDataScope$0((UserDataScope)a, arg_0));	
-        ListUtils.pageList(a2, (int)100, (MethodCallback)new i(this));	
+        ListUtils.pageList(a2, 100, new i(this));	
         UserUtils.clearCache(user);	
     }	
 	
@@ -292,7 +278,7 @@ lbl11: // 2 sources:
     @Override	
     public void saveAuth(User user) {	
         Global.assertDemoMode();	
-        if (StringUtils.isBlank((CharSequence)user.getUserCode())) {	
+        if (StringUtils.isBlank(user.getUserCode())) {	
             return;	
         }	
         UserRole a = new UserRole();	
@@ -302,9 +288,9 @@ lbl11: // 2 sources:
         if (!user.getCurrentUser().isAdmin()) {	
             void a3;	
             Iterator<void> iterator;	
-            List a4 = ListUtils.extractToList(a2, (String)"roleCode", null, (boolean)true);	
+            List<String> a4 = ListUtils.extractToList(a2, "roleCode", null, true);	
             UserDataScope userDataScope = new UserDataScope();	
-            List list = a4;	
+            List<String> list = a4;	
             void v1 = a3;	
             a3.setUserCode(user.getCurrentUser().getUserCode());	
             v1.setCtrlType(Role.class.getSimpleName());	

@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.lang.TimeUtils	
- *  com.jeesite.common.reflect.ReflectUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.common.mybatis.mapper.provider;	
 	
@@ -51,7 +43,7 @@ public class UpdateSqlProvider {
         a3.append(MapperHelper.getTableName(a5, entity));	
         a3.append("DELETE FROM ");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	
@@ -70,22 +62,22 @@ public class UpdateSqlProvider {
             throw new MapperException(new StringBuilder().insert(0, "Error: ").append(a3.getClass()).append(" 没有Where字段.").toString());	
         }	
         Table a8 = MapperHelper.getTable(a3);	
-        ArrayList a9 = ListUtils.newArrayList();	
+        ArrayList<Column> a9 = ListUtils.newArrayList();	
         Object object = MapperHelper.getColumns(a8, a9).iterator();	
         block0 : do {	
             Iterator<Column> iterator = object;	
             while (iterator.hasNext()) {	
                 Column a10 = object.next();	
                 String a11 = MapperHelper.getAttrName(a10);	
-                if (StringUtils.equals((CharSequence)a10.name(), (CharSequence)"update_by")) {	
-                    ReflectUtils.invokeMethod((Object)a3, (String)"preUpdate", null, null);	
+                if (StringUtils.equals(a10.name(), "update_by")) {	
+                    ReflectUtils.invokeMethod(a3, "preUpdate", null, null);	
                 }	
                 if (a10.isPK()) {	
                     iterator = object;	
                     continue;	
                 }	
                 if (!a10.isUpdate()) continue block0;	
-                Object a12 = ReflectUtils.invokeGetter((Object)a3, (String)a11);	
+                Object a12 = ReflectUtils.invokeGetter(a3, a11);	
                 this.addColumn(a7, a10, "param1", a11, a12);	
                 continue block0;	
             }	
@@ -102,7 +94,7 @@ public class UpdateSqlProvider {
         a5.append(MapperHelper.getTableName(a8, a3));	
         a5.append("UPDATE ");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	
@@ -111,20 +103,20 @@ public class UpdateSqlProvider {
         String[] a;	
         boolean a2 = false;	
         StringBuilder a3 = new StringBuilder();	
-        ArrayList a4 = ListUtils.newArrayList();	
+        ArrayList<Column> a4 = ListUtils.newArrayList();	
         for (Column a5 : MapperHelper.getColumns(t, a4)) {	
             void a6;	
             String a7 = MapperHelper.getAttrName(a5);	
-            if (StringUtils.equals((CharSequence)a5.name(), (CharSequence)"update_y")) {	
-                ReflectUtils.invokeMethod(entity, (String)"preUpdate", null, null);	
+            if (StringUtils.equals(a5.name(), "update_y")) {	
+                ReflectUtils.invokeMethod(entity, "preUpdate", null, null);	
             }	
             if (a5.isPK()) {	
                 if (sqlWhere == null) continue;	
                 this.addWhere(sqlWhere, a5, paramPrefix, a7);	
                 continue;	
             }	
-            if (!StringUtils.inString((String)a5.name(), (String[])new String[]{"update_y", "update_date", "status"}) || sqlColumn == null) continue;	
-            Object object = ReflectUtils.invokeGetter(entity, (String)a7);	
+            if (!StringUtils.inString(a5.name(), "update_y", "update_date", "status") || sqlColumn == null) continue;	
+            Object e2 = ReflectUtils.invokeGetter(entity, a7);	
             this.addColumn(a3, a5, paramPrefix, a7, a6);	
             if (!"status".equals(a5.name())) continue;	
             a2 = true;	
@@ -159,7 +151,7 @@ public class UpdateSqlProvider {
         sqlWhere.append("#{");	
         sqlWhere.append(" = ");	
         sqlWhere.append(MapperHelper.getColumnName(c2));	
-        if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+        if (StringUtils.isNotBlank(paramPrefix)) {	
             sqlWhere.append(paramPrefix + ".");	
         }	
         sqlWhere.append("}");	
@@ -201,7 +193,7 @@ public class UpdateSqlProvider {
         }	
         String a6 = stringBuilder.toString();	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a))).append(": ").append(a6).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a)).append(": ").append(a6).toString());	
         }	
         return a6;	
     }	
@@ -219,7 +211,7 @@ public class UpdateSqlProvider {
             sqlColumn.append("#{");	
             sqlColumn.append(" = ");	
             sqlColumn.append(MapperHelper.getColumnName(c2));	
-            if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+            if (StringUtils.isNotBlank(paramPrefix)) {	
                 sqlColumn.append(paramPrefix + ".");	
             }	
             sqlColumn.append("}");	
@@ -251,7 +243,7 @@ public class UpdateSqlProvider {
         a4.append(MapperHelper.getTableName((Table)a2, entity));	
         a4.append("UPDATE ");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a3))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a3)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	
@@ -291,7 +283,7 @@ public class UpdateSqlProvider {
         }	
         String a6 = stringBuilder.toString();	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a))).append(": ").append(a6).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a)).append(": ").append(a6).toString());	
         }	
         return a6;	
     }	
@@ -302,18 +294,18 @@ public class UpdateSqlProvider {
         StringBuilder a3 = new StringBuilder();	
         StringBuilder a4 = new StringBuilder();	
         Table a5 = MapperHelper.getTable(entity);	
-        ArrayList a6 = ListUtils.newArrayList();	
+        ArrayList<Column> a6 = ListUtils.newArrayList();	
         for (Column a7 : MapperHelper.getColumns(a5, a6)) {	
             String a8 = MapperHelper.getAttrName(a7);	
-            if (StringUtils.equals((CharSequence)a7.name(), (CharSequence)"update_y")) {	
-                ReflectUtils.invokeMethod(entity, (String)"preUpdate", null, null);	
+            if (StringUtils.equals(a7.name(), "update_y")) {	
+                ReflectUtils.invokeMethod(entity, "preUpdate", null, null);	
             }	
             if (a7.isPK()) {	
                 this.addWhere(a3, a7, null, a8);	
                 continue;	
             }	
             if (!a7.isUpdate() && !a7.isUpdateForce()) continue;	
-            Object a9 = ReflectUtils.invokeGetter(entity, (String)a8);	
+            Object a9 = ReflectUtils.invokeGetter(entity, a8);	
             this.addColumn(a4, a7, null, a8, a9);	
         }	
         String[] a10 = entity.getId_in();	
@@ -350,7 +342,7 @@ public class UpdateSqlProvider {
         a2.append(MapperHelper.getTableName(a5, entity));	
         a2.append("UPDATE ");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a))).append(": ").append(a11).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a)).append(": ").append(a11).toString());	
         }	
         return a11;	
     }	
@@ -373,7 +365,7 @@ public class UpdateSqlProvider {
         a4.append(MapperHelper.getTableName((Table)a2, entity));	
         a4.append("DELETE FROM ");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a3))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a3)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	
@@ -404,7 +396,7 @@ public class UpdateSqlProvider {
         a5.append(MapperHelper.getTableName(a8, a3));	
         a5.append("UPDATE ");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	

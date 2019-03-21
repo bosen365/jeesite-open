@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.lang.TimeUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.common.mybatis.mapper.provider;	
 	
@@ -52,7 +45,7 @@ public class SelectSqlProvider {
         a6.append(entity.getSqlMap().getTable().toSql());	
         a5.append(entity.getSqlMap().getColumn().toSql());	
         stringBuilder.append(entity.getSqlMap().getWhere().toSql());	
-        if (StringUtils.isNotBlank((CharSequence)stringBuilder)) {	
+        if (StringUtils.isNotBlank(stringBuilder)) {	
             a3.append(a4);	
             a3.append(" WHERE ");	
         }	
@@ -60,7 +53,7 @@ public class SelectSqlProvider {
         a3.append(entity.getSqlMap().getOrder().toSql());	
         a3.append(" ORDER BY ");	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	
@@ -77,7 +70,7 @@ public class SelectSqlProvider {
         sqlWhere.append(" = ");	
         sqlWhere.append(MapperHelper.getColumnName(c2));	
         sqlWhere.append(new StringBuilder().insert(0, t.alias()).append(".").toString());	
-        if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+        if (StringUtils.isNotBlank(paramPrefix)) {	
             sqlWhere.append(paramPrefix + ".");	
         }	
         sqlWhere.append("}");	
@@ -106,7 +99,7 @@ public class SelectSqlProvider {
         a6.append(entity.getSqlMap().getTable().toSql());	
         a5.append(entity.getSqlMap().getColumn().toSql());	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	
@@ -119,7 +112,7 @@ public class SelectSqlProvider {
         StringBuilder a5 = new StringBuilder();	
         StringBuilder a6 = new StringBuilder();	
         Table a7 = MapperHelper.getTable(entity);	
-        ArrayList a8 = ListUtils.newArrayList();	
+        ArrayList<Column> a8 = ListUtils.newArrayList();	
         for (Column a9 : MapperHelper.getColumns(a7, a8)) {	
             if (!a9.isPK()) continue;	
             String a10 = MapperHelper.getAttrName(a9);	
@@ -139,7 +132,7 @@ public class SelectSqlProvider {
         a6.append(entity.getSqlMap().getTable().toSql());	
         a5.append(entity.getSqlMap().getColumn().toSql());	
         if (this.logger.isDebugEnabled()) {	
-            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo((long)(System.currentTimeMillis() - a2))).append(": ").append((String)a).toString());	
+            this.logger.debug(new StringBuilder().insert(0, TimeUtils.formatDateAgo(System.currentTimeMillis() - a2)).append(": ").append((String)a).toString());	
         }	
         return a;	
     }	

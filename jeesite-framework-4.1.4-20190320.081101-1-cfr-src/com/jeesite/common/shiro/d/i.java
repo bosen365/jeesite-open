@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.shiro.cache.Cache	
- *  org.apache.shiro.cache.CacheException	
- *  org.apache.shiro.cache.CacheManager	
  */	
 package com.jeesite.common.shiro.d;	
 	

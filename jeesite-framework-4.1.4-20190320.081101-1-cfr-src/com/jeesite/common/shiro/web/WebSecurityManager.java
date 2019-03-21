@@ -1,21 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  org.apache.shiro.SecurityUtils	
- *  org.apache.shiro.authc.Authenticator	
- *  org.apache.shiro.authc.pam.AuthenticationStrategy	
- *  org.apache.shiro.authc.pam.ModularRealmAuthenticator	
- *  org.apache.shiro.authz.Authorizer	
- *  org.apache.shiro.authz.ModularRealmAuthorizer	
- *  org.apache.shiro.crypto.CryptoException	
- *  org.apache.shiro.mgt.RememberMeManager	
- *  org.apache.shiro.mgt.SecurityManager	
- *  org.apache.shiro.realm.Realm	
- *  org.apache.shiro.subject.PrincipalCollection	
- *  org.apache.shiro.subject.SubjectContext	
- *  org.apache.shiro.web.mgt.DefaultWebSecurityManager	
  */	
 package com.jeesite.common.shiro.web;	
 	
@@ -32,7 +16,6 @@ import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.authz.Authorizer;	
 import org.apache.shiro.authz.ModularRealmAuthorizer;	
 import org.apache.shiro.crypto.CryptoException;	
-import org.apache.shiro.mgt.SecurityManager;	
 import org.apache.shiro.realm.Realm;	
 import org.apache.shiro.subject.PrincipalCollection;	
 import org.apache.shiro.subject.SubjectContext;	
@@ -46,6 +29,7 @@ extends DefaultWebSecurityManager {
         webSecurityManager.initialize();	
     }	
 	
+    @Override	
     protected PrincipalCollection getRememberedIdentity(SubjectContext subjectContext) {	
         try {	
             return super.getRememberedIdentity(subjectContext);	
@@ -55,13 +39,14 @@ extends DefaultWebSecurityManager {
         }	
     }	
 	
+    @Override	
     public void setRealms(Collection<Realm> realms) {	
         WebSecurityManager webSecurityManager = this;	
         super.setRealms(realms);	
         if (webSecurityManager.getAuthorizer() instanceof ModularRealmAuthorizer) {	
             ModularRealmAuthorizer a = (ModularRealmAuthorizer)this.getAuthorizer();	
-            ArrayList a2 = ListUtils.newArrayList();	
-            a.setRealms((Collection)a2);	
+            ArrayList<Realm> a2 = ListUtils.newArrayList();	
+            a.setRealms(a2);	
             a2.add(realms.iterator().next());	
         }	
     }	
@@ -74,9 +59,9 @@ extends DefaultWebSecurityManager {
 	
     private /* synthetic */ void initialize() {	
         WebSecurityManager webSecurityManager = this;	
-        webSecurityManager.setRememberMeManager((org.apache.shiro.mgt.RememberMeManager)new RememberMeManager());	
-        ((ModularRealmAuthenticator)webSecurityManager.getAuthenticator()).setAuthenticationStrategy((AuthenticationStrategy)new i(this));	
-        SecurityUtils.setSecurityManager((SecurityManager)this);	
+        webSecurityManager.setRememberMeManager(new RememberMeManager());	
+        ((ModularRealmAuthenticator)webSecurityManager.getAuthenticator()).setAuthenticationStrategy(new i(this));	
+        SecurityUtils.setSecurityManager(this);	
     }	
 	
     public WebSecurityManager() {	

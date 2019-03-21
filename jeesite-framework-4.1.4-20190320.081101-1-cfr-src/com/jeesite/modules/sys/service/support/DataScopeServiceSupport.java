@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.sys.service.support;	
 	
@@ -37,7 +32,7 @@ implements DataScopeService {
     private /* synthetic */ void insertIfParentExistsByRole(TreeEntity<?> entity, String ctrlType) {	
         Iterator<void> iterator;	
         void a;	
-        if (StringUtils.isBlank((CharSequence)entity.getParentCode())) {	
+        if (StringUtils.isBlank(entity.getParentCode())) {	
             return;	
         }	
         RoleDataScope roleDataScope = new RoleDataScope();	
@@ -55,7 +50,7 @@ implements DataScopeService {
 	
     private /* synthetic */ void insertIfParentExistsByRole(String roleCode, String ctrlType, String parentCtrlData, String ctrlData, String ctrlPermi) {	
         void a;	
-        if (StringUtils.isBlank((CharSequence)parentCtrlData)) {	
+        if (StringUtils.isBlank(parentCtrlData)) {	
             return;	
         }	
         RoleDataScope roleDataScope = new RoleDataScope();	
@@ -75,7 +70,7 @@ implements DataScopeService {
 	
     private /* synthetic */ void insertIfParentExistsByUser(String userCode, String ctrlType, String parentCtrlData, String ctrlData, String ctrlPermi) {	
         void a;	
-        if (StringUtils.isBlank((CharSequence)parentCtrlData)) {	
+        if (StringUtils.isBlank(parentCtrlData)) {	
             return;	
         }	
         UserDataScope userDataScope = new UserDataScope();	
@@ -102,7 +97,7 @@ implements DataScopeService {
             dataScopeServiceSupport.insertIfParentExistsByRole(entity, ctrlType);	
             dataScopeServiceSupport.insertIfParentExistsByUser(entity, ctrlType);	
         }	
-        if (StringUtils.isNotBlank((CharSequence)(a = entity.getCurrentUser().getUserCode()))) {	
+        if (StringUtils.isNotBlank(a = entity.getCurrentUser().getUserCode())) {	
             void a2;	
             UserDataScope userDataScope = new UserDataScope();	
             void v1 = a2;	
@@ -126,7 +121,7 @@ implements DataScopeService {
     private /* synthetic */ void insertIfParentExistsByUser(TreeEntity<?> entity, String ctrlType) {	
         UserDataScope a;	
         UserDataScope a2;	
-        if (StringUtils.isBlank((CharSequence)entity.getParentCode())) {	
+        if (StringUtils.isBlank(entity.getParentCode())) {	
             return;	
         }	
         UserDataScope userDataScope = new UserDataScope();	

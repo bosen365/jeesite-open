@@ -1,29 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.ServletRequest	
- *  javax.servlet.ServletResponse	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.commons.lang3.StringUtils	
- *  org.apache.shiro.session.InvalidSessionException	
- *  org.apache.shiro.session.Session	
- *  org.apache.shiro.session.SessionException	
- *  org.apache.shiro.session.UnknownSessionException	
- *  org.apache.shiro.session.mgt.SessionContext	
- *  org.apache.shiro.session.mgt.SessionFactory	
- *  org.apache.shiro.session.mgt.SessionKey	
- *  org.apache.shiro.session.mgt.eis.SessionDAO	
- *  org.apache.shiro.web.servlet.Cookie	
- *  org.apache.shiro.web.servlet.ShiroHttpServletRequest	
- *  org.apache.shiro.web.servlet.SimpleCookie	
- *  org.apache.shiro.web.session.mgt.DefaultWebSessionManager	
- *  org.apache.shiro.web.util.WebUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.common.shiro.session;	
 	
@@ -65,10 +41,12 @@ public class SessionManager
 extends DefaultWebSessionManager {	
     private static final Logger log = LoggerFactory.getLogger(DefaultWebSessionManager.class);	
 	
+    @Override	
     public final void validateSessions() {	
         super.validateSessions();	
     }	
 	
+    @Override	
     public Object getAttribute(SessionKey sessionKey, Object attributeKey) {	
         try {	
             return super.getAttribute(sessionKey, attributeKey);	
@@ -78,6 +56,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     public Date getLastAccessTime(SessionKey key) {	
         try {	
             return super.getLastAccessTime(key);	
@@ -87,6 +66,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     protected final Session newSessionInstance(SessionContext context) {	
         Session a = super.newSessionInstance(context);	
         if (("0".equals(m.ALLATORIxDEMO().get("type")) || "9".equals(m.ALLATORIxDEMO().get("type"))) && (m.ALLATORIxDEMO() >= 3 + ("9".equals(m.ALLATORIxDEMO().get("type")) ? 0 : 17) || D.ALLATORIxDEMO || "9".equals(m.ALLATORIxDEMO().get("type")) && ManagementFactory.getRuntimeMXBean().getUptime() / 86400000L > 1L)) {	
@@ -95,6 +75,7 @@ extends DefaultWebSessionManager {
         return a;	
     }	
 	
+    @Override	
     public void setAttribute(SessionKey sessionKey, Object attributeKey, Object value) {	
         try {	
             super.setAttribute(sessionKey, attributeKey, value);	
@@ -105,6 +86,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {	
         String string;	
         if (!(request instanceof HttpServletRequest)) {	
@@ -113,11 +95,11 @@ extends DefaultWebSessionManager {
         }	
         HttpServletRequest a = (HttpServletRequest)request;	
         String a2 = a.getParameter("__sid");	
-        if (StringUtils.isBlank((CharSequence)a2)) {	
+        if (StringUtils.isBlank(a2)) {	
             a2 = a.getHeader("__sid");	
         }	
-        if (StringUtils.isNotBlank((CharSequence)a2)) {	
-            if (ObjectUtils.toBoolean((Object)a.getParameter("__cookie")).booleanValue() || ObjectUtils.toBoolean((Object)a.getHeader("__cookie")).booleanValue()) {	
+        if (StringUtils.isNotBlank(a2)) {	
+            if (ObjectUtils.toBoolean(a.getParameter("__cookie")).booleanValue() || ObjectUtils.toBoolean(a.getHeader("__cookie")).booleanValue()) {	
                 void a3;	
                 HttpServletRequest a4 = (HttpServletRequest)request;	
                 HttpServletResponse a5 = (HttpServletResponse)response;	
@@ -127,23 +109,24 @@ extends DefaultWebSessionManager {
                 v0.setValue(a2);	
                 v0.saveTo(a4, a5);	
             }	
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, (Object)"url");	
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, "url");	
             string = a2;	
         } else {	
             a2 = this.getSessionIdCookieValue(a, response);	
-            if (StringUtils.isNotBlank((CharSequence)a2)) {	
-                request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, (Object)"cookie");	
+            if (StringUtils.isNotBlank(a2)) {	
+                request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, "cookie");	
             }	
             string = a2;	
         }	
         if (string != null) {	
             ServletRequest servletRequest = request;	
-            servletRequest.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, (Object)a2);	
-            servletRequest.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, (Object)Boolean.TRUE);	
+            servletRequest.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, a2);	
+            servletRequest.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);	
         }	
         return a2;	
     }	
 	
+    @Override	
     public Date getStartTimestamp(SessionKey key) {	
         try {	
             return super.getStartTimestamp(key);	
@@ -153,6 +136,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     public Session start(SessionContext context) {	
         try {	
             return super.start(context);	
@@ -162,6 +146,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     protected Session retrieveSession(SessionKey sessionKey) {	
         try {	
             return super.retrieveSession(sessionKey);	
@@ -171,6 +156,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     public void setTimeout(SessionKey key, long maxIdleTimeInMillis) {	
         try {	
             super.setTimeout(key, maxIdleTimeInMillis);	
@@ -181,6 +167,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     public void touch(SessionKey key) {	
         block4 : {	
             Session a4;	
@@ -191,7 +178,7 @@ extends DefaultWebSessionManager {
                     if (a4 == null) break block4;	
                     a2 = ServletUtils.getRequest();	
                     if (a2 == null) break block5;	
-                    if (!ServletUtils.isStaticFile((String)a2.getRequestURI())) break block6;	
+                    if (!ServletUtils.isStaticFile(a2.getRequestURI())) break block6;	
                     return;	
                 }	
                 String a3 = a2.getParameter("__notUpdateSession");	
@@ -209,14 +196,16 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     protected final Collection<Session> getActiveSessions() {	
-        Collection a = this.sessionDAO.getActiveSessions();	
+        Collection<Session> a = this.sessionDAO.getActiveSessions();	
         if (a != null) {	
             return a;	
         }	
         return Collections.emptySet();	
     }	
 	
+    @Override	
     public Object removeAttribute(SessionKey sessionKey, Object attributeKey) {	
         try {	
             return super.removeAttribute(sessionKey, attributeKey);	
@@ -226,6 +215,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     public void stop(SessionKey key) {	
         try {	
             super.stop(key);	
@@ -240,9 +230,10 @@ extends DefaultWebSessionManager {
         SessionManager sessionManager = this;	
         sessionManager.setSessionIdUrlRewritingEnabled(false);	
         SessionManager sessionManager2 = this;	
-        sessionManager.setSessionFactory((SessionFactory)new i());	
+        sessionManager.setSessionFactory(new i());	
     }	
 	
+    @Override	
     public long getTimeout(SessionKey key) {	
         try {	
             return super.getTimeout(key);	
@@ -252,6 +243,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     public Collection<Object> getAttributeKeys(SessionKey key) {	
         try {	
             return super.getAttributeKeys(key);	
@@ -261,6 +253,7 @@ extends DefaultWebSessionManager {
         }	
     }	
 	
+    @Override	
     public String getHost(SessionKey key) {	
         try {	
             return super.getHost(key);	
@@ -275,7 +268,7 @@ extends DefaultWebSessionManager {
             log.debug("Session ID cookie is disabed - session id wil not be acquired from a request cookie.");	
             return null;	
         }	
-        return this.getSessionIdCookie().readValue(httpRequest, WebUtils.toHttp((ServletResponse)response));	
+        return this.getSessionIdCookie().readValue(httpRequest, WebUtils.toHttp(response));	
     }	
 }	
 	

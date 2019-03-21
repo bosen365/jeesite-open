@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.lang.ByteUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  javax.validation.constraints.NotBlank	
- *  javax.validation.constraints.NotNull	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.file.entity;	
 	
@@ -27,7 +16,6 @@ import com.jeesite.common.mybatis.annotation.Column;
 import com.jeesite.common.mybatis.annotation.Table;	
 import com.jeesite.common.mybatis.mapper.MapperException;	
 import com.jeesite.modules.file.entity.FileUploadParams;	
-import java.util.HashMap;	
 import java.util.Map;	
 import javax.validation.constraints.NotBlank;	
 import javax.validation.constraints.NotNull;	
@@ -56,8 +44,8 @@ extends DataEntity<FileEntity> {
     }	
 	
     public void setFileMeta(String fileMeta) {	
-        if (StringUtils.isNotBlank((CharSequence)fileMeta)) {	
-            this.fileMetaMap = (Map)JsonMapper.fromJson((String)fileMeta, Map.class);	
+        if (StringUtils.isNotBlank(fileMeta)) {	
+            this.fileMetaMap = (Map)JsonMapper.fromJson(fileMeta, Map.class);	
         }	
         this.fileMeta = fileMeta;	
     }	
@@ -72,7 +60,7 @@ extends DataEntity<FileEntity> {
 	
     @JsonIgnore	
     public String getFileUrl() {	
-        return FileUtils.path((String)new StringBuilder().insert(0, "/userfies//fileupload/").append(this.filePath).append("/").toString()) + this.fileId + "." + this.fileExtension;	
+        return FileUtils.path(new StringBuilder().insert(0, "/userfies//fileupload/").append(this.filePath).append("/").toString()) + this.fileId + "." + this.fileExtension;	
     }	
 	
     @Length(min=0, max=64, message="\u6587\u4ef6\u7f16\u53f7\u4e0d\u80fd\u8d85\u8fc7 64 \u4e2a\u5b57\u7b26")	
@@ -141,7 +129,7 @@ extends DataEntity<FileEntity> {
         if (this.fileSize == null) {	
             return null;	
         }	
-        return ByteUtils.formatByteSize((long)this.fileSize);	
+        return ByteUtils.formatByteSize(this.fileSize);	
     }	
 	
     @JsonIgnore	

@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.validation.constraints.NotBlank	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.job.entity;	
 	

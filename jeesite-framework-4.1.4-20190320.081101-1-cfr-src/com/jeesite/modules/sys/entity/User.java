@@ -1,15 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonFormat	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  javax.validation.constraints.Email	
- *  javax.validation.constraints.NotBlank	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.sys.entity;	
 	
@@ -117,7 +107,7 @@ extends DataEntity<User> {
     }	
 	
     public void setUserDataScopeListJson(String jsonString) {	
-        List a = (List)JsonMapper.fromJson((String)jsonString, List.class);	
+        List a = (List)JsonMapper.fromJson(jsonString, List.class);	
         if (a != null) {	
             Iterator iterator;	
             Iterator iterator2 = iterator = a.iterator();	
@@ -140,7 +130,7 @@ extends DataEntity<User> {
     }	
 	
     public static boolean isSuperAdmin(String userCode) {	
-        return userCode != null && StringUtils.inString((String)userCode, (String[])SUPER_ADMIN_CODE.split(","));	
+        return userCode != null && StringUtils.inString(userCode, SUPER_ADMIN_CODE.split(","));	
     }	
 	
     public void setPwdUpdateRecord(String pwdUpdateRecord) {	
@@ -260,7 +250,7 @@ extends DataEntity<User> {
     }	
 	
     public void setUserRoleString(String roleCodes) {	
-        String[] a = StringUtils.split((String)roleCodes, (String)",");	
+        String[] a = StringUtils.split(roleCodes, ",");	
         if (a != null) {	
             int n;	
             String[] arrstring = a;	
@@ -268,7 +258,7 @@ extends DataEntity<User> {
             int n3 = n = 0;	
             while (n3 < n2) {	
                 String a2 = arrstring[n];	
-                if (StringUtils.isNotBlank((CharSequence)a2) && !Role.isAdmin(a2)) {	
+                if (StringUtils.isNotBlank(a2) && !Role.isAdmin(a2)) {	
                     void a3;	
                     UserRole userRole = new UserRole();	
                     a3.setRoleCode(a2);	
@@ -452,11 +442,11 @@ extends DataEntity<User> {
     }	
 	
     public String getAvatarUrl() {	
-        if (StringUtils.isNotBlank((CharSequence)this.avatar)) {	
+        if (StringUtils.isNotBlank(this.avatar)) {	
             return new StringBuilder().insert(0, "/ctxPath").append(this.avatar).toString();	
         }	
         String a = "/ctxPath/static/images/user";	
-        a = StringUtils.isBlank((CharSequence)this.sex) ? new StringBuilder().insert(0, a).append(MGR_TYPE_CORP_ADMIN).toString() : new StringBuilder().insert(0, a).append(this.sex).toString();	
+        a = StringUtils.isBlank(this.sex) ? new StringBuilder().insert(0, a).append(MGR_TYPE_CORP_ADMIN).toString() : new StringBuilder().insert(0, a).append(this.sex).toString();	
         a = new StringBuilder().insert(0, a).append(".jpg").toString();	
         return a;	
     }	

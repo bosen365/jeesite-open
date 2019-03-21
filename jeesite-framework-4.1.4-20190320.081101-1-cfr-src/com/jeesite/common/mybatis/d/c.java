@@ -1,8 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.session.RowBounds	
  */	
 package com.jeesite.common.mybatis.d;	
 	

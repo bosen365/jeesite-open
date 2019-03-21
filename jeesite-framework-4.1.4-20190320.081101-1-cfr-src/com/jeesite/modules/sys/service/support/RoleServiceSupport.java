@@ -1,16 +1,8 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.callback.MethodCallback	
- *  com.jeesite.common.collect.ListUtils	
- *  org.apache.commons.lang3.StringUtils	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.sys.service.support;	
 	
-import com.jeesite.common.callback.MethodCallback;	
 import com.jeesite.common.collect.ListUtils;	
 import com.jeesite.common.config.Global;	
 import com.jeesite.common.dao.QueryDao;	
@@ -71,13 +63,13 @@ implements RoleService {
     @Override	
     public void saveAuthDataScope(Role role) {	
         Global.assertDemoMode();	
-        if (StringUtils.isBlank((CharSequence)role.getRoleCode())) {	
+        if (StringUtils.isBlank(role.getRoleCode())) {	
             return;	
         }	
         RoleDataScope a = new RoleDataScope();	
         a.setRoleCode(role.getRoleCode());	
         Role role2 = role;	
-        ListUtils.pageList(role2.getRoleDataScopeList(), (int)100, (MethodCallback)new c(this));	
+        ListUtils.pageList(role2.getRoleDataScopeList(), 100, new c(this));	
         this.clearUserCacheByRoleCode(role2);	
         this.roleDataScopeDao.deleteByEntity(a);	
         ((RoleDao)this.dao).updateDataScope(role);	
@@ -95,7 +87,7 @@ implements RoleService {
     @Override	
     public void saveAuthUser(Role role) {	
         Global.assertDemoMode();	
-        if (StringUtils.isBlank((CharSequence)role.getRoleCode())) {	
+        if (StringUtils.isBlank(role.getRoleCode())) {	
             return;	
         }	
         for (UserRole a : role.getUserRoleList()) {	
@@ -114,13 +106,13 @@ implements RoleService {
     @Override	
     public void saveAuth(Role role) {	
         Global.assertDemoMode();	
-        if (StringUtils.isBlank((CharSequence)role.getRoleCode())) {	
+        if (StringUtils.isBlank(role.getRoleCode())) {	
             return;	
         }	
         RoleMenu a = new RoleMenu();	
         a.setRoleCode(role.getRoleCode());	
         Role role2 = role;	
-        ListUtils.pageList(role2.getRoleMenuList(), (int)100, (MethodCallback)new C(this));	
+        ListUtils.pageList(role2.getRoleMenuList(), 100, new C(this));	
         this.clearUserCacheByRoleCode(role2);	
         this.roleMenuDao.deleteByEntity(a);	
     }	
@@ -191,7 +183,7 @@ implements RoleService {
     @Transactional(readOnly=false)	
     @Override	
     public void save(Role role) {	
-        if (StringUtils.isBlank((CharSequence)role.getUserType())) {	
+        if (StringUtils.isBlank(role.getUserType())) {	
             role.setUserType("none");	
         }	
         RoleServiceSupport roleServiceSupport = this;	

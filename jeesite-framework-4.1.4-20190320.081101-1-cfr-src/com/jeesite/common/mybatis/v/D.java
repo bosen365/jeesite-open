@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.commons.lang3.StringUtils	
- *  org.apache.ibatis.executor.parameter.ParameterHandler	
- *  org.apache.ibatis.executor.statement.StatementHandler	
- *  org.apache.ibatis.mapping.BoundSql	
- *  org.apache.ibatis.mapping.MappedStatement	
- *  org.apache.ibatis.plugin.Invocation	
- *  org.apache.ibatis.reflection.MetaObject	
- *  org.apache.ibatis.reflection.SystemMetaObject	
- *  org.apache.ibatis.session.RowBounds	
  */	
 package com.jeesite.common.mybatis.v;	
 	
@@ -39,9 +28,9 @@ public final class D {
         void metaStatementHandler;	
         void sql;	
         void v0 = metaStatementHandler;	
-        metaStatementHandler.setValue("delegate.rowBounds.offset", (Object)0);	
-        v0.setValue("delegate.rowBounds.limit", (Object)Integer.MAX_VALUE);	
-        v0.setValue("delegate.boundSql.sql", (Object)sql);	
+        metaStatementHandler.setValue("delegate.rowBounds.offset", 0);	
+        v0.setValue("delegate.rowBounds.limit", Integer.MAX_VALUE);	
+        v0.setValue("delegate.boundSql.sql", sql);	
         return invocation.proceed();	
     }	
 	
@@ -53,7 +42,7 @@ public final class D {
     public static Object ALLATORIxDEMO(Invocation invocation) throws Throwable {	
         block7 : {	
             a = (StatementHandler)invocation.getTarget();	
-            a = SystemMetaObject.forObject((Object)a);	
+            a = SystemMetaObject.forObject(a);	
             a = (MappedStatement)a.getValue("delegate.mappedStatement");	
             a = a.getBoundSql();	
             a = a.getSql();	
@@ -76,7 +65,7 @@ public final class D {
             v0.setCount(PaginationHelper.getTotalCount(a, (Connection)a, a, a));	
             if (v0.getCount() <= 100L || !"0".equals(m.ALLATORIxDEMO().get("type")) && !"9".equals(m.ALLATORIxDEMO().get("type"))) ** GOTO lbl32	
             a = a.getClass().getAnnotation(Table.class);	
-            if (a != null && StringUtils.endsWithIgnoreCase((CharSequence)a.name(), (CharSequence)"sys_user")) {	
+            if (a != null && StringUtils.endsWithIgnoreCase(a.name(), "sys_user")) {	
                 a = 100;	
                 v1 = a;	
                 v2 = v1;	

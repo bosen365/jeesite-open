@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.slf4j.Logger	
- *  org.springframework.beans.factory.NoSuchBeanDefinitionException	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Service	
  */	
 package com.jeesite.modules.msg.task.impl;	
 	
@@ -48,7 +39,7 @@ implements MsgPushTask {
 	
     @Override	
     public boolean executeMsgPush(MsgPush msgPush) {	
-        if (StringUtils.inString((String)msgPush.getReceiveCode(), (String[])new String[]{"NONE"})) {	
+        if (StringUtils.inString(msgPush.getReceiveCode(), "NONE")) {	
             MsgPush msgPush2 = msgPush;	
             msgPush.setPushDate(new Date());	
             msgPush2.setPushStatus("2");	
@@ -56,7 +47,7 @@ implements MsgPushTask {
             this.msgPushService.updateMsgPush(msgPush);	
             return false;	
         }	
-        if (StringUtils.inString((String)msgPush.getMsgType(), (String[])new String[]{"pc"})) {	
+        if (StringUtils.inString(msgPush.getMsgType(), "pc")) {	
             MsgPush msgPush3 = msgPush;	
             MsgPush msgPush4 = msgPush;	
             MsgPcPoolUtils.putPool(msgPush.getReceiveCode(), msgPush4);	
@@ -85,7 +76,7 @@ implements MsgPushTask {
             }	
             a3.sendMessage(msgPush);	
             if ("1".equals(msgPush.getPushStatus())) {	
-                if (StringUtils.isBlank((CharSequence)msgPush.getReadStatus()) || "0".equals(msgPush.getReadStatus())) {	
+                if (StringUtils.isBlank(msgPush.getReadStatus()) || "0".equals(msgPush.getReadStatus())) {	
                     msgPush.setReadDate(new Date());	
                     msgPush.setReadStatus("1");	
                 }	

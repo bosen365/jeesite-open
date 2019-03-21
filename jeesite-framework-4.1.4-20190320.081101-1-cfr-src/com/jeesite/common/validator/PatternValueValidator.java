@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.validation.ConstraintValidator	
- *  javax.validation.ConstraintValidatorContext	
- *  org.hibernate.validator.internal.util.logging.Log	
- *  org.hibernate.validator.internal.util.logging.LoggerFactory	
  */	
 package com.jeesite.common.validator;	
 	
@@ -24,8 +18,9 @@ import org.hibernate.validator.internal.util.logging.LoggerFactory;
 public class PatternValueValidator	
 implements ConstraintValidator<PatternValue, CharSequence> {	
     private Pattern pattern;	
-    private static final Log log = LoggerFactory.make((MethodHandles.Lookup)MethodHandles.lookup());	
+    private static final Log log = LoggerFactory.make(MethodHandles.lookup());	
 	
+    @Override	
     public boolean isValid(CharSequence value, ConstraintValidatorContext constraintValidatorContext) {	
         if (value == null) {	
             return true;	
@@ -33,6 +28,7 @@ implements ConstraintValidator<PatternValue, CharSequence> {
         return this.pattern.matcher(value).matches();	
     }	
 	
+    @Override	
     public void initialize(PatternValue parameters) {	
         int n;	
         PatternValue.Flag[] a = parameters.flags();	

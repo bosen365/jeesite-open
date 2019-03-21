@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.commons.lang3.StringUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.modules.msg.utils;	
 	
@@ -40,7 +35,7 @@ public class MsgPushUtils {
         void v0 = a;	
         v0.setBizKey(bizKey);	
         v0.setBizType(bizType);	
-        if (StringUtils.isBlank((CharSequence)receiveUserCode)) {	
+        if (StringUtils.isBlank(receiveUserCode)) {	
             return;	
         }	
         a.setReceiveUserCode(receiveUserCode);	
@@ -67,12 +62,12 @@ public class MsgPushUtils {
 	
     public static MsgPush push(BaseMsgContent msgContent, String bizKey, String bizType, String receiveUserCodes, Date planPushDate, String isMergePush) {	
         int n;	
-        boolean a = StringUtils.startsWith((CharSequence)receiveUserCodes, (CharSequence)"[CODE]");	
+        boolean a = StringUtils.startsWith(receiveUserCodes, "[CODE]");	
         if (a) {	
-            receiveUserCodes = StringUtils.substringAfter((String)receiveUserCodes, (String)"[CODE]");	
+            receiveUserCodes = StringUtils.substringAfter(receiveUserCodes, "[CODE]");	
         }	
         MsgPush a2 = null;	
-        String[] arrstring = StringUtils.split((String)receiveUserCodes, (String)",");	
+        String[] arrstring = StringUtils.split(receiveUserCodes, ",");	
         int n2 = arrstring.length;	
         int n3 = n = 0;	
         while (n3 < n2) {	

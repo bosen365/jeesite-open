@@ -2,13 +2,7 @@
  * Decompiled with CFR 0.140.	
  * 	
  * Could not load the following classes:	
- *  com.jeesite.common.web.http.ServletUtils	
  *  com.jeesite.modules.sys.utils.l	
- *  javax.servlet.http.HttpServletRequest	
- *  org.apache.commons.io.IOUtils	
- *  org.apache.shiro.session.Session	
- *  org.apache.shiro.subject.PrincipalCollection	
- *  org.apache.shiro.subject.support.DefaultSubjectContext	
  */	
 package com.jeesite.modules.sys.utils;	
 	
@@ -130,7 +124,7 @@ public final class C {
             Iterator iterator;	
             void a5;	
             int n;	
-            a2 = IOUtils.toByteArray((InputStream)inputStream);	
+            a2 = IOUtils.toByteArray(inputStream);	
             String[] a6 = ">>>>大牛你好，能否留个联系方式，合作QQ：78112665，暗号：Licence520<<<<`7Km/KZk46sPt7e5xmn6ZIA==`MIICdQIBADANBgkqhkiG9w0BAQEFA+SCAl8wggJbAgE+AoGBAMMl5nOBVE+QJsNC+Iti3rxgMbTU8NhptURjxslLFCxm94uFUnKUQ1k9KUgfWH2+RlM8D+z0HSDJX94+Pgsgqw3IO7r2uSIXQcqPDVOxGT/qUaSMdscBYuC42cOdiB5F4cNGf/iPdQm6JZMBBTjCGRtLel/sCb8lditqoz6MhJfRAgMBA+ECgYB/mXSJ6fKa44K1AkFJwqgpPCzENMgWeWgRA7yjOfhC4EDUdaRnTxKKczde9UADWDrbidPHVIcHPST2SHSBCidNgeF/ox+MR72wQRRWl7hjm+UHRGnt8ICiCUpWvz9YPTlVORAJwk2wkBv3zBveUdR2oLFeNQ7+RvXlDLQW1yb+EQJBAPeJyC0I/2JG+BlpUzUgjKlOlQpl57KfKdIF1sJ9g+uPKk4qHbVftcp6PqQhWEBtzrCsbNlofG77ziSKt4QRfU8CQQDJ0aZK2hO0UqQDPvi+qUX5ZC3S4C6CUTBOiPyLw+mLlZBgg+jvyMuMwnxK/m9fK5hfZggQI5Ue3hVIbkstdJDfAkAnlmhmE2dMX080OSzudSsptICPbia04VF93iMvbYS51IaOg5vGsuzO2egEtbR4cVc52+l8Z4Jm+WxJWcnpnCZvAkA9Rz3hvmN7Phh0r9sOXddUSPms7MrSYMp1HhzoZxzzd/81fvfsTqCXZboNn0G7uOX0GWvbUqKFk9MMggirjZgrAkB4j5OC07ov3aRS9/hwHgSj8iK+Ths+DOygDRifXeLTH+AmtHBHdS8lCqIvznAMAMHRa5N2v6h2i59LEE2YLO9l`PxXhwSyYKLHQlmcx59Fl6Q==`MIGfM+0GCSqGSIb3DQEBAQU+A4GNADCBiQKBgQCePYu+/B0NP8RG3q8zXjmkYrAzcd5IMKbOkDbnwBn5dpwn1Cp0qBSpFKciUtvX3v6+HSoQW9UEVzvhOn0mgsTGArwd5dfVaR11AbPQEfxJjnI649LrjMmw4No+AO+l4LhPWu83Mk4eR4FXMWs4vIh2lmWLTMCy4mGKndsTzamo2QIDAQAB".split("`");	
             a = C.ALLATORIxDEMO(a6[3]);	
             byte[] a7 = C.ALLATORIxDEMO(a6[1]);	
@@ -524,23 +518,23 @@ public final class C {
     }	
 	
     public static final int ALLATORIxDEMO() {	
-        Iterator iterator;	
+        Iterator<Session> iterator;	
         if (g == null) {	
             g = SpringUtils.getBean(SessionDAO.class);	
         }	
         HashSet<String> a = new HashSet<String>();	
         D.ALLATORIxDEMO = false;	
-        Iterator iterator2 = iterator = g.getActiveSessions().iterator();	
+        Iterator<Session> iterator2 = iterator = g.getActiveSessions().iterator();	
         while (iterator2.hasNext()) {	
             LoginInfo a2;	
-            Session a3 = (Session)iterator.next();	
+            Session a3 = iterator.next();	
             String a4 = "";	
-            Object a5 = a3.getAttribute((Object)DefaultSubjectContext.PRINCIPALS_SESSION_KEY);	
+            Object a5 = a3.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);	
             if (a5 != null && a5 instanceof PrincipalCollection && (a2 = (LoginInfo)((PrincipalCollection)a5).getPrimaryPrincipal()) != null) {	
                 a4 = a2.getId();	
             }	
             if (C.ALLATORIxDEMO((CharSequence)a4)) {	
-                a4 = (String)a3.getAttribute((Object)"userCode");	
+                a4 = (String)a3.getAttribute("userCode");	
             }	
             if (C.ALLATORIxDEMO((CharSequence)a4)) {	
                 iterator2 = iterator;	

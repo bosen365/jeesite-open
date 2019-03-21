@@ -1,12 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.oschina.j2cache.cluster.ClusterPolicy	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.data.redis.connection.Message	
- *  org.springframework.data.redis.connection.MessageListener	
  */	
 package com.jeesite.common.j2cache.cache.support.redis;	
 	
@@ -25,6 +18,7 @@ implements MessageListener {
     /*	
      * Exception decompiling	
      */	
+    @Override	
     public void onMessage(Message message, byte[] pattern) {	
         // This method has failed to decompile.  When submitting a bug report, please provide this stack trace, and (if you hold appropriate legal rights) the relevant class file.	
         // org.benf.cfr.reader.util.ConfusedCFRException: Tried to end blocks [9[DOLOOP]], but top level block is 3[CASE]	

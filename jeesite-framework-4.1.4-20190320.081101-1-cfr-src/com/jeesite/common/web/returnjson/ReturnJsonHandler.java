@@ -1,22 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.springframework.beans.BeansException	
- *  org.springframework.beans.factory.config.BeanPostProcessor	
- *  org.springframework.core.MethodParameter	
- *  org.springframework.http.MediaType	
- *  org.springframework.http.server.ServerHttpRequest	
- *  org.springframework.http.server.ServerHttpResponse	
- *  org.springframework.http.server.ServletServerHttpRequest	
- *  org.springframework.http.server.ServletServerHttpResponse	
- *  org.springframework.web.context.request.NativeWebRequest	
- *  org.springframework.web.method.support.HandlerMethodReturnValueHandler	
- *  org.springframework.web.method.support.ModelAndViewContainer	
- *  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter	
- *  org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice	
  */	
 package com.jeesite.common.web.returnjson;	
 	
@@ -35,6 +18,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;	
 import org.springframework.core.MethodParameter;	
 import org.springframework.http.MediaType;	
+import org.springframework.http.converter.HttpMessageConverter;	
 import org.springframework.http.server.ServerHttpRequest;	
 import org.springframework.http.server.ServerHttpResponse;	
 import org.springframework.http.server.ServletServerHttpRequest;	
@@ -50,15 +34,18 @@ implements HandlerMethodReturnValueHandler,
 BeanPostProcessor {	
     List<ResponseBodyAdvice<Object>> advices;	
 	
+    @Override	
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {	
         return bean;	
     }	
 	
+    @Override	
     public boolean supportsReturnType(MethodParameter returnType) {	
         boolean a = returnType.getMethodAnnotation(JsonField.class) != null || returnType.getMethodAnnotation(JsonFields.class) != null;	
         return a;	
     }	
 	
+    @Override	
     public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {	
         Annotation[] a;	
         int a2;	
@@ -68,11 +55,11 @@ BeanPostProcessor {
         while (n2 < this.advices.size()) {	
             a = this.advices.get(a2);	
             if (a.supports(returnType, null)) {	
-                returnValue = a.beforeBodyWrite(returnValue, returnType, MediaType.APPLICATION_JSON_UTF8, null, (ServerHttpRequest)new ServletServerHttpRequest((HttpServletRequest)webRequest.getNativeRequest(HttpServletRequest.class)), (ServerHttpResponse)new ServletServerHttpResponse((HttpServletResponse)webRequest.getNativeResponse(HttpServletResponse.class)));	
+                returnValue = a.beforeBodyWrite(returnValue, returnType, MediaType.APPLICATION_JSON_UTF8, null, new ServletServerHttpRequest(webRequest.getNativeRequest(HttpServletRequest.class)), new ServletServerHttpResponse(webRequest.getNativeResponse(HttpServletResponse.class)));	
             }	
             n2 = ++a2;	
         }	
-        HttpServletResponse a22 = (HttpServletResponse)webRequest.getNativeResponse(HttpServletResponse.class);	
+        HttpServletResponse a22 = webRequest.getNativeResponse(HttpServletResponse.class);	
         a = returnType.getMethodAnnotations();	
         ReturnJsonSerializer a3 = new ReturnJsonSerializer();	
         Annotation[] arrannotation = a;	
@@ -109,18 +96,19 @@ BeanPostProcessor {
         returnJsonHandler.advices = new ArrayList<ResponseBodyAdvice<Object>>();	
     }	
 	
+    @Override	
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {	
         if (bean instanceof ResponseBodyAdvice) {	
-            this.advices.add((ResponseBodyAdvice<Object>)((ResponseBodyAdvice)bean));	
+            this.advices.add((ResponseBodyAdvice)bean);	
             return bean;	
         }	
         if (bean instanceof RequestMappingHandlerAdapter) {	
             ReturnJsonHandler a;	
-            ArrayList<ReturnJsonHandler> a2;	
+            ArrayList<HandlerMethodReturnValueHandler> a2;	
             ReturnJsonHandler returnJsonHandler;	
             block5 : {	
                 int a3;	
-                a2 = new ArrayList<ReturnJsonHandler>(((RequestMappingHandlerAdapter)bean).getReturnValueHandlers());	
+                a2 = new ArrayList<HandlerMethodReturnValueHandler>(((RequestMappingHandlerAdapter)bean).getReturnValueHandlers());	
                 a = null;	
                 int n = a3 = 0;	
                 while (n < a2.size()) {	

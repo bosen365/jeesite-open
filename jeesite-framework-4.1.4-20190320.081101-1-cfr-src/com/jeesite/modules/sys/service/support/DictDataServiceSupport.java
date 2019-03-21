@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.sys.service.support;	
 	
@@ -67,7 +63,7 @@ implements DictDataService {
     @Override	
     public void updateDictTypeByDictType(String newDictType, String oldDictType) {	
         void a;	
-        if (StringUtils.isBlank((CharSequence)newDictType) || StringUtils.isBlank((CharSequence)oldDictType)) {	
+        if (StringUtils.isBlank(newDictType) || StringUtils.isBlank(oldDictType)) {	
             return;	
         }	
         DictData a2 = new DictData();	
@@ -81,7 +77,7 @@ implements DictDataService {
     @Transactional(readOnly=false)	
     @Override	
     public void deleteByDictType(String dictType) {	
-        if (StringUtils.isBlank((CharSequence)dictType)) {	
+        if (StringUtils.isBlank(dictType)) {	
             return;	
         }	
         DictData a = new DictData();	

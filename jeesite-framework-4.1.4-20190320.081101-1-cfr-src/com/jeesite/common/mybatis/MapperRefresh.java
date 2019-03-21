@@ -1,18 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.commons.lang3.StringUtils	
- *  org.apache.ibatis.builder.annotation.ProviderSqlSource	
- *  org.apache.ibatis.executor.ErrorContext	
- *  org.apache.ibatis.mapping.MappedStatement	
- *  org.apache.ibatis.mapping.SqlSource	
- *  org.apache.ibatis.parsing.XNode	
- *  org.apache.ibatis.session.Configuration	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.core.NestedIOException	
- *  org.springframework.core.io.Resource	
  */	
 package com.jeesite.common.mybatis;	
 	
@@ -71,7 +58,7 @@ implements Runnable {
 	
     @Override	
     public void run() {	
-        log.debug(new StringBuilder().insert(0, "enabled: ").append(enabled).append(", delaySeconds: ").append(delaySeconds).append(", sleepSeconds: ").append(sleepSeconds).append(", mappingPath: ").append(mappingPath).append(", location: ").append(this.location).append(", configuration: ").append((Object)this.configuration).toString());	
+        log.debug(new StringBuilder().insert(0, "enabled: ").append(enabled).append(", delaySeconds: ").append(delaySeconds).append(", sleepSeconds: ").append(sleepSeconds).append(", mappingPath: ").append(mappingPath).append(", location: ").append(this.location).append(", configuration: ").append(this.configuration).toString());	
         if (enabled) {	
             this.beforeTime = System.currentTimeMillis();	
             MapperRefresh a = this;	
@@ -112,7 +99,7 @@ implements Runnable {
         mappingPath = MapperRefresh.getPropString("mybatis.mapper.refresh.mappingPath");	
         delaySeconds = delaySeconds == 0 ? 50 : delaySeconds;	
         sleepSeconds = sleepSeconds == 0 ? 3 : sleepSeconds;	
-        mappingPath = StringUtils.isBlank((CharSequence)mappingPath) ? "mappings" : mappingPath;	
+        mappingPath = StringUtils.isBlank(mappingPath) ? "mappings" : mappingPath;	
     }	
 	
     static /* synthetic */ int access$300() {	
@@ -161,16 +148,16 @@ implements Runnable {
                 Field field = this.configuration.getClass().getDeclaredField("loadedResources");	
                 void v1 = a5;	
                 v1.setAccessible(true);	
-                ((Set)v1.get((Object)this.configuration)).remove(a4);	
-                new XMLMapperBuilder(a3, this.configuration, a4, (Map<String, XNode>)this.configuration.getSqlFragments()).parse();	
+                ((Set)v1.get(this.configuration)).remove(a4);	
+                new XMLMapperBuilder(a3, this.configuration, a4, this.configuration.getSqlFragments()).parse();	
             }	
             catch (Exception a6) {	
-                throw new NestedIOException(new StringBuilder().insert(0, "Failed to parse mapping resource: '").append(a4).append("'").toString(), (Throwable)a6);	
+                throw new NestedIOException(new StringBuilder().insert(0, "Failed to parse mapping resource: '").append(a4).append("'").toString(), a6);	
             }	
             finally {	
                 ErrorContext.instance().reset();	
             }	
-            System.out.println(new StringBuilder().insert(0, "Refresh file: ").append(mappingPath).append(StringUtils.substringAfterLast((String)a2.get(a).getAbsolutePath(), (String)mappingPath)).toString());	
+            System.out.println(new StringBuilder().insert(0, "Refresh file: ").append(mappingPath).append(StringUtils.substringAfterLast(a2.get(a).getAbsolutePath(), mappingPath)).toString());	
             if (log.isDebugEnabled()) {	
                 log.debug(new StringBuilder().insert(0, "Refres file: ").append(a2.get(a).getAbsolutePath()).toString());	
                 log.debug(new StringBuilder().insert(0, "Refresh filename: ").append(a2.get(a).getName()).toString());	
@@ -251,13 +238,14 @@ implements Runnable {
         @Override	
         public V put(String key, V value) {	
             Object a;	
+            Object a2;	
             StrictMap strictMap;	
             if (MapperRefresh.isRefresh()) {	
                 MapperRefresh.log.debug(new StringBuilder().insert(0, "Mapper [").append(key).append("] already exists, is refreshed.").toString());	
                 this.remove(key);	
             }	
             if ((a = super.get(key)) != null && value instanceof MappedStatement) {	
-                SqlSource a2 = ((MappedStatement)value).getSqlSource();	
+                a2 = ((MappedStatement)value).getSqlSource();	
                 if (a2 instanceof DynamicSqlSource) {	
                     int a3 = ((DynamicSqlSource)a2).getWeight();	
                     if (a instanceof MappedStatement) {	
@@ -274,15 +262,15 @@ implements Runnable {
             }	
             if (key.contains(".")) {	
                 StrictMap strictMap2 = this;	
-                String a6 = strictMap2.getShortName(key);	
+                a2 = strictMap2.getShortName(key);	
                 StrictMap strictMap3 = this;	
-                if (super.get(a6) == null) {	
-                    super.put(a6, value);	
+                if (super.get(a2) == null) {	
+                    super.put(a2, value);	
                     strictMap = this;	
                     return super.put(key, value);	
                 }	
-                String string = a6;	
-                super.put(a6, new Ambiguity(a6));	
+                Object object = a2;	
+                super.put(a2, new Ambiguity((String)a2));	
             }	
             strictMap = this;	
             return super.put(key, value);	

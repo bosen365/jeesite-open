@@ -1,17 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  net.oschina.j2cache.CacheChannel	
- *  net.oschina.j2cache.J2Cache	
- *  net.oschina.j2cache.J2CacheBuilder	
- *  net.oschina.j2cache.J2CacheConfig	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnClass	
- *  org.springframework.context.annotation.Bean	
- *  org.springframework.context.annotation.Configuration	
- *  org.springframework.context.annotation.DependsOn	
- *  org.springframework.context.annotation.PropertySource	
- *  org.springframework.core.env.StandardEnvironment	
  */	
 package com.jeesite.common.j2cache.autoconfigure;	
 	
@@ -54,7 +42,7 @@ public class J2CacheAutoConfiguration {
     @Bean	
     @DependsOn(value={"springUtils", "j2CacheConfig"})	
     public CacheChannel cacheChannel(J2CacheConfig j2CacheConfig) throws IOException {	
-        return J2CacheBuilder.init((J2CacheConfig)j2CacheConfig).getChannel();	
+        return J2CacheBuilder.init(j2CacheConfig).getChannel();	
     }	
 	
     @Bean	

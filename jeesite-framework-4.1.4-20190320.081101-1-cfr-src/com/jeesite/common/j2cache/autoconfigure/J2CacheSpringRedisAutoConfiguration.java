@@ -1,21 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.springframework.beans.factory.annotation.Qualifier	
- *  org.springframework.boot.autoconfigure.AutoConfigureAfter	
- *  org.springframework.boot.autoconfigure.AutoConfigureBefore	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration	
- *  org.springframework.context.annotation.Bean	
- *  org.springframework.context.annotation.Configuration	
- *  org.springframework.context.annotation.Primary	
- *  org.springframework.data.redis.connection.RedisConnectionFactory	
- *  org.springframework.data.redis.core.RedisTemplate	
- *  org.springframework.data.redis.listener.RedisMessageListenerContainer	
- *  org.springframework.data.redis.serializer.RedisSerializer	
- *  org.springframework.data.redis.serializer.StringRedisSerializer	
  */	
 package com.jeesite.common.j2cache.autoconfigure;	
 	
@@ -77,11 +61,11 @@ public class J2CacheSpringRedisAutoConfiguration {
     @Primary	
     @Bean(value={"j2CacheRedisTemplate"})	
     public RedisTemplate<String, Serializable> j2CacheRedisTemplate(@Qualifier(value="redisConnectionFactory") RedisConnectionFactory redisConnectionFactory, @Qualifier(value="j2CacheValueSerializer") RedisSerializer<Object> j2CacheValueSerializer) {	
-        RedisTemplate a;	
-        RedisTemplate redisTemplate = a = new RedisTemplate();	
-        RedisTemplate redisTemplate2 = a;	
-        redisTemplate2.setKeySerializer((RedisSerializer)new StringRedisSerializer());	
-        redisTemplate2.setHashKeySerializer((RedisSerializer)new StringRedisSerializer());	
+        RedisTemplate<String, Serializable> a;	
+        RedisTemplate<String, Serializable> redisTemplate = a = new RedisTemplate<String, Serializable>();	
+        RedisTemplate<String, Serializable> redisTemplate2 = a;	
+        redisTemplate2.setKeySerializer(new StringRedisSerializer());	
+        redisTemplate2.setHashKeySerializer(new StringRedisSerializer());	
         redisTemplate.setDefaultSerializer(j2CacheValueSerializer);	
         redisTemplate.setConnectionFactory(redisConnectionFactory);	
         return redisTemplate;	

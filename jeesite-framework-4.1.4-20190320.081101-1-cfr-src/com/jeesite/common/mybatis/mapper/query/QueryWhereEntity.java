@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.codec.EncodeUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
  */	
 package com.jeesite.common.mybatis.mapper.query;	
 	
@@ -69,12 +64,12 @@ implements Serializable {
         queryWhereEntity.value = value;	
         if (queryType != null && value != null && value instanceof String) {	
             String a = "";	
-            if (StringUtils.isNotBlank((CharSequence)((String)value))) {	
-                if (StringUtils.isNotBlank((CharSequence)queryType2.valuePrefix())) {	
+            if (StringUtils.isNotBlank((String)value)) {	
+                if (StringUtils.isNotBlank(queryType2.valuePrefix())) {	
                     a = new StringBuilder().insert(0, a).append(queryType2.valuePrefix()).toString();	
                 }	
                 a = new StringBuilder().insert(0, a).append(value).toString();	
-                if (StringUtils.isNotBlank((CharSequence)queryType2.valueSuffux())) {	
+                if (StringUtils.isNotBlank(queryType2.valueSuffux())) {	
                     a = new StringBuilder().insert(0, a).append(queryType2.valueSuffux()).toString();	
                 }	
             }	
@@ -114,7 +109,7 @@ implements Serializable {
                 }	
                 if (this.getQueryType() == null) ** GOTO lbl59	
                 if (this.getQueryType() != QueryType.IS_NULL && this.getQueryType() != QueryType.IS_NOT_NULL) break block14;	
-                if (StringUtils.isNotBlank((CharSequence)tableAlias)) {	
+                if (StringUtils.isNotBlank(tableAlias)) {	
                     a.append(tableAlias + ".");	
                 }	
                 v0 = a;	
@@ -123,7 +118,7 @@ implements Serializable {
                 v0.append(this.getColumnName());	
                 break block15;	
             }	
-            a = StringUtils.isNotBlank((CharSequence)ObjectUtils.toString((Object)this.getVal()));	
+            a = StringUtils.isNotBlank(ObjectUtils.toString(this.getVal()));	
             if (a && this.getValue() instanceof List) {	
                 this.value = ((List)this.getValue()).toArray();	
             }	
@@ -131,7 +126,7 @@ implements Serializable {
                 v2 = a = ((Object[])this.getValue()).length > 0;	
             }	
             if (!a && !this.getQueryType().isForce().booleanValue()) ** GOTO lbl59	
-            if (StringUtils.isNotBlank((CharSequence)tableAlias)) {	
+            if (StringUtils.isNotBlank(tableAlias)) {	
                 a.append(new StringBuilder().insert(0, tableAlias).append(".").toString());	
             }	
             a.append(new StringBuilder().insert(0, " ").append(this.getQueryType().operator()).toString());	
@@ -146,7 +141,7 @@ implements Serializable {
                         a.append(",");	
                     }	
                     a.append(" #{");	
-                    if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+                    if (StringUtils.isNotBlank(paramPrefix)) {	
                         a.append(new StringBuilder().insert(0, paramPrefix).append(".").toString());	
                     }	
                     a.append(new StringBuilder().insert(0, ".val[").append((int)a).append("]").toString());	
@@ -163,7 +158,7 @@ implements Serializable {
                 v4.append(" )");	
             } else {	
                 a.append(" #{");	
-                if (StringUtils.isNotBlank((CharSequence)paramPrefix)) {	
+                if (StringUtils.isNotBlank(paramPrefix)) {	
                     a.append(new StringBuilder().insert(0, paramPrefix).append(".").toString());	
                 }	
                 a.append(".val");	

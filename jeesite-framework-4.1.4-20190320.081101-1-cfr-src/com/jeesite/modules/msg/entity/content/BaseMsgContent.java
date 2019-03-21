@@ -1,9 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.collect.MapUtils	
  */	
 package com.jeesite.modules.msg.entity.content;	
 	
@@ -11,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jeesite.common.collect.MapUtils;	
 import com.jeesite.modules.msg.entity.MsgPush;	
 import java.io.Serializable;	
-import java.util.HashMap;	
 import java.util.Map;	
 	
 public class BaseMsgContent	

@@ -1,8 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
  */	
 package com.jeesite.common.mybatis.mapper.query;	
 	
@@ -20,8 +17,8 @@ public enum QueryAndor {
     private final String value;	
 	
     public static boolean isOnlyAndor(String sql) {	
-        String a = StringUtils.trim((String)sql);	
-        return StringUtils.equalsIgnoreCase((CharSequence)a, (CharSequence)QueryAndor.AND.value) || StringUtils.equalsIgnoreCase((CharSequence)a, (CharSequence)QueryAndor.OR.value);	
+        String a = StringUtils.trim(sql);	
+        return StringUtils.equalsIgnoreCase(a, QueryAndor.AND.value) || StringUtils.equalsIgnoreCase(a, QueryAndor.OR.value);	
     }	
 	
     public static void addAndor(StringBuilder sql, StringBuilder sqlWhere, QueryAndor andor) {	
@@ -38,16 +35,16 @@ public enum QueryAndor {
     }	
 	
     public static void removeLastBracket(StringBuilder sql) {	
-        String a = StringUtils.trim((String)sql.toString());	
-        if (StringUtils.endsWith((CharSequence)a, (CharSequence)QueryAndor.AND_BRACKET.value)) {	
+        String a = StringUtils.trim(sql.toString());	
+        if (StringUtils.endsWith(a, QueryAndor.AND_BRACKET.value)) {	
             String string = a;	
             a = string.substring(0, string.length() - QueryAndor.AND_BRACKET.value.length());	
         }	
-        if (StringUtils.endsWith((CharSequence)a, (CharSequence)QueryAndor.OR_BRACKET.value)) {	
+        if (StringUtils.endsWith(a, QueryAndor.OR_BRACKET.value)) {	
             String string = a;	
             a = string.substring(0, string.length() - QueryAndor.OR_BRACKET.value.length());	
         }	
-        if (StringUtils.endsWith((CharSequence)a, (CharSequence)"(")) {	
+        if (StringUtils.endsWith(a, "(")) {	
             String string = a;	
             a = string.substring(0, string.length() - "(".length());	
         }	
@@ -86,8 +83,8 @@ public enum QueryAndor {
     }	
 	
     public static boolean isLastBracket(String sql) {	
-        String a = StringUtils.trim((String)sql);	
-        return StringUtils.endsWith((CharSequence)a, (CharSequence)QueryAndor.AND_BRACKET.value) || StringUtils.endsWith((CharSequence)a, (CharSequence)QueryAndor.OR_BRACKET.value) || StringUtils.endsWith((CharSequence)a, (CharSequence)"(");	
+        String a = StringUtils.trim(sql);	
+        return StringUtils.endsWith(a, QueryAndor.AND_BRACKET.value) || StringUtils.endsWith(a, QueryAndor.OR_BRACKET.value) || StringUtils.endsWith(a, "(");	
     }	
 }	
 	

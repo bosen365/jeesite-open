@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonFormat	
- *  org.hibernate.validator.constraints.Length	
- *  org.quartz.JobDataMap	
- *  org.quartz.Scheduler	
- *  org.quartz.SchedulerException	
- *  org.quartz.Trigger	
- *  org.quartz.Trigger$TriggerState	
- *  org.quartz.TriggerKey	
- *  org.quartz.impl.triggers.CronTriggerImpl	
  */	
 package com.jeesite.modules.job.entity;	
 	
@@ -75,13 +64,13 @@ extends DataEntity<JobEntity> {
                 a2.setJobName(trigger.getName());	
                 a2.setJobGroup(cronTriggerImpl.getGroup());	
                 jobEntity.setDescription(cronTriggerImpl.getDescription());	
-                jobEntity.setInvokeTarget((String)trigger.getJobDataMap().get((Object)"invokeTarget"));	
+                jobEntity.setInvokeTarget((String)trigger.getJobDataMap().get("invokeTarget"));	
                 JobEntity jobEntity2 = a2;	
                 CronTriggerImpl cronTriggerImpl2 = trigger;	
                 a2.setCronExpression(cronTriggerImpl2.getCronExpression());	
                 jobEntity2.setMisfireInstruction(cronTriggerImpl2.getMisfireInstruction());	
-                jobEntity2.setConcurrent((String)trigger.getJobDataMap().get((Object)"concurrent"));	
-                a2.setRemarks((String)trigger.getJobDataMap().get((Object)"remarks"));	
+                jobEntity2.setConcurrent((String)trigger.getJobDataMap().get("concurrent"));	
+                a2.setRemarks((String)trigger.getJobDataMap().get("remarks"));	
                 a = scheduler.getTriggerState(trigger.getKey());	
                 if (!Trigger.TriggerState.NORMAL.equals((Object)a)) break block11;	
                 a2.setStatus(STATUS_NORMAL);	

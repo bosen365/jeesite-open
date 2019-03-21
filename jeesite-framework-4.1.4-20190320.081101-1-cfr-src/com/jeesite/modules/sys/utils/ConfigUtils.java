@@ -1,8 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.MapUtils	
  */	
 package com.jeesite.modules.sys.utils;	
 	
@@ -10,16 +7,16 @@ import com.jeesite.common.cache.CacheUtils;
 import com.jeesite.common.collect.MapUtils;	
 import com.jeesite.modules.sys.entity.Config;	
 import com.jeesite.modules.sys.utils.e;	
+import java.util.HashMap;	
 import java.util.Iterator;	
 import java.util.List;	
-import java.util.Map;	
 	
 public class ConfigUtils {	
     public static final String CACHE_CONFIG_MAP = "configMap";	
 	
     public static synchronized Config getConfig(String key) {	
         Config a;	
-        Map a2 = (Map)CacheUtils.get(CACHE_CONFIG_MAP);	
+        HashMap<String, Config> a2 = (HashMap<String, Config>)CacheUtils.get(CACHE_CONFIG_MAP);	
         if (a2 == null) {	
             Iterator<Config> iterator;	
             a2 = MapUtils.newHashMap();	

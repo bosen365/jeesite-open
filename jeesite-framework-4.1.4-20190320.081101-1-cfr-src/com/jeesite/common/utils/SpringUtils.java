@@ -1,16 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.io.ResourceUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
- *  org.springframework.beans.factory.DisposableBean	
- *  org.springframework.context.ApplicationContext	
- *  org.springframework.context.ApplicationContextAware	
- *  org.springframework.core.io.Resource	
  */	
 package com.jeesite.common.utils;	
 	
@@ -37,7 +26,7 @@ DisposableBean {
 	
     public static <T> T getBean(Class<T> requiredType) {	
         SpringUtils.assertContextInjected();	
-        return (T)applicationContext.getBean(requiredType);	
+        return applicationContext.getBean(requiredType);	
     }	
 	
     public static ApplicationContext getApplicationContext() {	
@@ -45,9 +34,10 @@ DisposableBean {
         return applicationContext;	
     }	
 	
+    @Override	
     public void setApplicationContext(ApplicationContext applicationContext) {	
         if (SpringUtils.applicationContext != null) {	
-            logger.info(new StringBuilder().insert(0, "SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:").append((Object)SpringUtils.applicationContext).toString());	
+            logger.info(new StringBuilder().insert(0, "SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:").append(SpringUtils.applicationContext).toString());	
         }	
         SpringUtils.applicationContext = applicationContext;	
     }	
@@ -68,6 +58,7 @@ DisposableBean {
         return new File(a);	
     }	
 	
+    @Override	
     public void destroy() throws Exception {	
         SpringUtils.clearHolder();	
     }	
@@ -75,9 +66,9 @@ DisposableBean {
     public static InputStream getInputStream() throws IOException {	
         File a = SpringUtils.getLicFile("jeesite.lic");	
         if (a.exists()) {	
-            return FileUtils.openInputStream((File)a);	
+            return FileUtils.openInputStream(a);	
         }	
-        Resource a2 = ResourceUtils.getResource((String)"jeesite.lic");	
+        Resource a2 = ResourceUtils.getResource("jeesite.lic");	
         if (a2.exists()) {	
             try {	
                 return a2.getInputStream();	
@@ -91,7 +82,7 @@ DisposableBean {
 	
     public static void clearHolder() {	
         if (logger.isDebugEnabled()) {	
-            logger.debug(new StringBuilder().insert(0, "Clear ApplicationContext:").append((Object)applicationContext).toString());	
+            logger.debug(new StringBuilder().insert(0, "Clear ApplicationContext:").append(applicationContext).toString());	
         }	
         applicationContext = null;	
     }	

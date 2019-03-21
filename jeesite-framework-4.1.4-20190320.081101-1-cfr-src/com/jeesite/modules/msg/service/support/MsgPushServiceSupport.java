@@ -1,15 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  javax.validation.ConstraintViolationException	
- *  javax.validation.Validator	
- *  org.slf4j.Logger	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.transaction.annotation.Transactional	
  */	
 package com.jeesite.modules.msg.service.support;	
 	
@@ -121,10 +111,10 @@ implements MsgPushService {
         if (!ObjectUtils.toBoolean(m.ALLATORIxDEMO().get("fnMsg")).booleanValue() && !Global.isTestProfileActive()) {	
             return;	
         }	
-        if (StringUtils.isNotBlank((CharSequence)msgPush.getMsgContent())) {	
+        if (StringUtils.isNotBlank(msgPush.getMsgContent())) {	
             MsgPush msgPush2;	
             BaseMsgContent a2 = (BaseMsgContent)msgPush.parseMsgContent(BaseMsgContent.class);	
-            if (StringUtils.isNotBlank((CharSequence)a2.getTplKey())) {	
+            if (StringUtils.isNotBlank(a2.getTplKey())) {	
                 void a3;	
                 a = new MsgTemplate();	
                 ((MsgTemplate)a).setTplKey(a2.getTplKey());	
@@ -134,16 +124,16 @@ implements MsgPushService {
                 MsgPush msgPush3 = msgPush;	
                 msgPush2 = msgPush3;	
                 a2.setContent((String)a3);	
-                msgPush3.setMsgContent(JsonMapper.toJson((Object)a2));	
+                msgPush3.setMsgContent(JsonMapper.toJson(a2));	
             } else {	
                 msgPush2 = msgPush;	
             }	
-            if (StringUtils.isNotBlank((CharSequence)msgPush2.getReceiveUserCode())) {	
+            if (StringUtils.isNotBlank(msgPush2.getReceiveUserCode())) {	
                 a = UserUtils.get(msgPush.getReceiveUserCode());	
                 if (a == null) {	
                     throw new ServiceException(new StringBuilder().insert(0, "接受者用户编码不存在：").append(msgPush.getReceiveUserCode()).toString());	
                 }	
-                if (StringUtils.isBlank((CharSequence)msgPush.getReceiveCode())) {	
+                if (StringUtils.isBlank(msgPush.getReceiveCode())) {	
                     MsgPush msgPush4;	
                     if ("pc".equals(msgPush.getMsgType())) {	
                         MsgPush msgPush5 = msgPush;	
@@ -167,24 +157,24 @@ implements MsgPushService {
                         }	
                         msgPush4 = msgPush;	
                     }	
-                    if (StringUtils.isBlank((CharSequence)msgPush4.getReceiveCode())) {	
+                    if (StringUtils.isBlank(msgPush4.getReceiveCode())) {	
                         msgPush.setReceiveCode("NONE");	
                     }	
                 }	
-                if (StringUtils.isBlank((CharSequence)msgPush.getReceiveUserName())) {	
+                if (StringUtils.isBlank(msgPush.getReceiveUserName())) {	
                     msgPush.setReceiveUserName(((User)a).getUserName());	
                 }	
             }	
-            if (StringUtils.isNotBlank((CharSequence)msgPush.getReceiveCode())) {	
-                if (StringUtils.isBlank((CharSequence)msgPush.getReceiveUserCode())) {	
+            if (StringUtils.isNotBlank(msgPush.getReceiveCode())) {	
+                if (StringUtils.isBlank(msgPush.getReceiveUserCode())) {	
                     msgPush.setReceiveUserCode("NONE");	
                 }	
-                if (StringUtils.isBlank((CharSequence)msgPush.getReceiveUserName())) {	
+                if (StringUtils.isBlank(msgPush.getReceiveUserName())) {	
                     msgPush.setReceiveUserName("NONE");	
                 }	
             }	
-            if (StringUtils.isBlank((CharSequence)((User)(a = msgPush.getCurrentUser())).getUserCode())) {	
-                a = UserUtils.get(StringUtils.split((String)User.SUPER_ADMIN_CODE, (String)",")[0]);	
+            if (StringUtils.isBlank(((User)(a = msgPush.getCurrentUser())).getUserCode())) {	
+                a = UserUtils.get(StringUtils.split(User.SUPER_ADMIN_CODE, ",")[0]);	
                 msgPush.setCurrentUser((User)a);	
             }	
             MsgPush msgPush9 = msgPush;	
@@ -193,7 +183,7 @@ implements MsgPushService {
             msgPush9.setSendUserName(((User)a).getUserName());	
             MsgPush msgPush11 = msgPush;	
             msgPush10.setSendDate(new Date());	
-            if (StringUtils.isBlank((CharSequence)msgPush9.getIsMergePush())) {	
+            if (StringUtils.isBlank(msgPush9.getIsMergePush())) {	
                 msgPush.setIsMergePush("0");	
             }	
             if (msgPush.getPlanPushDate() == null) {	
@@ -209,7 +199,7 @@ implements MsgPushService {
         }	
         catch (ConstraintViolationException a5) {	
             a = ValidatorUtils.extractPropertyAndMessageAsList(a5, ": ");	
-            throw new ServiceException(new StringBuilder().insert(0, "参数验证错误：").append(StringUtils.join((Iterable)a, (String)"；")).toString());	
+            throw new ServiceException(new StringBuilder().insert(0, "参数验证错误：").append(StringUtils.join(a, "；")).toString());	
         }	
         super.save(msgPush);	
         if ("1".equals(msgPush.getIsMergePush())) {	

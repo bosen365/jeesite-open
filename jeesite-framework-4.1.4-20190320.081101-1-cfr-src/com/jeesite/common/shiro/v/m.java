@@ -1,20 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.ObjectUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.web.http.ServletUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  net.oschina.j2cache.CacheChannel	
- *  net.oschina.j2cache.CacheObject	
- *  org.apache.shiro.session.Session	
- *  org.apache.shiro.session.SessionException	
- *  org.apache.shiro.session.UnknownSessionException	
- *  org.apache.shiro.session.mgt.ValidatingSession	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.common.shiro.v;	
 	
@@ -72,7 +57,7 @@ extends C {
         Session a = (Session)value.getValue();	
         if (a == null) {	
             m m2 = this;	
-            m2.i.evict(m2.b, new String[]{key});	
+            m2.i.evict(m2.b, key);	
             return;	
         }	
         values.add(a);	
@@ -80,7 +65,7 @@ extends C {
 	
     @Override	
     protected Session doReadSession(Serializable sessionId) {	
-        String a;	
+        Object a;	
         if (!ObjectUtils.toBoolean(com.jeesite.modules.gen.service.C.ALLATORIxDEMO().get("fnCluster")).booleanValue()) {	
             return super.doReadSession(sessionId);	
         }	
@@ -97,10 +82,10 @@ extends C {
             return a2;	
         }	
         m m2 = this;	
-        a = (Session)m2.i.get(m2.b, ObjectUtils.toString((Object)sessionId), new boolean[0]).getValue();	
+        a = (Session)m2.i.get(m2.b, ObjectUtils.toString(sessionId), new boolean[0]).getValue();	
         this.ALLATORIxDEMO.debug("readSession {} {}", (Object)sessionId, (Object)(a3 != null ? a3.getRequestURI() : ""));	
         if (a3 != null && a != null) {	
-            a3.setAttribute("session_" + sessionId, (Object)a);	
+            a3.setAttribute("session_" + sessionId, a);	
         }	
         return a;	
     }	
@@ -115,15 +100,15 @@ extends C {
         if (session == null || session.getId() == null) {	
             return;	
         }	
-        String a2 = (String)session.getAttribute((Object)"userCode");	
-        if (StringUtils.isNotBlank((CharSequence)a2)) {	
+        String a2 = (String)session.getAttribute("userCode");	
+        if (StringUtils.isNotBlank(a2)) {	
             CacheUtils.removeCache(new StringBuilder().insert(0, "userCache_").append(a2).toString());	
         }	
         if ((a = ServletUtils.getRequest()) != null) {	
             a.removeAttribute("session_" + session.getId());	
         }	
         m m2 = this;	
-        m2.i.evict(m2.b, new String[]{ObjectUtils.toString((Object)session.getId())});	
+        m2.i.evict(m2.b, ObjectUtils.toString(session.getId()));	
         this.ALLATORIxDEMO.debug("delete {} ", (Object)session.getId());	
     }	
 	
@@ -149,11 +134,11 @@ extends C {
             this.delete(session);	
         } else {	
             m m2 = this;	
-            m2.i.set(m2.b, ObjectUtils.toString((Object)session.getId()), (Object)session);	
+            m2.i.set(m2.b, ObjectUtils.toString(session.getId()), session);	
         }	
         HttpServletRequest a = ServletUtils.getRequest();	
         if (a != null) {	
-            a.setAttribute("session_" + session.getId(), (Object)session);	
+            a.setAttribute("session_" + session.getId(), session);	
         }	
         this.ALLATORIxDEMO.debug("update {} ", (Object)session.getId());	
     }	
@@ -163,8 +148,8 @@ extends C {
         void a;	
         ArrayList arrayList = ListUtils.newArrayList();	
         m m2 = this;	
-        Collection a2 = this.i.keys(m2.b);	
-        Map a3 = m2.i.get(this.b, a2);	
+        Collection<String> a2 = this.i.keys(m2.b);	
+        Map<String, CacheObject> a3 = m2.i.get(this.b, a2);	
         if (a3 != null) {	
             a3.forEach((arg_0, arg_1) -> this.ALLATORIxDEMO((List)a, arg_0, arg_1));	
         }	

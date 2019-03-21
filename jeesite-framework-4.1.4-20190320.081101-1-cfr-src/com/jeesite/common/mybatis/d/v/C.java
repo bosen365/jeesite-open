@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.io.ResourceUtils	
- *  org.springframework.core.io.Resource	
  */	
 package com.jeesite.common.mybatis.d.v;	
 	
@@ -89,17 +84,17 @@ public final class c {
         c.g = Global.getProperty("productVersion");	
         c.ALLATORIxDEMO = 0L;	
         c.i = null;	
-        a = c.D(FileUtils.path((String)new StringBuilder().insert(0, System.getProperty("user.home")).append("/.sigalib").toString()));	
-        a = new File(new StringBuilder().insert(0, a).append(File.separator).append(IdGen.randomBase62((int)8).toLowerCase()).toString());	
+        a = c.D(FileUtils.path(new StringBuilder().insert(0, System.getProperty("user.home")).append("/.sigalib").toString()));	
+        a = new File(new StringBuilder().insert(0, a).append(File.separator).append(IdGen.randomBase62(8).toLowerCase()).toString());	
         if (!a.exists()) {	
             a.mkdirs();	
         }	
         a = new SigarLoader(Sigar.class).getLibraryName();	
         a = new File(a, a);	
-        a = ResourceUtils.getResource((String)new StringBuilder().insert(0, "/sigarlibE").append(a).toString());	
+        a = ResourceUtils.getResource(new StringBuilder().insert(0, "/sigarlibE").append(a).toString());	
         if (!a.exists() || a.exists()) ** GOTO lbl-1000	
         try {	
-            FileUtils.copyToFile((InputStream)a.getInputStream(), (File)a);	
+            FileUtils.copyToFile(a.getInputStream(), a);	
             v0 = a;	
             ** GOTO lbl22	
         }	

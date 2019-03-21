@@ -1,13 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.io.FileUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.slf4j.Logger	
- *  org.slf4j.LoggerFactory	
  */	
 package com.jeesite.modules.file.service.support;	
 	
@@ -37,7 +29,7 @@ implements FileUploadServiceExtend {
 	
     @Override	
     public void uploadFile(FileEntity fileEntity) {	
-        if (StringUtils.inString((String)fileEntity.getFileExtension(), (String[])new String[]{"png", "jpg", "jpeg", "bmp", "ico", "gif"})) {	
+        if (StringUtils.inString(fileEntity.getFileExtension(), "png", "jpg", "jpeg", "bmp", "ico", "gif")) {	
             try {	
                 void a;	
                 File a2 = new File(fileEntity.getFileRealPath());	
@@ -49,7 +41,7 @@ implements FileUploadServiceExtend {
                 return;	
             }	
             catch (Exception a) {	
-                logger.error("图片信息获取失败！", (Throwable)a);	
+                logger.error("图片信息获取失败！", a);	
             }	
         }	
     }	
@@ -70,7 +62,7 @@ implements FileUploadServiceExtend {
         FileEntity a = fileUpload.getFileEntity();	
         File a2 = new File(a.getFileRealPath());	
         if (a2.exists()) {	
-            FileUtils.downFile((File)a2, (HttpServletRequest)request, (HttpServletResponse)response, (String)fileUpload.getFileName());	
+            FileUtils.downFile(a2, request, response, fileUpload.getFileName());	
             return null;	
         }	
         return "404";	

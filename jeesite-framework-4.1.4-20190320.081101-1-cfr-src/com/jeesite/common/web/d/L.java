@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.commons.logging.Log	
- *  org.springframework.context.ApplicationContext	
- *  org.springframework.core.io.Resource	
- *  org.springframework.web.servlet.view.JstlView	
  */	
 package com.jeesite.common.web.d;	
 	
@@ -19,6 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 	
 public class l	
 extends JstlView {	
+    @Override	
     public boolean checkResource(Locale locale) throws Exception {	
         block3 : {	
             Resource a = null;	
@@ -27,7 +22,7 @@ extends JstlView {
             return true;	
         }	
         try {	
-            this.logger.debug((Object)new StringBuilder().insert(0, "View not exists [").append(this.getUrl()).append("], to access the default view. ").toString());	
+            this.logger.debug(new StringBuilder().insert(0, "View not exists [").append(this.getUrl()).append("], to access the default view. ").toString());	
         }	
         catch (Exception exception) {	
             // empty catch block	

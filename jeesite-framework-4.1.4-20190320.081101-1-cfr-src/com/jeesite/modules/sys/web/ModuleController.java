@@ -1,20 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.servlet.http.HttpServletRequest	
- *  javax.servlet.http.HttpServletResponse	
- *  org.apache.shiro.authz.annotation.RequiresPermissions	
- *  org.springframework.beans.factory.annotation.Autowired	
- *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty	
- *  org.springframework.stereotype.Controller	
- *  org.springframework.ui.Model	
- *  org.springframework.validation.annotation.Validated	
- *  org.springframework.web.bind.annotation.ModelAttribute	
- *  org.springframework.web.bind.annotation.PostMapping	
- *  org.springframework.web.bind.annotation.RequestMapping	
- *  org.springframework.web.bind.annotation.ResponseBody	
  */	
 package com.jeesite.modules.sys.web;	
 	
@@ -127,10 +112,10 @@ extends BaseController {
     @RequiresPermissions(value={"sys:module:view"})	
     @RequestMapping(value={"form"})	
     public String form(Module module, Model model) {	
-        if (StringUtils.isBlank((CharSequence)module.getMainClassName())) {	
+        if (StringUtils.isBlank(module.getMainClassName())) {	
             module.setMainClassName("com.jeesite.modules.sys.web.LoginController");	
         }	
-        model.addAttribute("modul", (Object)module);	
+        model.addAttribute("modul", module);	
         return "modules/sys/moduleForm";	
     }	
 	

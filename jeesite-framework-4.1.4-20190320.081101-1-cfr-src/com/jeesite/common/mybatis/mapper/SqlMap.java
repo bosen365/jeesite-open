@@ -1,8 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.lang.StringUtils	
  */	
 package com.jeesite.common.mybatis.mapper;	
 	
@@ -86,7 +83,7 @@ extends LinkedHashMap<String, Object> {
 	
     @Override	
     public final Object put(String key, Object value) {	
-        if (StringUtils.inString((String)key, (String[])new String[]{"column", "table", "where", "order", "dataScope"})) {	
+        if (StringUtils.inString(key, "column", "table", "where", "order", "dataScope")) {	
             if ("column".equals(key) && this.column == null) {	
                 return super.put(key, value);	
             }	

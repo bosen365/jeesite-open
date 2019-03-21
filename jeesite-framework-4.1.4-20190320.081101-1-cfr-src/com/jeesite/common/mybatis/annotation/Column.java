@@ -1,10 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  org.apache.ibatis.type.JdbcType	
- *  org.apache.ibatis.type.TypeHandler	
- *  org.apache.ibatis.type.UnknownTypeHandler	
  */	
 package com.jeesite.common.mybatis.annotation;	
 	

@@ -1,14 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.fasterxml.jackson.annotation.JsonIgnore	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.collect.MapUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  com.jeesite.common.mapper.JsonMapper	
- *  javax.validation.constraints.NotBlank	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.gen.entity;	
 	
@@ -29,7 +20,6 @@ import com.jeesite.modules.gen.entity.GenTable;
 import com.jeesite.modules.job.d.i;	
 import com.jeesite.modules.sys.entity.User;	
 import java.util.ArrayList;	
-import java.util.HashMap;	
 import java.util.Iterator;	
 import java.util.List;	
 import java.util.Map;	
@@ -70,10 +60,10 @@ extends DataEntity<GenTableColumn> {
 	
     public String getSimpleAttrType() {	
         if (this.genTable != null && "This".equals(this.getAttrType())) {	
-            return StringUtils.capitalize((String)this.genTable.getClassName());	
+            return StringUtils.capitalize(this.genTable.getClassName());	
         }	
-        if (StringUtils.indexOf((CharSequence)this.getAttrType(), (CharSequence)".") != -1) {	
-            return StringUtils.substringAfterLast((String)this.getAttrType(), (String)".");	
+        if (StringUtils.indexOf((CharSequence)this.getAttrType(), ".") != -1) {	
+            return StringUtils.substringAfterLast(this.getAttrType(), ".");	
         }	
         return this.getAttrType();	
     }	
@@ -83,14 +73,14 @@ extends DataEntity<GenTableColumn> {
     }	
 	
     public void setOptions(String options) {	
-        if (StringUtils.isNotBlank((CharSequence)options)) {	
-            this.optionMap = (Map)JsonMapper.fromJson((String)options, Map.class);	
+        if (StringUtils.isNotBlank(options)) {	
+            this.optionMap = (Map)JsonMapper.fromJson(options, Map.class);	
         }	
         this.options = options;	
     }	
 	
     public String getDataLength() {	
-        String[] a = StringUtils.split((String)StringUtils.substringBetween((String)this.getColumnType(), (String)"(", (String)")"), (String)",");	
+        String[] a = StringUtils.split(StringUtils.substringBetween(this.getColumnType(), "(", ")"), ",");	
         if (a != null && a.length == 1) {	
             return a[0];	
         }	
@@ -129,10 +119,10 @@ extends DataEntity<GenTableColumn> {
     }	
 	
     public String getSimpleAttrName() {	
-        if (StringUtils.contains((CharSequence)this.getFullAttrName(), (CharSequence)".")) {	
-            return StringUtils.substringBefore((String)this.getFullAttrName(), (String)".");	
+        if (StringUtils.contains((CharSequence)this.getFullAttrName(), ".")) {	
+            return StringUtils.substringBefore(this.getFullAttrName(), ".");	
         }	
-        return StringUtils.substringBefore((String)this.getFullAttrName(), (String)"|");	
+        return StringUtils.substringBefore(this.getFullAttrName(), "|");	
     }	
 	
     public void setIsRequired(String isRequired) {	
@@ -157,7 +147,7 @@ extends DataEntity<GenTableColumn> {
     }	
 	
     public String getAttrName() {	
-        String a = StringUtils.substringBefore((String)this.getFullAttrName(), (String)"|");	
+        String a = StringUtils.substringBefore(this.getFullAttrName(), "|");	
         if (User.class.getName().equals(this.getAttrType())) {	
             a = new StringBuilder().insert(0, a).append(".userCode").toString();	
             return a;	
@@ -180,7 +170,7 @@ extends DataEntity<GenTableColumn> {
     }	
 	
     public String getComments() {	
-        if (StringUtils.isBlank((CharSequence)this.comments)) {	
+        if (StringUtils.isBlank(this.comments)) {	
             return this.getColumnName();	
         }	
         return this.comments;	
@@ -230,11 +220,11 @@ extends DataEntity<GenTableColumn> {
     @NotBlank(message="\u5217\u540d\u4e0d\u80fd\u4e3a\u7a7a")	
     @Length(min=0, max=64, message="\u5217\u540d\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 64 \u4e2a\u5b57\u7b26")	
     public String getColumnName() {	
-        return StringUtils.lowerCase((String)this.columnName);	
+        return StringUtils.lowerCase(this.columnName);	
     }	
 	
     public String getColumnType() {	
-        return StringUtils.lowerCase((String)this.columnType);	
+        return StringUtils.lowerCase(this.columnType);	
     }	
 	
     public void setIsEdit(String isEdit) {	
@@ -243,7 +233,7 @@ extends DataEntity<GenTableColumn> {
 	
     public String getAttrNameForGetMethod() {	
         int a;	
-        Object[] a2 = StringUtils.split((String)this.getAttrName(), (String)".");	
+        Object[] a2 = StringUtils.split(this.getAttrName(), ".");	
         int n = a = 0;	
         while (n < a2.length) {	
             int n2 = a;	
@@ -252,7 +242,7 @@ extends DataEntity<GenTableColumn> {
             arrobject[n2] = string;	
             n = ++a;	
         }	
-        return StringUtils.join((Object[])a2, (String)".");	
+        return StringUtils.join(a2, ".");	
     }	
 	
     public String getIsList() {	
@@ -282,12 +272,12 @@ extends DataEntity<GenTableColumn> {
     @JsonIgnore	
     public List<String> getSimpleAnnotationList() {	
         Iterator<String> iterator;	
-        ArrayList a = ListUtils.newArrayList();	
+        ArrayList<String> a = ListUtils.newArrayList();	
         Iterator<String> iterator2 = iterator = this.getAnnotationList().iterator();	
         while (iterator2.hasNext()) {	
             String a2 = iterator.next();	
             iterator2 = iterator;	
-            a.add(StringUtils.substringAfterLast((String)a2, (String)"."));	
+            a.add(StringUtils.substringAfterLast(a2, "."));	
         }	
         return a;	
     }	
@@ -299,7 +289,7 @@ extends DataEntity<GenTableColumn> {
 	
     @JsonIgnore	
     public List<String> getAnnotationList() {	
-        ArrayList a = ListUtils.newArrayList();	
+        ArrayList<String> a = ListUtils.newArrayList();	
         if ("This".equals(this.getAttrType())) {	
             a.add("com.fasterxml.jackson.annotation.JsonBackReference");	
         }	
@@ -360,26 +350,26 @@ extends DataEntity<GenTableColumn> {
     public String getColumnLabel() {	
         GenTableColumn genTableColumn;	
         if (this.getComments() != null) {	
-            if (StringUtils.contains((CharSequence)this.getComments(), (CharSequence)"(")) {	
+            if (StringUtils.contains((CharSequence)this.getComments(), "(")) {	
                 GenTableColumn genTableColumn2 = this;	
                 genTableColumn = genTableColumn2;	
-                genTableColumn2.columnLabel = StringUtils.substringBefore((String)genTableColumn2.getComments(), (String)"(");	
+                genTableColumn2.columnLabel = StringUtils.substringBefore(genTableColumn2.getComments(), "(");	
                 return genTableColumn.columnLabel;	
             }	
-            if (StringUtils.contains((CharSequence)this.getComments(), (CharSequence)"（")) {	
+            if (StringUtils.contains((CharSequence)this.getComments(), "（")) {	
                 GenTableColumn genTableColumn3 = this;	
                 genTableColumn = genTableColumn3;	
-                genTableColumn3.columnLabel = StringUtils.substringBefore((String)genTableColumn3.getComments(), (String)"（");	
+                genTableColumn3.columnLabel = StringUtils.substringBefore(genTableColumn3.getComments(), "（");	
                 return genTableColumn.columnLabel;	
             }	
-            if (StringUtils.contains((CharSequence)this.getComments(), (CharSequence)":")) {	
-                this.columnLabel = StringUtils.substringBefore((String)this.getComments(), (String)":");	
+            if (StringUtils.contains((CharSequence)this.getComments(), ":")) {	
+                this.columnLabel = StringUtils.substringBefore(this.getComments(), ":");	
                 genTableColumn = this;	
                 return genTableColumn.columnLabel;	
             }	
             GenTableColumn genTableColumn4 = this;	
-            if (StringUtils.contains((CharSequence)this.getComments(), (CharSequence)"：")) {	
-                genTableColumn4.columnLabel = StringUtils.substringBefore((String)this.getComments(), (String)"：");	
+            if (StringUtils.contains((CharSequence)this.getComments(), "：")) {	
+                genTableColumn4.columnLabel = StringUtils.substringBefore(this.getComments(), "：");	
                 genTableColumn = this;	
                 return genTableColumn.columnLabel;	
             }	
@@ -402,7 +392,7 @@ extends DataEntity<GenTableColumn> {
         }	
         String[] a = this.getAttrNames();	
         if (a.length > 0) {	
-            if (StringUtils.contains((CharSequence)this.getFullAttrName(), (CharSequence)".")) {	
+            if (StringUtils.contains((CharSequence)this.getFullAttrName(), ".")) {	
                 return new StringBuilder().insert(0, this.getSimpleAttrName()).append(".").append(a[0]).toString();	
             }	
             return a[0];	
@@ -427,7 +417,7 @@ extends DataEntity<GenTableColumn> {
     }	
 	
     public String[] getAttrNames() {	
-        String[] a = StringUtils.split((String)StringUtils.substringAfter((String)this.getFullAttrName(), (String)"|"), (String)"|");	
+        String[] a = StringUtils.split(StringUtils.substringAfter(this.getFullAttrName(), "|"), "|");	
         String[] a2 = new String[a.length];	
         if (a != null) {	
             int a3;	

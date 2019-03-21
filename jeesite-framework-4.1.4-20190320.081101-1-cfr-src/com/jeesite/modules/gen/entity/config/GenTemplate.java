@@ -1,11 +1,5 @@
 /*	
  * Decompiled with CFR 0.140.	
- * 	
- * Could not load the following classes:	
- *  com.jeesite.common.collect.ListUtils	
- *  com.jeesite.common.lang.StringUtils	
- *  javax.validation.constraints.NotBlank	
- *  org.hibernate.validator.constraints.Length	
  */	
 package com.jeesite.modules.gen.entity.config;	
 	
@@ -80,7 +74,7 @@ extends DataEntity<GenTemplate> {
             this.category = "";	
             return;	
         }	
-        this.category = new StringBuilder().insert(0, ",").append(StringUtils.join(categoryList, (String)",")).append(",").toString();	
+        this.category = new StringBuilder().insert(0, ",").append(StringUtils.join(categoryList, ",")).append(",").toString();	
     }	
 	
     @XmlTransient	
@@ -88,7 +82,7 @@ extends DataEntity<GenTemplate> {
         if (this.category == null) {	
             return ListUtils.newArrayList();	
         }	
-        return ListUtils.newArrayList((Object[])StringUtils.split((String)this.category, (String)","));	
+        return ListUtils.newArrayList(StringUtils.split(this.category, ","));	
     }	
 	
     public String getFilePath() {	
