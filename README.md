@@ -4,7 +4,18 @@ jeesite-framework4.1.3 反编译版本
 
 java -jar fernflower.jar jeesite-framework-4.1.3-20190218.140934-2.jar ./jeesite20190218
 
-java -jar cfr-0.139.jar jeesite-framework-4.1.3-20190218.140934-2 --outputdir ./jeesite20190218
+java -jar cfr-0.141.jar --extraclasspath "依赖jar路径" jeesite-framework-4.1.3-20190218.140934-2 --outputdir ./jeesite20190218
+
+注:增加--extraclasspath 会减少如下提示信息
+
+/*
+ * Could not load the following classes:
+ *  net.oschina.j2cache.CacheChannel
+ *  org.springframework.boot.autoconfigure.ImportAutoConfiguration
+ *  org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
+ *  org.springframework.context.annotation.Bean
+ *  org.springframework.context.annotation.Configuration
+ */
 
 2.处理ALLATORIxDEMO加密字符串
 
