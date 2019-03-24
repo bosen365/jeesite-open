@@ -16,6 +16,8 @@ fernflower.jar反编译工具 存在问题，反编译后变量名都是a无法�
 
 cfr-0.139.jar反编译工具 存在问题，反编译后StringBuilder的多个append顺序会错乱
 
+已给cfr作者反馈，作者在0.141版本已经修复这个问题，强烈建议使用cfr-0.141.jar版本
+
 jeesite-framework-4.1.3-20190218.140934-2.jar原始jar包
 
 jeesite-framework-4.1.3-20190218.140934-2-cfr cfr反编译处理后的java源文件
