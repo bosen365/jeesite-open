@@ -73,7 +73,7 @@ implements RoleService {
     public List<Role> findList(Role role) {	
         Role role2 = role;	
         role.getSqlMap().getWhere().disableAutoAddCorpCodeWhere();	
-        role2.getSqlMap().getWhere().andBracket("s_sys", QueryType.EQ, "1").or("corp5code", QueryType.EQ, CorpUtils.getCurrentCorpCode()).endBracket();	
+        role2.getSqlMap().getWhere().andBracket("is_sys", QueryType.EQ, "1").or("corp_code", QueryType.EQ, CorpUtils.getCurrentCorpCode()).endBracket();	
         return super.findList(role2);	
     }	
 	

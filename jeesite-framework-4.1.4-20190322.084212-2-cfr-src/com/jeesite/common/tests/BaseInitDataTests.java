@@ -33,7 +33,7 @@ extends BaseSpringContextTests {
     public void begin() {	
         super.begin();	
         if (!"true".equals(System.getProperty("jeesite.initdata"))) {	
-            String a = "为了防止误操作，请运行时增加 -Djeesite.iitdata=true 参数。";	
+            String a = "为了防止误操作，请运行时增加 -Djeesite.initdata=true 参数。";	
             this.logger.error(a);	
             throw new RuntimeException(a);	
         }	
@@ -81,7 +81,7 @@ extends BaseSpringContextTests {
                     String a4 = IOUtils.toString(a2, "UTF-8");	
                     a4 = StringUtils.replace(a4, "${_prefix}", Global.getTablePrefix());	
                     String a5 = "______sql_script_delimiter______";	
-                    a4 = a4.replaceAll(";([ \f\t\v]*)([\r|\n]|$)", new StringBuilder().insert(0, a5).append("\n").toString());	
+                    a4 = a4.replaceAll(";([ \\f\\t\\v]*)([\\r|\\n]|$)", new StringBuilder().insert(0, a5).append("\n").toString());	
                     a = baseInitDataTests.dataSource.getConnection();	
                     ScriptRunner scriptRunner = new ScriptRunner(a);	
                     void v1 = a3;	
@@ -90,7 +90,7 @@ extends BaseSpringContextTests {
                     v1.setFullLineDelimiter(false);	
                     void v2 = a3;	
                     v1.runScript(new StringReader(a4));	
-                    baseInitDataTests.logger.debug(new StringBuilder().insert(0, "ruScript Complete: ").append(sqlFile).toString());	
+                    baseInitDataTests.logger.debug(new StringBuilder().insert(0, "runScript Complete: ").append(sqlFile).toString());	
                     if (a2 == null) break block13;	
                 }	
                 catch (Throwable throwable) {	

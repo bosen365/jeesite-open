@@ -73,7 +73,7 @@ extends h {
         Long a7 = arrlong[1];	
         if ("valid".equals(operation)) {	
             if (a7 != 0L) {	
-                a22 = Global.getConfigToInteger("sys.login.failedNumAfterLockMinue", "20");	
+                a22 = Global.getConfigToInteger("sys.login.failedNumAfterLockMinute", "20");	
                 if (System.currentTimeMillis() / 60000L - a7 <= (long)a22) {	
                     String[] arrstring = new String[1];	
                     arrstring[0] = String.valueOf(a22);	
@@ -87,7 +87,7 @@ extends h {
         } else if ("failed".equals(operation)) {	
             Long a22 = a6;	
             Long l2 = a6 = Long.valueOf(a22 + 1L);	
-            a22 = Global.getConfigToInteger("sys.login.failedNumAferLockAccount", "200");	
+            a22 = Global.getConfigToInteger("sys.login.failedNumAfterLockAccount", "200");	
             if (a6 >= (long)a22) {	
                 a7 = System.currentTimeMillis() / 60000L;	
             }	
@@ -99,7 +99,7 @@ extends h {
             a5.remove(a3);	
         }	
         CacheUtils.put("loginFailedMap", a5);	
-        a22 = Global.getConfigToInteger("sys.login.failedNumAferValidCode", "100");	
+        a22 = Global.getConfigToInteger("sys.login.failedNumAfterValidCode", "100");	
         if (StringUtils.isNotBlank(deviceType) && StringUtils.isNotBlank(a = Global.getConfig(new StringBuilder().insert(0, "sys.login.failedNumAfterValidCode.").append(deviceType).toString()))) {	
             a22 = ObjectUtils.toInteger(a);	
         }	

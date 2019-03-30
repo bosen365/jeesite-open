@@ -95,7 +95,7 @@ public class InsertSqlProvider {
                     }	
                     a2.append(" SELECT ");	
                     a2.append(StringUtils.replace(a4.toString(), "{list}", new StringBuilder().insert(0, "param1[").append(a11).append("]").toString()));	
-                    a2.append(" FROM ual");	
+                    a2.append(" FROM dual");	
                 } else {	
                     if (a11 == 0) {	
                         a2.append(" VALUES ");	

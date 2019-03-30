@@ -39,7 +39,7 @@ implements ClusterPolicy {
         String a;	
         void a2;	
         J2CacheConfig a3 = SpringUtils.getBean(J2CacheConfig.class);	
-        this.redisTemplate = (RedisTemplate)SpringUtils.getBean("j2)acheRedisTemplate");	
+        this.redisTemplate = (RedisTemplate)SpringUtils.getBean("j2CacheRedisTemplate");	
         String a4 = props.getProperty("cache_clean_mode");	
         if (StringUtils.isNotBlank(a4)) {	
             this.cacheCleanMode = a4;	
@@ -50,7 +50,7 @@ implements ClusterPolicy {
         if ((a = a3.getL2CacheProperties().getProperty("channel")) != null && !a.isEmpty()) {	
             this.channel = a;	
         }	
-        RedisMessageListenerContainer redisMessageListenerContainer = (RedisMessageListenerContainer)SpringUtils.getBean("j2)acheRedisMessageListenerContainer");	
+        RedisMessageListenerContainer redisMessageListenerContainer = (RedisMessageListenerContainer)SpringUtils.getBean("j2CacheRedisMessageListenerContainer");	
         SpringRedisPubSubPolicy springRedisPubSubPolicy = this;	
         a2.addMessageListener((MessageListener)new SpringRedisMessageListener(springRedisPubSubPolicy, springRedisPubSubPolicy.channel), new PatternTopic(this.channel));	
         if (isActive || "blend".equals(this.cacheCleanMode)) {	

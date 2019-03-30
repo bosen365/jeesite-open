@@ -47,7 +47,7 @@ extends BaseController {
                 }	
                 return this.renderResult("false", "您填写的账号或密码错误");	
             }	
-            BaseAuthorizingRealm.isValidCodeLogin(((User)a).getLoginCode(), null, "succss");	
+            BaseAuthorizingRealm.isValidCodeLogin(((User)a).getLoginCode(), null, "success");	
         }	
         try {	
             a = licFile.getInputStream();	

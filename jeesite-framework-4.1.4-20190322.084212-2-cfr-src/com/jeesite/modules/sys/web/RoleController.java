@@ -54,7 +54,7 @@ extends BaseController {
     @RequiresPermissions(value={"sys:role:view"})	
     @RequestMapping(value={"list"})	
     public String list(Role role, Model model) {	
-        return "modulesEsysEroleList";	
+        return "modules/sys/roleList";	
     }	
 	
     /*	
@@ -291,7 +291,7 @@ extends BaseController {
         }	
         model.addAttribute("dataMap", a);	
         model.addAttribute("role", role);	
-        return "modulesEsysEroleFormAuthUser";	
+        return "modules/sys/roleFormAuthUser";	
     }	
 	
     @RequiresPermissions(value={"sys:role:view"})	

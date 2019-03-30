@@ -48,7 +48,7 @@ public class PaginationHelper {
                 a2 = new com.jeesite.common.mybatis.l.w.h();	
             } else if ("mssql2012".equals(a) || "derby".equals(a)) {	
                 a2 = new H();	
-            } else if ("hsqldb".equals(a) || "h2".equals(a) || "phoeni".equals(a) || "postgresql".equals(a) || "highgo".equals(a)) {	
+            } else if ("hsqldb".equals(a) || "h2".equals(a) || "phoenix".equals(a) || "postgresql".equals(a) || "highgo".equals(a)) {	
                 a2 = new I();	
             } else if ("informix".equals(a)) {	
                 a2 = new e();	

@@ -67,7 +67,7 @@ implements Serializable {
         if (this.roleExtendDataScopes == null) {	
             this.roleExtendDataScopes = (Map)UserUtils.getCache(USER_CACHE_ROLE_EXTEND_DATA_SCOPES);	
             if (this.roleExtendDataScopes == null) {	
-                this.roleExtendDataScopes = (Map)JsonMapper.fromJson(Global.getProperty("role.extedDataScopes", "{}"), Map.class);	
+                this.roleExtendDataScopes = (Map)JsonMapper.fromJson(Global.getProperty("role.extendDataScopes", "{}"), Map.class);	
                 UserUtils.putCache(USER_CACHE_ROLE_EXTEND_DATA_SCOPES, this.roleExtendDataScopes);	
             }	
         }	
@@ -101,7 +101,7 @@ implements Serializable {
                     return;	
                 }	
                 a8 = a9.get("ctrlTypeClass");	
-                a2 = a9.get("ctrlDataAttrNam");	
+                a2 = a9.get("ctrlDataAttrName");	
                 a6 = a9.get("ctrlDataParentCodesAttrName");	
                 if ("NONE".equals(a8)) {	
                     this.clearFilter(sqlMapKey);	
@@ -118,7 +118,7 @@ implements Serializable {
                 string = a7;	
             }	
             if (StringUtils.isBlank(string)) {	
-                throw new MapperException(new StringBuilder().insert(0, "Error: ").append(a8).append(" 定义@Tabl没有isPK=true的列.").toString());	
+                throw new MapperException(new StringBuilder().insert(0, "Error: ").append(a8).append(" 定义@Table没有isPK=true的列.").toString());	
             }	
             String a12 = (String)ReflectUtils.invokeGetter(this.entity, a2);	
             StringBuilder a13 = new StringBuilder();	
@@ -129,7 +129,7 @@ implements Serializable {
             a14.append(new StringBuilder().insert(0, "(").append((String)a4).append(".").append(a7).append(" = '").append(a12).append("'").toString());	
             if (StringUtils.isNotBlank(a6)) {	
                 a5 = (String)ReflectUtils.invokeGetter(this.entity, a6);	
-                a14.append(new StringBuilder().insert(0, " OR ").append((String)a4).append(".parent_cods LIKE '").append((String)a5).append(a12).append(",%'").toString());	
+                a14.append(new StringBuilder().insert(0, " OR ").append((String)a4).append(".parent_codes LIKE '").append((String)a5).append(a12).append(",%'").toString());	
             }	
             a14.append(")");	
             this.addJoinFrom(sqlMapKey, a13.toString());	
@@ -194,7 +194,7 @@ implements Serializable {
         }	
         int n = a = 0;	
         while (n < a6.length) {	
-            if ("Rol".equals(a6[a]) && "1".equals(ctrlPermi)) {	
+            if ("Role".equals(a6[a]) && "1".equals(ctrlPermi)) {	
                 this.addRoleDataScope(sqlMapKey, a3, a2[a]);	
             } else {	
                 String string = sqlMapKey;	
@@ -254,14 +254,14 @@ implements Serializable {
         a.append(new StringBuilder().insert(0, " JOIN ").append(Global.getTablePrefix()).append("sys_user_data_scope ").append(a4).append(" ON ").append(a4).append(".ctrl_data = ").append(bizCtrlDataField).toString());	
         a3.append(new StringBuilder().insert(0, a4).append(".ctrl_permi = '").append(ctrlPermi).append("'").toString());	
         a3.append(new StringBuilder().insert(0, " AND ").append(a4).append(".ctrl_type = '").append(ctrlType).append("'").toString());	
-        a3.append(new StringBuilder().insert(0, " AND ").append(a4).append(".usr_cod = '").append(user.getUserCode()).append("'").toString());	
+        a3.append(new StringBuilder().insert(0, " AND ").append(a4).append(".user_code = '").append(user.getUserCode()).append("'").toString());	
         this.addJoinFrom(sqlMapKey, a.toString());	
         this.addJoinWhere(sqlMapKey, a3.toString());	
         StringBuilder a5 = new StringBuilder();	
         a5.append(new StringBuilder().insert(0, " EXISTS (SELECT 1 FROM ").append(Global.getTablePrefix()).append("sys_user_data_scope").toString());	
         a5.append(new StringBuilder().insert(0, " WHERE ctrl_permi = '").append(ctrlPermi).append("'").toString());	
-        a5.append(new StringBuilder().insert(0, " AND ctrl_typ = '").append(ctrlType).append("'").toString());	
-        a5.append(new StringBuilder().insert(0, " AND usr_cod = '").append(user.getUserCode()).append("'").toString());	
+        a5.append(new StringBuilder().insert(0, " AND ctrl_type = '").append(ctrlType).append("'").toString());	
+        a5.append(new StringBuilder().insert(0, " AND user_code = '").append(user.getUserCode()).append("'").toString());	
         a5.append(new StringBuilder().insert(0, " AND ctrl_data = ").append(bizCtrlDataField).append(")").toString());	
         this.addFilter(sqlMapKey, a5.toString());	
     }	
@@ -283,9 +283,9 @@ implements Serializable {
 	
     private /* synthetic */ void addRoleDataScope(String sqlMapKey, User user, String bizCtrlDataField) {	
         String a = new StringBuilder().insert(0, "a").append(IdGen.randomBase62(4)).toString();	
-        this.addJoinFrom(sqlMapKey, " JOIN " + Global.getTablePrefix() + "sys_user_role " + a + " ON " + a + ".rol_code = " + bizCtrlDataField);	
+        this.addJoinFrom(sqlMapKey, " JOIN " + Global.getTablePrefix() + "sys_user_role " + a + " ON " + a + ".role_code = " + bizCtrlDataField);	
         this.addJoinWhere(sqlMapKey, new StringBuilder().insert(0, a).append(".user_code = '").append(user.getUserCode()).append("'").toString());	
-        this.addFilter(sqlMapKey, new StringBuilder().insert(0, " EXISTS (SELECT 1 FROM ").append(Global.getTablePrefix()).append("sys_usr_rol WHERE usr_cod = '").append(user.getUserCode()).append("' AND role_code = ").append(bizCtrlDataField).append(")").toString());	
+        this.addFilter(sqlMapKey, new StringBuilder().insert(0, " EXISTS (SELECT 1 FROM ").append(Global.getTablePrefix()).append("sys_user_role WHERE user_code = '").append(user.getUserCode()).append("' AND role_code = ").append(bizCtrlDataField).append(")").toString());	
     }	
 	
     /*	
@@ -315,15 +315,15 @@ implements Serializable {
             StringBuilder a2 = new StringBuilder();	
             StringBuilder a3 = new StringBuilder();	
             String string = new StringBuilder().insert(0, "a").append(IdGen.randomBase62(4)).toString();	
-            a2.append(" JOIN " + Global.getTablePrefix() + "sys_rol_data_scope " + (String)a);	
+            a2.append(" JOIN " + Global.getTablePrefix() + "sys_role_data_scope " + (String)a);	
             a2.append(new StringBuilder().insert(0, " ON ").append((String)a).append(".ctrl_data = ").append(bizCtrlDataField).toString());	
             a3.append(new StringBuilder().insert(0, " OR (").append((String)a).append(".ctrl_permi = '").append(ctrlPermi).append("'").toString());	
             a3.append(new StringBuilder().insert(0, " AND ").append((String)a).append(".ctrl_type = '").append(ctrlType).append("'").toString());	
-            a3.append(new StringBuilder().insert(0, " AND ").append((String)a).append(".role_cod IN ('").append(StringUtils.join(roleList, "','")).append("'))").toString());	
+            a3.append(new StringBuilder().insert(0, " AND ").append((String)a).append(".role_code IN ('").append(StringUtils.join(roleList, "','")).append("'))").toString());	
             this.addJoinFrom(sqlMapKey, a2.toString());	
             this.addJoinWhere(sqlMapKey, a3.toString());	
             StringBuilder a4 = new StringBuilder();	
-            a4.append(new StringBuilder().insert(0, " EXISTS (SELECT 1 FROM ").append(Global.getTablePrefix()).append("sys_role_data_scop").toString());	
+            a4.append(new StringBuilder().insert(0, " EXISTS (SELECT 1 FROM ").append(Global.getTablePrefix()).append("sys_role_data_scope").toString());	
             a4.append(new StringBuilder().insert(0, " WHERE ctrl_permi = '").append(ctrlPermi).append("'").toString());	
             a4.append(new StringBuilder().insert(0, " AND ctrl_type = '").append(ctrlType).append("'").toString());	
             a4.append(new StringBuilder().insert(0, " AND role_code IN ('").append(StringUtils.join(roleList, "','")).append("')").toString());	

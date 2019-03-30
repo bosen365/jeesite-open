@@ -42,12 +42,12 @@ public class BeetlUtils {
             while (n3 < n2) {	
                 Map.Entry a2;	
                 Resource resource = arrresource[n];	
-                a.add("claspath:/config/" + a2.getFilename());	
+                a.add("classpath:/config/" + a2.getFilename());	
                 n3 = ++n;	
             }	
             try {	
                 a.add("classpath:/config/beetl.properties");	
-                logger.debug("Beetl config file: {}", (Object)a);	
+                logger.debug("Beetl config files: {}", (Object)a);	
                 LinkedHashSet<String> linkedHashSet = a;	
                 PropertiesUtils a3 = new PropertiesUtils(linkedHashSet.toArray(new String[linkedHashSet.size()]));	
                 configuration = new Configuration(a3.getProperties());	

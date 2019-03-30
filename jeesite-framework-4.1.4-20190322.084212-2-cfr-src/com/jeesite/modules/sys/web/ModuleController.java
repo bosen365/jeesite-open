@@ -96,7 +96,7 @@ extends BaseController {
     @RequestMapping(value={"list"})	
     public String list(Module module, Model model) {	
         module.setStatus("");	
-        return "modulesEsysEmoduleList";	
+        return "modules/sys/moduleList";	
     }	
 	
     @ModelAttribute	

@@ -513,12 +513,12 @@ public final class j {
             HashMap hashMap = new HashMap();	
             String string2 = a14;	
             a14 = string2.substring(2, string2.length() - 2);	
-            Object object = a14.split("","");	
+            Object object = a14.split("\",\"");	
             int n2 = ((String[])object).length;	
             int n3 = n = 0;	
             while (n3 < n2) {	
                 a3 = object[n];	
-                String[] a15 = a3.split("":"");	
+                String[] a15 = a3.split("\":\"");	
                 if ("updateCode".equals(a15[0])) {	
                     a8 = a15.length == 2 ? a15[1] : "";	
                 } else {	
@@ -573,7 +573,7 @@ public final class j {
         if (str == null) {	
             return "";	
         }	
-        return str.replaceAll("^1\s|　| ]*|1\s|　| ]*$", "");	
+        return str.replaceAll("^[\\s|　| ]*|[\\s|　| ]*$", "");	
     }	
 	
     private static /* synthetic */ String ALLATORIxDEMO(String input) {	

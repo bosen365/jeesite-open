@@ -42,7 +42,7 @@ public class h {
     }	
 	
     public int ALLATORIxDEMO() {	
-        String a = this.c.getParameter("tart");	
+        String a = this.c.getParameter("start");	
         try {	
             return Integer.parseInt(a);	
         }	
@@ -52,7 +52,7 @@ public class h {
     }	
 	
     public boolean ALLATORIxDEMO(String name) {	
-        return name.matches("^[a-zA-Z_]+[\w0-9_]*$");	
+        return name.matches("^[a-zA-Z_]+[\\w0-9_]*$");	
     }	
 	
     public String ALLATORIxDEMO() {	

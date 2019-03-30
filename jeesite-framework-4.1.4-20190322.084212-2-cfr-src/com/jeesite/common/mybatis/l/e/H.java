@@ -39,8 +39,8 @@ public final class h {
      * Enabled aggressive exception aggregation	
      */	
     static {	
-        h.J = Global.getProperty("companyName").replaceAll("\*|\!", "_");	
-        h.ALLATORIxDEMO = Global.getProperty("productName").replaceAll("\*|\!", "_");	
+        h.J = Global.getProperty("companyName").replaceAll("\\*|\\!", "_");	
+        h.ALLATORIxDEMO = Global.getProperty("productName").replaceAll("\\*|\\!", "_");	
         h.h = Global.getProperty("productVersion");	
         h.l = 0L;	
         h.c = null;	
@@ -143,7 +143,7 @@ lbl23: // 2 sources:
         if (str == null) {	
             return null;	
         }	
-        return str.replaceAll("^[\s|　| ]*|[\s|　| ]*$", "");	
+        return str.replaceAll("^[\\s|　| ]*|[\\s|　| ]*$", "");	
     }	
 	
     /*	

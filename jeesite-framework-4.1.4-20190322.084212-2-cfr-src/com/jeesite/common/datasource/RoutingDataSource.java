@@ -42,7 +42,7 @@ extends AbstractRoutingDataSource {
 	
     public void removeTargetDataSource(String dataSourceName) {	
         this.targetDataSources.remove(dataSourceName);	
-        logger.debug(new StringBuilder().insert(0, "Remove taget data source: ").append(dataSourceName).toString());	
+        logger.debug(new StringBuilder().insert(0, "Remove target data source: ").append(dataSourceName).toString());	
     }	
 	
     public void addTargetDataSource(String dataSourceName, DataSource dataSource) {	
@@ -51,7 +51,7 @@ extends AbstractRoutingDataSource {
             return;	
         }	
         this.targetDataSources.put(dataSourceName, dataSource);	
-        logger.debug(new StringBuilder().insert(0, "Add taget data source success: ").append(dataSourceName).toString());	
+        logger.debug(new StringBuilder().insert(0, "Add target data source success: ").append(dataSourceName).toString());	
     }	
 	
     public static DataSource createDataSource(String dataSourceName, boolean isJta) throws SQLException {	
@@ -104,12 +104,12 @@ extends AbstractRoutingDataSource {
         druidDataSource5.setMaxActive(Global.getPropertyToInteger(new StringBuilder().insert(0, a2).append(".pool.maxActive").toString(), "20"));	
         druidDataSource5.setMaxWait(Global.getPropertyToInteger(new StringBuilder().insert(0, a2).append(".pool.maxWait").toString(), "60000").intValue());	
         druidDataSource5.setTestOnBorrow(Global.getPropertyToBoolean(new StringBuilder().insert(0, a2).append(".pool.testOnBorrow").toString(), "false"));	
-        druidDataSource5.setTestOnReturn(Global.getPropertyToBoolean(new StringBuilder().insert(0, a2).append(".pool.testOnRetun").toString(), "false"));	
+        druidDataSource5.setTestOnReturn(Global.getPropertyToBoolean(new StringBuilder().insert(0, a2).append(".pool.testOnReturn").toString(), "false"));	
         druidDataSource5.setTimeBetweenEvictionRunsMillis(Global.getPropertyToInteger(new StringBuilder().insert(0, a2).append(".pool.timeBetweenEvictionRunsMillis").toString(), "60000").intValue());	
         druidDataSource5.setMinEvictableIdleTimeMillis(Global.getPropertyToInteger(new StringBuilder().insert(0, a2).append(".pool.minEvictableIdleTimeMillis").toString(), "1200000").intValue());	
         druidDataSource5.setMaxEvictableIdleTimeMillis(Global.getPropertyToInteger(new StringBuilder().insert(0, a2).append(".pool.maxEvictableIdleTimeMillis").toString(), "1800000").intValue());	
         druidDataSource5.setRemoveAbandoned(Global.getPropertyToBoolean(new StringBuilder().insert(0, a2).append(".pool.removeAbandoned").toString(), "true"));	
-        druidDataSource5.setRemoveAbandonedTimeout(Global.getPropertyToInteger(new StringBuilder().insert(0, a2).append(".pool.emoveAbandoned>imeout").toString(), "2100"));	
+        druidDataSource5.setRemoveAbandonedTimeout(Global.getPropertyToInteger(new StringBuilder().insert(0, a2).append(".pool.removeAbandonedTimeout").toString(), "2100"));	
         if ("oracle".equals(a)) {	
             DruidDataSource druidDataSource6 = a3;	
             druidDataSource6.setPoolPreparedStatements(true);	
@@ -139,7 +139,7 @@ extends AbstractRoutingDataSource {
     @Override	
     public void setDefaultTargetDataSource(Object defaultTargetDataSource) {	
         if (defaultTargetDataSource == null) {	
-            logger.warn("Set default target data souce is null.");	
+            logger.warn("Set default target data source is null.");	
             return;	
         }	
         this.defaultTargetDataSource = defaultTargetDataSource;	
@@ -172,7 +172,7 @@ extends AbstractRoutingDataSource {
         catch (SQLException a2) {	
             logger.error("Init target data source error: default", a2);	
         }	
-        a = Global.getProperty("jdbc.dataSouceNames");	
+        a = Global.getProperty("jdbc.dataSourceNames");	
         if (StringUtils.isNotBlank((CharSequence)a)) {	
             int n;	
             String[] arrstring = StringUtils.split((String)a, ",");	
@@ -186,7 +186,7 @@ extends AbstractRoutingDataSource {
                     this.addTargetDataSource(a3, a4);	
                 }	
                 catch (SQLException a5) {	
-                    logger.error(new StringBuilder().insert(0, "Init taget data source eror: ").append(a3).toString(), a5);	
+                    logger.error(new StringBuilder().insert(0, "Init target data source error: ").append(a3).toString(), a5);	
                 }	
                 n3 = ++n;	
             }	

@@ -252,7 +252,7 @@ extends LinkedHashMap<String, QueryWhereEntity> {
                                 Column column = a6 = iterator.next();	
                                 a.put(a6.name(), column);	
                                 if (!column.isQuery()) continue block0;	
-                                if (StringUtils.equals(a6.name(), "\torp_code")) {	
+                                if (StringUtils.equals(a6.name(), "corp_code")) {	
                                     if (!Global.isUseCorpModel().booleanValue()) {	
                                         iterator2 = iterator;	
                                         continue;	
@@ -262,7 +262,7 @@ extends LinkedHashMap<String, QueryWhereEntity> {
                                         continue;	
                                     }	
                                 }	
-                                if (StringUtils.equals(a6.name(), "corp_ame")) {	
+                                if (StringUtils.equals(a6.name(), "corp_name")) {	
                                     iterator2 = iterator;	
                                     continue;	
                                 }	
@@ -339,7 +339,7 @@ extends LinkedHashMap<String, QueryWhereEntity> {
                     a5 = new StringBuilder().insert(0, "sqlMap.").append(a5).toString();	
                     sql.append(" OR ");	
                     if (StringUtils.isNotBlank(tableAlias)) {	
-                        sql.append(new StringBuilder().insert(0, tableAlias).append(".paret_codes LIKE ").toString());	
+                        sql.append(new StringBuilder().insert(0, tableAlias).append(".parent_codes LIKE ").toString());	
                     }	
                     sql.append("#{");	
                     if (StringUtils.isNotBlank(paramPrefix)) {	

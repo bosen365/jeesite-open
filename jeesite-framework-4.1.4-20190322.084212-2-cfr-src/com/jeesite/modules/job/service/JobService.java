@@ -87,7 +87,7 @@ extends CrudService<JobDao, JobEntity> {
         }	
         jobService2.scheduler.setStartupDelay(Global.getPropertyToInteger("job.startupDelay", "60"));	
         this.scheduler.setQuartzProperties(com.jeesite.modules.job.l.m.ALLATORIxDEMO());	
-        String a2 = Global.getProperty("job.ataSourceName", "job");	
+        String a2 = Global.getProperty("job.dataSourceName", "job");	
         JobService jobService4 = this;	
         if (StringUtils.isNotBlank(Global.getProperty(new StringBuilder().insert(0, "jdbc.").append(a2).append(".type").toString()))) {	
             jobService4.scheduler.setDataSource(RoutingDataSource.createDataSource(a2, false));	

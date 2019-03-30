@@ -63,7 +63,7 @@ extends BaseController {
             return this.renderResult("false", UserController.text("sys.user.oldPasswordError", new String[0]));	
         }	
         if (!StringUtils.equals(newPassword, confirmNewPassword)) {	
-            return this.renderResult("false", UserController.text("sys.user.confirmPasswroError", new String[0]));	
+            return this.renderResult("false", UserController.text("sys.user.confirmPasswrodError", new String[0]));	
         }	
         try {	
             this.userService.updatePassword(a.getUserCode(), confirmNewPassword);	
@@ -123,7 +123,7 @@ extends BaseController {
             user3.setPwdQuestion3(user4.getPwdQuestion3());	
             user3.setPwdQuestionAnswer3(PwdUtils.encryptPassword(user.getPwdQuestionAnswer3()));	
             userController.userService.updateQuestion(a);	
-            return userController.renderResult("true", UserController.text("sys.user.pwQuestionModifySuccess", new String[0]));	
+            return userController.renderResult("true", UserController.text("sys.user.pwdQuestionModifySuccess", new String[0]));	
         }	
         return this.renderResult("false", UserController.text("sys.user.pwdQuestionAnswerError", new String[0]));	
     }	

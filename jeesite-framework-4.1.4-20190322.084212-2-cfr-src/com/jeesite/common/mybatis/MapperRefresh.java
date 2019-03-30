@@ -52,7 +52,7 @@ implements Runnable {
         enabled = "true".equalsIgnoreCase(MapperRefresh.getPropString("mybatis.mapper.refresh.enabled"));	
         delaySeconds = MapperRefresh.getPropInt("mybatis.mapper.refresh.delaySeconds");	
         sleepSeconds = MapperRefresh.getPropInt("mybatis.mapper.refresh.sleepSeconds");	
-        mappingPath = MapperRefresh.getPropString("mybatis.mapper.refresh.mappigPath");	
+        mappingPath = MapperRefresh.getPropString("mybatis.mapper.refresh.mappingPath");	
         delaySeconds = delaySeconds == 0 ? 50 : delaySeconds;	
         sleepSeconds = sleepSeconds == 0 ? 3 : sleepSeconds;	
         mappingPath = StringUtils.isBlank(mappingPath) ? "mappings" : mappingPath;	
@@ -99,7 +99,7 @@ implements Runnable {
 	
     @Override	
     public void run() {	
-        log.debug(new StringBuilder().insert(0, "enabled: ").append(enabled).append(", delaySeconds: ").append(delaySeconds).append(", sleepSeconds: ").append(sleepSeconds).append(", mappigPath: ").append(mappingPath).append(", location: ").append(this.location).append(", configuration: ").append(this.configuration).toString());	
+        log.debug(new StringBuilder().insert(0, "enabled: ").append(enabled).append(", delaySeconds: ").append(delaySeconds).append(", sleepSeconds: ").append(sleepSeconds).append(", mappingPath: ").append(mappingPath).append(", location: ").append(this.location).append(", configuration: ").append(this.configuration).toString());	
         if (enabled) {	
             this.beforeTime = System.currentTimeMillis();	
             MapperRefresh a = this;	
@@ -141,7 +141,7 @@ implements Runnable {
                 new XMLMapperBuilder(a3, this.configuration, a4, this.configuration.getSqlFragments()).parse();	
             }	
             catch (Exception a6) {	
-                throw new NestedIOException(new StringBuilder().insert(0, "Failed to parse mappig resource: '").append(a4).append("'").toString(), a6);	
+                throw new NestedIOException(new StringBuilder().insert(0, "Failed to parse mapping resource: '").append(a4).append("'").toString(), a6);	
             }	
             finally {	
                 ErrorContext.instance().reset();	
@@ -149,7 +149,7 @@ implements Runnable {
             System.out.println(new StringBuilder().insert(0, "Refresh file: ").append(mappingPath).append(StringUtils.substringAfterLast(a2.get(a).getAbsolutePath(), mappingPath)).toString());	
             if (log.isDebugEnabled()) {	
                 log.debug(new StringBuilder().insert(0, "Refresh file: ").append(a2.get(a).getAbsolutePath()).toString());	
-                log.debug(new StringBuilder().insert(0, "Refresh fileame: ").append(a2.get(a).getName()).toString());	
+                log.debug(new StringBuilder().insert(0, "Refresh filename: ").append(a2.get(a).getName()).toString());	
             }	
             n = ++a;	
         }	
@@ -270,7 +270,7 @@ implements Runnable {
         }	
 	
         private /* synthetic */ String getShortName(String key) {	
-            String[] arrstring = key.split("\.");	
+            String[] arrstring = key.split("\\.");	
             return arrstring[arrstring.length - 1];	
         }	
 	

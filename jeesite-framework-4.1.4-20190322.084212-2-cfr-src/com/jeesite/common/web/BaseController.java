@@ -28,7 +28,7 @@ public abstract class BaseController {
     protected String adminPath;	
 	
     static {	
-        WEB_DATA_BINDER_SOURCE = new StringBuilder().insert(0, WebDataBinder.class.getName()).append(".SOUR)E").toString();	
+        WEB_DATA_BINDER_SOURCE = new StringBuilder().insert(0, WebDataBinder.class.getName()).append(".SOURCE").toString();	
         WEB_DATA_BINDER_TARGET = new StringBuilder().insert(0, WebDataBinder.class.getName()).append(".TARGET").toString();	
     }	
 	

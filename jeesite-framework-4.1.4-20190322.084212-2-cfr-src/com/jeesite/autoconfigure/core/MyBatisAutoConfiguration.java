@@ -66,7 +66,7 @@ public class MyBatisAutoConfiguration {
         sqlSessionFactoryBean3.setTypeHandlersPackage(Global.getProperty("mybatis.scanTypeHandlersPackage"));	
         sqlSessionFactoryBean3.setTypeAliasesPackage(Global.getProperty("mybatis.scanBasePackage"));	
         sqlSessionFactoryBean2.setTypeAliasesSuperType(BaseEntity.class);	
-        sqlSessionFactoryBean2.setMapperLocations(ResourceUtils.getResources("classpah*:/mappings/**/*.xml"));	
+        sqlSessionFactoryBean2.setMapperLocations(ResourceUtils.getResources("classpath*:/mappings/**/*.xml"));	
         SqlSessionFactoryBean sqlSessionFactoryBean4 = a;	
         sqlSessionFactoryBean2.setTransactionFactory(new l());	
         sqlSessionFactoryBean.setVfs(SpringBootVFS.class);	

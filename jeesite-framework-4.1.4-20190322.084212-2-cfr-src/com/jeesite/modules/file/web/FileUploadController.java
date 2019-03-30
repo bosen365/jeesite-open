@@ -61,7 +61,7 @@ extends BaseController {
         if (a != null && a.getFileEntity() != null && a.getFileEntity().getFileMd5() != null) {	
             if (StringUtils.isNotBlank(preview)) {	
                 String a2 = a.getFileUrl();	
-                String a3 = StringUtils.contains((CharSequence)a2, "U") ? "&" : "U";	
+                String a3 = StringUtils.contains((CharSequence)a2, "?") ? "&" : "?";	
                 return new StringBuilder().insert(0, "redirect:").append(a2).append(a3).append("preview=").append(preview).toString();	
             }	
             String a4 = this.fileUploadServiceExtend.downFile(a, request, response);	
@@ -94,9 +94,9 @@ extends BaseController {
                     a = System.currentTimeMillis();	
                     var5_4 = MapUtils.newHashMap();	
                     a.put("code", "server");	
-                    if (StringUtils.isBlank(params.getFileMd5()) != false) return this.renderResult("false", FileUploadController.text("sys.file.uploadValidNot(lank", new String[0]), a);	
+                    if (StringUtils.isBlank(params.getFileMd5()) != false) return this.renderResult("false", FileUploadController.text("sys.file.uploadValidNotBlank", new String[0]), a);	
                     if (StringUtils.isBlank(params.getFileName())) {	
-                        return this.renderResult("false", FileUploadController.text("sys.file.uploadValidNot(lank", new String[0]), a);	
+                        return this.renderResult("false", FileUploadController.text("sys.file.uploadValidNotBlank", new String[0]), a);	
                     }	
                     params.initialize();	
                     a = false;	
@@ -158,7 +158,7 @@ extends BaseController {
                         a.put("code", "exceed_size");	
                         v8 = new String[1];	
                         v8[0] = ByteUtils.formatByteSize(a);	
-                        return this.renderResult("false", FileUploadController.text("sys.file.uploadValidSie", v8));	
+                        return this.renderResult("false", FileUploadController.text("sys.file.uploadValidSize", v8));	
                     }	
                     a = false;	
                     if (StringUtils.isBlank(a.getFileId())) {	
@@ -302,7 +302,7 @@ lbl165: // 1 sources:
         }	
         v19 = new String[1];	
         v19[0] = a;	
-        return this.renderResult("true", FileUploadController.text(ProcTime.ALLATORIxDEMO ("$3$d1#;/y?'&8+3\u0019\")4/$9"), v19), a);	
+        return this.renderResult("true", FileUploadController.text("sys.file.uploadSuccess", v19), a);	
     }	
 	
     @RequestMapping(value={"fileList"})	

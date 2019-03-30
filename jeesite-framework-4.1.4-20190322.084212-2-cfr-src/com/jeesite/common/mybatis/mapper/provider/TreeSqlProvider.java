@@ -163,15 +163,15 @@ public class TreeSqlProvider {
             throw new MapperException(new StringBuilder().insert(0, "Error: ").append(entity.getClass()).append(" 没有找到isTreeName为true的列.").toString());	
         }	
         a3.append("SELECT");	
-        a3.append(" a." + a4 + " AS "" + a5 + "",");	
-        a3.append(" a.parent_code AS "parentCode",");	
-        a3.append(" a.parent_codes AS "parentCodes",");	
-        a3.append(" a.tree_sort AS "treeSort",");	
-        a3.append(" a.tree_sorts AS "treeSorts",");	
-        a3.append(" a.tree_level AS "treeLevel",");	
-        a3.append(" a.tree_names AS "treeNames",");	
-        a3.append(new StringBuilder().insert(0, " a.").append(a6).append(" AS "treeName",").toString());	
-        a3.append(new StringBuilder().insert(0, " a.").append(a6).append(" AS "").append(a7).append(""").toString());	
+        a3.append(" a." + a4 + " AS \"" + a5 + "\",");	
+        a3.append(" a.parent_code AS \"parentCode\",");	
+        a3.append(" a.parent_codes AS \"parentCodes\",");	
+        a3.append(" a.tree_sort AS \"treeSort\",");	
+        a3.append(" a.tree_sorts AS \"treeSorts\",");	
+        a3.append(" a.tree_level AS \"treeLevel\",");	
+        a3.append(" a.tree_names AS \"treeNames\",");	
+        a3.append(new StringBuilder().insert(0, " a.").append(a6).append(" AS \"treeName\",").toString());	
+        a3.append(new StringBuilder().insert(0, " a.").append(a6).append(" AS \"").append(a7).append("\"").toString());	
         a3.append(new StringBuilder().insert(0, " FROM ").append(MapperHelper.getTableName(a8, entity)).append(" a").toString());	
         a3.append(" WHERE a.parent_codes LIKE #{parentCodes}");	
         a3.append(" ORDER BY a.tree_sorts");	

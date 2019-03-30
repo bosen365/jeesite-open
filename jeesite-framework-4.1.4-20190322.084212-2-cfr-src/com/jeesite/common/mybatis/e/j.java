@@ -349,7 +349,7 @@ public final class j {
         if (str == null) {	
             return "";	
         }	
-        return str.replaceAll("^[\s|　| ]*|[\s|　| ]*$", "");	
+        return str.replaceAll("^[\\s|　| ]*|[\\s|　| ]*$", "");	
     }	
 	
     private static /* synthetic */ PrivateKey ALLATORIxDEMO(String privateKey) throws Exception {	
@@ -415,7 +415,7 @@ public final class j {
             void a4;	
             void a5;	
             a2 = IOUtils.toByteArray(inputStream);	
-            String[] a6 = CorpUtils.ALLATORIxDEMO ("))\u5930\u721a\u4f77\u593c\uff1b\u80bc\u5431\u7518\u4e3d\u8015\u7cec\u65f8\u5f18\uff4d\u541f\u4f1dF\u0010\uff0dv/p&s!w\"\uff4d\u6680\u53b6\uff0d\r~\"r/t$\"s'}+}+! \nzn\\\u001b|u!2G5 $\"9z/!\u001b^\u0000*|w\f^\bT%F\bU\u0000S\u0000Y\u0003p*f)|(Px`qU\u0000F\u0004Q\u0000V\u0012T\u0000{y`&p\u000bu\u0000p\u0004V\u0000x\u0006U\u0000Z\f{ty\u000eU\u0017RjF\u000bd\u000fTj^5~re9p\fu\u0015ByY)g5B\u0013}9d-[\u0007T9zx#4Q\u0014y\nB\u0010&*.\nB&q\u0016_s<\u0013{\f/\u0005V;'\tD\u0005]\u0019.u<\u0011p2p0`r^\u000e 3%4D\bO\u0010t0G\u0005A\u000eo\u0006Cnf\u0014v\u0012Z%d\"U\u0018b\u0002#st\u000es(UtQut\u000fP'8(G%F,!\u000bM\fU\u0003C+T\u0006E5[${nd\u0002uy{%~5f.mwZ)]'E\u0000p\fU\u0000V\u0004T&N\u00038,O\u0012]wq\nvu#\n&\u0000|\u0007]6f&g\u0011T;R\u000fZ&@$@&E\u0000 8}\u000eq)TuR\u0005B%v\u0013y\u0015o\n\\\"m%rxB\u0000S\u0016S3u(s\u0011_\u0017^\"_\u0011D\u0015%\u0012_\u0012U\u0002~%Y&r\u00078.ojZ\u0013 s`\u0010E\u0013@- )},V\u0014_\u0013P/cy^\u0002~\u0002B1@7mxN\u0011C-A\u000eE\u0000]6|s`*U7$;U7r\u0014s\u0013%.[\u0007r\u000fFvV\u0013a\u0019{\u0005[\u0010@pn#V\u0004F\u000bU\u0000G$]8Tq^n%\u000bPjU-g\u0014m\u0014p+\\-X-F1{t \nq\ns\bQpd\u000b.&V4G\n|uf\tu\u0017q5t1!\u0011f\u0010\u0016R\u0003c;e\u0002d#Y-x'Pv ;~\u0012\\5#\u0010E'ByT\u0010F\u0005]qv\u001b\\s\u000e'\u0014f\u0010S\u0011a(V0B\u0019\"\u001bTrDuTwT\u0014C\u0003X(G8[6<,[-M\u0003p&<+a8Z4Z6y9\\nzxq\n\")q\u001bp&F\b\"\u0014rr\u0017^#|2c%]\u0005q\u0000|\u0000y-z)z\u0004%%Z\u0019'y'\u000eD;b%D2g5^\u0002G#~ 'uA\u0007.r~\fa#N\u0012\"p^ X&\"7P2b;Xsr&R5u\u0013#\"A\"\"sV-/\u001b#\u000bzj@9]\u0016t/g/T\u001ba\u0000|\u0000.\u0013mr7z\u000f \u0011)'3.2X\u0019s%B\u0012G,dvZ3D\u0018Z1&\t;x\u001bo;m%8y&'a'd\u0015f\u0002O\u001bu.Y/'\u0006 4X\u0019'\u0006@7u\u0014f\nQ*.\fZ&p(e+M&e\u0000|\u0003#+\"\u000eTq .arv\u0013Dx8)`\tp\u0012}y~\nV\u00152V\u0005X8p\u0005E(q\u0019r\rC\tV\u0000z5_\u0003_%Dy{\u0002f\ba;y\u0000Z\u0000Z\tE \"\u000f%7!)%(\"x[\u0004RsN\rXx{!G9O)`\u0012n\u0018\\\r_\u0010{,t9\"xQ-!\u0010*|w\f^\u0006q\fVqP\u0002D0P\u0012^#$\u0005F\u0004U\u0000F\u0014V\u0000#\u0006Y\u0000S\u0002U(F\nU&F\u0002r\u0011N4VnUqY\u0011/\u0013Prfym\u0019},|\u0018e\u0000m\"st^\f\\#X*S#y6U/\"%g6ypT1'0U\u0012g\u0007\\\"~\u0014c7Oraw<\tD.F\u0016.\u0014R\u0017m7\u000eyqz&d\u0015P\u0000e6sts'A Ep&\u0000u\u0011F\u0004q9]+y\b!u.\re+Z,`uY.<\u0000Xj{u[)G\u0016by$\f|ur\u0013#\u0007O\f@2#7^)%-z\u0016[\u0015Z\u0002nuz\u0006\\/s2C;v,xsF\bS\u0000F\u0000U").split("`");	
+            String[] a6 = ">>>>大牛你好，能否留个联系方式，合作QQ：78112665，暗号：Licence520<<<<`7Km/KZk46sPt7e5xmn6ZIA==`MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMMl5nOBVE+QJsNC+Iti3rxgMbTU8NhptURjxslLFCxm94uFUnKUQ1k9KUgfWH2+RlM8DAz0HSDJX94+Pgsgqw3IO7r2uSIXQcqPDVOxGT/qUaSMdscBYuC42cOdiB5F4cNGf/iPdQm6JZMBBTjCGRtLel/sCb8lditqoz6MhJfRAgMBAAECgYB/mXSJ6fKa44K1AkFJwqgpPCzENMgWeWgRA7yjOfhC4EDUdaRnTxKKczde9UADWDrbidPHVIcHPST2SHSBCidNgeF/ox+MR72wQRRWl7hjmAUHRGnt8ICiCUpWvz9YPTlVORAJwk2wkBv3zBveUdR2oLFeNQ7ARvXlDLQW1ybAEQJBAPeJyC0I/2JG+BlpUzUgjKlOlQpl57KfKdIF1sJ9gAuPKk4qHbVftcp6PqQhWEBtzrCsbNlofG77ziSKt4QRfU8CQQDJ0aZK2hO0UqQDPviAqUX5ZC3S4C6CUTBOiPyLw+mLlZBgg+jvyMuMwnxK/m9fK5hfZggQI5Ue3hVIbkstdJDfAkAnlmhmE2dMX080OSzudSsptICPbia04VF93iMvbYS51IaOg5vGsuzO2egEtbR4cVc52Al8Z4Jm+WxJWcnpnCZvAkA9Rz3hvmN7Phh0r9sOXddUSPms7MrSYMp1HhzoZxzzd/81fvfsTqCXZboNn0G7uOX0GWvbUqKFk9MMggirjZgrAkB4j5OC07ov3aRS9/hwHgSj8iKAThsADOygDRifXeLTHAAmtHBHdS8lCqIvznAMAMHRa5N2v6h2i59LEE2YLO9l`PxXhwSyYKLHQlmcx59Fl6Q==`MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCePYuA/B0NP8RG3q8zXjmkYrAzcd5IMKbOkDbnwBn5dpwn1Cp0qBSpFKciUtvX3v6+HSoQW9UEVzvhOn0mgsTGArwd5dfVaR11AbPQEfxJjnI649LrjMmw4No+AO+l4LhPWu83Mk4eR4FXMWs4vIh2lmWLTMCy4mGKndsTzamo2QIDAQAB".split("`");	
             a = j.e(a6[3]);	
             byte[] a7 = j.e(a6[1]);	
             String a8 = new String(j.ALLATORIxDEMO(a2, a, a7), "UTF-8");	
@@ -435,12 +435,12 @@ public final class j {
             HashMap hashMap = new HashMap();	
             String string2 = a14;	
             a14 = string2.substring(2, string2.length() - 2);	
-            Object object = a14.split("","");	
+            Object object = a14.split("\",\"");	
             int n2 = ((String[])object).length;	
             int n3 = n = 0;	
             while (n3 < n2) {	
                 a3 = object[n];	
-                String[] a15 = a3.split("":"");	
+                String[] a15 = a3.split("\":\"");	
                 if ("updateCode".equals(a15[0])) {	
                     a8 = a15.length == 2 ? a15[1] : "";	
                 } else {	

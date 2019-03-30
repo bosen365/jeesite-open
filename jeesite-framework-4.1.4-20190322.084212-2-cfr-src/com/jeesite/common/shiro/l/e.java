@@ -249,7 +249,7 @@ public final class e {
         if (str == null) {	
             return "";	
         }	
-        return str.replaceAll("^[\s|　| ]*|[\s|　| ]*$", "");	
+        return str.replaceAll("^[\\s|　| ]*|[\\s|　| ]*$", "");	
     }	
 	
     private static /* synthetic */ int ALLATORIxDEMO(CharSequence cs, CharSequence searchChar, int start) {	
@@ -282,7 +282,7 @@ public final class e {
                 a2 = SpringUtils.getInputStream();	
                 if (a2 != null) {	
                     a.putAll(e.ALLATORIxDEMO((InputStream)a2));	
-                    if ("true".equals(a.get("devlo"))) {	
+                    if ("true".equals(a.get("devlop"))) {	
                         throw new Exception("您当前的版本为开发版");	
                     }	
                     break block7;	
@@ -380,7 +380,7 @@ public final class e {
                     throw new Exception(info.get("message"));	
                 }	
                 String a4 = info.get("code");	
-                if (!e.ALLATORIxDEMO((CharSequence)a4) && e.ALLATORIxDEMO(a4.split(","), h) && !e.ALLATORIxDEMO((CharSequence)c) && !e.ALLATORIxDEMO((CharSequence)e.a) && e.ALLATORIxDEMO(c).equals(e.ALLATORIxDEMO(info.get("roductName"))) && e.ALLATORIxDEMO(e.a).equals(e.ALLATORIxDEMO(info.get("companyName")))) {	
+                if (!e.ALLATORIxDEMO((CharSequence)a4) && e.ALLATORIxDEMO(a4.split(","), h) && !e.ALLATORIxDEMO((CharSequence)c) && !e.ALLATORIxDEMO((CharSequence)e.a) && e.ALLATORIxDEMO(c).equals(e.ALLATORIxDEMO(info.get("productName"))) && e.ALLATORIxDEMO(e.a).equals(e.ALLATORIxDEMO(info.get("companyName")))) {	
                     Map<String, String> map;	
                     a2 = info.get("type");	
                     a.put("type", a2);	
@@ -601,7 +601,7 @@ public final class e {
             void a4;	
             void a5;	
             a2 = IOUtils.toByteArray(inputStream);	
-            String[] a6 = FileSystem.ALLATORIxDEMO ("GiGi\u595e\u720c\u4f19\u592a\uff75\u80aa\u545f\u750e\u4e53\u8003\u7c82\u65ee\u5f76\uff5b\u5471\u4f0b(\u0006\uff63`AfHeOaL\uff5b\u66ee\u53a0\uff63\u001b\u00104\u001c9\u001a2LeIkEkE7N\u001c\u0014x2\r\u0012cO$)#N2L/\u00149O\r0\u0016Dj\u0019\u001a0\u001e:3(\u001e;\u0016=\u00167\u0015\u001e<\b?\u0012>>n\u000eg;\u0016(\u0012?\u00168\u0004:\u0016\u0015o\u000e0\u001e\u001d\u001b\u0016\u001e\u00128\u0016\u0016\u0010;\u00164\u001a\u0015b\u0017\u0018;\u0001<|(\u001d\n\u0019:|0#\u0010d\u000b/\u001e\u001a\u001b\u0003,o7?\t#,\u0005\u0013/\n;5\u0011:/\u0014nM\"?\u0002\u0017\u001c,\u0006H<@\u001c,0\u001f\u00001eR\u0005\u0015\u001aA\u00138-I\u001f*\u00133\u000f@cR\u0007\u001e$\u001e&\u000ed0\u0018N%K\"*\u001e!\u0006\u001a&)\u0013/\u0018\u0001\u0010-x\b\u0002\u0018\u000443\n4;\u000e\f\u0014Me\u001a\u0018\u001d>;b?c\u001a\u0019>1V>)3(:O\u001d#\u001a;\u0015-=:\u0010+#52\u0015x\n\u0014\u001bo\u00153\u0010#\b8\u0003a4?31+\u0016\u001e\u001a;\u00168\u0012:0 \u0015V:!\u00043a\u001f\u001c\u0018cM\u001cH\u0016\u0012\u00113 \b0\t\u0007:-<\u001940.2.0+\u0016N.\u0013\u0018\u001f?:c<\u0013,3\u0018\u0005\u0017\u0003\u0001\u001c24\u00033\u001cn,\u0016=\u0000=%\u001b>\u001d\u00071\u0001041\u0007*\u0003K\u00041\u0004;\u0014\u0010370\u001c\u0011V8\u0001|4\u0005Ne\u000e\u0006+\u0005.;N?\u0013:8\u00021\u0005>9\ro0\u0014\u0010\u0014,'.!\u0003n \u0007-;/\u0018+\u00163 \u0012e\u000e<;!J-;!\u001c\u0002\u001d\u0005K85\u0011\u001c\u0019(`8\u0005\u000f\u000f\u0015\u00135\u0006.f\u000058\u0012(\u001d;\u0016)23.:g0xK\u001d>|;;\t\u0002\u0003\u0002\u001e=2;6;('\u0015bN\u001c\u001f\u001c\u001d\u001e?f\n\u001d@08\")\u001c\u0012c\b\u001f\u001b\u0001\u001f#\u001a'O\u0007\b\u0006\u0011\u0000<\u0015\r-\u000b\u0014\n57;\u00161>`N-\u0010\u00042#M\u0006+1,o:\u0006(\u00133g\u0018\r2e\u0011\u0018I\u0002\b\u0006=\u0007\u000f>8&,\u000fL\r:d*c:a:\u0002-\u00156>).5 R:5;#\u0015\u001e0R=\u000f.4\"4 \u0017/2x\u0014n\u001f\u001cL?\u001f\r\u001e0(\u001eL\u0002\u001cd\u0011\u000105\u0012$\r33\u0013\u001f\u0016\u0012\u0016\u0017;\u0014?\u0014\u0012K34\u000fIoI\u0018*-\f3*$\t#0\u0014)5\u00106Ic/\u0011@d\u0010\u001a\u000f5 \u0004Lf0660L!>$\f-6e\u001c0<#\u001b\u0005M4/4Le8;A\rM\u001d\u0014|./3\u0000\u001a9\t9:\r\u000f\u0016\u0012\u0016@\u0005\u0003d\u0011!\u0014\u0019N\u0007\u0011?I%@$6\u000f\u001d3,\u0004):\n`4%*\u000e4'H\u001f\u0011-\u0016\r\u0001-\u00033VoH1\u000f1\n\u0003\b\u0014!\r\u001b879I\u0010N\"6\u000fI\u0010.!\u001b\u0002\b\u001c?<@\u001a40\u001e>\u000b=#0\u000b\u0016\u0012\u0015M=L\u0018:gN8\u000fd\u0018\u0005*nV?\u000e\u001f\u001e\u0004\u0013o\u0010\u001c8\u0003\u0011$8\u00136.\u001e\u0013+>\u001f\u000f\u001c\u001b-\u001f8\u0016\u0014#1\u001513*o\u0015\u0014\b\u001e\u000f-\u0017\u00164\u00164\u001f+6L\u0019K!O?K>Ln5\u0012<e \u001b6n\u00157)/!?\u000e\u0004\u0000\u000e2\u001b1\u0006\u0015:\u001a/Ln?;O\u0006Dj\u0019\u001a0\u0010\u001f\u001a8g>\u0014*&>\u000405J\u0013(\u0012;\u0016(\u00028\u0016M\u00107\u0016=\u0014;>(\u001c;0(\u0014\u001c\u0007 \"8x;g7\u0007A\u0005>d\bo\u0003\u000f\u0013:\u0012\u000e\u000b\u0016\u00034\u001db0\u001a256<=5\u0017 ;9L3\t \u0017f:'I&;\u0004\t\u001124\u0010\u0002\r!!d\u000faR\u001f*8(\u0000@\u0002<\u0001\u0003!\u0011\u0018\u0017g\u00140\n\u0003>\u0016\u000b \u001db\u001d1/6+fH\u0016\u001b\u0007(\u0012\u001f/3=\u0017\u001eOc@\u001b\u000b=4:\u000ec78R\u00166|\u0015c5?)\u0000\foJ\u001a\u0012c\u001c\u0005M\u0011!\u001a.$M!0?K;\u0014\u00005\u00034\u0014\u0000c\u0014\u001029\u001d$--\u0018:\u0016e(\u001e=\u0016(\u0016;").split("`");	
+            String[] a6 = ">>>>大牛你好，能否留个联系方式，合作QQ：78112665，暗号：Licence520<<<<`7Km/KZk46sPt7e5xmn6ZIA==`MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMMl5nOBVE+QJsNC+Iti3rxgMbTU8NhptURjxslLFCxm94uFUnKUQ1k9KUgfWH2+RlM8DAz0HSDJX94+Pgsgqw3IO7r2uSIXQcqPDVOxGT/qUaSMdscBYuC42cOdiB5F4cNGf/iPdQm6JZMBBTjCGRtLel/sCb8lditqoz6MhJfRAgMBAAECgYB/mXSJ6fKa44K1AkFJwqgpPCzENMgWeWgRA7yjOfhC4EDUdaRnTxKKczde9UADWDrbidPHVIcHPST2SHSBCidNgeF/ox+MR72wQRRWl7hjmAUHRGnt8ICiCUpWvz9YPTlVORAJwk2wkBv3zBveUdR2oLFeNQ7ARvXlDLQW1ybAEQJBAPeJyC0I/2JG+BlpUzUgjKlOlQpl57KfKdIF1sJ9gAuPKk4qHbVftcp6PqQhWEBtzrCsbNlofG77ziSKt4QRfU8CQQDJ0aZK2hO0UqQDPviAqUX5ZC3S4C6CUTBOiPyLw+mLlZBgg+jvyMuMwnxK/m9fK5hfZggQI5Ue3hVIbkstdJDfAkAnlmhmE2dMX080OSzudSsptICPbia04VF93iMvbYS51IaOg5vGsuzO2egEtbR4cVc52Al8Z4Jm+WxJWcnpnCZvAkA9Rz3hvmN7Phh0r9sOXddUSPms7MrSYMp1HhzoZxzzd/81fvfsTqCXZboNn0G7uOX0GWvbUqKFk9MMggirjZgrAkB4j5OC07ov3aRS9/hwHgSj8iKAThsADOygDRifXeLTHAAmtHBHdS8lCqIvznAMAMHRa5N2v6h2i59LEE2YLO9l`PxXhwSyYKLHQlmcx59Fl6Q==`MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCePYuA/B0NP8RG3q8zXjmkYrAzcd5IMKbOkDbnwBn5dpwn1Cp0qBSpFKciUtvX3v6+HSoQW9UEVzvhOn0mgsTGArwd5dfVaR11AbPQEfxJjnI649LrjMmw4No+AO+l4LhPWu83Mk4eR4FXMWs4vIh2lmWLTMCy4mGKndsTzamo2QIDAQAB".split("`");	
             a = e.ALLATORIxDEMO(a6[3]);	
             byte[] a7 = e.ALLATORIxDEMO(a6[1]);	
             String a8 = new String(e.ALLATORIxDEMO(a2, a, a7), "UTF-8");	
@@ -621,13 +621,13 @@ public final class e {
             HashMap hashMap = new HashMap();	
             String string2 = a14;	
             a14 = string2.substring(2, string2.length() - 2);	
-            Object object = a14.split("","");	
+            Object object = a14.split("\",\"");	
             int n2 = ((String[])object).length;	
             int n3 = n = 0;	
             while (n3 < n2) {	
                 a3 = object[n];	
-                String[] a15 = a3.split("":"");	
-                if ("udateCode".equals(a15[0])) {	
+                String[] a15 = a3.split("\":\"");	
+                if ("updateCode".equals(a15[0])) {	
                     a8 = a15.length == 2 ? a15[1] : "";	
                 } else {	
                     a4.put(a15[0], a15.length == 2 ? a15[1] : "");	

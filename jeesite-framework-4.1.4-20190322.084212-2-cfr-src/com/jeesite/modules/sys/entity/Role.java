@@ -113,7 +113,7 @@ extends DataEntity<Role> {
                 void v1 = a2;	
                 v1.setRoleCode(this.roleCode);	
                 v1.setCtrlType((String)a3.get("ctrlType"));	
-                a2.setCtrlData((String)a3.get("ctrlDaa"));	
+                a2.setCtrlData((String)a3.get("ctrlData"));	
                 iterator2 = iterator;	
                 void v2 = a2;	
                 v2.setCtrlPermi(DATA_SCOPE_ALL);	

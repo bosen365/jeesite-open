@@ -281,26 +281,26 @@ implements Serializable {
             a3 = this.first;	
         }	
         StringBuilder a4 = new StringBuilder();	
-        a4.append("<ul class="pagination">\n");	
+        a4.append("<ul class=\"pagination\">\n");	
         int a5 = 0;	
         if (this.pageNo == this.first) {	
             page = this;	
-            a4.append("<li clas="disabled"><a href="javacript:"><i clas="fa fa-angle-left"></i></a></li>\n");	
+            a4.append("<li class=\"disabled\"><a href=\"javascript:\"><i class=\"fa fa-angle-left\"></i></a></li>\n");	
         } else {	
-            a4.append(new StringBuilder().insert(0, "<li><a href="javascript:" onclick="").append(this.funcName).append("(").append(this.prev).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');"> <i class="fa fa-angle-left"></i></a></li>\n").toString());	
+            a4.append(new StringBuilder().insert(0, "<li><a href=\"javascript:\" onclick=\"").append(this.funcName).append("(").append(this.prev).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');\"> <i class=\"fa fa-angle-left\"></i></a></li>\n").toString());	
             page = this;	
         }	
         int n2 = a5 = page.first;	
         do {	
             Page page3 = this;	
             if (n2 >= page3.first + page3.bothNum || a5 >= a3) break;	
-            StringBuilder stringBuilder2 = new StringBuilder().append("<li><a href="javascript:" onclick="").append(this.funcName).append("(").append(a5).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');">").append(a5 + 1 - this.first);	
+            StringBuilder stringBuilder2 = new StringBuilder().append("<li><a href=\"javascript:\" onclick=\"").append(this.funcName).append("(").append(a5).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');\">").append(a5 + 1 - this.first);	
             a4.append(stringBuilder2.append("</a></li>\n").toString());	
             n2 = ++a5;	
         } while (true);	
         if (a5 < a3) {	
             n = a2;	
-            a4.append("<li clas="diabled"><a href="javascript:">...</a></li>\n");	
+            a4.append("<li class=\"disabled\"><a href=\"javascript:\">...</a></li>\n");	
         } else {	
             n = ++a2;	
         }	
@@ -310,20 +310,20 @@ implements Serializable {
         int n3 = a5 = a3;	
         while (n3 <= a2) {	
             if (a5 == this.pageNo) {	
-                a4.append(new StringBuilder().insert(0, "<li class="active"><a href="javascript:">").append(a5 + 1 - this.first).append("</a></li>\n").toString());	
+                a4.append(new StringBuilder().insert(0, "<li class=\"active\"><a href=\"javascript:\">").append(a5 + 1 - this.first).append("</a></li>\n").toString());	
             } else {	
-                a4.append(new StringBuilder().insert(0, "<li><a href="javascript:" onclick="").append(this.funcName).append("(").append(a5).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');">").append(a5 + 1 - this.first).append("</a></li>\n").toString());	
+                a4.append(new StringBuilder().insert(0, "<li><a href=\"javascript:\" onclick=\"").append(this.funcName).append("(").append(a5).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');\">").append(a5 + 1 - this.first).append("</a></li>\n").toString());	
             }	
             n3 = ++a5;	
         }	
         if (this.last - a2 > this.bothNum) {	
-            a4.append("<li class="disabled"><a href="javascript:">...</a></li>\n");	
+            a4.append("<li class=\"disabled\"><a href=\"javascript:\">...</a></li>\n");	
             Page page4 = this;	
             a2 = page4.last - page4.bothNum;	
         }	
         int n4 = a5 = a2 + 1;	
         while (n4 <= this.last) {	
-            StringBuilder stringBuilder3 = new StringBuilder().insert(0, "<li><a href="javascript:" onclick="").append(this.funcName).append("(").append(a5).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');">").append(a5 + 1 - this.first);	
+            StringBuilder stringBuilder3 = new StringBuilder().insert(0, "<li><a href=\"javascript:\" onclick=\"").append(this.funcName).append("(").append(a5).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');\">").append(a5 + 1 - this.first);	
             a4.append(stringBuilder3.append("</a></li>\n").toString());	
             n4 = ++a5;	
         }	
@@ -331,11 +331,11 @@ implements Serializable {
         if (page5.pageNo == page5.last) {	
             StringBuilder stringBuilder4 = a4;	
             stringBuilder = stringBuilder4;	
-            stringBuilder4.append("<li clas="diabled"><a href="javascript:"><i clas="fa fa-angle-right"></i></a></li>\n");	
+            stringBuilder4.append("<li class=\"disabled\"><a href=\"javascript:\"><i class=\"fa fa-angle-right\"></i></a></li>\n");	
         } else {	
             StringBuilder stringBuilder5 = a4;	
             stringBuilder = stringBuilder5;	
-            stringBuilder5.append(new StringBuilder().insert(0, "<li><a href="javascript:" onclick="").append(this.funcName).append("(").append(this.next).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');"><i class="fa fa-angle-right"></i></a></li>\n").toString());	
+            stringBuilder5.append(new StringBuilder().insert(0, "<li><a href=\"javascript:\" onclick=\"").append(this.funcName).append("(").append(this.next).append(",").append(this.pageSize).append(",'").append(this.funcParam).append("');\"><i class=\"fa fa-angle-right\"></i></a></li>\n").toString());	
         }	
         stringBuilder.append("</ul>\n");	
         String a6 = Global.getText("点击数字，可填写页码和每页条数，按回车即可生效！", new String[0]);	
@@ -345,15 +345,15 @@ implements Serializable {
         arrstring[0] = String.valueOf(this.count);	
         String string = Global.getText("条，共 {0} 条", arrstring);	
         StringBuilder stringBuilder6 = a4;	
-        a4.append(new StringBuilder().insert(0, "<input type="text" value="").append(this.pageNo).append("" onkeypress="var e=window.event||event;var c=e.keyCode||e.which;if(c==13)").toString());	
-        a4.append(new StringBuilder().insert(0, "<li class="disabled controls" title="").append(a6).append("">").append(a7).append(" ").toString());	
-        stringBuilder6.append(new StringBuilder().insert(0, this.funcName).append("(this.value,").append(this.pageSize).append(",'").append(this.funcParam).append("');" onclick="thi.elect();"/> ").append(a8).append(" ").toString());	
-        a4.append(new StringBuilder().insert(0, "<input type="text" value="").append(this.pageSize).append("" onkeypress="var e=window.event||event;var c=e.keyCode||e.which;if(c==13)").toString());	
-        a4.append(new StringBuilder().insert(0, this.funcName).append("(").append(this.pageNo).append(",this.value,'").append(this.funcParam).append("');" onclick="thi.elect();"/> ").toString());	
+        a4.append(new StringBuilder().insert(0, "<input type=\"text\" value=\"").append(this.pageNo).append("\" onkeypress=\"var e=window.event||event;var c=e.keyCode||e.which;if(c==13)").toString());	
+        a4.append(new StringBuilder().insert(0, "<li class=\"disabled controls\" title=\"").append(a6).append("\">").append(a7).append(" ").toString());	
+        stringBuilder6.append(new StringBuilder().insert(0, this.funcName).append("(this.value,").append(this.pageSize).append(",'").append(this.funcParam).append("');\" onclick=\"this.select();\"/> ").append(a8).append(" ").toString());	
+        a4.append(new StringBuilder().insert(0, "<input type=\"text\" value=\"").append(this.pageSize).append("\" onkeypress=\"var e=window.event||event;var c=e.keyCode||e.which;if(c==13)").toString());	
+        a4.append(new StringBuilder().insert(0, this.funcName).append("(").append(this.pageNo).append(",this.value,'").append(this.funcParam).append("');\" onclick=\"this.select();\"/> ").toString());	
         a4.append((String)a);	
         stringBuilder6.append((this.pageInfo != null && this.pageInfo != "" ? this.pageInfo : "") + "</li>\n");	
         a4.append("</ul>\n");	
-        a4.append("<div style="clear:both;"></div>");	
+        a4.append("<div style=\"clear:both;\"></div>");	
         return a4.toString();	
     }	
 	

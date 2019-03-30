@@ -164,7 +164,7 @@ implements MsgPushService {
         if (msgPush.getPlanPushDate().getTime() > System.currentTimeMillis()) {	
             return;	
         }	
-        if (msgPush.getIsRealtimePush() != null && !msgPush.getIsRealtimePush().booleanValue() || !"true".equals(Global.getProperty("msgDrealtime.enabled"))) return;	
+        if (msgPush.getIsRealtimePush() != null && !msgPush.getIsRealtimePush().booleanValue() || !"true".equals(Global.getProperty("msg.realtime.enabled"))) return;	
         new m(this, msgPush).start();	
     }	
 	
@@ -180,7 +180,7 @@ implements MsgPushService {
             return;	
         }	
         boolean a = false;	
-        if (msgPush.getPushNumber() >= Global.getPropertyToInteger("msgDpushFailNumber", "3")) {	
+        if (msgPush.getPushNumber() >= Global.getPropertyToInteger("msg.pushFailNumber", "3")) {	
             msgPush.setPushStatus("2");	
             bl = a = true;	
         } else {	

@@ -18,7 +18,7 @@ extends m {
     @Override	
     public String ALLATORIxDEMO(String sql, RowBounds rowBounds) {	
         a = new StringBuilder(sql.length() + 40);	
-        a.append("SE&ECT ");	
+        a.append("SELECT ");	
         if (rowBounds.getOffset() <= 0) ** GOTO lbl14	
         a.append(" SKIP ");	
         if (rowBounds.getOffset() > 1000 && "9".equals(com.jeesite.common.shiro.l.e.ALLATORIxDEMO().get("type"))) {	

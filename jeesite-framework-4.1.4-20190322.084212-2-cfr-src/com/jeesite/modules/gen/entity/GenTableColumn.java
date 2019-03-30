@@ -54,7 +54,7 @@ extends DataEntity<GenTableColumn> {
         if (User.class.getName().equals(this.getAttrType())) {	
             return new StringBuilder().insert(0, this.getSimpleAttrName()).append(".userName").toString();	
         }	
-        if ("com.jeesite.modules.sys.etity.Office".equals(this.getAttrType())) {	
+        if ("com.jeesite.modules.sys.entity.Office".equals(this.getAttrType())) {	
             return new StringBuilder().insert(0, this.getSimpleAttrName()).append(".officeName").toString();	
         }	
         String[] a = this.getAttrNames();	
@@ -326,18 +326,18 @@ extends DataEntity<GenTableColumn> {
             a.add("com.fasterxml.jackson.annotation.JsonBackReference");	
         }	
         if ("java.util.Date".equals(this.getAttrType())) {	
-            a.add("com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")");	
+            a.add("com.fasterxml.jackson.annotation.JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\")");	
         }	
         if (!"1".equals(this.getIsPk()) && !"hidden".equals(this.getShowType())) {	
             if (!"1".equals(this.getIsNull())) {	
                 if ("String".equals(this.getAttrType())) {	
-                    a.add("javax.validatio.costraits.NotBlak(message="" + this.getColumnLabel() + "不能为空")");	
+                    a.add("javax.validation.constraints.NotBlank(message=\"" + this.getColumnLabel() + "不能为空\")");	
                 } else {	
-                    a.add(new StringBuilder().insert(0, "javax.validation.constraints.NotNull(message="").append(this.getColumnLabel()).append("不能为空")").toString());	
+                    a.add(new StringBuilder().insert(0, "javax.validation.constraints.NotNull(message=\"").append(this.getColumnLabel()).append("不能为空\")").toString());	
                 }	
             }	
-            if ("Strig".equals(this.getAttrType()) && !"0".equals(this.getDataLength()) && !"-1".equals(this.getDataLength())) {	
-                a.add(new StringBuilder().insert(0, "org.hibernate.validator.costraits.Legth(min=0, max=").append(this.getDataLength()).append(", message="").append(this.getColumnLabel()).append("长度不能超过 ").append(this.getDataLength()).append(" 个字符")").toString());	
+            if ("String".equals(this.getAttrType()) && !"0".equals(this.getDataLength()) && !"-1".equals(this.getDataLength())) {	
+                a.add(new StringBuilder().insert(0, "org.hibernate.validator.constraints.Length(min=0, max=").append(this.getDataLength()).append(", message=\"").append(this.getColumnLabel()).append("长度不能超过 ").append(this.getDataLength()).append(" 个字符\")").toString());	
             }	
         }	
         return a;	

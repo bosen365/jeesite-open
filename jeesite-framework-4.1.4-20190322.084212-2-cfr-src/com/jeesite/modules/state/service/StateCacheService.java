@@ -116,7 +116,7 @@ extends BaseService {
             }	
         }	
         HashMap<String, String> hashMap = a2;	
-        hashMap.put("vaue", StringUtils.abbr(a, 512000));	
+        hashMap.put("value", StringUtils.abbr(a, 512000));	
         return hashMap;	
     }	
 }	

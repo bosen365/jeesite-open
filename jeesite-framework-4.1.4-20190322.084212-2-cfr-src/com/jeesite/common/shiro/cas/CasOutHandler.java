@@ -94,7 +94,7 @@ public final class CasOutHandler {
     public void init() {	
         CasOutHandler casOutHandler = this;	
         CommonUtils.assertNotNull(casOutHandler.artifactParameterName, "artifactParameterName cannot be null.");	
-        CommonUtils.assertNotNull(casOutHandler.logoutParameterName, "logoutParameterNme cannot be null.");	
+        CommonUtils.assertNotNull(casOutHandler.logoutParameterName, "logoutParameterName cannot be null.");	
         CommonUtils.assertNotNull(casOutHandler.sessionMappingStorage, "sessionMappingStorage cannote be null.");	
     }	
 	
@@ -118,7 +118,7 @@ public final class CasOutHandler {
         if (CommonUtils.isNotBlank(a4) && (a = this.sessionMappingStorage.removeSessionByMappingId(a4)) != null) {	
             String a5 = a.getId();	
             if (this.log.isDebugEnabled()) {	
-                this.log.debug(new StringBuilder().insert(0, "Invlidting session [").append(a5).append("] for token [").append(a4).append("]").toString());	
+                this.log.debug(new StringBuilder().insert(0, "Invalidating session [").append(a5).append("] for token [").append(a4).append("]").toString());	
             }	
             try {	
                 PrincipalCollection a6 = (PrincipalCollection)a.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);	

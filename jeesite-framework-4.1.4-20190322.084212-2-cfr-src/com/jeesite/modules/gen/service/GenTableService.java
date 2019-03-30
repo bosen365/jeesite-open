@@ -179,7 +179,7 @@ lbl43: // 2 sources:
 	
     @Override	
     public Page<GenTable> findPage(GenTable genTable) {	
-        String a = new StringBuilder().insert(0, "(SELECT count(1) FROM ").append(MapperHelper.getTableName(genTable)).append(" WHERE parent_table_name=a.table_name) AS "childNum"").toString();	
+        String a = new StringBuilder().insert(0, "(SELECT count(1) FROM ").append(MapperHelper.getTableName(genTable)).append(" WHERE parent_table_name=a.table_name) AS \"childNum\"").toString();	
         GenTable genTable2 = genTable;	
         genTable2.getSqlMap().add("extColumn", a);	
         return super.findPage(genTable2);	

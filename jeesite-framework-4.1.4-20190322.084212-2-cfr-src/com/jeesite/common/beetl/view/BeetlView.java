@@ -38,7 +38,7 @@ extends BeetlSpringView {
             return;	
         }	
         catch (IllegalStateException a3) {	
-            if (!StringUtils.contains((CharSequence)a3.getMessage(), "getOutputStream() ha already been called for this response")) {	
+            if (!StringUtils.contains((CharSequence)a3.getMessage(), "getOutputStream() has already been called for this response")) {	
                 throw a3;	
             }	
             return;	

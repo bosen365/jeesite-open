@@ -24,7 +24,7 @@ public final class m {
     private static final String ALLATORIxDEMO = "scrawl";	
 	
     private /* synthetic */ void ALLATORIxDEMO() throws FileNotFoundException, IOException {	
-        String a = ResourceUtils.getResourceFileContent(J).replaceAll("/\*[\s\S]*?\*/", "");	
+        String a = ResourceUtils.getResourceFileContent(J).replaceAll("/\\*[\\s\\S]*?\\*/", "");	
         try {	
             JSONObject a2;	
             this.h = a2 = new JSONObject(a);	
@@ -46,8 +46,8 @@ public final class m {
                 hashMap = hashMap2;	
                 hashMap2.put("isBase64", "false");	
                 a.put("maxSize", this.h.getLong("fileMaxSize"));	
-                a.put("allowFles", this.ALLATORIxDEMO("fileAllowFiles"));	
-                a.put("feldName", this.h.getString("fileFieldName"));	
+                a.put("allowFiles", this.ALLATORIxDEMO("fileAllowFiles"));	
+                a.put("fieldName", this.h.getString("fileFieldName"));	
                 a2 = this.h.getString("filePathFormat");	
                 break;	
             }	
@@ -58,8 +58,8 @@ public final class m {
                 hashMap = hashMap3;	
                 hashMap3.put("isBase64", "false");	
                 a.put("maxSize", this.h.getLong("imageMaxSize"));	
-                a.put("allowFles", this.ALLATORIxDEMO("imageAllowFiles"));	
-                a.put("feldName", this.h.getString("imageFieldName"));	
+                a.put("allowFiles", this.ALLATORIxDEMO("imageAllowFiles"));	
+                a.put("fieldName", this.h.getString("imageFieldName"));	
                 a.put("imageCompressEnable", this.h.getBoolean("imageCompressEnable"));	
                 a.put("imageCompressBorder", this.h.getInt("imageCompressBorder"));	
                 a2 = this.h.getString("imagePathFormat");	
@@ -69,8 +69,8 @@ public final class m {
                 HashMap<String, Object> hashMap4 = a;	
                 hashMap = hashMap4;	
                 hashMap4.put("maxSize", this.h.getLong("videoMaxSize"));	
-                a.put("allowFiles", this.ALLATORIxDEMO("vdeoAllowFles"));	
-                a.put("fieldName", this.h.getString("videoFeldName"));	
+                a.put("allowFiles", this.ALLATORIxDEMO("videoAllowFiles"));	
+                a.put("fieldName", this.h.getString("videoFieldName"));	
                 a2 = this.h.getString("videoPathFormat");	
                 break;	
             }	
@@ -79,7 +79,7 @@ public final class m {
                 hashMap = hashMap5;	
                 hashMap5.put("filename", ALLATORIxDEMO);	
                 a.put("maxSize", this.h.getLong("scrawlMaxSize"));	
-                a.put("fieldName", this.h.getString("scrawlFeldName"));	
+                a.put("fieldName", this.h.getString("scrawlFieldName"));	
                 a.put("isBase64", "true");	
                 a2 = this.h.getString("scrawlPathFormat");	
                 break;	
@@ -90,22 +90,22 @@ public final class m {
                 hashMap6.put("filename", l);	
                 a.put("filter", this.ALLATORIxDEMO("catcherLocalDomain"));	
                 a.put("maxSize", this.h.getLong("catcherMaxSize"));	
-                a.put("allowFles", this.ALLATORIxDEMO("catcherAllowFiles"));	
-                a.put("feldName", new StringBuilder().insert(0, this.h.getString("catcherFieldName")).append("[]").toString());	
+                a.put("allowFiles", this.ALLATORIxDEMO("catcherAllowFiles"));	
+                a.put("fieldName", new StringBuilder().insert(0, this.h.getString("catcherFieldName")).append("[]").toString());	
                 a2 = this.h.getString("catcherPathFormat");	
                 break;	
             }	
             case 7: {	
                 HashMap<String, Object> hashMap7 = a;	
                 hashMap = hashMap7;	
-                hashMap7.put("allowFles", this.ALLATORIxDEMO("imageManagerAllowFiles"));	
-                a.put("dr", this.h.getString("imageManagerListPath"));	
+                hashMap7.put("allowFiles", this.ALLATORIxDEMO("imageManagerAllowFiles"));	
+                a.put("dir", this.h.getString("imageManagerListPath"));	
                 a.put("count", this.h.getInt("imageManagerListSize"));	
                 break;	
             }	
             case 6: {	
-                a.put("allowFles", this.ALLATORIxDEMO("fileManagerAllowFiles"));	
-                a.put("dr", this.h.getString("fileManagerListPath"));	
+                a.put("allowFiles", this.ALLATORIxDEMO("fileManagerAllowFiles"));	
+                a.put("dir", this.h.getString("fileManagerListPath"));	
                 a.put("count", this.h.getInt("fileManagerListSize"));	
             }	
             default: {	

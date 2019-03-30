@@ -22,7 +22,7 @@ extends FilterAdapter {
     public void init(DataSourceProxy dataSourceProxy) {	
         String a;	
         if (!(dataSourceProxy instanceof DruidDataSource)) {	
-            c.error("ConfigFilte only suppot DuidDataSource");	
+            c.error("ConfigFilter only support DruidDataSource");	
         }	
         DruidDataSource a2 = (DruidDataSource)dataSourceProxy;	
         String a3 = "72d1af0aec0114d3300ddb40cc17e90b";	
@@ -32,7 +32,7 @@ extends FilterAdapter {
             a = Global.getPropertyDecodeAndEncode(a3, this.ALLATORIxDEMO + ".username", a);	
             druidDataSource.setUsername(a);	
         }	
-        if (ObjectUtils.toBoolean(Global.getProperty(new StringBuilder().insert(0, this.ALLATORIxDEMO).append(".encrypt.passwod").toString())).booleanValue()) {	
+        if (ObjectUtils.toBoolean(Global.getProperty(new StringBuilder().insert(0, this.ALLATORIxDEMO).append(".encrypt.password").toString())).booleanValue()) {	
             DruidDataSource druidDataSource = a2;	
             a = druidDataSource.getPassword();	
             a = Global.getPropertyDecodeAndEncode(a3, new StringBuilder().insert(0, this.ALLATORIxDEMO).append(".password").toString(), a);	

@@ -33,7 +33,7 @@ public final class I {
         block7 : {	
             a = (StatementHandler)invocation.getTarget();	
             a = SystemMetaObject.forObject(a);	
-            a = (MappedStatement)a.getValue("delegate.mapedStatement");	
+            a = (MappedStatement)a.getValue("delegate.mappedStatement");	
             a = a.getBoundSql();	
             a = a.getSql();	
             if (a.contains("/*return count*/")) {	

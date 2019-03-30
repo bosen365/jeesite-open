@@ -44,9 +44,9 @@ implements FileUploadServiceExtend {
     @Override	
     public void uploadFile(FileEntity fileEntity) {	
         String[] arrstring = new String[6];	
-        arrstring[0] = "ng";	
+        arrstring[0] = "png";	
         arrstring[1] = "jpg";	
-        arrstring[2] = "jeg";	
+        arrstring[2] = "jpeg";	
         arrstring[3] = "bmp";	
         arrstring[4] = "ico";	
         arrstring[5] = "gif";	

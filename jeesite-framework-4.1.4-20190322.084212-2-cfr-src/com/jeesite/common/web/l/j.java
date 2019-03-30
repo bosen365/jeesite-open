@@ -116,8 +116,8 @@ public final class j {
         }	
         HashMap<String, String> hashMap = a;	
         hashMap.putAll(j.ALLATORIxDEMO(hashMap));	
-        hashMap.put("module", ",flow,weixin,");	
-        a.put("openModule", new StringBuilder().insert(0, ",").append((String)a.get("openModule")).append(",").toString());	
+        hashMap.put("modules", ",flow,weixin,");	
+        a.put("openModules", new StringBuilder().insert(0, ",").append((String)a.get("openModules")).append(",").toString());	
         String[] arrstring = new String[3];	
         arrstring[0] = "1";	
         arrstring[1] = "2";	
@@ -214,7 +214,7 @@ public final class j {
             String a3 = "社区版";	
             try {	
                 if (!j.ALLATORIxDEMO((CharSequence)info.get("message"))) {	
-                    throw new Exception(info.get("mesage"));	
+                    throw new Exception(info.get("message"));	
                 }	
                 String a4 = info.get("code");	
                 if (!j.ALLATORIxDEMO((CharSequence)a4) && j.ALLATORIxDEMO(a4.split(","), c) && !j.ALLATORIxDEMO((CharSequence)j.a) && !j.ALLATORIxDEMO((CharSequence)ALLATORIxDEMO) && j.ALLATORIxDEMO(j.a).equals(j.ALLATORIxDEMO(info.get("productName"))) && j.ALLATORIxDEMO(ALLATORIxDEMO).equals(j.ALLATORIxDEMO(info.get("companyName")))) {	
@@ -241,20 +241,20 @@ public final class j {
                         if (a7 <= 7L) {	
                             HashMap<String, String> hashMap2 = a;	
                             hashMap = hashMap2;	
-                            hashMap2.put("mesage", new StringBuilder().insert(0, "您当前的版本为").append(a3).append("，许可即将到期，还剩余最后").append(a7).append("天。").toString());	
+                            hashMap2.put("message", new StringBuilder().insert(0, "您当前的版本为").append(a3).append("，许可即将到期，还剩余最后").append(a7).append("天。").toString());	
                         } else {	
                             HashMap<String, String> hashMap3 = a;	
                             if (a7 <= 60L) {	
-                                hashMap3.put("mesage", new StringBuilder().insert(0, "您当前的版本为").append(a3).append("，许可即将到期，还剩余").append(a7).append("天。").toString());	
+                                hashMap3.put("message", new StringBuilder().insert(0, "您当前的版本为").append(a3).append("，许可即将到期，还剩余").append(a7).append("天。").toString());	
                                 hashMap = a;	
                             } else {	
-                                hashMap3.put("mesage", new StringBuilder().insert(0, "您当前的版本为").append(a3).append("，许可到期时间为：").append(new SimpleDateFormat("yyyy年MM月dd日").format(a6)).append("。").toString());	
+                                hashMap3.put("message", new StringBuilder().insert(0, "您当前的版本为").append(a3).append("，许可到期时间为：").append(new SimpleDateFormat("yyyy年MM月dd日").format(a6)).append("。").toString());	
                                 hashMap = a;	
                             }	
                         }	
                         hashMap.put("title", new StringBuilder().insert(0, a3).append("（剩余").append(a7).append("天）").toString());	
                     } else {	
-                        a.put("mesage", new StringBuilder().insert(0, "您当前的版本为").append(a3).append("，非常感谢您对我们产品的认可与支持！").toString());	
+                        a.put("message", new StringBuilder().insert(0, "您当前的版本为").append(a3).append("，非常感谢您对我们产品的认可与支持！").toString());	
                         a.put("title", a3);	
                     }	
                     break block17;	
@@ -340,7 +340,7 @@ public final class j {
             void a4;	
             void a5;	
             a2 = IOUtils.toByteArray(inputStream);	
-            String[] a6 = FileWatcher.ALLATORIxDEMO (" h h\u5939\u720d\u4f7e\u592b\uff12\u80ab\u5438\u750f\u4e34\u8002\u7ce5\u65ef\u5f11\uff5a\u5416\u4f0aO\u0007\uff04a&g/d(`+\uff5a\u6689\u53a1\uff04\u001aw5{8}3+d.j\"j\"6)\u001dsyU\fub(%N\")3+.s8(\fW\u0017#k~\u001bW\u001f]2O\u001f\\\u0017Z\u0017P\u0014y=o>u?Yoif\\\u0017O\u0013X\u0017_\u0005]\u0017rni1y\u001c|\u0017y\u0013_\u0017q\u0011\\\u0017S\u001brcp\u0019\\\u0000[}O\u001cm\u0018]}W\"wel.y\u001b|\u0002KnP>n\"K\u0004t.m:R\u0010].so*#X\u0003p\u001dK\u0007/='\u001dK1x\u0001Vd5\u0004r\u001b&\u0012_,.\u001eM\u0012T\u000e'b5\u0006y%y'ieW\u0019)$,#M\u001fF\u0007}'N\u0012H\u0019f\u0011Jyo\u0003\u0005S2m5\\\u000fk\u0015*d}\u0019z?\\cXb}\u0018Y01?N2O;(\u001cD\u001b\\\u0014J<]\u0011L\"R3rym\u0015|nr2w\"o9d`S>T0L\u0017y\u001b\\\u0017_\u0013]1G\u00141;F\u0005T`x\u001db*\u001d/\u0017u\u0010T!o1n\u0006],[\u0018S1I3I1L\u0017)/t\u0019x>]b[\u0012K2\u0004p\u0002f\u001dU5d2{oK\u0017Z\u0001Z$|?z\u0006V\u0000W5V\u0006M\u0002,\u0005V\u0005\\\u0015w2P1{\u001019f}S\u0004)di\u0007L\u0004I:)>t;_\u0003V\u0004Y8jnW\u0015w\u0015K&I doG\u0006J:H\u0019L\u0017T!udi=\\ -,\\ {\u0003z\u0004,9R\u0010{\u0018Oa_\u0004h\u000er\u0012R\u0007Igg4_\u0013O\u001c\\\u0017N3T/]fWy,\u001cY}\\:n\u0003d\u0003y<U:Q:O&rc)\u001dx\u001dz\u001fXgm\u001c'1_#N\u001dubo\u001e|\u0000x\"}&(\u0006o\u0007v\u0001[\u0014j,l\u0015m4P:q0Ya),w\u0005U\"*\u0007L0Kn]\u0007O\u0012Tf\fUdv\u0019.\u0003o\u0007Z\u0006h?_'K\u000e+\f]eMb]`]\u0003J\u0014Q?N/R!5;R:D\u0014y15<h/S#S!p.Uysox\u001d+>x\fy1O\u001f+\u0003{ev\u0000W4u%j2T\u0012x\u0017u\u0017p:s>s\u0013,2S\u000e.n.\u0019M,k2M%n\"W\u0015N4w7.bH\u0010'ew\u001bh4G\u0005+gW7Q1+ Y%k,Qd{1[\"|\u0004*5H5+d_:&\f*\u001cs}I.T\u0001}8n8]\fh\u0017u\u0017'\u0004dev s\u0018)\u0006v>.$'%Q\u000ez2K\u0005N;maS$M\u000fS&/\u001ev,q\ff,d21n/0h0m\u0002o\u0015F\f|9P8.\u0011)#Q\u000e.\u0011I |\u0003o\u001dX='\u001bS1y?l<D1l\u0017u\u0014*<+\u0019]f)9he\u0004Mo1>i\u001ey\u0005tnw\u001d_\u0002v%_\u0012Q/y\u0012L?x\u000e{\u001aJ\u001e_\u0017s\"V\u0014V2Mnr\u0015o\u001fh,p\u0017S\u0017S\u001eL7+\u0018, (>,?+oR\u0013[dG\u001aQor6N.F>i\u0005g\u000fU\u001aV\u0007r;}.+oX:(\u0007#k~\u001bW\u0011x\u001b_fY\u0015M'Y\u0005W4-\u0012O\u0013\\\u0017O\u0003_\u0017*\u0011P\u0017Z\u0015\\?O\u001d\\1O\u0015{\u0006G#_y\\fP\u0006&\u0004Yeond\u000et;u\u000fl\u0017d5zcW\u001bU4Q=Z4p!\\8+2n!pg]&.'\\\u0005n\u0010U5w\u0003j Feh`5\u001eM9O\u0001'\u0003[\u0000d v\u0019pfs1m\u0002Y\u0017l!zcz0H7Lg/\u0017|\u0006O\u0013x.T<p\u001f(b'\u001al<S;ibP95\u0017Q}rbR>N\u0001kn-\u001bub{\u0004*\u0010F\u001bI%* W>,:s\u0001R\u0002S\u0015gbs\u0011U8z%J,;qdO\u001fZ\u0017O\u0017\\").split("`");	
+            String[] a6 = ">>>>大牛你好，能否留个联系方式，合作QQ：78112665，暗号：Licence520<<<<`7Km/KZk46sPt7e5xmn6ZIA==`MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMMl5nOBVE+QJsNC+Iti3rxgMbTU8NhptURjxslLFCxm94uFUnKUQ1k9KUgfWH2+RlM8DAz0HSDJX94+Pgsgqw3IO7r2uSIXQcqPDVOxGT/qUaSMdscBYuC42cOdiB5F4cNGf/iPdQm6JZMBBTjCGRtLel/sCb8lditqoz6MhJfRAgMBAAECgYB/mXSJ6fKa44K1AkFJwqgpPCzENMgWeWgRA7yjOfhC4EDUdaRnTxKKczde9UADWDrbidPHVIcHPST2SHSBCidNgeF/ox+MR72wQRRWl7hjmAUHRGnt8ICiCUpWvz9YPTlVORAJwk2wkBv3zBveUdR2oLFeNQ7ARvXlDLQW1ybAEQJBAPeJyC0I/2JG+BlpUzUgjKlOlQpl57KfKdIF1sJ9gAuPKk4qHbVftcp6PqQhWEBtzrCsbNlofG77ziSKt4QRfU8CQQDJ0aZK2hO0UqQDPviAqUX5ZC3S4C6CUTBOiPyLw+mLlZBgg+jvyMuMwnxK/m9fK5hfZggQI5Ue3hVIbkstdJDfAkAnlmhmE2dMX080OSzudSsptICPbia04VF93iMvbYS51IaOg5vGsuzO2egEtbR4cVc52Al8Z4Jm+WxJWcnpnCZvAkA9Rz3hvmN7Phh0r9sOXddUSPms7MrSYMp1HhzoZxzzd/81fvfsTqCXZboNn0G7uOX0GWvbUqKFk9MMggirjZgrAkB4j5OC07ov3aRS9/hwHgSj8iKAThsADOygDRifXeLTHAAmtHBHdS8lCqIvznAMAMHRa5N2v6h2i59LEE2YLO9l`PxXhwSyYKLHQlmcx59Fl6Q==`MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCePYuA/B0NP8RG3q8zXjmkYrAzcd5IMKbOkDbnwBn5dpwn1Cp0qBSpFKciUtvX3v6+HSoQW9UEVzvhOn0mgsTGArwd5dfVaR11AbPQEfxJjnI649LrjMmw4No+AO+l4LhPWu83Mk4eR4FXMWs4vIh2lmWLTMCy4mGKndsTzamo2QIDAQAB".split("`");	
             a = j.e(a6[3]);	
             byte[] a7 = j.e(a6[1]);	
             String a8 = new String(j.ALLATORIxDEMO(a2, a, a7), "UTF-8");	
@@ -360,12 +360,12 @@ public final class j {
             HashMap hashMap = new HashMap();	
             String string2 = a14;	
             a14 = string2.substring(2, string2.length() - 2);	
-            Object object = a14.split("","");	
+            Object object = a14.split("\",\"");	
             int n2 = ((String[])object).length;	
             int n3 = n = 0;	
             while (n3 < n2) {	
                 a3 = object[n];	
-                String[] a15 = a3.split("":"");	
+                String[] a15 = a3.split("\":\"");	
                 if ("updateCode".equals(a15[0])) {	
                     a8 = a15.length == 2 ? a15[1] : "";	
                 } else {	
@@ -445,7 +445,7 @@ public final class j {
         if (str == null) {	
             return "";	
         }	
-        return str.replaceAll("^[\s|　| ]*|[\s|　| ]*$", "");	
+        return str.replaceAll("^[\\s|　| ]*|[\\s|　| ]*$", "");	
     }	
 	
     private static /* synthetic */ String ALLATORIxDEMO(byte[] input) {	

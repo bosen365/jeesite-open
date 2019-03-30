@@ -34,7 +34,7 @@ extends DataEntity<Config> {
     }	
 	
     public String getConfigKey_like() {	
-        return (String)this.sqlMap.getWhere().getValue("config5key", QueryType.LIKE);	
+        return (String)this.sqlMap.getWhere().getValue("config_key", QueryType.LIKE);	
     }	
 	
     public void setConfigName(String configName) {	

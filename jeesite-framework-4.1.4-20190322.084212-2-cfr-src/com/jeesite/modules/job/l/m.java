@@ -50,34 +50,34 @@ public class m {
         Properties properties;	
         void a;	
         Properties a2 = new Properties();	
-        a2.setProperty(m.ALLATORIxDEMO ("D-LqZ*J-_%\u0005+C-N>O\u000fD0GqH3J,X"), "org.quartz.simpl.SimpleThreadPool");	
-        a2.setProperty(m.ALLATORIxDEMO ("D-LqZ*J-_%\u0005+C-N>O\u000fD0Gq_7Y:J;h0^1_"), Global.getProperty("job.threadPool.threadCount", m.ALLATORIxDEMO ("n\u001b")));	
-        a2.setProperty("org.quartz.threadPool.threadPriority", Global.getProperty(m.ALLATORIxDEMO ("A0Iq_7Y:J;{0D3\u0005+C-N>O\u000fY6D-B+R"), "5"));	
-        a2.setProperty("org.quartz.scheduler.instanceName", Global.getProperty(m.ALLATORIxDEMO ("5D=\u0005,H7N;^3N-\u00056E,_>E<N\u0011J2N"), "JeeSiteScheduler"));	
-        a2.setProperty(m.ALLATORIxDEMO ("D-LqZ*J-_%\u0005,H7N;^3N-\u00056E,_>E<N\u0016O"), Global.getProperty("job.scheduler.instanceId", m.ALLATORIxDEMO ("\u001e~\u000bd")));	
-        a2.setProperty("org.quartz.jobStore.tablePrefix", new StringBuilder().insert(0, Global.getTablePrefix()).append(m.ALLATORIxDEMO ("5D=t")).toString());	
+        a2.setProperty("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");	
+        a2.setProperty("org.quartz.threadPool.threadCount", Global.getProperty("job.threadPool.threadCount", "10"));	
+        a2.setProperty("org.quartz.threadPool.threadPriority", Global.getProperty("job.threadPool.threadPriority", "5"));	
+        a2.setProperty("org.quartz.scheduler.instanceName", Global.getProperty("job.scheduler.instanceName", "JeeSiteScheduler"));	
+        a2.setProperty("org.quartz.scheduler.instanceId", Global.getProperty("job.scheduler.instanceId", "AUTO"));	
+        a2.setProperty("org.quartz.jobStore.tablePrefix", new StringBuilder().insert(0, Global.getTablePrefix()).append("job_").toString());	
         String a3 = null;	
         String string = Global.getJdbcType();	
         if ("oracle".equals(a)) {	
-            a3 = m.ALLATORIxDEMO ("0Y8\u0005.^>Y+QqB2[3\u00055O=H5D=X+D-NqD-J<G:\u0005\u0010Y>H3N\u001bN3N8J+N");	
+            a3 = "org.quartz.impl.jdbcjobstore.oracle.OracleDelegate";	
             properties = a2;	
         } else if ("mysql".equals(a)) {	
-            a3 = m.ALLATORIxDEMO ("0Y8\u0005.^>Y+QqB2[3\u00055O=H5D=X+D-Nqx+O\u0015o\u001dh\u001bN3N8J+N");	
+            a3 = "org.quartz.impl.jdbcjobstore.StdJDBCDelegate";	
             properties = a2;	
         } else if ("mssql".equals(a)) {	
-            a3 = m.ALLATORIxDEMO ("0Y8\u0005.^>Y+QqB2[3\u00055O=H5D=X+D-Nqf\fx\u000eg\u001bN3N8J+N");	
+            a3 = "org.quartz.impl.jdbcjobstore.MSSQLDelegate";	
             properties = a2;	
-        } else if ("postgresql".equals(a) || m.ALLATORIxDEMO ("7B8C8D").equals(a)) {	
+        } else if ("postgresql".equals(a) || "highgo".equals(a)) {	
             a3 = "org.quartz.impl.jdbcjobstore.PostgreSQLDelegate";	
             properties = a2;	
         } else {	
-            a3 = m.ALLATORIxDEMO ("0Y8\u0005.^>Y+QqB2[3\u00055O=H5D=X+D-Nqx+O\u0015o\u001dh\u001bN3N8J+N");	
+            a3 = "org.quartz.impl.jdbcjobstore.StdJDBCDelegate";	
             properties = a2;	
         }	
         properties.setProperty("org.quartz.jobStore.driverDelegateClass", a3);	
-        a2.setProperty(m.ALLATORIxDEMO ("D-LqZ*J-_%\u00055D=x+D-NqH3J,X"), Global.getProperty("job.jobStore.className", m.ALLATORIxDEMO ("D-LqZ*J-_%\u00056F/GqA;I<A0I,_0Y:\u0005\u0015D=x+D-N\u000bs")));	
-        a2.setProperty("org.quartz.jobStore.isClustered", Global.getProperty(m.ALLATORIxDEMO ("5D=\u00055D=x+D-NqB,h3^,_:Y:O"), "true"));	
-        a2.setProperty("org.quartz.jobStore.clusterCheckinInterval", Global.getProperty(m.ALLATORIxDEMO ("A0IqA0I\f_0Y:\u0005<G*X+N-h7N<@6E\u0016E+N-]>G"), "1000"));	
+        a2.setProperty("org.quartz.jobStore.class", Global.getProperty("job.jobStore.className", "org.quartz.impl.jdbcjobstore.JobStoreTX"));	
+        a2.setProperty("org.quartz.jobStore.isClustered", Global.getProperty("job.jobStore.isClustered", "true"));	
+        a2.setProperty("org.quartz.jobStore.clusterCheckinInterval", Global.getProperty("job.jobStore.clusterCheckinInterval", "1000"));	
         return a2;	
     }	
 	
@@ -95,9 +95,9 @@ public class m {
         }	
         CronTriggerFactoryBean cronTriggerFactoryBean2 = a;	
         cronTriggerFactoryBean2.setJobDetail(jobDetail);	
-        cronTriggerFactoryBean2.getJobDataMap().put(m.ALLATORIxDEMO ("6E)D4N\u000bJ-L:_"), job.getInvokeTarget());	
+        cronTriggerFactoryBean2.getJobDataMap().put("invokeTarget", job.getInvokeTarget());	
         cronTriggerFactoryBean2.getJobDataMap().put("concurrent", job.getConcurrent());	
-        cronTriggerFactoryBean2.getJobDataMap().put(m.ALLATORIxDEMO ("Y:F>Y4X"), job.getRemarks());	
+        cronTriggerFactoryBean2.getJobDataMap().put("remarks", job.getRemarks());	
         try {	
             a.afterPropertiesSet();	
         }	
@@ -122,7 +122,7 @@ public class m {
             a.afterPropertiesSet();	
         }	
         catch (ClassNotFoundException a2) {	
-            throw new ServiceException(new StringBuilder().insert(0, m.ALLATORIxDEMO ("\u8c28\u7577\u76c5\u6858\u5b7c\u7b79\u4e19\u4e72\uff27\u6cfe\u6722\u8f86\u4e01\u7c24\uff2a")).append(a2.getMessage()).toString());	
+            throw new ServiceException(new StringBuilder().insert(0, "调用目标字符串中，没有这个类！").append(a2.getMessage()).toString());	
         }	
         catch (NoSuchMethodException a3) {	
             throw new ServiceException(new StringBuilder().insert(0, "调用目标字符串中，没有这个方法！").append(a3.getMessage()).toString());	
@@ -139,7 +139,7 @@ public class m {
         block27 : {	
             Class<?> class_2;	
             if (StringUtils.isBlank(invokeTarget)) {	
-                throw new ServiceException(m.ALLATORIxDEMO ("\u8c5c\u7503\u76b1\u682c\u5b08\u7b0d\u4e6d\u4e26\u80a2\u4e11\u7a25\uff2a"));	
+                throw new ServiceException("调用目标字符串不能为空！");	
             }	
             a2 = null;	
             a = null;	
@@ -172,8 +172,8 @@ public class m {
             throw new ServiceException(new StringBuilder().insert(0, "调用目标字符串中，找不到该Bean名或Class名！").append(a4).toString());	
         }	
         String string = invokeTarget;	
-        String a5 = StringUtils.substringBeforeLast(StringUtils.substring(string, a4.length() + 1), m.ALLATORIxDEMO ("\u0003"));	
-        String[] a6 = StringUtils.split(StringUtils.substringBetween(string, "(", m.ALLATORIxDEMO ("\u0002")), ",");	
+        String a5 = StringUtils.substringBeforeLast(StringUtils.substring(string, a4.length() + 1), "(");	
+        String[] a6 = StringUtils.split(StringUtils.substringBetween(string, "(", ")"), ",");	
         Object[] a7 = new Object[a6 == null ? 0 : a6.length];	
         int n = a3 = 0;	
         while (n < a7.length) {	
@@ -182,7 +182,7 @@ public class m {
             arrcharSequence[0] = a8;	
             if (StringUtils.isNoneBlank(arrcharSequence)) {	
                 if (NumberUtils.isCreatable(a8)) {	
-                    if (StringUtils.endsWithIgnoreCase(a8, m.ALLATORIxDEMO ("g"))) {	
+                    if (StringUtils.endsWithIgnoreCase(a8, "L")) {	
                         String string2 = a8;	
                         a7[a3] = NumberUtils.toLong(string2.substring(0, string2.length() - 1));	
                     } else if (StringUtils.endsWithIgnoreCase(a8, "D")) {	
@@ -190,15 +190,15 @@ public class m {
                         a7[a3] = NumberUtils.toDouble(string3.substring(0, string3.length() - 1));	
                     } else {	
                         Object[] arrobject = a7;	
-                        if (StringUtils.endsWithIgnoreCase(a8, m.ALLATORIxDEMO ("m"))) {	
+                        if (StringUtils.endsWithIgnoreCase(a8, "F")) {	
                             String string4 = a8;	
                             arrobject[a3] = Float.valueOf(NumberUtils.toFloat(string4.substring(0, string4.length() - 1)));	
                         } else {	
                             arrobject[a3] = NumberUtils.toInt(a8);	
                         }	
                     }	
-                } else if (StringUtils.startsWith(a8, "'") && StringUtils.endsWith(a8, m.ALLATORIxDEMO ("\f"))) {	
-                    a7[a3] = StringUtils.substringBetween(a8, "'", m.ALLATORIxDEMO ("\f"));	
+                } else if (StringUtils.startsWith(a8, "'") && StringUtils.endsWith(a8, "'")) {	
+                    a7[a3] = StringUtils.substringBetween(a8, "'", "'");	
                 } else {	
                     Object[] arrobject;	
                     block28 : {	
@@ -228,7 +228,7 @@ public class m {
                         arrobject = a7;	
                     }	
                     if (arrobject[a3] == null) {	
-                        throw new ServiceException(new StringBuilder().insert(0, "调用目标字符串中，对象参数 ").append(a6[a3]).append(m.ALLATORIxDEMO ("\u5bb5\u4fd4\u4e26\u80a2\u4e11\u7a25\uff2a")).toString());	
+                        throw new ServiceException(new StringBuilder().insert(0, "调用目标字符串中，对象参数 ").append(a6[a3]).append(" 实例不能为空！").toString());	
                     }	
                 }	
             }	
