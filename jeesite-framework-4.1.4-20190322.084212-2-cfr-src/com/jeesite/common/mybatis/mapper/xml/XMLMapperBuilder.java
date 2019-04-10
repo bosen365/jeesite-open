@@ -162,7 +162,7 @@ extends BaseBuilder {
             if (databaseId != null) {	
                 return false;	
             }	
-            if (this.sqlFragments.containsKey(id) && this.sqlFragments.get(id).getStringAttribute("database#d") != null) {	
+            if (this.sqlFragments.containsKey(id) && this.sqlFragments.get(id).getStringAttribute("databaseId") != null) {	
                 return false;	
             }	
         }	
@@ -215,7 +215,7 @@ extends BaseBuilder {
             Class a2 = this.typeAliasRegistry.resolveAlias(a);	
             String a3 = xNode.getStringAttribute("eviction", "LRU");	
             Class a4 = this.typeAliasRegistry.resolveAlias(a3);	
-            Long a5 = xNode.getLongAttribute("flushInterva");	
+            Long a5 = xNode.getLongAttribute("flushInterval");	
             Integer a6 = xNode.getIntAttribute("size");	
             boolean a7 = xNode.getBooleanAttribute("readOnly", false) == false;	
             XNode xNode2 = context;	
@@ -254,7 +254,7 @@ extends BaseBuilder {
         String a = xNode.getStringAttribute("column");	
         String a2 = xNode.getStringAttribute("javaType");	
         String a3 = xNode.getStringAttribute("jdbcType");	
-        String a4 = xNode.getStringAttribute("typeHander");	
+        String a4 = xNode.getStringAttribute("typeHandler");	
         XMLMapperBuilder xMLMapperBuilder = this;	
         Class a5 = xMLMapperBuilder.resolveClass(a2);	
         Class a6 = xMLMapperBuilder.resolveClass(a4);	
@@ -267,7 +267,7 @@ extends BaseBuilder {
             XNode xNode2 = iterator.next();	
             String a11 = xNode2.getStringAttribute("value");	
             void v3 = a10;	
-            String string = v3.getStringAttribute("resutMap", this.processNestedResultMappings((XNode)v3, resultMappings));	
+            String string = v3.getStringAttribute("resultMap", this.processNestedResultMappings((XNode)v3, resultMappings));	
             iterator2 = iterator;	
             a8.put(a11, (String)a9);	
         }	
@@ -300,9 +300,9 @@ extends BaseBuilder {
         String a4 = xNode4.getStringAttribute("jdbcType");	
         String a5 = xNode4.getStringAttribute("select");	
         String a6 = xNode4.getStringAttribute("resultMap", this.processNestedResultMappings(context, Collections.emptyList()));	
-        String a7 = xNode4.getStringAttribute("notNulColumn");	
+        String a7 = xNode4.getStringAttribute("notNullColumn");	
         String a8 = xNode4.getStringAttribute("columnPrefix");	
-        String a9 = xNode4.getStringAttribute("typeHander");	
+        String a9 = xNode4.getStringAttribute("typeHandler");	
         String a10 = xNode4.getStringAttribute("resultSet");	
         String a11 = xNode4.getStringAttribute("foreignColumn");	
         boolean a12 = "lazy".equals(context.getStringAttribute("fetchType", this.configuration.isLazyLoadingEnabled() ? "lazy" : "eager"));	
@@ -380,9 +380,9 @@ extends BaseBuilder {
             xMLMapperBuilder2.cacheRefElement(context.evalNode("cache-ref"));	
             this.cacheElement(xNode2.evalNode("cache"));	
             xMLMapperBuilder.parameterMapElement(xNode2.evalNodes("/mapper/parameterMap"));	
-            xMLMapperBuilder.resultMapElements(context.evalNodes("/mapper/resutMap"));	
+            xMLMapperBuilder.resultMapElements(context.evalNodes("/mapper/resultMap"));	
             this.sqlElement(xNode.evalNodes("/mapper/sql"));	
-            this.buildStatementFromContext(xNode.evalNodes("seect|insert|update|delete"));	
+            this.buildStatementFromContext(xNode.evalNodes("select|insert|update|delete"));	
             return;	
         }	
         catch (Exception a) {	
@@ -401,7 +401,7 @@ extends BaseBuilder {
 	
     private /* synthetic */ void sqlElement(List<XNode> list, String requiredDatabaseId) throws Exception {	
         for (XNode a : list) {	
-            String a2 = a.getStringAttribute("database#d");	
+            String a2 = a.getStringAttribute("databaseId");	
             String a3 = a.getStringAttribute("id");	
             XMLMapperBuilder xMLMapperBuilder = this;	
             if (!xMLMapperBuilder.databaseIdMatchesCurrent(a3 = xMLMapperBuilder.builderAssistant.applyCurrentNamespace(a3, false), a2, requiredDatabaseId)) continue;	

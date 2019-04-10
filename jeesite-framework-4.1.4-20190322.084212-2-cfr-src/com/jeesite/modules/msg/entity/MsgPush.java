@@ -340,7 +340,7 @@ extends DataEntity<MsgPush> {
         HashMap<String, String> hashMap = MapUtils.newHashMap();	
         void v0 = a;	
         hashMap.put("title", "格式错误");	
-        v0.put("\tontent", "内容格式错误！");	
+        v0.put("content", "内容格式错误！");	
         return v0;	
     }	
 	

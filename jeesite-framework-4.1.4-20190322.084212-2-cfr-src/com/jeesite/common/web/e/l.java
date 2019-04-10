@@ -27,9 +27,9 @@ extends MappingJackson2XmlHttpMessageConverter {
     public l() {	
         l l2 = this;	
         MediaType[] arrmediaType = new MediaType[3];	
-        arrmediaType[0] = new MediaType("applicaion", "ml", DEFAULT_CHARSET);	
-        arrmediaType[1] = new MediaType("ext", "ml", DEFAULT_CHARSET);	
-        arrmediaType[2] = new MediaType("applicaion", "*+ml", DEFAULT_CHARSET);	
+        arrmediaType[0] = new MediaType("application", "xml", DEFAULT_CHARSET);	
+        arrmediaType[1] = new MediaType("text", "xml", DEFAULT_CHARSET);	
+        arrmediaType[2] = new MediaType("application", "*+xml", DEFAULT_CHARSET);	
         l2.setSupportedMediaTypes(Arrays.asList(arrmediaType));	
         this.setObjectMapper(XmlMapper.getInstance());	
     }	

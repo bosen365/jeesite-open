@@ -56,7 +56,7 @@ extends H {
         }	
         j j2 = this;	
         a = (Session)j2.c.get(j2.ALLATORIxDEMO, ObjectUtils.toString(sessionId), new boolean[0]).getValue();	
-        this.J.debug("redSession {} {}", (Object)sessionId, (Object)(a3 != null ? a3.getRequestURI() : ""));	
+        this.J.debug("readSession {} {}", (Object)sessionId, (Object)(a3 != null ? a3.getRequestURI() : ""));	
         if (a3 != null && a != null) {	
             a3.setAttribute("session_" + sessionId, a);	
         }	
@@ -84,7 +84,7 @@ extends H {
         }	
         String a2 = (String)session.getAttribute("userCode");	
         if (StringUtils.isNotBlank(a2)) {	
-            CacheUtils.removeCache(new StringBuilder().insert(0, "userCche_").append(a2).toString());	
+            CacheUtils.removeCache(new StringBuilder().insert(0, "userCache_").append(a2).toString());	
         }	
         if ((a = ServletUtils.getRequest()) != null) {	
             a.removeAttribute("session_" + session.getId());	

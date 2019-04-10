@@ -51,7 +51,7 @@ implements CacheProvider {
         Properties properties = props;	
         this.namespace = properties.getProperty("namespace");	
         springRedisProvider.storage = properties.getProperty("storage");	
-        springRedisProvider.redisTemplate = (RedisTemplate)SpringUtils.getBean("j2CacheRedsTemplate");	
+        springRedisProvider.redisTemplate = (RedisTemplate)SpringUtils.getBean("j2CacheRedisTemplate");	
     }	
 	
     public SpringRedisProvider() {	

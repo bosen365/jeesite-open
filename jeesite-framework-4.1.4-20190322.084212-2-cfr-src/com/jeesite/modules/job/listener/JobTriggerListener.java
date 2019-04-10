@@ -75,7 +75,7 @@ extends TriggerListenerSupport {
         v1.setJobName(trigger.getKey().getName());	
         v1.setJobGroup(trigger.getKey().getGroup());	
         v0.setJobType("trigger");	
-        v0.setJobEvent("veto obExecution");	
+        v0.setJobEvent("vetoJobExecution");	
         void v2 = a;	
         v0.setJobMessage("触发验证" + (a2 ? "驳回" : "通过"));	
         this.jobLogService.save((JobLog)a);	

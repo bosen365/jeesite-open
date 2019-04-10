@@ -25,7 +25,7 @@ public class PwdUtils {
 	
     public static int getPwdSecurityLevel(String newPassword) {	
         int a = 0;	
-        if (!StringUtils.equals(newPassword, Global.getConfig("sys.user.initPssword"))) {	
+        if (!StringUtils.equals(newPassword, Global.getConfig("sys.user.initPassword"))) {	
             int a2;	
             int a3;	
             int a4;	
@@ -53,7 +53,7 @@ public class PwdUtils {
         upperCaseExp = Pattern.compile("[A-Z]");	
         lowerCaseExp = Pattern.compile("[a-z]");	
         numberExp = Pattern.compile("[0-9]");	
-        specialExp = Pattern.compile("[~!@#$%\^&\*()_+\{\}:"\|<>?`\-=\[\];\'\\,\./]");	
+        specialExp = Pattern.compile("[~!@#$%\\^&\\*()_+\\{\\}:\"\\|<>?`\\-=\\[\\];\\'\\\\,\\./]");	
     }	
 	
     /*	
@@ -64,7 +64,7 @@ public class PwdUtils {
     public static String passwordModifyValid(User user, Model model) {	
         a = null;	
         a = Global.getConfig("sys.user.initPasswordModify");	
-        if (!"0".equals(a) && (a = Boolean.valueOf(PwdUtils.validatePassword(Global.getConfig("sys.user.initPssword"), user.getPassword()))).booleanValue()) {	
+        if (!"0".equals(a) && (a = Boolean.valueOf(PwdUtils.validatePassword(Global.getConfig("sys.user.initPassword"), user.getPassword()))).booleanValue()) {	
             a = Global.getText("sys.user.initPasswordModifyTip", new String[0]);	
             if ("1".equals(a)) {	
                 model.addAttribute("modifyPasswordTip", a);	

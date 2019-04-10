@@ -12,7 +12,7 @@ implements com.jeesite.common.mybatis.l.m {
 	
     @Override	
     public String e(String sql) {	
-        return sql.replaceAll("((?i)with\s*\(nolock\))", this.ALLATORIxDEMO);	
+        return sql.replaceAll("((?i)with\\s*\\(nolock\\))", this.ALLATORIxDEMO);	
     }	
 	
     @Override	

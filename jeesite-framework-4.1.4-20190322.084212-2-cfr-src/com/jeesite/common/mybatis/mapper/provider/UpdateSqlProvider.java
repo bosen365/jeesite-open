@@ -212,7 +212,7 @@ public class UpdateSqlProvider {
         Table table = MapperHelper.getTable(entity);	
         this.addUpdateStatus((Table)a, entity, a6, a5, null);	
         if (a5.length() == 0) {	
-            throw new MapperException(new StringBuilder().insert(0, "Error: ").append(entity.getClass()).append(" 没有is:k字段.").toString());	
+            throw new MapperException(new StringBuilder().insert(0, "Error: ").append(entity.getClass()).append(" 没有isPk字段.").toString());	
         }	
         MapperHelper.addExtWhere(a5, entity, (Table)a);	
         if (a6.length() == 0) {	
@@ -339,7 +339,7 @@ public class UpdateSqlProvider {
             a3.append(")");	
         }	
         if (a3.length() == 0) {	
-            throw new MapperException(new StringBuilder().insert(0, "Error: ").append(entity.getClass()).append(" 没有is:k字段.").toString());	
+            throw new MapperException(new StringBuilder().insert(0, "Error: ").append(entity.getClass()).append(" 没有isPk字段.").toString());	
         }	
         MapperHelper.addExtWhere(a3, entity, a5);	
         if (a4.length() == 0) {	

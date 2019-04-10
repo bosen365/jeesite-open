@@ -1,4 +1,6 @@
-jeesite-framework4.1.3 反编译版本
+本项目仅供学习研究使用，切勿用于商业用途，如需使用请购买正版授权。
+
+jeesite-framework4.X 反编译版本
 
 1.反编译
 

@@ -42,7 +42,7 @@ public class SelectSqlProvider {
             this.addWhere(a4, a7, a9, null, a10);	
         }	
         if (a4.length() == 0) {	
-            throw new MapperException(new StringBuilder().insert(0, "Error: ").append(entity.getClass()).append(" 没有isPk字段D").toString());	
+            throw new MapperException(new StringBuilder().insert(0, "Error: ").append(entity.getClass()).append(" 没有isPk字段.").toString());	
         }	
         MapperHelper.addExtWhere(a4, entity, a7);	
         a5.append(entity.getSqlMap().getColumn().toSql());	

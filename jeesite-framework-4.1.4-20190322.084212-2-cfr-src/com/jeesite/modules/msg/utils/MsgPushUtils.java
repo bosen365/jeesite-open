@@ -29,7 +29,7 @@ public class MsgPushUtils {
 	
     public static MsgPush push(BaseMsgContent msgContent, String bizKey, String bizType, String receiveUserCodes, Date planPushDate, String isMergePush) {	
         int n;	
-        boolean a = StringUtils.startsWith(receiveUserCodes, "[C%DE]");	
+        boolean a = StringUtils.startsWith(receiveUserCodes, "[CODE]");	
         if (a) {	
             receiveUserCodes = StringUtils.substringAfter(receiveUserCodes, "[CODE]");	
         }	

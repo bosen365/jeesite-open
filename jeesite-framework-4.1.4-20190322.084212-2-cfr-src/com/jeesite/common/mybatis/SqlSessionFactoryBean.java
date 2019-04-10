@@ -195,14 +195,14 @@ lbl26: // 4 sources:
                     a.getTypeAliasRegistry().registerAliases((String)a, this.typeAliasesSuperType == null ? Object.class : this.typeAliasesSuperType);	
                 }	
                 catch (Exception a) {	
-                    SqlSessionFactoryBean.LOGGER.error(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for liases").toString(), a);	
-                    throw new NestedIOException(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for liases").toString(), a);	
+                    SqlSessionFactoryBean.LOGGER.error(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for aliases").toString(), a);	
+                    throw new NestedIOException(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for aliases").toString(), a);	
                 }	
                 finally {	
                     ErrorContext.instance().reset();	
                 }	
                 if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
-                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for liases").toString());	
+                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for aliases").toString());	
                 }	
                 v3 = ++var7_13;	
             }	
@@ -242,7 +242,7 @@ lbl26: // 4 sources:
                 a = var5_7[a];	
                 a.getTypeHandlerRegistry().register((String)a);	
                 if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
-                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Scanned pckage: '").append((String)a).append("' for type handlers").toString());	
+                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Scanned package: '").append((String)a).append("' for type handlers").toString());	
                 }	
                 v6 = ++a;	
             }	
@@ -255,7 +255,7 @@ lbl26: // 4 sources:
                 a = a[var6_12];	
                 a.getTypeHandlerRegistry().register(a);	
                 if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
-                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Registered type hndler: '").append(a).append("'").toString());	
+                    SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Registered type handler: '").append(a).append("'").toString());	
                 }	
                 v7 = ++var6_12;	
             }	
@@ -267,7 +267,7 @@ lbl26: // 4 sources:
                 v9 = this;	
             }	
             catch (SQLException a) {	
-                throw new NestedIOException("Failed getting a dtbseId", a);	
+                throw new NestedIOException("Failed getting a databaseId", a);	
             }	
         } else {	
             v9 = this;	
@@ -301,7 +301,7 @@ lbl26: // 4 sources:
         a.setDefaultScriptingLanguage(XMLLanguageDriver.class);	
         if (ObjectUtils.isEmpty(this.mapperLocations)) {	
             if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
-                SqlSessionFactoryBean.LOGGER.debug("Property 'mapperLocations' ws not specified or no mtching resources found");	
+                SqlSessionFactoryBean.LOGGER.debug("Property 'mapperLocations' was not specified or no matching resources found");	
             }	
         } else {	
             a = this.mapperLocations;	
@@ -323,7 +323,7 @@ lbl26: // 4 sources:
                         ErrorContext.instance().reset();	
                     }	
                     if (SqlSessionFactoryBean.LOGGER.isDebugEnabled()) {	
-                        SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Parsed mpper file: '").append(a).append("'").toString());	
+                        SqlSessionFactoryBean.LOGGER.debug(new StringBuilder().insert(0, "Parsed mapper file: '").append(a).append("'").toString());	
                     }	
                 }	
                 v13 = ++var6_12;	

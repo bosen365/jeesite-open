@@ -268,7 +268,7 @@ extends DefaultWebSessionManager {
 	
     private /* synthetic */ String getSessionIdCookieValue(HttpServletRequest httpRequest, ServletResponse response) {	
         if (!this.isSessionIdCookieEnabled()) {	
-            log.debug("Session ID cookie is disabled - session id will not be cquired from  request cookie.");	
+            log.debug("Session ID cookie is disabled - session id will not be acquired from a request cookie.");	
             return null;	
         }	
         return this.getSessionIdCookie().readValue(httpRequest, WebUtils.toHttp(response));	

@@ -38,7 +38,7 @@ extends BaseController {
         String a4 = httpServletRequest2.getParameter("preview");	
         if (StringUtils.isNotBlank(a4)) {	
             HttpServletRequest httpServletRequest3 = request;	
-            String a5 = httpServletRequest3.getRequestURL().toString().replaceAll("(\?|&)preview=([^&]*)(&|$)", "$1").replaceAll("[\?|\&]$", "");	
+            String a5 = httpServletRequest3.getRequestURL().toString().replaceAll("(\\?|&)preview=([^&]*)(&|$)", "$1").replaceAll("[\\?|\\&]$", "");	
             String a6 = new StringBuilder().insert(0, "/file/").append(a4).append("/preview").toString();	
             httpServletRequest3.setAttribute("fileUrl", a5);	
             httpServletRequest3.setAttribute("filePath", a3);	

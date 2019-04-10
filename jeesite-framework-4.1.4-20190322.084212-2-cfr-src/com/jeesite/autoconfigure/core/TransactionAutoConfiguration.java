@@ -66,7 +66,7 @@ public class TransactionAutoConfiguration {
     @ConditionalOnProperty(name={"jdbc.jta.enabled"}, havingValue="true", matchIfMissing=false)	
     public UserTransaction userTransaction() throws Throwable {	
         UserTransactionImp userTransactionImp = new UserTransactionImp();	
-        userTransactionImp.setTransactionTimeout(Global.getPropertyToInteger("jdbc.jta.transactioTimeout", String.valueOf(180)));	
+        userTransactionImp.setTransactionTimeout(Global.getPropertyToInteger("jdbc.jta.transactionTimeout", String.valueOf(180)));	
         return userTransactionImp;	
     }	
 	

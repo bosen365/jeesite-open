@@ -24,7 +24,7 @@ extends FilterProvider {
 	
     @Override	
     public BeanPropertyFilter findFilter(Object filterId) {	
-        throw new UnsupportedOperationException("Acces to deprecated filter not upported");	
+        throw new UnsupportedOperationException("Access to deprecated filters not supported");	
     }	
 	
     @Override	

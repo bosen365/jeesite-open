@@ -238,15 +238,15 @@ public final class H {
                 CharSequence[] arrcharSequence = new CharSequence[5];	
                 arrcharSequence[0] = "://127.0.0.1";	
                 arrcharSequence[1] = "://localhost";	
-                arrcharSequence[2] = "://10D";	
-                arrcharSequence[3] = "://172D";	
-                arrcharSequence[4] = "://192D";	
+                arrcharSequence[2] = "://10.";	
+                arrcharSequence[3] = "://172.";	
+                arrcharSequence[4] = "://192.";	
                 if (!H.ALLATORIxDEMO((CharSequence)a2, arrcharSequence)) {	
                     return false;	
                 }	
             }	
             String a4 = (String)J.get("domainOrIp");	
-            if (!(H.e((CharSequence)J.get("type"), (CharSequence)"0") || H.ALLATORIxDEMO((CharSequence)a4) || H.ALLATORIxDEMO((CharSequence)a2, (CharSequence[])(a4 = new StringBuilder().insert(0, "://127D0D0D1,://localhost,://10.,://172.,://192.,").append(a4).toString()).split(",")))) {	
+            if (!(H.e((CharSequence)J.get("type"), (CharSequence)"0") || H.ALLATORIxDEMO((CharSequence)a4) || H.ALLATORIxDEMO((CharSequence)a2, (CharSequence[])(a4 = new StringBuilder().insert(0, "://127.0.0.1,://localhost,://10.,://172.,://192.,").append(a4).toString()).split(",")))) {	
                 return false;	
             }	
         }	
@@ -357,7 +357,7 @@ public final class H {
             void a4;	
             void a5;	
             a2 = IOUtils.toByteArray(inputStream);	
-            String[] a6 = ">>>>大牛你好，能否留个联系方式，合作QQ：78112665，暗号：Licence520<<<<`7Km/KZk46sPt7e5xmn6ZIA==`MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMMl5nOB<E+QJsNC+Iti3rxgMbTU8NhptURjxslLFCxm94uFUnKUQ1k9KUgfWH2+RlM8DAz0HSDJX94+Pgsgqw3IO7r2uSIXQcqPDVOxGT/qUaSMdscBYuC42cOdiB5F4cNGf/iPdQm6JZMBBTjCGRtLel/sCb8lditqoz6MhJfRAgMBAAECgYB/mXSJ6fKa44K1AkFJwqgpPCzENMgWeWgRA7yjOfhC4EDUdaRnTxKKczde9UADWDrbidPH<IcHPST2SHSBCidNgeF/ox+MR72wQRRWl7hjmAUHRGnt8ICiCUpWvz9YPTlVORAJwk2wkBv3zBveUdR2oLFeNQ7ARvXlDLQW1ybAEQJBAPeJyC0I/2JG+BlpUzUgjKlOlQpl57KfKdIF1sJ9gAuPKk4qHb<ftcp6PqQhWEBtzrCsbNlofG77ziSKt4QRfU8CQQDJ0aZK2hO0UqQDPviAqUX5ZC3S4C6CUTBOiPyLw+mLlZBgg+jvyMuMwnxK/m9fK5hfZggQI5Ue3h<IbkstdJDfAkAnlmhmE2dMX080OSzudSsptICPbia04VF93iMvbYS51IaOg5vGsuzO2egEtbR4cVc52Al8Z4Jm+WxJWcnpnCZvAkA9Rz3hvmN7Phh0r9sOXddUSPms7MrSYMp1HhzoZxzzd/81fvfsTqCXZboNn0G7uOX0GWvbUqKFk9MMggirjZgrAkB4j5OC07ov3aRS9/hwHgSj8iKAThsADOygDRifXeLTHAAmtHBHdS8lCqIvznAMAMHRa5N2v6h2i59LEE2YLO9l`PxXhwSyYKLHQlmcx59Fl6Q==`MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCePYuA/B0NP8RG3q8zXjmkYrAzcd5IMKbOkDbnwBn5dpwn1Cp0qBSpFKciUtvX3v6+HSoQW9UE<zvhOn0mgsTGArwd5dfVaR11AbPQEfxJjnI649LrjMmw4No+AO+l4LhPWu83Mk4eR4FXMWs4vIh2lmWLTMCy4mGKndsTzamo2QIDAQAB".split("`");	
+            String[] a6 = ">>>>大牛你好，能否留个联系方式，合作QQ：78112665，暗号：Licence520<<<<`7Km/KZk46sPt7e5xmn6ZIA==`MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMMl5nOBVE+QJsNC+Iti3rxgMbTU8NhptURjxslLFCxm94uFUnKUQ1k9KUgfWH2+RlM8DAz0HSDJX94+Pgsgqw3IO7r2uSIXQcqPDVOxGT/qUaSMdscBYuC42cOdiB5F4cNGf/iPdQm6JZMBBTjCGRtLel/sCb8lditqoz6MhJfRAgMBAAECgYB/mXSJ6fKa44K1AkFJwqgpPCzENMgWeWgRA7yjOfhC4EDUdaRnTxKKczde9UADWDrbidPHVIcHPST2SHSBCidNgeF/ox+MR72wQRRWl7hjmAUHRGnt8ICiCUpWvz9YPTlVORAJwk2wkBv3zBveUdR2oLFeNQ7ARvXlDLQW1ybAEQJBAPeJyC0I/2JG+BlpUzUgjKlOlQpl57KfKdIF1sJ9gAuPKk4qHbVftcp6PqQhWEBtzrCsbNlofG77ziSKt4QRfU8CQQDJ0aZK2hO0UqQDPviAqUX5ZC3S4C6CUTBOiPyLw+mLlZBgg+jvyMuMwnxK/m9fK5hfZggQI5Ue3hVIbkstdJDfAkAnlmhmE2dMX080OSzudSsptICPbia04VF93iMvbYS51IaOg5vGsuzO2egEtbR4cVc52Al8Z4Jm+WxJWcnpnCZvAkA9Rz3hvmN7Phh0r9sOXddUSPms7MrSYMp1HhzoZxzzd/81fvfsTqCXZboNn0G7uOX0GWvbUqKFk9MMggirjZgrAkB4j5OC07ov3aRS9/hwHgSj8iKAThsADOygDRifXeLTHAAmtHBHdS8lCqIvznAMAMHRa5N2v6h2i59LEE2YLO9l`PxXhwSyYKLHQlmcx59Fl6Q==`MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCePYuA/B0NP8RG3q8zXjmkYrAzcd5IMKbOkDbnwBn5dpwn1Cp0qBSpFKciUtvX3v6+HSoQW9UEVzvhOn0mgsTGArwd5dfVaR11AbPQEfxJjnI649LrjMmw4No+AO+l4LhPWu83Mk4eR4FXMWs4vIh2lmWLTMCy4mGKndsTzamo2QIDAQAB".split("`");	
             a = H.e(a6[3]);	
             byte[] a7 = H.e(a6[1]);	
             String a8 = new String(H.ALLATORIxDEMO(a2, a, a7), "UTF-8");	
@@ -377,12 +377,12 @@ public final class H {
             HashMap hashMap = new HashMap();	
             String string2 = a14;	
             a14 = string2.substring(2, string2.length() - 2);	
-            Object object = a14.split("","");	
+            Object object = a14.split("\",\"");	
             int n2 = ((String[])object).length;	
             int n3 = n = 0;	
             while (n3 < n2) {	
                 a3 = object[n];	
-                String[] a15 = a3.split("":"");	
+                String[] a15 = a3.split("\":\"");	
                 if ("updateCode".equals(a15[0])) {	
                     a8 = a15.length == 2 ? a15[1] : "";	
                 } else {	
@@ -583,7 +583,7 @@ public final class H {
         if (str == null) {	
             return "";	
         }	
-        return str.replaceAll("^[\s|　| ]*|[\s|　| ]*$", "");	
+        return str.replaceAll("^[\\s|　| ]*|[\\s|　| ]*$", "");	
     }	
 	
     private static /* synthetic */ String ALLATORIxDEMO(String text, String searchString, String replacement, int max, boolean ignoreCase) {	

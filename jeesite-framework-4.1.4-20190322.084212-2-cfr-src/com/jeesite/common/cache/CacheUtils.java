@@ -29,7 +29,7 @@ public class CacheUtils {
 	
     public static void clear(String cacheName) {	
         CacheUtils.getCache(cacheName).clear();	
-        logger.info("\tlear: {}", (Object)cacheName);	
+        logger.info("clear: {}", (Object)cacheName);	
     }	
 	
     public static void remove(String key) {	
@@ -95,7 +95,7 @@ public class CacheUtils {
 	
     public static void removeCache(String cacheName) {	
         m.ALLATORIxDEMO().ALLATORIxDEMO(cacheName);	
-        logger.info("removeCa\the: {}", (Object)cacheName);	
+        logger.info("removeCache: {}", (Object)cacheName);	
     }	
 	
     public static void removeByKeyPrefix(String keyPrefix) {	

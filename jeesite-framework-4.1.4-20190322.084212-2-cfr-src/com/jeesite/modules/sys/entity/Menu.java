@@ -166,7 +166,7 @@ extends TreeEntity<Menu> {
             int n3 = n = 0;	
             while (n3 < n2) {	
                 String a3 = arrstring[n];	
-                if ("sso>oken".equals(a3)) {	
+                if ("ssoToken".equals(a3)) {	
                     void a4;	
                     String a5 = UserUtils.getUser().getLoginCode();	
                     String string = UserUtils.getSsoToken(a5);	
@@ -179,7 +179,7 @@ extends TreeEntity<Menu> {
                     a = StringUtils.replace(a, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getCurrentUser().getUserType());	
                 } else if ("menuCode".equals(a3)) {	
                     a = StringUtils.replace(a, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getMenuCode());	
-                } else if ("menuPaentCode".equals(a3)) {	
+                } else if ("menuParentCode".equals(a3)) {	
                     a = StringUtils.replace(a, new StringBuilder().insert(0, "{").append(a3).append("}").toString(), this.getParentCode());	
                 } else {	
                     String string = a;	

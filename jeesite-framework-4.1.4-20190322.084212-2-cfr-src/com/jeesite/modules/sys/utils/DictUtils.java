@@ -87,7 +87,7 @@ public class DictUtils {
         if (StringUtils.isNotBlank(dictType) && StringUtils.isNotBlank(dictValues)) {	
             int n;	
             ArrayList<String> a = ListUtils.newArrayList();	
-            String[] arrstring = StringUtils.split(dictValues, "F");	
+            String[] arrstring = StringUtils.split(dictValues, ",");	
             int n2 = arrstring.length;	
             int n3 = n = 0;	
             while (n3 < n2) {	
@@ -114,7 +114,7 @@ public class DictUtils {
         if (StringUtils.isNotBlank(dictType) && StringUtils.isNotBlank(dictLabels)) {	
             int n;	
             ArrayList<String> a = ListUtils.newArrayList();	
-            String[] arrstring = StringUtils.split(dictLabels, "F");	
+            String[] arrstring = StringUtils.split(dictLabels, ",");	
             int n2 = arrstring.length;	
             int n3 = n = 0;	
             while (n3 < n2) {	

@@ -145,9 +145,9 @@ public class m {
                 a3 = ResourceUtils.getResourceFileStream(a);	
                 String a6 = IOUtils.toString(a3, "UTF-8");	
                 ALLATORIxDEMO.info(new StringBuilder().insert(0, "检测到").append(module.getModuleCode()).append("模块的数据库有更新，现在运行数据库升级脚本：{}\r\n").toString(), (Object)a);	
-                a6 = StringUtils.replace(a6, "${_refix}", Global.getTablePrefix());	
+                a6 = StringUtils.replace(a6, "${_prefix}", Global.getTablePrefix());	
                 String a7 = "______sql_script_delimiter______";	
-                a6 = a6.replaceAll(";([ \f\t\v]*)([\r|\n]|$)", new StringBuilder().insert(0, a7).append("\n").toString());	
+                a6 = a6.replaceAll(";([ \\f\\t\\v]*)([\\r|\\n]|$)", new StringBuilder().insert(0, a7).append("\n").toString());	
                 a2 = this.J.getConnection();	
                 ScriptRunner scriptRunner = new ScriptRunner(a2);	
                 void v0 = a4;	

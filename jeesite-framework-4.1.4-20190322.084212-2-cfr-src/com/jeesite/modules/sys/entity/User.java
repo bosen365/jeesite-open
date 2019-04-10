@@ -139,7 +139,7 @@ extends DataEntity<User> {
         if (StringUtils.isNotBlank(this.avatar)) {	
             return new StringBuilder().insert(0, "/ctxPath").append(this.avatar).toString();	
         }	
-        String a = "EctPathEstatic/imagesEuser";	
+        String a = "/ctxPath/static/images/user";	
         a = StringUtils.isBlank(this.sex) ? new StringBuilder().insert(0, a).append(MGR_TYPE_CORP_ADMIN).toString() : new StringBuilder().insert(0, a).append(this.sex).toString();	
         a = new StringBuilder().insert(0, a).append(".jpg").toString();	
         return a;	

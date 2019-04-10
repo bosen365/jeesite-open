@@ -13,12 +13,12 @@ implements m {
 	
     @Override	
     public String e(String sql) {	
-        return sql.replaceAll("((?i)\s*(\w+)\s*with\s*\(nolock\))", " $25PAGEWITHNOLOCK");	
+        return sql.replaceAll("((?i)\\s*(\\w+)\\s*with\\s*\\(nolock\\))", " $2_PAGEWITHNOLOCK");	
     }	
 	
     @Override	
     public String ALLATORIxDEMO(String sql) {	
-        return sql.replaceAll("\s*(\w*?)_PAGEWITHNOLOCK", " $1 WITH(NOLOCK)");	
+        return sql.replaceAll("\\s*(\\w*?)_PAGEWITHNOLOCK", " $1 WITH(NOLOCK)");	
     }	
 }	
 	

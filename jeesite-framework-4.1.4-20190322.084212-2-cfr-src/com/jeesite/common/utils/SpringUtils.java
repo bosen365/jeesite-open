@@ -34,7 +34,7 @@ DisposableBean {
     @Override	
     public void setApplicationContext(ApplicationContext applicationContext) {	
         if (SpringUtils.applicationContext != null) {	
-            logger.info(new StringBuilder().insert(0, "SpringContextHolder中的ApplicationContext被覆盖F 原有ApplicationContext为:").append(SpringUtils.applicationContext).toString());	
+            logger.info(new StringBuilder().insert(0, "SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:").append(SpringUtils.applicationContext).toString());	
         }	
         SpringUtils.applicationContext = applicationContext;	
     }	

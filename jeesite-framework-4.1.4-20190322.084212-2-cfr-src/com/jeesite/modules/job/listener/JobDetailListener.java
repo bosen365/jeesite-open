@@ -28,7 +28,7 @@ extends JobListenerSupport {
     public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {	
         if (!this.errorLevel || jobException != null) {	
             void a;	
-            this.getLog().debug(new StringBuilder().insert(0, "jobWasExcutd 任务结束  ").append(context.getJobDetail().getKey()).append(" ").append(jobException != null ? "【有异常】" : "").toString(), jobException);	
+            this.getLog().debug(new StringBuilder().insert(0, "jobWasExecuted 任务结束  ").append(context.getJobDetail().getKey()).append(" ").append(jobException != null ? "【有异常】" : "").toString(), jobException);	
             JobLog jobLog = new JobLog();	
             void v0 = a;	
             void v1 = a;	
@@ -56,7 +56,7 @@ extends JobListenerSupport {
         if (!this.errorLevel) {	
             void a;	
             JobDetailListener jobDetailListener = this;	
-            jobDetailListener.getLog().debug(new StringBuilder().insert(0, "jobExecutionVetod 任务停止  ").append(context.getJobDetail().getKey()).toString());	
+            jobDetailListener.getLog().debug(new StringBuilder().insert(0, "jobExecutionVetoed 任务停止  ").append(context.getJobDetail().getKey()).toString());	
             JobLog jobLog = new JobLog();	
             void v1 = a;	
             void v2 = a;	
@@ -91,7 +91,7 @@ extends JobListenerSupport {
             a.setJobName(jobExecutionContext.getJobDetail().getKey().getName());	
             v2.setJobGroup(jobExecutionContext.getJobDetail().getKey().getGroup());	
             v2.setJobType("job");	
-            v1.setJobEvent("jobToBExecuted");	
+            v1.setJobEvent("jobToBeExecuted");	
             v1.setJobMessage("任务执行");	
             jobDetailListener.jobLogService.save((JobLog)a);	
         }	

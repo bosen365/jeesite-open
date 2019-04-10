@@ -27,14 +27,14 @@ extends org.apache.shiro.spring.web.ShiroFilterFactoryBean {
 	
     @Override	
     protected AbstractShiroFilter createInstance() throws Exception {	
-        log.debug("Creating Shiro Filter instanceD");	
+        log.debug("Creating Shiro Filter instance.");	
         SecurityManager a = this.getSecurityManager();	
         if (a == null) {	
             String a2 = "SecurityManager property must be set.";	
             throw new BeanInitializationException(a2);	
         }	
         if (!(a instanceof WebSecurityManager)) {	
-            String a3 = "The security manager does not implement the WebSecurityManager interfaceD";	
+            String a3 = "The security manager does not implement the WebSecurityManager interface.";	
             throw new BeanInitializationException(a3);	
         }	
         FilterChainManager a4 = this.createFilterChainManager();	

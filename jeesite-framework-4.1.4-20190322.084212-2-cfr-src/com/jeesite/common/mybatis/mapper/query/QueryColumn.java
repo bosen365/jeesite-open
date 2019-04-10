@@ -54,7 +54,7 @@ implements Serializable {
             if (StringUtils.isNotBlank(attrNamePrefix) && !"this".equals(attrNamePrefix)) {	
                 a2 = new StringBuilder().insert(0, attrNamePrefix).append(".").append(a2).toString();	
             }	
-            if (StringUtils.contains((CharSequence)sql, new StringBuilder().insert(0, """).append(a2).append(""").toString())) {	
+            if (StringUtils.contains((CharSequence)sql, new StringBuilder().insert(0, "\"").append(a2).append("\"").toString())) {	
                 iterator2 = iterator;	
                 continue;	
             }	
@@ -66,9 +66,9 @@ implements Serializable {
             }	
             sql.append(a.name());	
             sql.append(" AS ");	
-            sql.append(""");	
+            sql.append("\"");	
             sql.append(a2);	
-            sql.append(""");	
+            sql.append("\"");	
             iterator2 = iterator;	
         }	
     }	

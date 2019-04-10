@@ -31,7 +31,7 @@ extends AbstractTransactionalJUnit4SpringContextTests {
     @After	
     public void after() {	
         this.endTime = System.currentTimeMillis();	
-        this.logger.info(new StringBuilder().insert(0, "===== Test Aftr ============================== 耗时：").append(TimeUtils.formatDateAgo(this.endTime - this.startTime)).toString());	
+        this.logger.info(new StringBuilder().insert(0, "===== Test After ============================== 耗时：").append(TimeUtils.formatDateAgo(this.endTime - this.startTime)).toString());	
     }	
 	
     @Before	

@@ -263,7 +263,7 @@ public class GenUtils {
                         if (!StringUtils.equalsIgnoreCase(v12.getColumnName(), "extend_s1")) ** GOTO lbl155	
                         v15 = a;	
                         v16 = v15;	
-                        v15.getOptionMap().put("is$ewLine", "1");	
+                        v15.getOptionMap().put("isNewLine", "1");	
                         break block39;	
                     }	
                     if (StringUtils.startsWithIgnoreCase(a.getColumnName(), "create_date") || StringUtils.startsWithIgnoreCase(a.getColumnName(), "update_date")) {	
@@ -343,7 +343,7 @@ lbl155: // 4 sources:
             }	
             if (a > 6) continue;	
             v31 = a;	
-            a.getOptionMap().put("is$ewLine", "1");	
+            a.getOptionMap().put("isNewLine", "1");	
             v31.getOptionMap().put("gridRowCol", "12/2/5");	
             if (!StringUtils.equals(v31.getShowType(), "textarea")) continue;	
             a.getOptionMap().put("gridRowCol", "12/2/8");	

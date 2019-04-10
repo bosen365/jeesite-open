@@ -193,7 +193,7 @@ lbl13: // 2 sources:
         void a;	
         User a3 = UserUtils.get(userCode);	
         if (a3 == null) {	
-            throw new ServiceException(new StringBuilder().insert(0, userCode).append(this.text("sys.user.userCodeNotExiss", new String[0])).toString());	
+            throw new ServiceException(new StringBuilder().insert(0, userCode).append(this.text("sys.user.userCodeNotExists", new String[0])).toString());	
         }	
         User user = new User();	
         void v0 = a;	
@@ -203,7 +203,7 @@ lbl13: // 2 sources:
             newPassword = Global.getConfig("sys.user.initPassword");	
         }	
         if ((a2 = PwdUtils.getPwdSecurityLevel(newPassword)) != 0) {	
-            int a4 = Global.getConfigToInteger("sys.user.passwordModifyNoRepeaNum", "1");	
+            int a4 = Global.getConfigToInteger("sys.user.passwordModifyNotRepeatNum", "1");	
             ArrayList<ArrayList<String>> a5 = (ArrayList<ArrayList<String>>)JsonMapper.fromJson(a3.getPwdUpdateRecord(), List.class);	
             if (a5 == null) {	
                 a5 = ListUtils.newArrayList();	
@@ -313,7 +313,7 @@ lbl13: // 2 sources:
                 this.genId(user2, user2.getLoginCode());	
             }	
             if (((UserDao)this.dao).get(user) != null) {	
-                throw UserServiceSupport.newValidationException(this.text("sys.user.loginCodeExiss", new String[0]));	
+                throw UserServiceSupport.newValidationException(this.text("sys.user.loginCodeExists", new String[0]));	
             }	
             String a = user.getPassword();	
             if (StringUtils.isBlank(a)) {	

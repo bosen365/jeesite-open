@@ -22,7 +22,7 @@ extends JstlView {
             return true;	
         }	
         try {	
-            this.logger.debug(new StringBuilder().insert(0, "View ot exists [").append(this.getUrl()).append("], to access the default view. ").toString());	
+            this.logger.debug(new StringBuilder().insert(0, "View not exists [").append(this.getUrl()).append("], to access the default view. ").toString());	
         }	
         catch (Exception exception) {	
             // empty catch block	

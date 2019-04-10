@@ -29,7 +29,7 @@ public class ModuleUtils {
         a = (HashMap<String, Module>)CacheUtils.get("moduleMap");	
         if (a != null) return a;	
         a = MapUtils.newHashMap();	
-        a = Global.getPropertyToBoolean("menu.updateStatuByModuleStatu", "true");	
+        a = Global.getPropertyToBoolean("menu.updateStatusByModuleStatus", "true");	
         v0 = var2_2 = I.ALLATORIxDEMO().findList(new Module()).iterator();	
         do {	
             if (!v0.hasNext()) {	
